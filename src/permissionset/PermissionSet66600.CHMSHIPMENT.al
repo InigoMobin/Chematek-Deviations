@@ -7,6 +7,7 @@ permissionset 66600 "CHM SHIPMENT"
         tabledata "CHM Goods Appearance" = RIMD,
         page "CHM Goods Appearances" = X,
         codeunit "CHM Event Management" = X,
+        codeunit "CHM Lot Production Date Mgt." = X,
         table "CHM Michelin Labels" = X,
         tabledata "CHM Michelin Labels" = RIMD,
         page "CHM Michelin Labels" = X,
