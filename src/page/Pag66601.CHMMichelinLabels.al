@@ -163,6 +163,17 @@ page 66601 "CHM Michelin Labels"
                     ApplyPageFilters();
                 end;
             }
+            action(PrintLabels)
+            {
+                Caption = 'Print labels';
+                Image = Print;
+                ToolTip = 'Print Michelin labels for the selected lines, using the No. of copies entered above.';
+
+                trigger OnAction()
+                begin
+                    PrintSelectedLabels();
+                end;
+            }
             action(ClearLines)
             {
                 Caption = 'Clear Lines';
@@ -185,6 +196,7 @@ page 66601 "CHM Michelin Labels"
 
                 actionref(LoadShipment_Promoted; LoadShipment) { }
                 actionref(ApplyFilters_Promoted; ApplyFilters) { }
+                actionref(PrintLabels_Promoted; PrintLabels) { }
                 actionref(ClearLines_Promoted; ClearLines) { }
             }
         }
@@ -197,6 +209,8 @@ page 66601 "CHM Michelin Labels"
         NextIndex: BigInteger;
         NoLinesErr: Label 'Posted sales shipment %1 has no item lines to load.', Comment = '%1 = Shipment No.';
         AlreadyLoadedQst: Label 'Lines for shipment %1 are already loaded. Do you want to reload them?', Comment = '%1 = Shipment No.';
+        NothingSelectedErr: Label 'Select at least one line to print.';
+        NoOfCopiesErr: Label 'No. of copies must be at least 1.';
         LinesLoadedMsg: Label '%1 line(s) loaded from shipment %2.', Comment = '%1 = No. of lines, %2 = Shipment No.';
 
     trigger OnOpenPage()
@@ -340,6 +354,23 @@ page 66601 "CHM Michelin Labels"
         // if LotNoInformation.Get(ItemNo, VariantCode, LotNo) then
         //     exit(Format(LotNoInformation."CHM Production Date", 0, '<Day,2>.<Month,2>.<Year,2>'));
         exit('');
+    end;
+
+    local procedure PrintSelectedLabels()
+    var
+        TempSelectedLabels: Record "CHM Michelin Labels" temporary;
+        MichelinLabels: Report "CHM Michelin Labels";
+    begin
+        if NoOfCopies < 1 then
+            Error(NoOfCopiesErr);
+
+        TempSelectedLabels.Copy(Rec, true);
+        CurrPage.SetSelectionFilter(TempSelectedLabels);
+        if TempSelectedLabels.IsEmpty() then
+            Error(NothingSelectedErr);
+
+        MichelinLabels.SetData(TempSelectedLabels, NoOfCopies);
+        MichelinLabels.RunModal();
     end;
 
     local procedure ApplyPageFilters()
