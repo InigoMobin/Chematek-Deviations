@@ -1,0 +1,32 @@
+{
+    "id": "75e4c959-38c1-424e-ae1e-d976d02d4cb1",
+    "name": "Deviation",
+    "publisher": "All E Technologies Ltd",
+    "version": "1.0.0.0",
+    "brief": "",
+    "description": "",
+    "privacyStatement": "",
+    "EULA": "",
+    "help": "",
+    "url": "",
+    "logo": "",
+    "dependencies": [],
+    "screenshots": [],
+    "platform": "1.0.0.0",
+    "application": "28.0.0.0",
+    "idRanges": [
+        {
+            "from": 66600,
+            "to": 66700
+        }
+    ],
+    "resourceExposurePolicy": {
+        "allowDebugging": true,
+        "allowDownloadingSource": true,
+        "includeSourceInSymbolFile": true
+    },
+    "runtime": "17.0",
+    "features": [
+        "NoImplicitWith"
+    ]
+}
