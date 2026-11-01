@@ -1,21 +1,50 @@
 page 66690 "CHM Deviation Test Console"
 {
-    // TEST ONLY - runs the DEV-001 to DEV-004 checks in "CHM Deviation Test Mgt." and shows the results.
-    Caption = 'CHM Deviation Test Console (DEV-001 to DEV-004)';
+    // TEST ONLY - DEV-002 shipment fields: creates postable warehouse shipments with lines,
+    // posts them and checks the flow to Posted Whse. Shipment and Posted Sales Shipment.
+    Caption = 'CHM Deviation Test Console (DEV-002)';
     PageType = Worksheet;
     ApplicationArea = All;
     UsageCategory = Tasks;
     SourceTable = "Name/Value Buffer";
     SourceTableTemporary = true;
     InsertAllowed = false;
-    ModifyAllowed = false;
     DeleteAllowed = false;
-    Editable = false;
 
     layout
     {
         area(Content)
         {
+            group(Setup)
+            {
+                Caption = 'DEV-002 Setup';
+
+                field(TestLocation; TestLocationCode)
+                {
+                    Caption = 'Test Location';
+                    Editable = false;
+                    ToolTip = 'Specifies the location used for the test shipments. It is created with Require Shipment, without pick and bins.';
+                }
+                field(NoOfShipments; NoOfShipments)
+                {
+                    Caption = 'No. of Shipments';
+                    MinValue = 1;
+                    MaxValue = 50;
+                    ToolTip = 'Specifies how many sales orders with warehouse shipments are created per run.';
+                }
+                field(TemplateItemNo; TemplateItemNo)
+                {
+                    Caption = 'Template Item No.';
+                    TableRelation = Item;
+                    ToolTip = 'Specifies the item whose posting groups and unit of measure are copied to the test items. Leave blank to pick one automatically. It must not use item tracking.';
+                }
+                field(TemplateCustomerNo; TemplateCustomerNo)
+                {
+                    Caption = 'Template Customer No.';
+                    TableRelation = Customer;
+                    ToolTip = 'Specifies the customer whose posting groups are copied to the test customer. Leave blank to pick one automatically.';
+                }
+            }
             group(Summary)
             {
                 Caption = 'Summary';
@@ -23,29 +52,35 @@ page 66690 "CHM Deviation Test Console"
                 field(TotalCount; TotalCount)
                 {
                     Caption = 'Result Lines';
+                    Editable = false;
                     ToolTip = 'Specifies the number of result lines currently shown.';
                 }
                 field(PassCount; PassCount)
                 {
                     Caption = 'Passed';
+                    Editable = false;
                     StyleExpr = PassStyle;
-                    ToolTip = 'Specifies the number of tests that passed.';
+                    ToolTip = 'Specifies the number of checks that passed.';
                 }
                 field(FailCount; FailCount)
                 {
                     Caption = 'Failed';
+                    Editable = false;
                     StyleExpr = FailStyle;
-                    ToolTip = 'Specifies the number of tests that failed.';
+                    ToolTip = 'Specifies the number of checks that failed.';
                 }
                 field(WarnCount; WarnCount)
                 {
                     Caption = 'Warnings';
+                    Editable = false;
                     StyleExpr = WarnStyle;
-                    ToolTip = 'Specifies the number of warnings, for example missing setup.';
+                    ToolTip = 'Specifies the number of warnings.';
                 }
             }
             repeater(Results)
             {
+                Editable = false;
+
                 field(LineNo; Rec.ID)
                 {
                     Caption = 'Line No.';
@@ -53,8 +88,8 @@ page 66690 "CHM Deviation Test Console"
                 }
                 field(TestName; Rec.Name)
                 {
-                    Caption = 'Test';
-                    ToolTip = 'Specifies the deviation, test number and what was tested.';
+                    Caption = 'Step / Test';
+                    ToolTip = 'Specifies the step, test number and what was done or checked.';
                 }
                 field(Result; Rec.Value)
                 {
@@ -65,7 +100,7 @@ page 66690 "CHM Deviation Test Console"
                 field(Details; Rec."Value Long")
                 {
                     Caption = 'Details';
-                    ToolTip = 'Specifies the details of the result, including the error text for failed tests.';
+                    ToolTip = 'Specifies the details, including document numbers and the error text for failed steps.';
                 }
             }
         }
@@ -75,58 +110,6 @@ page 66690 "CHM Deviation Test Console"
     {
         area(Processing)
         {
-            group(DEV001Actions)
-            {
-                Caption = 'DEV-001 Update Posted Shipment';
-
-                action(Dev001CreateData)
-                {
-                    Caption = '1. Create Test Data';
-                    Image = CreateDocument;
-                    ToolTip = 'Create 20 dummy posted sales shipments (CHMT1-001 to CHMT1-020) with empty shipment fields.';
-
-                    trigger OnAction()
-                    begin
-                        TestMgt.CreateDev001TestData(Rec);
-                        RefreshPage();
-                    end;
-                }
-                action(Dev001RunTests)
-                {
-                    Caption = '2. Run Tests';
-                    Image = TestReport;
-                    ToolTip = 'Update the 7 shipment fields on the 20 posted shipments through the page 1350 save logic and check the results.';
-
-                    trigger OnAction()
-                    begin
-                        TestMgt.RunDev001Tests(Rec);
-                        RefreshPage();
-                    end;
-                }
-                action(Dev001OpenRecords)
-                {
-                    Caption = '3. Open Test Records';
-                    Image = Navigate;
-                    ToolTip = 'Open the dummy posted sales shipments to check the fields and Update Document manually.';
-
-                    trigger OnAction()
-                    begin
-                        TestMgt.OpenDev001TestRecords();
-                    end;
-                }
-                action(Dev001DeleteData)
-                {
-                    Caption = '4. Delete Test Data';
-                    Image = Delete;
-                    ToolTip = 'Delete all CHMT1 dummy records.';
-
-                    trigger OnAction()
-                    begin
-                        TestMgt.DeleteDev001TestData(Rec);
-                        RefreshPage();
-                    end;
-                }
-            }
             group(DEV002Actions)
             {
                 Caption = 'DEV-002 Shipment Fields';
@@ -135,19 +118,43 @@ page 66690 "CHM Deviation Test Console"
                 {
                     Caption = '1. Create Test Data';
                     Image = CreateDocument;
-                    ToolTip = 'Create 20 dummy warehouse shipments (CHMT2-001 to CHMT2-020) and fill the 7 shipment fields.';
+                    ToolTip = 'Create the test location, items, customer and stock, then released sales orders with warehouse shipments that have lines, Qty. to Ship and the 7 shipment fields filled.';
 
                     trigger OnAction()
                     begin
-                        TestMgt.CreateDev002TestData(Rec);
+                        TestMgt.SetTemplates(TemplateItemNo, TemplateCustomerNo);
+                        TestMgt.CreateDev002TestData(Rec, NoOfShipments);
+                        RefreshPage();
+                    end;
+                }
+                action(Dev002OpenWhseShipments)
+                {
+                    Caption = '2. Open Warehouse Shipments';
+                    Image = Shipment;
+                    ToolTip = 'Open the test warehouse shipments to check the lines and the 7 fields, change values and post them manually with Post Shipment.';
+
+                    trigger OnAction()
+                    begin
+                        TestMgt.OpenDev002WhseShipments();
+                    end;
+                }
+                action(Dev002PostShipments)
+                {
+                    Caption = '3. Post Test Shipments';
+                    Image = PostOrder;
+                    ToolTip = 'Post (Ship only) all open test warehouse shipments that have Qty. to Ship.';
+
+                    trigger OnAction()
+                    begin
+                        TestMgt.PostDev002TestShipments(Rec);
                         RefreshPage();
                     end;
                 }
                 action(Dev002RunTests)
                 {
-                    Caption = '2. Run Tests';
+                    Caption = '4. Run Tests';
                     Image = TestReport;
-                    ToolTip = 'Check field entry and validation on the warehouse shipments, the field definitions on the posted tables, and the flow on real postings.';
+                    ToolTip = 'Check the open shipments, the field validation and definitions, and the header and line flow to Posted Whse. Shipment and Posted Sales Shipment.';
 
                     trigger OnAction()
                     begin
@@ -155,130 +162,37 @@ page 66690 "CHM Deviation Test Console"
                         RefreshPage();
                     end;
                 }
-                action(Dev002OpenRecords)
+                action(Dev002OpenPostedWhse)
                 {
-                    Caption = '3. Open Test Records';
-                    Image = Navigate;
-                    ToolTip = 'Open the dummy warehouse shipments.';
+                    Caption = '5. Open Posted Whse. Shipments';
+                    Image = PostedShipment;
+                    ToolTip = 'Open the posted warehouse shipments of the test location.';
 
                     trigger OnAction()
                     begin
-                        TestMgt.OpenDev002TestRecords();
+                        TestMgt.OpenDev002PostedWhseShipments();
+                    end;
+                }
+                action(Dev002OpenPostedSales)
+                {
+                    Caption = '6. Open Posted Sales Shipments';
+                    Image = PostedShipment;
+                    ToolTip = 'Open the posted sales shipments of the test sales orders.';
+
+                    trigger OnAction()
+                    begin
+                        TestMgt.OpenDev002PostedSalesShipments();
                     end;
                 }
                 action(Dev002DeleteData)
                 {
-                    Caption = '4. Delete Test Data';
+                    Caption = '7. Delete Open Test Data';
                     Image = Delete;
-                    ToolTip = 'Delete all CHMT2 dummy records.';
+                    ToolTip = 'Delete the open test warehouse shipments and the test sales orders that were not shipped. Posted documents and master data are kept.';
 
                     trigger OnAction()
                     begin
                         TestMgt.DeleteDev002TestData(Rec);
-                        RefreshPage();
-                    end;
-                }
-            }
-            group(DEV003Actions)
-            {
-                Caption = 'DEV-003 Michelin Labels';
-
-                action(Dev003CreateData)
-                {
-                    Caption = '1. Create Test Data';
-                    Image = CreateDocument;
-                    ToolTip = 'Create 3 dummy customers, 20 dummy posted shipments with item lines (14 Michelin, 6 non-Michelin) and a test label No. Series.';
-
-                    trigger OnAction()
-                    begin
-                        TestMgt.CreateDev003TestData(Rec);
-                        RefreshPage();
-                    end;
-                }
-                action(Dev003RunTests)
-                {
-                    Caption = '2. Run Tests';
-                    Image = TestReport;
-                    ToolTip = 'Check the Michelin customer fields and filter, and render the barcode report to PDF using the test label No. Series.';
-
-                    trigger OnAction()
-                    begin
-                        TestMgt.RunDev003Tests(Rec);
-                        RefreshPage();
-                    end;
-                }
-                action(Dev003OpenRecords)
-                {
-                    Caption = '3. Open Test Records';
-                    Image = Navigate;
-                    ToolTip = 'Open the Michelin printed labels page to load a CHMT3 shipment and print labels manually.';
-
-                    trigger OnAction()
-                    begin
-                        TestMgt.OpenDev003TestRecords();
-                    end;
-                }
-                action(Dev003DeleteData)
-                {
-                    Caption = '4. Delete Test Data';
-                    Image = Delete;
-                    ToolTip = 'Delete all CHMT3 dummy records and the test label No. Series.';
-
-                    trigger OnAction()
-                    begin
-                        TestMgt.DeleteDev003TestData(Rec);
-                        RefreshPage();
-                    end;
-                }
-            }
-            group(DEV004Actions)
-            {
-                Caption = 'DEV-004 Lot Production Date';
-
-                action(Dev004CreateData)
-                {
-                    Caption = '1. Create Test Data';
-                    Image = CreateDocument;
-                    ToolTip = 'Create a dummy item and 20 lots (CHMT4-LOT01 to CHMT4-LOT20) with production dates.';
-
-                    trigger OnAction()
-                    begin
-                        TestMgt.CreateDev004TestData(Rec);
-                        RefreshPage();
-                    end;
-                }
-                action(Dev004RunTests)
-                {
-                    Caption = '2. Run Tests';
-                    Image = TestReport;
-                    ToolTip = 'Check the production date on the lots, on Item Tracking Lines and in the posting step, and the flow on real postings.';
-
-                    trigger OnAction()
-                    begin
-                        TestMgt.RunDev004Tests(Rec);
-                        RefreshPage();
-                    end;
-                }
-                action(Dev004OpenRecords)
-                {
-                    Caption = '3. Open Test Records';
-                    Image = Navigate;
-                    ToolTip = 'Open the dummy lots on the Lot No. Information list.';
-
-                    trigger OnAction()
-                    begin
-                        TestMgt.OpenDev004TestRecords();
-                    end;
-                }
-                action(Dev004DeleteData)
-                {
-                    Caption = '4. Delete Test Data';
-                    Image = Delete;
-                    ToolTip = 'Delete the dummy item and its lots.';
-
-                    trigger OnAction()
-                    begin
-                        TestMgt.DeleteDev004TestData(Rec);
                         RefreshPage();
                     end;
                 }
@@ -299,41 +213,17 @@ page 66690 "CHM Deviation Test Console"
         }
         area(Promoted)
         {
-            group(DEV001Promoted)
-            {
-                Caption = 'DEV-001';
-
-                actionref(Dev001CreateData_Promoted; Dev001CreateData) { }
-                actionref(Dev001RunTests_Promoted; Dev001RunTests) { }
-                actionref(Dev001OpenRecords_Promoted; Dev001OpenRecords) { }
-                actionref(Dev001DeleteData_Promoted; Dev001DeleteData) { }
-            }
             group(DEV002Promoted)
             {
                 Caption = 'DEV-002';
 
                 actionref(Dev002CreateData_Promoted; Dev002CreateData) { }
+                actionref(Dev002OpenWhseShipments_Promoted; Dev002OpenWhseShipments) { }
+                actionref(Dev002PostShipments_Promoted; Dev002PostShipments) { }
                 actionref(Dev002RunTests_Promoted; Dev002RunTests) { }
-                actionref(Dev002OpenRecords_Promoted; Dev002OpenRecords) { }
+                actionref(Dev002OpenPostedWhse_Promoted; Dev002OpenPostedWhse) { }
+                actionref(Dev002OpenPostedSales_Promoted; Dev002OpenPostedSales) { }
                 actionref(Dev002DeleteData_Promoted; Dev002DeleteData) { }
-            }
-            group(DEV003Promoted)
-            {
-                Caption = 'DEV-003';
-
-                actionref(Dev003CreateData_Promoted; Dev003CreateData) { }
-                actionref(Dev003RunTests_Promoted; Dev003RunTests) { }
-                actionref(Dev003OpenRecords_Promoted; Dev003OpenRecords) { }
-                actionref(Dev003DeleteData_Promoted; Dev003DeleteData) { }
-            }
-            group(DEV004Promoted)
-            {
-                Caption = 'DEV-004';
-
-                actionref(Dev004CreateData_Promoted; Dev004CreateData) { }
-                actionref(Dev004RunTests_Promoted; Dev004RunTests) { }
-                actionref(Dev004OpenRecords_Promoted; Dev004OpenRecords) { }
-                actionref(Dev004DeleteData_Promoted; Dev004DeleteData) { }
             }
             actionref(ClearResults_Promoted; ClearResults) { }
         }
@@ -341,6 +231,10 @@ page 66690 "CHM Deviation Test Console"
 
     var
         TestMgt: Codeunit "CHM Deviation Test Mgt.";
+        TestLocationCode: Code[10];
+        NoOfShipments: Integer;
+        TemplateItemNo: Code[20];
+        TemplateCustomerNo: Code[20];
         TotalCount: Integer;
         PassCount: Integer;
         FailCount: Integer;
@@ -352,6 +246,8 @@ page 66690 "CHM Deviation Test Console"
 
     trigger OnOpenPage()
     begin
+        TestLocationCode := TestMgt.GetTestLocationCode();
+        NoOfShipments := 20;
         UpdateSummary();
     end;
 
