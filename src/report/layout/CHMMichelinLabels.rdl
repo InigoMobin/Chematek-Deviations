@@ -452,7 +452,8 @@
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Center</TextAlign><LineHeight>7pt</LineHeight>
+                                <TextAlign>Center</TextAlign>
+                                <LineHeight>7pt</LineHeight>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
