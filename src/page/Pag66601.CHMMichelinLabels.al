@@ -211,7 +211,8 @@ page 66601 "CHM Michelin Labels"
         AlreadyLoadedQst: Label 'Lines for shipment %1 are already loaded. Do you want to reload them?', Comment = '%1 = Shipment No.';
         NothingSelectedErr: Label 'Select at least one line to print.';
         NoOfCopiesErr: Label 'No. of copies must be at least 1.';
-        LinesLoadedMsg: Label '%1 line(s) loaded from shipment %2.', Comment = '%1 = No. of lines, %2 = Shipment No.';
+        LinesLoadedMsg: Label '%1 line(s) loaded from %2 shipment(s).', Comment = '%1 = No. of lines, %2 = No. of shipments';
+        LinesLoadedWithSkipMsg: Label '%1 line(s) loaded from %2 shipment(s).\Skipped (no item lines): %3', Comment = '%1 = No. of lines, %2 = No. of shipments, %3 = Shipment numbers';
 
     trigger OnOpenPage()
     begin
@@ -224,27 +225,64 @@ page 66601 "CHM Michelin Labels"
     local procedure LoadShipmentLines()
     var
         SalesShptHeader: Record "Sales Shipment Header";
-        SalesShptLine: Record "Sales Shipment Line";
+        SelectedShptHeader: Record "Sales Shipment Header";
+        PostedSalesShipments: Page "Posted Sales Shipments";
         LinesInserted: Integer;
+        ShipmentsLoaded: Integer;
+        SkippedShipments: Text;
     begin
         SalesShptHeader.SetRange("CHM Michelin Customer", true);
-        if Page.RunModal(Page::"Posted Sales Shipments", SalesShptHeader) <> Action::LookupOK then
+        PostedSalesShipments.SetTableView(SalesShptHeader);
+        PostedSalesShipments.LookupMode(true);
+        if PostedSalesShipments.RunModal() <> Action::LookupOK then
             exit;
 
+        // Get every selected shipment, not just the current one
+        PostedSalesShipments.GetSelectedShipments(SelectedShptHeader);
+        SelectedShptHeader.SetRange("CHM Michelin Customer", true);
+        if not SelectedShptHeader.FindSet() then
+            exit;
+
+        repeat
+            case LoadSingleShipment(SelectedShptHeader, LinesInserted) of
+                true:
+                    ShipmentsLoaded += 1;
+                false:
+                    if not IsShipmentLoaded(SelectedShptHeader."No.") then begin
+                        if SkippedShipments <> '' then
+                            SkippedShipments += ', ';
+                        SkippedShipments += SelectedShptHeader."No.";
+                    end;
+            end;
+        until SelectedShptHeader.Next() = 0;
+
+        Rec.Reset();
+        ApplyPageFilters();
+
+        if SkippedShipments <> '' then
+            Message(LinesLoadedWithSkipMsg, LinesInserted, ShipmentsLoaded, SkippedShipments)
+        else
+            Message(LinesLoadedMsg, LinesInserted, ShipmentsLoaded);
+    end;
+
+    local procedure LoadSingleShipment(SalesShptHeader: Record "Sales Shipment Header"; var TotalLinesInserted: Integer): Boolean
+    var
+        SalesShptLine: Record "Sales Shipment Line";
+    begin
         SalesShptLine.SetRange("Document No.", SalesShptHeader."No.");
         SalesShptLine.SetRange(Type, SalesShptLine.Type::Item);
         SalesShptLine.SetRange(Correction, false);
         SalesShptLine.SetFilter(Quantity, '<>0');
         if SalesShptLine.IsEmpty() then
-            Error(NoLinesErr, SalesShptHeader."No.");
+            exit(false); // no item lines - reported as skipped, does not stop the other shipments
 
         // Avoid loading the same shipment twice
         Rec.Reset();
         Rec.SetRange("Sales Shpt. Code", SalesShptHeader."No.");
         if not Rec.IsEmpty() then begin
             if not Confirm(AlreadyLoadedQst, false, SalesShptHeader."No.") then begin
-                ApplyPageFilters();
-                exit;
+                Rec.Reset();
+                exit(false);
             end;
             Rec.DeleteAll();
         end;
@@ -252,34 +290,49 @@ page 66601 "CHM Michelin Labels"
 
         SalesShptLine.FindSet();
         repeat
-            LinesInserted += InsertLinesForShipmentLine(SalesShptHeader, SalesShptLine);
+            TotalLinesInserted += InsertLinesForShipmentLine(SalesShptHeader, SalesShptLine);
         until SalesShptLine.Next() = 0;
+        exit(true);
+    end;
 
-        ApplyPageFilters();
-        Message(LinesLoadedMsg, LinesInserted, SalesShptHeader."No.");
+    local procedure IsShipmentLoaded(ShipmentNo: Code[20]): Boolean
+    begin
+        Rec.Reset();
+        Rec.SetRange("Sales Shpt. Code", ShipmentNo);
+        exit(not Rec.IsEmpty());
     end;
 
     local procedure InsertLinesForShipmentLine(SalesShptHeader: Record "Sales Shipment Header"; SalesShptLine: Record "Sales Shipment Line") LinesInserted: Integer
     var
         ItemLedgerEntry: Record "Item Ledger Entry";
+        LotQty: Dictionary of [Code[50], Decimal];
+        LotNo: Code[50];
         QtyPerUoM: Decimal;
     begin
         QtyPerUoM := SalesShptLine."Qty. per Unit of Measure";
         if QtyPerUoM = 0 then
             QtyPerUoM := 1;
 
-        // One label line per lot shipped on this shipment line
+        // One label line per distinct lot shipped on this shipment line
         ItemLedgerEntry.SetRange("Document Type", ItemLedgerEntry."Document Type"::"Sales Shipment");
         ItemLedgerEntry.SetRange("Document No.", SalesShptLine."Document No.");
         ItemLedgerEntry.SetRange("Document Line No.", SalesShptLine."Line No.");
         ItemLedgerEntry.SetRange("Item No.", SalesShptLine."No.");
-        if ItemLedgerEntry.FindSet() then
-            repeat
-                InsertLabelLine(SalesShptHeader, SalesShptLine, ItemLedgerEntry."Lot No.", Abs(ItemLedgerEntry.Quantity) / QtyPerUoM);
-                LinesInserted += 1;
-            until ItemLedgerEntry.Next() = 0
-        else begin
+        if not ItemLedgerEntry.FindSet() then begin
             InsertLabelLine(SalesShptHeader, SalesShptLine, '', SalesShptLine.Quantity);
+            exit(1);
+        end;
+
+        // Sum quantities per lot, so the same lot split over several entries gives one label
+        repeat
+            if LotQty.ContainsKey(ItemLedgerEntry."Lot No.") then
+                LotQty.Set(ItemLedgerEntry."Lot No.", LotQty.Get(ItemLedgerEntry."Lot No.") + Abs(ItemLedgerEntry.Quantity))
+            else
+                LotQty.Add(ItemLedgerEntry."Lot No.", Abs(ItemLedgerEntry.Quantity));
+        until ItemLedgerEntry.Next() = 0;
+
+        foreach LotNo in LotQty.Keys() do begin
+            InsertLabelLine(SalesShptHeader, SalesShptLine, LotNo, LotQty.Get(LotNo) / QtyPerUoM);
             LinesInserted += 1;
         end;
     end;

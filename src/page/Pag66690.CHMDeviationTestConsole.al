@@ -1,8 +1,9 @@
 page 66690 "CHM Deviation Test Console"
 {
-    // TEST ONLY - DEV-002 shipment fields and DEV-004 Production Date on lot numbers.
+    // TEST ONLY - DEV-002 shipment fields, DEV-003 Michelin labels demo data and DEV-004 Production Date on lot numbers.
     // Creates real test documents, posts them and checks the flow to the posted records.
-    Caption = 'CHM Deviation Test Console (DEV-002, DEV-004)';
+    // DEV-003 lines are handled by codeunit 66691 "CHM DEV-003 Test Mgt.", the others by codeunit 66690.
+    Caption = 'CHM Deviation Test Console (DEV-002, DEV-003, DEV-004)';
     PageType = Worksheet;
     ApplicationArea = All;
     UsageCategory = Tasks;
@@ -17,7 +18,7 @@ page 66690 "CHM Deviation Test Console"
         {
             group(Templates)
             {
-                Caption = 'Templates (DEV-002 and DEV-004)';
+                Caption = 'Templates (DEV-002, DEV-003 and DEV-004)';
 
                 field(TemplateItemNo; TemplateItemNo)
                 {
@@ -54,6 +55,23 @@ page 66690 "CHM Deviation Test Console"
                     MinValue = 1;
                     MaxValue = 50;
                     ToolTip = 'Specifies how many sales orders with warehouse shipments are created per run.';
+                }
+            }
+            group(Dev003Setup)
+            {
+                Caption = 'DEV-003 Setup';
+
+                field(Dev003Location; Dev003LocationCode)
+                {
+                    Caption = 'Test Location';
+                    Editable = false;
+                    ToolTip = 'Specifies the location used for the DEV-003 demo shipments. Its address is printed as Ship-from on the Michelin labels.';
+                }
+                field(Dev003Run; Dev003RunText)
+                {
+                    Caption = 'Current Run';
+                    Editable = false;
+                    ToolTip = 'Specifies the latest DEV-003 run and its sales orders. "3. Check Demo Data" works on this run.';
                 }
             }
             group(Dev004Setup)
@@ -138,7 +156,7 @@ page 66690 "CHM Deviation Test Console"
 
                     trigger OnDrillDown()
                     begin
-                        TestMgt.OpenResultRecord(Rec.ID);
+                        OpenResultRecord();
                     end;
                 }
                 field(Details; Rec."Value Long")
@@ -163,7 +181,7 @@ page 66690 "CHM Deviation Test Console"
 
                 trigger OnAction()
                 begin
-                    TestMgt.OpenResultRecord(Rec.ID);
+                    OpenResultRecord();
                 end;
             }
             group(DEV002Actions)
@@ -249,6 +267,81 @@ page 66690 "CHM Deviation Test Console"
                     trigger OnAction()
                     begin
                         TestMgt.DeleteDev002TestData(Rec);
+                        RefreshPage();
+                    end;
+                }
+            }
+            group(DEV003Actions)
+            {
+                Caption = 'DEV-003 Michelin Labels';
+
+                action(Dev003CreateData)
+                {
+                    Caption = '1. Create Demo Shipments';
+                    Image = CreateDocument;
+                    ToolTip = 'Create the test location, lot-tracked items, Michelin and non-Michelin customers, post stock in lots with Production Dates, and create and ship 5 sales orders, so the Michelin labels page has posted shipments to load.';
+
+                    trigger OnAction()
+                    begin
+                        Dev003TestMgt.SetTemplates(TemplateItemNo, TemplateCustomerNo);
+                        Dev003TestMgt.CreateTestData(Rec);
+                        RefreshPage();
+                    end;
+                }
+                action(Dev003OpenMichelinLabels)
+                {
+                    Caption = '2. Open Michelin Labels';
+                    Image = BarCode;
+                    ToolTip = 'Open the List of Michelin printed labels. Use Load Shipment Lines to pick a demo shipment, then filter, edit and print.';
+
+                    trigger OnAction()
+                    begin
+                        Dev003TestMgt.OpenMichelinLabels();
+                    end;
+                }
+                action(Dev003RunChecks)
+                {
+                    Caption = '3. Check Demo Data';
+                    Image = TestReport;
+                    ToolTip = 'Check the Michelin customer setup and the label no. series, and list per posted shipment the label lines the Michelin labels page should load (item, lot, quantity, Production Date).';
+
+                    trigger OnAction()
+                    begin
+                        Dev003TestMgt.RunChecks(Rec);
+                        RefreshPage();
+                    end;
+                }
+                action(Dev003OpenPostedShipments)
+                {
+                    Caption = 'Open Posted Sales Shipments';
+                    Image = PostedShipment;
+                    ToolTip = 'Open the posted sales shipments of the DEV-003 demo orders.';
+
+                    trigger OnAction()
+                    begin
+                        Dev003TestMgt.OpenPostedShipments();
+                    end;
+                }
+                action(Dev003OpenSalesOrders)
+                {
+                    Caption = 'Open Sales Orders';
+                    Image = Document;
+                    ToolTip = 'Open the DEV-003 demo sales orders.';
+
+                    trigger OnAction()
+                    begin
+                        Dev003TestMgt.OpenSalesOrders();
+                    end;
+                }
+                action(Dev003DeleteData)
+                {
+                    Caption = 'Delete Open Test Data';
+                    Image = Delete;
+                    ToolTip = 'Delete open lines of the CHMT3 item journal batch and the DEV-003 sales orders that were not shipped (left over from a failed run). Posted shipments, lots and master data are kept.';
+
+                    trigger OnAction()
+                    begin
+                        Dev003TestMgt.DeleteTestData(Rec);
                         RefreshPage();
                     end;
                 }
@@ -410,6 +503,7 @@ page 66690 "CHM Deviation Test Console"
                     Rec.Reset();
                     Rec.DeleteAll();
                     TestMgt.ClearResultLinks();
+                    Dev003TestMgt.ClearResultLinks();
                     RefreshPage();
                 end;
             }
@@ -427,6 +521,17 @@ page 66690 "CHM Deviation Test Console"
                 actionref(Dev002OpenPostedWhse_Promoted; Dev002OpenPostedWhse) { }
                 actionref(Dev002OpenPostedSales_Promoted; Dev002OpenPostedSales) { }
                 actionref(Dev002DeleteData_Promoted; Dev002DeleteData) { }
+            }
+            group(DEV003Promoted)
+            {
+                Caption = 'DEV-003';
+
+                actionref(Dev003CreateData_Promoted; Dev003CreateData) { }
+                actionref(Dev003OpenMichelinLabels_Promoted; Dev003OpenMichelinLabels) { }
+                actionref(Dev003RunChecks_Promoted; Dev003RunChecks) { }
+                actionref(Dev003OpenPostedShipments_Promoted; Dev003OpenPostedShipments) { }
+                actionref(Dev003OpenSalesOrders_Promoted; Dev003OpenSalesOrders) { }
+                actionref(Dev003DeleteData_Promoted; Dev003DeleteData) { }
             }
             group(DEV004Promoted)
             {
@@ -452,11 +557,14 @@ page 66690 "CHM Deviation Test Console"
 
     var
         TestMgt: Codeunit "CHM Deviation Test Mgt.";
+        Dev003TestMgt: Codeunit "CHM DEV-003 Test Mgt.";
         TestLocationCode: Code[10];
         NoOfShipments: Integer;
         TemplateItemNo: Code[20];
         TemplateCustomerNo: Code[20];
         TemplateVendorNo: Code[20];
+        Dev003LocationCode: Code[10];
+        Dev003RunText: Text;
         Dev004LocationCode: Code[10];
         Dev004ItemNo: Code[20];
         Dev004RunText: Text;
@@ -469,11 +577,13 @@ page 66690 "CHM Deviation Test Console"
         PassStyle: Text;
         FailStyle: Text;
         WarnStyle: Text;
+        Dev003StepPrefixTok: Label 'DEV-003', Locked = true;
 
     trigger OnOpenPage()
     begin
         TestLocationCode := TestMgt.GetTestLocationCode();
         NoOfShipments := 20;
+        Dev003LocationCode := Dev003TestMgt.GetLocationCode();
         Dev004LocationCode := TestMgt.GetDev004LocationCode();
         Dev004ItemNo := TestMgt.GetDev004ItemNo();
         UpdateSummary();
@@ -493,7 +603,24 @@ page 66690 "CHM Deviation Test Console"
             else
                 ResultStyle := 'Standard';
         end;
-        OpenPageText := TestMgt.GetResultLinkCaption(Rec.ID);
+        if IsDev003Line() then
+            OpenPageText := Dev003TestMgt.GetResultLinkCaption(Rec.ID)
+        else
+            OpenPageText := TestMgt.GetResultLinkCaption(Rec.ID);
+    end;
+
+    local procedure IsDev003Line(): Boolean
+    begin
+        // DEV-003 result lines are written by codeunit 66691 and start with its step code.
+        exit(CopyStr(Rec.Name, 1, StrLen(Dev003StepPrefixTok)) = Dev003StepPrefixTok);
+    end;
+
+    local procedure OpenResultRecord()
+    begin
+        if IsDev003Line() then
+            Dev003TestMgt.OpenResultRecord(Rec.ID)
+        else
+            TestMgt.OpenResultRecord(Rec.ID);
     end;
 
     local procedure RefreshPage()
@@ -508,6 +635,7 @@ page 66690 "CHM Deviation Test Console"
     var
         TempResultCopy: Record "Name/Value Buffer" temporary;
     begin
+        Dev003RunText := Dev003TestMgt.GetRunText();
         Dev004RunText := TestMgt.GetDev004RunText();
         TempResultCopy.Copy(Rec, true);
         TempResultCopy.Reset();

@@ -56,10 +56,41 @@ codeunit 66690 "CHM Deviation Test Mgt."
                 DeleteDev4Journal();
             RunModeDev4DeletePurchOrder():
                 DeleteDev4PurchOrder(RunDocNo);
+
+            RunModeDev3Setup():
+                RunDev3Setup();
+            RunModeDev3PostStock():
+                PostDev3Stock();
+            RunModeDev3CreateOrder():
+                CreateDev3SalesOrder(RunIndex);
+            RunModeDev3AddSecondLine():
+                AddDev3SecondShipmentLine(RunDocNo);
+            RunModeDev3DeleteJournal():
+                DeleteDev3Journal();
         end;
     end;
 
     var
+        Dev3CreateStepTok: Label 'DEV-003 CREATE', Locked = true;
+        Dev3CheckStepTok: Label 'DEV-003 CHECK', Locked = true;
+        Dev3DeleteStepTok: Label 'DEV-003 DELETE', Locked = true;
+        Dev3PrefixTok: Label 'CHMT3-R', Locked = true;
+        Dev3LocationTok: Label 'CHMT3-LOC', Locked = true;
+        Dev3Item1Tok: Label 'CHMT3-ITEM1', Locked = true;
+        Dev3Item2Tok: Label 'CHMT3-ITEM2', Locked = true;
+        Dev3Item3Tok: Label 'CHMT3-ITEM3', Locked = true;
+        Dev3Item4Tok: Label 'CHMT3-ITEM4', Locked = true;
+        Dev3Mich1Tok: Label 'CHMT3-MICH1', Locked = true;
+        Dev3Mich2Tok: Label 'CHMT3-MICH2', Locked = true;
+        Dev3OtherCustTok: Label 'CHMT3-OTHER', Locked = true;
+        Dev3BatchTok: Label 'CHMT3', Locked = true;
+        Dev3LabelSeriesTok: Label 'CHMT3-MLBL', Locked = true;
+        Dev3CreateQst: Label 'This creates in company %1:\- location %2 with a ship-from address, 3 lot-tracked items and 1 item without tracking\- 2 Michelin customers and 1 non-Michelin customer\- stock in lots with Production Dates (item journal batch %3, posted)\- %4 sales orders, shipped straight away (one order is shipped twice)\\These are real posted documents. Continue?', Comment = '%1 = Company, %2 = Location, %3 = Batch, %4 = No. of orders';
+        Dev3DeleteQst: Label 'Delete the open lines of item journal batch CHMT3 and the DEV-003 sales orders that were not shipped?\\Posted shipments, lots and master data are kept.';
+        Dev3NoRunErr: Label 'No DEV-003 demo data found. Run "1. Create Demo Shipments" first.';
+        Dev3TooManyRunsErr: Label 'All 99 DEV-003 run numbers are used.';
+        Dev3BatchNotEmptyErr: Label 'Item journal batch %1 / %2 still has open lines from an earlier run. Use "Delete Open Test Data" first.', Comment = '%1 = Template, %2 = Batch';
+        Dev3ItemTrackingErr: Label 'Item %1 already exists with Item Tracking Code %2, but this test needs it without item tracking.', Comment = '%1 = Item No., %2 = Item Tracking Code';
         RunMode: Integer;
         RunIndex: Integer;
         RunDocNo: Code[20];
@@ -2709,6 +2740,860 @@ codeunit 66690 "CHM Deviation Test Mgt."
         for i := 1 to RunNoOfShipments do
             Total += LineQty(LineIndex, i);
     end;
+
+
+
+    procedure GetDev003LocationCode(): Code[10]
+    begin
+        exit(Dev3LocationTok);
+    end;
+
+    procedure GetDev003RunText(): Text
+    var
+        LastRunNo: Integer;
+    begin
+        LastRunNo := GetDev003LastRunNo();
+        if LastRunNo = 0 then
+            exit('No demo data yet');
+        exit(StrSubstNo('Run %1: sales orders %2 to %3', LastRunNo, Dev3RunPrefix(LastRunNo) + 'SO1', Dev3RunPrefix(LastRunNo) + 'SO' + Format(Dev3NoOfOrders())));
+    end;
+
+    procedure CreateDev003TestData(var TempResult: Record "Name/Value Buffer" temporary)
+    var
+        EnvironmentInformation: Codeunit "Environment Information";
+        ResultTxt: Text;
+        SalesOrderNo: Code[20];
+        Shipped: Integer;
+        i: Integer;
+    begin
+        if EnvironmentInformation.IsSaaS() and EnvironmentInformation.IsProduction() then
+            Error(ProductionErr);
+        if GuiAllowed() then
+            if not Confirm(Dev3CreateQst, true, CompanyName(), Dev3LocationTok, Dev3BatchTok, Dev3NoOfOrders()) then
+                exit;
+
+        ClearStepResults(TempResult, Dev3CreateStepTok);
+        RunNo := GetDev003LastRunNo() + 1;
+        if RunNo > 99 then
+            Error(Dev3TooManyRunsErr);
+
+        if not RunDev4Step(TempResult, Dev3CreateStepTok, 'Setup: location, items, Michelin customers, label no. series, journal batch', RunModeDev3Setup(), '') then
+            exit;
+        if not RunDev4Step(TempResult, Dev3CreateStepTok, StrSubstNo('Stock: item journal %1 with lots and Production Dates, posted', Dev3DocNo('IN')), RunModeDev3PostStock(), '') then
+            exit;
+
+        // One sales order per step, shipped straight away. A failing order does not stop the others.
+        for i := 1 to Dev3NoOfOrders() do begin
+            SalesOrderNo := Dev3OrderNo(i);
+            if RunStep(RunModeDev3CreateOrder(), i, '', ResultTxt) then begin
+                AddResult(TempResult, Dev3CreateStepTok, StrSubstNo('Create sales order %1', SalesOrderNo), PassTok, ResultTxt);
+                // RunModeDev4PostSalesOrder ships any sales order (Ship only).
+                if RunDev4Step(TempResult, Dev3CreateStepTok, StrSubstNo('Ship sales order %1', SalesOrderNo), RunModeDev4PostSalesOrder(), SalesOrderNo) then begin
+                    Shipped += 1;
+                    if i = Dev3TwoShipmentsOrderIndex() then
+                        if RunDev4Step(TempResult, Dev3CreateStepTok, StrSubstNo('Add a second line to sales order %1', SalesOrderNo), RunModeDev3AddSecondLine(), SalesOrderNo) then
+                            if RunDev4Step(TempResult, Dev3CreateStepTok, StrSubstNo('Ship sales order %1 again (second shipment)', SalesOrderNo), RunModeDev4PostSalesOrder(), SalesOrderNo) then
+                                Shipped += 1;
+                end;
+            end else
+                AddResult(TempResult, Dev3CreateStepTok, StrSubstNo('Create sales order %1', SalesOrderNo), FailTok, ResultTxt);
+        end;
+
+        AddDev3DataViews(TempResult, Dev3CreateStepTok);
+        AddResult(TempResult, Dev3CreateStepTok, 'Next step', InfoTok,
+          StrSubstNo('Run %1: %2 posted sales shipment(s). Click "2. Open Michelin Labels" > Load Shipment Lines and pick the shipments of %3 and %4. The shipment of %5 must not be offered. "3. Check Demo Data" lists the label lines to expect per shipment.',
+            RunNo, Shipped, Dev3Mich1Tok, Dev3Mich2Tok, Dev3OtherCustTok));
+    end;
+
+    procedure RunDev003Checks(var TempResult: Record "Name/Value Buffer" temporary)
+    var
+        SalesSetup: Record "Sales & Receivables Setup";
+        SalesShptHeader: Record "Sales Shipment Header";
+        ShipmentCount: Integer;
+        TotalLabelLines: Integer;
+        i: Integer;
+    begin
+        RunNo := GetDev003LastRunNo();
+        if RunNo = 0 then
+            Error(Dev3NoRunErr);
+        ClearStepResults(TempResult, Dev3CheckStepTok);
+
+        // A. Setup the Michelin labels page and report depend on.
+        CheckDev3Customer(TempResult, Dev3Mich1Tok, true, Dev3SupplierCode(1));
+        CheckDev3Customer(TempResult, Dev3Mich2Tok, true, Dev3SupplierCode(2));
+        CheckDev3Customer(TempResult, Dev3OtherCustTok, false, '');
+
+        SalesSetup.Get();
+        AddCheck(TempResult, Dev3CheckStepTok, 'Sales & Receivables Setup: Michelin Label Nos.', SalesSetup."CHM Michelin Label Nos." <> '',
+          StrSubstNo('No. series %1 gives the label serial no. (S) when printing.', SalesSetup."CHM Michelin Label Nos."),
+          'Blank: Print labels stops with an error. Fill it in or run "1. Create Demo Shipments".');
+
+        // B. Every posted shipment of the run and the lines the page will load for it.
+        for i := 1 to Dev3NoOfOrders() do begin
+            SalesShptHeader.Reset();
+            SalesShptHeader.SetRange("Order No.", Dev3OrderNo(i));
+            if SalesShptHeader.FindSet() then
+                repeat
+                    ShipmentCount += 1;
+                    TotalLabelLines += CheckDev3Shipment(TempResult, SalesShptHeader, i <> Dev3NonMichelinOrderIndex());
+                until SalesShptHeader.Next() = 0
+            else
+                AddResult(TempResult, Dev3CheckStepTok, StrSubstNo('Sales order %1', Dev3OrderNo(i)), FailTok,
+                  'No posted sales shipment found. See the DEV-003 CREATE lines for the error.');
+        end;
+
+        AddResult(TempResult, Dev3CheckStepTok, 'Summary', InfoTok,
+          StrSubstNo('Run %1: %2 posted shipment(s), %3 label line(s) in total. Load each Michelin shipment on the Michelin labels page and compare the "line(s) loaded" message with the lines above.',
+            RunNo, ShipmentCount, TotalLabelLines));
+    end;
+
+    procedure OpenDev003MichelinLabels()
+    begin
+        Page.Run(Page::"CHM Michelin Labels");
+    end;
+
+    procedure OpenDev003PostedShipments()
+    var
+        SalesShptHeader: Record "Sales Shipment Header";
+    begin
+        SalesShptHeader.SetFilter("Order No.", Dev3PrefixTok + '*');
+        Page.Run(Page::"Posted Sales Shipments", SalesShptHeader);
+    end;
+
+    procedure OpenDev003SalesOrders()
+    var
+        SalesHeader: Record "Sales Header";
+    begin
+        SalesHeader.SetRange("Document Type", SalesHeader."Document Type"::Order);
+        SalesHeader.SetFilter("No.", Dev3PrefixTok + '*');
+        Page.Run(Page::"Sales Order List", SalesHeader);
+    end;
+
+    procedure DeleteDev003TestData(var TempResult: Record "Name/Value Buffer" temporary)
+    var
+        SalesHeader: Record "Sales Header";
+        SalesLine: Record "Sales Line";
+        SalesOrderNos: List of [Code[20]];
+        DocNo: Code[20];
+        Kept: Integer;
+    begin
+        if GuiAllowed() then
+            if not Confirm(Dev3DeleteQst, false) then
+                exit;
+        ClearStepResults(TempResult, Dev3DeleteStepTok);
+
+        if Dev3JournalHasLines() then
+            RunDev4Step(TempResult, Dev3DeleteStepTok, StrSubstNo('Delete open lines of item journal batch %1', Dev3BatchTok), RunModeDev3DeleteJournal(), '');
+
+        SalesHeader.SetRange("Document Type", SalesHeader."Document Type"::Order);
+        SalesHeader.SetFilter("No.", Dev3PrefixTok + '*');
+        if SalesHeader.FindSet() then
+            repeat
+                SalesLine.SetRange("Document Type", SalesHeader."Document Type");
+                SalesLine.SetRange("Document No.", SalesHeader."No.");
+                SalesLine.SetFilter("Quantity Shipped", '<>%1', 0);
+                if SalesLine.IsEmpty() then
+                    SalesOrderNos.Add(SalesHeader."No.")
+                else
+                    Kept += 1;
+            until SalesHeader.Next() = 0;
+
+        foreach DocNo in SalesOrderNos do
+            RunDev4Step(TempResult, Dev3DeleteStepTok, StrSubstNo('Delete sales order %1', DocNo), RunModeDeleteOrder(), DocNo);
+
+        AddResult(TempResult, Dev3DeleteStepTok, 'Summary', InfoTok,
+          StrSubstNo('%1 unshipped sales order(s) processed, %2 shipped order(s) kept. Posted shipments, lots and master data are kept.', SalesOrderNos.Count(), Kept));
+    end;
+
+    // =====================================================================
+    // DEV-003 steps (run inside OnRun)
+    // =====================================================================
+
+    local procedure RunDev3Setup()
+    var
+        SalesSetup: Record "Sales & Receivables Setup";
+        TemplateItem: Record Item;
+        TemplateCustomer: Record Customer;
+        LabelNos: Code[20];
+    begin
+        SalesSetup.Get();
+        SalesSetup.TestField("Posted Shipment Nos.");
+        LabelNos := EnsureDev3LabelNoSeries();
+
+        EnsureDev4TrackingCode(); // lot-only tracking code CHMT4-LOT, shared with DEV-004
+        EnsureDev3Location();
+
+        FindTemplateItem(TemplateItem);
+        EnsureDev3Item(Dev3Item1Tok, 'CHM TEST EM GREASE LC2 HMC 180 KG DRUM', TemplateItem, true);
+        EnsureDev3Item(Dev3Item2Tok, 'CHM TEST SYNHYDRO ISODIO 6S 12 KG', TemplateItem, true);
+        EnsureDev3Item(Dev3Item3Tok, 'CHM TEST HYDROXYLAMMONIUM CHLORIDE 25 KG', TemplateItem, true);
+        EnsureDev3Item(Dev3Item4Tok, 'CHM TEST CROSSLAMINA CLORIDRATO (no lot)', TemplateItem, false);
+
+        FindTemplateCustomer(TemplateCustomer);
+        EnsureDev3Customer(Dev3Mich1Tok, 'CHM TEST MICHELIN ITALIANA SPA', true, Dev3SupplierCode(1),
+          'Corso Romania 546', 'Torino', '10156', 'TO', TemplateCustomer);
+        EnsureDev3Customer(Dev3Mich2Tok, 'CHM TEST HARRISON - AUSTRALIA', true, Dev3SupplierCode(2),
+          '270 Berkshire Road', 'Forrestfield WA', '6058', 'WA', TemplateCustomer);
+        EnsureDev3Customer(Dev3OtherCustTok, 'CHM TEST Non-Michelin Customer', false, '',
+          'Via Roma 1', 'Milano', '20121', 'MI', TemplateCustomer);
+
+        EnsureDev3JournalBatch();
+        CheckDev3JournalEmpty();
+
+        StepResultText := StrSubstNo('Location %1, items %2..%3 (template %4), Michelin customers %5 / %6, non-Michelin customer %7 (template %8), label no. series %9.',
+            Dev3LocationTok, Dev3Item1Tok, Dev3Item4Tok, TemplateItem."No.", Dev3Mich1Tok, Dev3Mich2Tok, Dev3OtherCustTok, TemplateCustomer."No.", LabelNos);
+    end;
+
+    local procedure PostDev3Stock()
+    var
+        ItemJnlTemplate: Record "Item Journal Template";
+        ItemJnlLine: Record "Item Journal Line";
+        ItemJnlPostBatch: Codeunit "Item Jnl.-Post Batch";
+    begin
+        CheckDev3JournalEmpty();
+
+        // Item 1: 2 lots
+        CreateDev3JnlLine(ItemJnlLine, Dev3Item1Tok, 160);
+        AddDev3JnlLot(ItemJnlLine, Dev3LotNo('A1'), 100, Dev3ProdDate('A1'));
+        AddDev3JnlLot(ItemJnlLine, Dev3LotNo('A2'), 60, Dev3ProdDate('A2'));
+        // Item 2: 2 lots, B2 without Production Date (label prints 00.00.00)
+        CreateDev3JnlLine(ItemJnlLine, Dev3Item2Tok, 120);
+        AddDev3JnlLot(ItemJnlLine, Dev3LotNo('B1'), 80, Dev3ProdDate('B1'));
+        AddDev3JnlLot(ItemJnlLine, Dev3LotNo('B2'), 40, Dev3ProdDate('B2'));
+        // Item 3: 1 lot
+        CreateDev3JnlLine(ItemJnlLine, Dev3Item3Tok, 200);
+        AddDev3JnlLot(ItemJnlLine, Dev3LotNo('C1'), 200, Dev3ProdDate('C1'));
+        // Item 4: no item tracking
+        CreateDev3JnlLine(ItemJnlLine, Dev3Item4Tok, 50);
+
+        FindDev4JnlTemplate(ItemJnlTemplate);
+        ItemJnlLine.Reset();
+        ItemJnlLine.SetRange("Journal Template Name", ItemJnlTemplate.Name);
+        ItemJnlLine.SetRange("Journal Batch Name", Dev3BatchTok);
+        ItemJnlLine.FindFirst();
+        ItemJnlPostBatch.Run(ItemJnlLine);
+
+        StepResultText :=
+          StrSubstNo('Posted on %1: %2 lots A1 x100 (%3) + A2 x60 (%4); ', Dev3LocationTok, Dev3Item1Tok, DateText(Dev3ProdDate('A1')), DateText(Dev3ProdDate('A2'))) +
+          StrSubstNo('%1 lots B1 x80 (%2) + B2 x40 (blank); ', Dev3Item2Tok, DateText(Dev3ProdDate('B1'))) +
+          StrSubstNo('%1 lot C1 x200 (%2); %3 x50 without lot. Lot prefix %4.', Dev3Item3Tok, DateText(Dev3ProdDate('C1')), Dev3Item4Tok, Dev3RunPrefix(RunNo));
+    end;
+
+    local procedure CreateDev3SalesOrder(i: Integer)
+    var
+        SalesHeader: Record "Sales Header";
+        SalesLine: Record "Sales Line";
+    begin
+        CreateDev3SalesHeader(SalesHeader, i);
+        case i of
+            1:
+                begin
+                    // 2 lots on one line, a second item, a comment line and an untracked item.
+                    AddDev3SalesLine(SalesHeader, 10000, Dev3Item1Tok, 40, SalesLine);
+                    AddDev3SalesLot(SalesLine, Dev3LotNo('A1'), 25);
+                    AddDev3SalesLot(SalesLine, Dev3LotNo('A2'), 15);
+                    AddDev3SalesLine(SalesHeader, 20000, Dev3Item2Tok, 10, SalesLine);
+                    AddDev3SalesLot(SalesLine, Dev3LotNo('B1'), 10);
+                    AddDev3CommentLine(SalesHeader, 30000, 'Comment line: must not be loaded on the Michelin labels page');
+                    AddDev3SalesLine(SalesHeader, 40000, Dev3Item4Tok, 4, SalesLine);
+                    StepResultText := StrSubstNo('%1 / PO %2: %3 x40 (lots A1 x25 + A2 x15), %4 x10 (lot B1), comment line, %5 x4 without lot. Expected label lines: 4.',
+                        SalesHeader."Sell-to Customer No.", SalesHeader."External Document No.", Dev3Item1Tok, Dev3Item2Tok, Dev3Item4Tok);
+                end;
+            2:
+                begin
+                    // Different ship-to address than the customer card.
+                    AddDev3SalesLine(SalesHeader, 10000, Dev3Item3Tok, 100, SalesLine);
+                    AddDev3SalesLot(SalesLine, Dev3LotNo('C1'), 100);
+                    AddDev3SalesLine(SalesHeader, 20000, Dev3Item1Tok, 5, SalesLine);
+                    AddDev3SalesLot(SalesLine, Dev3LotNo('A1'), 5);
+                    StepResultText := StrSubstNo('%1 / PO %2, ship-to %3: %4 x100 (lot C1), %5 x5 (lot A1). Expected label lines: 2.',
+                        SalesHeader."Sell-to Customer No.", SalesHeader."External Document No.", SalesHeader."Ship-to Name", Dev3Item3Tok, Dev3Item1Tok);
+                end;
+            3:
+                begin
+                    // Second Michelin customer, lot without Production Date.
+                    AddDev3SalesLine(SalesHeader, 10000, Dev3Item1Tok, 8, SalesLine);
+                    AddDev3SalesLot(SalesLine, Dev3LotNo('A2'), 8);
+                    AddDev3SalesLine(SalesHeader, 20000, Dev3Item2Tok, 15, SalesLine);
+                    AddDev3SalesLot(SalesLine, Dev3LotNo('B2'), 12);
+                    AddDev3SalesLot(SalesLine, Dev3LotNo('B1'), 3);
+                    AddDev3SalesLine(SalesHeader, 30000, Dev3Item3Tok, 20, SalesLine);
+                    AddDev3SalesLot(SalesLine, Dev3LotNo('C1'), 20);
+                    StepResultText := StrSubstNo('%1 / PO %2: %3 x8 (lot A2), %4 x15 (lots B2 x12 without date + B1 x3), %5 x20 (lot C1). Expected label lines: 4.',
+                        SalesHeader."Sell-to Customer No.", SalesHeader."External Document No.", Dev3Item1Tok, Dev3Item2Tok, Dev3Item3Tok);
+                end;
+            4:
+                begin
+                    // First shipment only; AddDev3SecondShipmentLine adds the line for the second shipment.
+                    AddDev3SalesLine(SalesHeader, 10000, Dev3Item1Tok, 6, SalesLine);
+                    AddDev3SalesLot(SalesLine, Dev3LotNo('A1'), 6);
+                    StepResultText := StrSubstNo('%1 / PO %2: %3 x6 (lot A1) for the first shipment. Expected label lines: 1 per shipment.',
+                        SalesHeader."Sell-to Customer No.", SalesHeader."External Document No.", Dev3Item1Tok);
+                end;
+            5:
+                begin
+                    // Non-Michelin customer: the shipment must not be offered on the Michelin labels page.
+                    AddDev3SalesLine(SalesHeader, 10000, Dev3Item2Tok, 5, SalesLine);
+                    AddDev3SalesLot(SalesLine, Dev3LotNo('B1'), 5);
+                    StepResultText := StrSubstNo('%1 (not a Michelin customer): %2 x5 (lot B1). Must not appear in Load Shipment Lines.',
+                        SalesHeader."Sell-to Customer No.", Dev3Item2Tok);
+                end;
+        end;
+    end;
+
+    local procedure AddDev3SecondShipmentLine(SalesOrderNo: Code[20])
+    var
+        SalesHeader: Record "Sales Header";
+        SalesLine: Record "Sales Line";
+        ReleaseSalesDoc: Codeunit "Release Sales Document";
+    begin
+        // Sales-Post leaves the order released; a new line needs it open.
+        SalesHeader.Get(SalesHeader."Document Type"::Order, SalesOrderNo);
+        if SalesHeader.Status <> SalesHeader.Status::Open then
+            ReleaseSalesDoc.Reopen(SalesHeader);
+
+        AddDev3SalesLine(SalesHeader, 20000, Dev3Item3Tok, 30, SalesLine);
+        AddDev3SalesLot(SalesLine, Dev3LotNo('C1'), 30);
+        StepResultText := StrSubstNo('Line 20000: %1 x30 (lot %2) added for the second shipment of the same order.', Dev3Item3Tok, Dev3LotNo('C1'));
+    end;
+
+    local procedure DeleteDev3Journal()
+    var
+        ItemJnlTemplate: Record "Item Journal Template";
+        ItemJnlLine: Record "Item Journal Line";
+        LineCount: Integer;
+    begin
+        FindDev4JnlTemplate(ItemJnlTemplate);
+        ItemJnlLine.SetRange("Journal Template Name", ItemJnlTemplate.Name);
+        ItemJnlLine.SetRange("Journal Batch Name", Dev3BatchTok);
+        LineCount := ItemJnlLine.Count();
+        ItemJnlLine.DeleteAll(true);
+        StepResultText := StrSubstNo('%1 line(s) and their item tracking deleted.', LineCount);
+    end;
+
+    // =====================================================================
+    // DEV-003 setup helpers
+    // =====================================================================
+
+    local procedure EnsureDev3LabelNoSeries(): Code[20]
+    var
+        SalesSetup: Record "Sales & Receivables Setup";
+        NoSeries: Record "No. Series";
+        NoSeriesLine: Record "No. Series Line";
+    begin
+        // Keep an existing setup; only fill a blank field so Print labels works in the sandbox.
+        SalesSetup.Get();
+        if SalesSetup."CHM Michelin Label Nos." <> '' then
+            exit(SalesSetup."CHM Michelin Label Nos.");
+
+        if not NoSeries.Get(Dev3LabelSeriesTok) then begin
+            NoSeries.Init();
+            NoSeries.Code := Dev3LabelSeriesTok;
+            NoSeries.Description := 'CHM TEST Michelin label serial no.';
+            NoSeries."Default Nos." := true;
+            NoSeries.Insert(true);
+
+            NoSeriesLine.Init();
+            NoSeriesLine."Series Code" := Dev3LabelSeriesTok;
+            NoSeriesLine."Line No." := 10000;
+            NoSeriesLine."Starting No." := '000000001';
+            NoSeriesLine."Increment-by No." := 1;
+            NoSeriesLine.Insert(true);
+        end;
+
+        SalesSetup."CHM Michelin Label Nos." := Dev3LabelSeriesTok;
+        SalesSetup.Modify(true);
+        exit(Dev3LabelSeriesTok);
+    end;
+
+    local procedure EnsureDev3Location()
+    var
+        Location: Record Location;
+        CompanyInformation: Record "Company Information";
+    begin
+        if Location.Get(Dev3LocationTok) then begin
+            if Location."Require Receive" or Location."Require Shipment" or Location."Require Put-away" or Location."Require Pick" or
+               Location."Bin Mandatory" or Location."Directed Put-away and Pick"
+            then
+                Error(Dev4LocationSetupErr, Dev3LocationTok);
+        end else begin
+            Location.Init();
+            Location.Code := Dev3LocationTok;
+            Location.Insert(true);
+        end;
+
+        // The Michelin labels page uses the location address as Ship-from.
+        CompanyInformation.Get();
+        Location.Name := 'CHEMATEK S.P.A. (CHM TEST DEV-003)';
+        Location.Address := 'Via Puccini 18';
+        Location.City := 'San Vittore Olona';
+        Location."Post Code" := '20028';
+        Location.County := 'MI';
+        Location."Country/Region Code" := CompanyInformation."Country/Region Code";
+        Location.Modify(true);
+    end;
+
+    local procedure EnsureDev3Item(ItemNo: Code[20]; ItemDescription: Text[100]; TemplateItem: Record Item; LotTracked: Boolean)
+    var
+        Item: Record Item;
+    begin
+        EnsureTestItem(ItemNo, ItemDescription, TemplateItem);
+        Item.Get(ItemNo);
+        if LotTracked then begin
+            if Item."Item Tracking Code" <> Dev4TrackingCodeTok then begin
+                if Item."Item Tracking Code" <> '' then
+                    Error(Dev4ItemTrackingErr, ItemNo, Item."Item Tracking Code", Dev4TrackingCodeTok);
+                Item.Validate("Item Tracking Code", Dev4TrackingCodeTok);
+                Item.Modify(true);
+            end;
+        end else
+            if Item."Item Tracking Code" <> '' then
+                Error(Dev3ItemTrackingErr, ItemNo, Item."Item Tracking Code");
+
+        EnsureInventoryPostingSetup(Dev3LocationTok, Item."Inventory Posting Group");
+    end;
+
+    local procedure EnsureDev3Customer(CustomerNo: Code[20]; CustomerName: Text[100]; IsMichelin: Boolean; SupplierCode: Code[20]; NewAddress: Text[100]; NewCity: Text[30]; NewPostCode: Code[20]; NewCounty: Text[30]; TemplateCustomer: Record Customer)
+    var
+        Customer: Record Customer;
+    begin
+        // Posting setup copied from the template; country stays the template's so posting setup still matches.
+        EnsureTestCustomer(CustomerNo, CustomerName, TemplateCustomer);
+        Customer.Get(CustomerNo);
+        Customer.Address := NewAddress;
+        Customer.City := NewCity;
+        Customer."Post Code" := NewPostCode;
+        Customer.County := NewCounty;
+        Customer."CHM Michelin Customer" := IsMichelin;
+        Customer."CHM Michelin Supplier Code" := SupplierCode;
+        Customer.Modify(true);
+    end;
+
+    local procedure EnsureDev3JournalBatch()
+    var
+        ItemJnlTemplate: Record "Item Journal Template";
+        ItemJnlBatch: Record "Item Journal Batch";
+    begin
+        FindDev4JnlTemplate(ItemJnlTemplate);
+        if not ItemJnlBatch.Get(ItemJnlTemplate.Name, Dev3BatchTok) then begin
+            ItemJnlBatch.Init();
+            ItemJnlBatch."Journal Template Name" := ItemJnlTemplate.Name;
+            ItemJnlBatch.Name := Dev3BatchTok;
+            ItemJnlBatch.Description := 'CHM TEST DEV-003';
+            ItemJnlBatch.Insert(true);
+        end;
+
+        // Manual document numbers are used, so the batch must not have number series.
+        if (ItemJnlBatch."No. Series" <> '') or (ItemJnlBatch."Posting No. Series" <> '') then begin
+            ItemJnlBatch."No. Series" := '';
+            ItemJnlBatch."Posting No. Series" := '';
+            ItemJnlBatch.Modify(true);
+        end;
+    end;
+
+    local procedure Dev3JournalHasLines(): Boolean
+    var
+        ItemJnlTemplate: Record "Item Journal Template";
+        ItemJnlLine: Record "Item Journal Line";
+    begin
+        FindDev4JnlTemplate(ItemJnlTemplate);
+        ItemJnlLine.SetRange("Journal Template Name", ItemJnlTemplate.Name);
+        ItemJnlLine.SetRange("Journal Batch Name", Dev3BatchTok);
+        exit(not ItemJnlLine.IsEmpty());
+    end;
+
+    local procedure CheckDev3JournalEmpty()
+    var
+        ItemJnlTemplate: Record "Item Journal Template";
+    begin
+        FindDev4JnlTemplate(ItemJnlTemplate);
+        if Dev3JournalHasLines() then
+            Error(Dev3BatchNotEmptyErr, ItemJnlTemplate.Name, Dev3BatchTok);
+    end;
+
+    local procedure CreateDev3JnlLine(var ItemJnlLine: Record "Item Journal Line"; ItemNo: Code[20]; Qty: Decimal)
+    var
+        ItemJnlTemplate: Record "Item Journal Template";
+        LastItemJnlLine: Record "Item Journal Line";
+        LineNo: Integer;
+    begin
+        FindDev4JnlTemplate(ItemJnlTemplate);
+        LastItemJnlLine.SetRange("Journal Template Name", ItemJnlTemplate.Name);
+        LastItemJnlLine.SetRange("Journal Batch Name", Dev3BatchTok);
+        if LastItemJnlLine.FindLast() then
+            LineNo := LastItemJnlLine."Line No.";
+        LineNo += 10000;
+
+        Clear(ItemJnlLine);
+        ItemJnlLine.Init();
+        ItemJnlLine."Journal Template Name" := ItemJnlTemplate.Name;
+        ItemJnlLine."Journal Batch Name" := Dev3BatchTok;
+        ItemJnlLine."Line No." := LineNo;
+        ItemJnlLine.Insert(true);
+        ItemJnlLine.Validate("Posting Date", WorkDate());
+        ItemJnlLine."Document Date" := WorkDate();
+        ItemJnlLine."Document No." := Dev3DocNo('IN');
+        ItemJnlLine."Source Code" := ItemJnlTemplate."Source Code";
+        ItemJnlLine.Validate("Entry Type", ItemJnlLine."Entry Type"::"Positive Adjmt.");
+        ItemJnlLine.Validate("Item No.", ItemNo);
+        ItemJnlLine.Validate("Location Code", Dev3LocationTok);
+        ItemJnlLine.Validate(Quantity, Qty);
+        ItemJnlLine.Validate("Unit Amount", 10);
+        ItemJnlLine.Modify(true);
+    end;
+
+    local procedure AddDev3JnlLot(ItemJnlLine: Record "Item Journal Line"; LotNo: Code[50]; QtyBase: Decimal; ProductionDate: Date)
+    begin
+        AddDev3Lot(Database::"Item Journal Line", ItemJnlLine."Entry Type".AsInteger(), ItemJnlLine."Journal Template Name", ItemJnlLine."Journal Batch Name",
+          ItemJnlLine."Line No.", ItemJnlLine."Qty. per Unit of Measure", ItemJnlLine."Item No.", ItemJnlLine."Location Code",
+          LotNo, QtyBase, ProductionDate, ItemJnlLine."Posting Date", 0D, "Reservation Status"::Prospect);
+    end;
+
+    local procedure CreateDev3SalesHeader(var SalesHeader: Record "Sales Header"; i: Integer)
+    begin
+        SalesHeader.Init();
+        SalesHeader.Validate("Document Type", SalesHeader."Document Type"::Order);
+        SalesHeader."No." := Dev3OrderNo(i);
+        SalesHeader.Insert(true);
+        SalesHeader.Validate("Sell-to Customer No.", Dev3OrderCustomer(i));
+        SalesHeader.Validate("Posting Date", WorkDate());
+        SalesHeader.Validate("Shipment Date", WorkDate());
+        SalesHeader.Validate("Location Code", Dev3LocationTok);
+        // The Michelin labels page shows External Document No. as Michelin Purch. Order.
+        SalesHeader."External Document No." := Dev3MichelinPO(i);
+        if i = 2 then begin
+            SalesHeader."Ship-to Name" := 'MICHELIN - CUNEO PLANT';
+            SalesHeader."Ship-to Address" := 'Via Ravina 2';
+            SalesHeader."Ship-to City" := 'Cuneo';
+            SalesHeader."Ship-to Post Code" := '12100';
+            SalesHeader."Ship-to County" := 'CN';
+        end;
+        SalesHeader.Modify(true);
+    end;
+
+    local procedure AddDev3SalesLine(SalesHeader: Record "Sales Header"; LineNo: Integer; ItemNo: Code[20]; Qty: Decimal; var SalesLine: Record "Sales Line")
+    begin
+        Clear(SalesLine);
+        SalesLine.Init();
+        SalesLine.Validate("Document Type", SalesHeader."Document Type");
+        SalesLine.Validate("Document No.", SalesHeader."No.");
+        SalesLine."Line No." := LineNo;
+        SalesLine.Insert(true);
+        SalesLine.Validate(Type, SalesLine.Type::Item);
+        SalesLine.Validate("No.", ItemNo);
+        SalesLine.Validate("Location Code", Dev3LocationTok);
+        SalesLine.Validate(Quantity, Qty);
+        SalesLine.Validate("Unit Price", 100);
+        SalesLine.Modify(true);
+    end;
+
+    local procedure AddDev3CommentLine(SalesHeader: Record "Sales Header"; LineNo: Integer; CommentText: Text[100])
+    var
+        SalesLine: Record "Sales Line";
+    begin
+        SalesLine.Init();
+        SalesLine.Validate("Document Type", SalesHeader."Document Type");
+        SalesLine.Validate("Document No.", SalesHeader."No.");
+        SalesLine."Line No." := LineNo;
+        SalesLine.Insert(true);
+        SalesLine.Validate(Type, SalesLine.Type::" ");
+        SalesLine.Description := CommentText;
+        SalesLine.Modify(true);
+    end;
+
+    local procedure AddDev3SalesLot(SalesLine: Record "Sales Line"; LotNo: Code[50]; QtyBase: Decimal)
+    begin
+        // Production Date left blank: posting takes it from the lot (DEV-004).
+        AddDev3Lot(Database::"Sales Line", SalesLine."Document Type".AsInteger(), SalesLine."Document No.", '', SalesLine."Line No.",
+          SalesLine."Qty. per Unit of Measure", SalesLine."No.", SalesLine."Location Code", LotNo, QtyBase, 0D, 0D, SalesLine."Shipment Date", "Reservation Status"::Surplus);
+    end;
+
+    local procedure AddDev3Lot(SourceType: Integer; SourceSubtype: Integer; SourceID: Code[20]; SourceBatchName: Code[10]; SourceRefNo: Integer; QtyPerUoM: Decimal; ItemNo: Code[20]; LocationCode: Code[10]; LotNo: Code[50]; QtyBase: Decimal; ProductionDate: Date; ExpectedReceiptDate: Date; ShipmentDate: Date; Status: Enum "Reservation Status")
+    var
+        ForReservEntry: Record "Reservation Entry";
+        ReservEntry: Record "Reservation Entry";
+        CreateReservEntry: Codeunit "Create Reserv. Entry";
+    begin
+        // Same as AddDev4Lot, for any item and location.
+        if QtyPerUoM = 0 then
+            QtyPerUoM := 1;
+        ForReservEntry.Init();
+        ForReservEntry."Lot No." := LotNo;
+        CreateReservEntry.CreateReservEntryFor(SourceType, SourceSubtype, SourceID, SourceBatchName, 0, SourceRefNo, QtyPerUoM, QtyBase / QtyPerUoM, QtyBase, ForReservEntry);
+        CreateReservEntry.CreateEntry(ItemNo, '', LocationCode, '', ExpectedReceiptDate, ShipmentDate, 0, Status);
+
+        ReservEntry.SetRange("Source Type", SourceType);
+        ReservEntry.SetRange("Source Subtype", SourceSubtype);
+        ReservEntry.SetRange("Source ID", SourceID);
+        ReservEntry.SetRange("Source Batch Name", SourceBatchName);
+        ReservEntry.SetRange("Source Ref. No.", SourceRefNo);
+        ReservEntry.SetRange("Lot No.", LotNo);
+        if ReservEntry.IsEmpty() then
+            Error(Dev4NoReservEntryErr, LotNo, SourceID);
+        ReservEntry.ModifyAll("CHM Production Date", ProductionDate);
+    end;
+
+    // =====================================================================
+    // DEV-003 checks and views
+    // =====================================================================
+
+    local procedure CheckDev3Customer(var TempResult: Record "Name/Value Buffer" temporary; CustomerNo: Code[20]; ExpectMichelin: Boolean; ExpectedSupplierCode: Code[20])
+    var
+        Customer: Record Customer;
+    begin
+        if not Customer.Get(CustomerNo) then begin
+            AddResult(TempResult, Dev3CheckStepTok, StrSubstNo('Customer %1', CustomerNo), FailTok, 'Customer not found.');
+            exit;
+        end;
+        SetResultLink(Customer);
+        AddCheck(TempResult, Dev3CheckStepTok, StrSubstNo('Customer %1: Michelin Customer = %2', CustomerNo, ExpectMichelin),
+          (Customer."CHM Michelin Customer" = ExpectMichelin) and (Customer."CHM Michelin Supplier Code" = ExpectedSupplierCode),
+          StrSubstNo('%1, Michelin Supplier Code "%2".', Customer.Name, Customer."CHM Michelin Supplier Code"),
+          StrSubstNo('Michelin Customer = %1 (expected %2), Supplier Code "%3" (expected "%4").',
+            Customer."CHM Michelin Customer", ExpectMichelin, Customer."CHM Michelin Supplier Code", ExpectedSupplierCode));
+    end;
+
+    local procedure CheckDev3Shipment(var TempResult: Record "Name/Value Buffer" temporary; SalesShptHeader: Record "Sales Shipment Header"; ExpectMichelin: Boolean) LabelLines: Integer
+    var
+        SalesShptLine: Record "Sales Shipment Line";
+        ItemLedgerEntry: Record "Item Ledger Entry";
+        Details: Text;
+        LotQty: Decimal;
+        QtyMismatch: Boolean;
+    begin
+        SalesShptHeader.CalcFields("CHM Michelin Customer");
+        SetResultLink(SalesShptHeader);
+        if ExpectMichelin then
+            AddCheck(TempResult, Dev3CheckStepTok, StrSubstNo('Shipment %1 (order %2): offered on Load Shipment Lines', SalesShptHeader."No.", SalesShptHeader."Order No."),
+              SalesShptHeader."CHM Michelin Customer",
+              StrSubstNo('Customer %1, Michelin PO %2, ship-to %3, %4.', SalesShptHeader."Sell-to Customer No.", SalesShptHeader."External Document No.",
+                SalesShptHeader."Ship-to Name", SalesShptHeader."Ship-to City"),
+              StrSubstNo('Michelin Customer is No for customer %1.', SalesShptHeader."Sell-to Customer No."))
+        else begin
+            AddCheck(TempResult, Dev3CheckStepTok, StrSubstNo('Shipment %1 (order %2): NOT offered on Load Shipment Lines', SalesShptHeader."No.", SalesShptHeader."Order No."),
+              not SalesShptHeader."CHM Michelin Customer",
+              StrSubstNo('Customer %1 is not a Michelin customer, so the shipment is filtered out.', SalesShptHeader."Sell-to Customer No."),
+              StrSubstNo('Michelin Customer is Yes for customer %1.', SalesShptHeader."Sell-to Customer No."));
+            exit(0);
+        end;
+
+        // Same lines the page loads: item lines, not corrections, quantity <> 0, one label line per lot.
+        SalesShptLine.SetRange("Document No.", SalesShptHeader."No.");
+        SalesShptLine.SetRange(Type, SalesShptLine.Type::Item);
+        SalesShptLine.SetRange(Correction, false);
+        SalesShptLine.SetFilter(Quantity, '<>0');
+        if SalesShptLine.FindSet() then
+            repeat
+                LotQty := 0;
+                ItemLedgerEntry.Reset();
+                ItemLedgerEntry.SetRange("Document Type", ItemLedgerEntry."Document Type"::"Sales Shipment");
+                ItemLedgerEntry.SetRange("Document No.", SalesShptLine."Document No.");
+                ItemLedgerEntry.SetRange("Document Line No.", SalesShptLine."Line No.");
+                ItemLedgerEntry.SetRange("Item No.", SalesShptLine."No.");
+                if ItemLedgerEntry.FindSet() then
+                    repeat
+                        LabelLines += 1;
+                        LotQty += Abs(ItemLedgerEntry.Quantity);
+                        if ItemLedgerEntry."Lot No." <> '' then
+                            Details += StrSubstNo('%1 lot %2 x%3 (prod. %4); ', SalesShptLine."No.", ItemLedgerEntry."Lot No.", Abs(ItemLedgerEntry.Quantity), DateText(ItemLedgerEntry."CHM Production Date"))
+                        else
+                            Details += StrSubstNo('%1 no lot x%2; ', SalesShptLine."No.", Abs(ItemLedgerEntry.Quantity));
+                    until ItemLedgerEntry.Next() = 0
+                else begin
+                    LabelLines += 1;
+                    LotQty := SalesShptLine."Quantity (Base)";
+                    Details += StrSubstNo('%1 no lot x%2; ', SalesShptLine."No.", SalesShptLine.Quantity);
+                end;
+                if LotQty <> SalesShptLine."Quantity (Base)" then
+                    QtyMismatch := true;
+            until SalesShptLine.Next() = 0;
+
+        SetResultLink(SalesShptHeader);
+        AddCheck(TempResult, Dev3CheckStepTok, StrSubstNo('Shipment %1: label lines to expect', SalesShptHeader."No."),
+          (LabelLines > 0) and (not QtyMismatch),
+          StrSubstNo('%1 line(s): %2', LabelLines, Details),
+          StrSubstNo('Lot quantities do not add up to the shipment lines (or no lines). %1', Details));
+    end;
+
+    local procedure AddDev3DataViews(var TempResult: Record "Name/Value Buffer" temporary; StepCode: Text)
+    var
+        Customer: Record Customer;
+        Location: Record Location;
+        SalesShptHeader: Record "Sales Shipment Header";
+        i: Integer;
+    begin
+        if Location.Get(Dev3LocationTok) then
+            AddViewRow(TempResult, StepCode, StrSubstNo('Location %1 (Ship-from)', Location.Code),
+              StrSubstNo('%1, %2, %3 %4.', Location.Name, Location.Address, Location."Post Code", Location.City), Location);
+        if Customer.Get(Dev3Mich1Tok) then
+            AddViewRow(TempResult, StepCode, StrSubstNo('Michelin customer %1', Customer."No."),
+              StrSubstNo('%1, supplier code %2.', Customer.Name, Customer."CHM Michelin Supplier Code"), Customer);
+        if Customer.Get(Dev3Mich2Tok) then
+            AddViewRow(TempResult, StepCode, StrSubstNo('Michelin customer %1', Customer."No."),
+              StrSubstNo('%1, supplier code %2.', Customer.Name, Customer."CHM Michelin Supplier Code"), Customer);
+        if Customer.Get(Dev3OtherCustTok) then
+            AddViewRow(TempResult, StepCode, StrSubstNo('Non-Michelin customer %1', Customer."No."), Customer.Name, Customer);
+
+        for i := 1 to Dev3NoOfOrders() do begin
+            SalesShptHeader.Reset();
+            SalesShptHeader.SetRange("Order No.", Dev3OrderNo(i));
+            if SalesShptHeader.FindSet() then
+                repeat
+                    AddViewRow(TempResult, StepCode, StrSubstNo('Posted sales shipment %1 (order %2)', SalesShptHeader."No.", SalesShptHeader."Order No."),
+                      StrSubstNo('Customer %1, Michelin PO %2, ship-to %3.', SalesShptHeader."Sell-to Customer No.", SalesShptHeader."External Document No.", SalesShptHeader."Ship-to Name"),
+                      SalesShptHeader);
+                until SalesShptHeader.Next() = 0;
+        end;
+    end;
+
+    local procedure GetDev003LastRunNo() LastRunNo: Integer
+    var
+        SalesHeader: Record "Sales Header";
+        SalesShptHeader: Record "Sales Shipment Header";
+        ItemLedgerEntry: Record "Item Ledger Entry";
+    begin
+        // Run numbers come from the test orders, their shipments and the posted lots.
+        SalesHeader.SetRange("Document Type", SalesHeader."Document Type"::Order);
+        SalesHeader.SetFilter("No.", Dev3PrefixTok + '*');
+        if SalesHeader.FindSet() then
+            repeat
+                KeepHigherDev3RunNo(LastRunNo, SalesHeader."No.");
+            until SalesHeader.Next() = 0;
+
+        SalesShptHeader.SetFilter("Order No.", Dev3PrefixTok + '*');
+        if SalesShptHeader.FindSet() then
+            repeat
+                KeepHigherDev3RunNo(LastRunNo, SalesShptHeader."Order No.");
+            until SalesShptHeader.Next() = 0;
+
+        ItemLedgerEntry.SetRange("Item No.", Dev3Item1Tok);
+        ItemLedgerEntry.SetFilter("Lot No.", Dev3PrefixTok + '*');
+        if ItemLedgerEntry.FindSet() then
+            repeat
+                KeepHigherDev3RunNo(LastRunNo, ItemLedgerEntry."Lot No.");
+            until ItemLedgerEntry.Next() = 0;
+    end;
+
+    local procedure KeepHigherDev3RunNo(var LastRunNo: Integer; Value: Text)
+    var
+        Number: Integer;
+    begin
+        if Evaluate(Number, CopyStr(Value, StrLen(Dev3PrefixTok) + 1, 2)) then
+            if Number > LastRunNo then
+                LastRunNo := Number;
+    end;
+
+    // =====================================================================
+    // DEV-003 demo data definition
+    // =====================================================================
+
+    local procedure Dev3RunPrefix(TestRunNo: Integer): Text
+    begin
+        // e.g. CHMT3-R01-
+        exit(Dev3PrefixTok + Format(TestRunNo, 0, '<Integer,2><Filler Character,0>') + '-');
+    end;
+
+    local procedure Dev3DocNo(Suffix: Text): Code[20]
+    begin
+        // e.g. CHMT3-R01-IN, CHMT3-R01-SO1
+        exit(CopyStr(Dev3RunPrefix(RunNo) + Suffix, 1, 20));
+    end;
+
+    local procedure Dev3OrderNo(i: Integer): Code[20]
+    begin
+        exit(Dev3DocNo('SO' + Format(i)));
+    end;
+
+    local procedure Dev3LotNo(Suffix: Text): Code[50]
+    begin
+        // e.g. CHMT3-R01-A1
+        exit(CopyStr(Dev3RunPrefix(RunNo) + Suffix, 1, 50));
+    end;
+
+    local procedure Dev3ProdDate(LotSuffix: Text): Date
+    begin
+        case LotSuffix of
+            'A1':
+                exit(CalcDate('<-40D>', WorkDate()));
+            'A2':
+                exit(CalcDate('<-25D>', WorkDate()));
+            'B1':
+                exit(CalcDate('<-60D>', WorkDate()));
+            'C1':
+                exit(CalcDate('<-15D>', WorkDate()));
+        end;
+        exit(0D); // B2: no Production Date
+    end;
+
+    local procedure Dev3MichelinPO(i: Integer): Code[35]
+    begin
+        // e.g. MPO-450001-0003 (run 1, order 3)
+        exit(CopyStr('MPO-45' + Format(RunNo, 0, '<Integer,4><Filler Character,0>') + '-' + Format(i, 0, '<Integer,4><Filler Character,0>'), 1, 35));
+    end;
+
+    local procedure Dev3OrderCustomer(i: Integer): Code[20]
+    begin
+        case i of
+            1, 2:
+                exit(Dev3Mich1Tok);
+            3, 4:
+                exit(Dev3Mich2Tok);
+        end;
+        exit(Dev3OtherCustTok);
+    end;
+
+    local procedure Dev3SupplierCode(CustomerIndex: Integer): Code[20]
+    begin
+        if CustomerIndex = 1 then
+            exit('020061');
+        exit('020062');
+    end;
+
+    local procedure Dev3NoOfOrders(): Integer
+    begin
+        exit(5);
+    end;
+
+    local procedure Dev3TwoShipmentsOrderIndex(): Integer
+    begin
+        exit(4);
+    end;
+
+    local procedure Dev3NonMichelinOrderIndex(): Integer
+    begin
+        exit(5);
+    end;
+
+
+    // -------------------------------------------------------------------------------------
+    // BLOCK 5 - run modes: add at the end of the codeunit, after RunModeDev4DeletePurchOrder()
+    // -------------------------------------------------------------------------------------
+
+    local procedure RunModeDev3Setup(): Integer
+    begin
+        exit(20);
+    end;
+
+    local procedure RunModeDev3PostStock(): Integer
+    begin
+        exit(21);
+    end;
+
+    local procedure RunModeDev3CreateOrder(): Integer
+    begin
+        exit(22);
+    end;
+
+    local procedure RunModeDev3AddSecondLine(): Integer
+    begin
+        exit(23);
+    end;
+
+    local procedure RunModeDev3DeleteJournal(): Integer
+    begin
+        exit(24);
+    end;
+
 
     local procedure FirstShipmentFieldNo(): Integer
     begin
