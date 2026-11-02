@@ -1,6 +1,8 @@
 codeunit 66690 "CHM Deviation Test Mgt."
 {
-    // TEST ONLY - DEV-002 test harness. Use in a sandbox; do not ship to production.
+    // TEST ONLY - DEV-002 and DEV-004 test harness. Use in a sandbox; do not ship to production.
+    //
+    // DEV-002:
     // Creates REAL, postable warehouse shipments WITH LINES:
     //   test location CHMT2-WH (Require Shipment, no pick, no bins) + warehouse employee for the current user
     //   2 test items + 1 test customer (posting groups copied from a template item / customer)
@@ -9,6 +11,15 @@ codeunit 66690 "CHM Deviation Test Mgt."
     //   "Create Whse. Shipment" logic, Qty. to Ship filled, and the 7 DEV-002 fields filled.
     // After posting, the tests check Warehouse Shipment -> Posted Whse. Shipment -> Posted Sales Shipment
     // for the header fields and the lines.
+    //
+    // DEV-004 (Production Date on lot numbers):
+    //   tracking code CHMT4-LOT, location CHMT4-LOC (no warehouse handling), lot-tracked item CHMT4-ITEM1,
+    //   vendor CHMT4-VEND, customer CHMT4-CUST, item journal batch CHMT4. Each run uses lots CHMT4-Rnn-L1..L4.
+    //   Inbound: item journal (L1 15-10-2026, L2 20-10-2026, L4 28-10-2026 on an existing blank lot card)
+    //            + purchase order (L3 25-10-2026). Production Dates are stored on the item tracking lines.
+    //   Outbound: lot card L2 changed to 21-10-2026, item journal (L1 with blank date, L2 with the new date)
+    //            + sales order for L1 with blank date.
+    //   The tests check Item Tracking Lines -> Item Ledger Entry -> Lot No. Information and the field rules.
 
     trigger OnRun()
     begin
@@ -25,6 +36,26 @@ codeunit 66690 "CHM Deviation Test Mgt."
                 DeleteOneShipment(RunDocNo);
             RunModeDeleteOrder():
                 DeleteOneOrder(RunDocNo);
+            RunModeDev4Setup():
+                RunDev4Setup();
+            RunModeDev4CreateInbound():
+                CreateDev4InboundJournal();
+            RunModeDev4CreatePurchOrder():
+                CreateDev4PurchOrder();
+            RunModeDev4PostJournal():
+                PostDev4Journal();
+            RunModeDev4PostPurchOrder():
+                PostDev4PurchOrder(RunDocNo);
+            RunModeDev4CreateOutboundJnl():
+                CreateDev4OutboundJournal();
+            RunModeDev4CreateSalesOrder():
+                CreateDev4SalesOrder();
+            RunModeDev4PostSalesOrder():
+                PostDev4SalesOrder(RunDocNo);
+            RunModeDev4DeleteJournal():
+                DeleteDev4Journal();
+            RunModeDev4DeletePurchOrder():
+                DeleteDev4PurchOrder(RunDocNo);
         end;
     end;
 
@@ -69,15 +100,53 @@ codeunit 66690 "CHM Deviation Test Mgt."
         ErrorAsExpectedTxt: Label 'Error raised as expected: %1', Comment = '%1 = Error text';
         NoErrorRaisedTxt: Label 'No error was raised, but one was expected.';
         AcceptedTxt: Label 'Value accepted.';
+        TemplateVendorNo: Code[20];
+        ResultLinks: Dictionary of [Integer, Text];
+        PendingLink: Text;
+        ViewTok: Label 'OPEN', Locked = true;
+        Dev4FlowStepTok: Label 'DEV-004 FLOW', Locked = true;
+        NoLinkMsg: Label 'This result line has no page to open.';
+        RecordGoneMsg: Label 'The %1 record no longer exists. It was posted or deleted. Use "Show Process Flow" to see the current data.', Comment = '%1 = Table caption';
+        // DEV-004 Production Date on lot numbers
+        Dev4CreateStepTok: Label 'DEV-004 CREATE-IN', Locked = true;
+        Dev4PostInStepTok: Label 'DEV-004 POST-IN', Locked = true;
+        Dev4CreateOutStepTok: Label 'DEV-004 CREATE-OUT', Locked = true;
+        Dev4PostOutStepTok: Label 'DEV-004 POST-OUT', Locked = true;
+        Dev4TestStepTok: Label 'DEV-004 TEST', Locked = true;
+        Dev4DeleteStepTok: Label 'DEV-004 DELETE', Locked = true;
+        Dev4PrefixTok: Label 'CHMT4-R', Locked = true;
+        Dev4LocationTok: Label 'CHMT4-LOC', Locked = true;
+        Dev4ItemTok: Label 'CHMT4-ITEM1', Locked = true;
+        Dev4TrackingCodeTok: Label 'CHMT4-LOT', Locked = true;
+        Dev4CustomerTok: Label 'CHMT4-CUST', Locked = true;
+        Dev4VendorTok: Label 'CHMT4-VEND', Locked = true;
+        Dev4BatchTok: Label 'CHMT4', Locked = true;
+        Dev4CreateQst: Label 'This creates in company %1:\- item tracking code %2 (lot), location %3 without warehouse handling, lot-tracked item %4, a test vendor and customer\- item journal batch %5 with lines for lots L1, L2 and L4 and their Production Dates on the item tracking lines\- a purchase order for lot L3\\These are real documents. Continue?', Comment = '%1 = Company, %2 = Item Tracking Code, %3 = Location, %4 = Item, %5 = Batch';
+        Dev4PostInQst: Label 'Post the test item journal and receive the test purchase order of run %1?', Comment = '%1 = Run No.';
+        Dev4CreateOutQst: Label 'Run %1: change the Production Date of lot %2 on the Lot No. Information card to %3, create 2 item journal lines (lots %4 and %2) and a sales order for lot %4. Continue?', Comment = '%1 = Run No., %2 = Lot 2, %3 = Date, %4 = Lot 1';
+        Dev4PostOutQst: Label 'Post the test item journal and ship the test sales order of run %1?', Comment = '%1 = Run No.';
+        Dev4DeleteQst: Label 'Delete the open lines of the test item journal and the DEV-004 test purchase and sales orders that were not received or shipped?\\Posted entries, lots and master data are kept.';
+        Dev4NoRunErr: Label 'No DEV-004 test run found. Run "1. Create Test Data" first.';
+        Dev4TooManyRunsErr: Label 'All 99 DEV-004 test run numbers are used.';
+        Dev4BatchNotEmptyErr: Label 'Item journal batch %1 / %2 still has open lines. Post them ("2. Post Inbound" or "4. Post Outbound") or delete them ("Delete Open Test Data") first.', Comment = '%1 = Template, %2 = Batch';
+        Dev4InboundNotPostedErr: Label 'Lot %1 has not been received yet. Post the inbound documents first ("2. Post Inbound").', Comment = '%1 = Lot No.';
+        Dev4OutboundExistsErr: Label 'The outbound documents of run %1 already exist. Use "4. Post Outbound", or start a new run with "1. Create Test Data".', Comment = '%1 = Run No.';
+        Dev4LocationSetupErr: Label 'Location %1 already exists but uses warehouse handling. Require Receive, Require Shipment, Require Put-away, Require Pick, Bin Mandatory and Directed Put-away and Pick must all be No.', Comment = '%1 = Location';
+        Dev4TrackingCodeErr: Label 'Item Tracking Code %1 already exists but Lot Specific Tracking is off.', Comment = '%1 = Item Tracking Code';
+        Dev4ItemTrackingErr: Label 'Item %1 already exists with Item Tracking Code %2. It needs %3.', Comment = '%1 = Item, %2 = Current code, %3 = Expected code';
+        NoItemJnlTemplateErr: Label 'No Item Journal Template of type Item (not recurring) found.';
+        NoTemplateVendorErr: Label 'No template vendor found. It must be not blocked, in local currency, with Vendor Posting Group and Gen. Bus. Posting Group, and General Posting Setup must exist for it with Gen. Prod. Posting Group %1. Enter one in Template Vendor No.', Comment = '%1 = Gen. Prod. Posting Group';
+        Dev4NoReservEntryErr: Label 'The item tracking line for lot %1 on %2 was not created.', Comment = '%1 = Lot No., %2 = Source';
 
     // =====================================================================
     // Public procedures used by page 66690
     // =====================================================================
 
-    procedure SetTemplates(NewTemplateItemNo: Code[20]; NewTemplateCustomerNo: Code[20])
+    procedure SetTemplates(NewTemplateItemNo: Code[20]; NewTemplateCustomerNo: Code[20]; NewTemplateVendorNo: Code[20])
     begin
         TemplateItemNo := NewTemplateItemNo;
         TemplateCustomerNo := NewTemplateCustomerNo;
+        TemplateVendorNo := NewTemplateVendorNo;
     end;
 
     procedure GetTestLocationCode(): Code[10]
@@ -189,8 +258,8 @@ codeunit 66690 "CHM Deviation Test Mgt."
             AddResult(TempResult, TestStepTok, 'Field validation', InfoTok, 'Skipped: no open test warehouse shipment left. Create test data to run the validation tests.');
 
         // C. The 3 tables must carry identical fields, otherwise the copy on posting breaks.
-        CheckSameFieldDefinition(TempResult, Database::"Warehouse Shipment Header", Database::"Posted Whse. Shipment Header", FirstShipmentFieldNo(), LastShipmentFieldNo());
-        CheckSameFieldDefinition(TempResult, Database::"Warehouse Shipment Header", Database::"Sales Shipment Header", FirstShipmentFieldNo(), LastShipmentFieldNo());
+        CheckSameFieldDefinition(TempResult, TestStepTok, Database::"Warehouse Shipment Header", Database::"Posted Whse. Shipment Header", FirstShipmentFieldNo(), LastShipmentFieldNo());
+        CheckSameFieldDefinition(TempResult, TestStepTok, Database::"Warehouse Shipment Header", Database::"Sales Shipment Header", FirstShipmentFieldNo(), LastShipmentFieldNo());
 
         // D. Posted shipments: header fields and lines flowed to Posted Whse. Shipment and Posted Sales Shipment.
         PostedCount := CheckPostedTestShipments(TempResult);
@@ -274,8 +343,321 @@ codeunit 66690 "CHM Deviation Test Mgt."
             ShipmentNos.Count(), OrderNos.Count(), KeptOrders));
     end;
 
+    // =====================================================================
+    // DEV-004 Production Date on lot numbers - public procedures used by page 66690
+    // =====================================================================
+
+    procedure GetDev004LocationCode(): Code[10]
+    begin
+        exit(Dev4LocationTok);
+    end;
+
+    procedure GetDev004ItemNo(): Code[20]
+    begin
+        exit(Dev4ItemTok);
+    end;
+
+    procedure GetDev004RunText(): Text
+    var
+        LastRunNo: Integer;
+    begin
+        LastRunNo := GetDev004LastRunNo();
+        if LastRunNo = 0 then
+            exit('No test run yet');
+        exit(StrSubstNo('Run %1: lots %2 to %3', LastRunNo, Dev4LotNo(LastRunNo, 1), Dev4LotNo(LastRunNo, 4)));
+    end;
+
+    procedure CreateDev004TestData(var TempResult: Record "Name/Value Buffer" temporary)
+    var
+        EnvironmentInformation: Codeunit "Environment Information";
+    begin
+        if EnvironmentInformation.IsSaaS() and EnvironmentInformation.IsProduction() then
+            Error(ProductionErr);
+        if GuiAllowed() then
+            if not Confirm(Dev4CreateQst, true, CompanyName(), Dev4TrackingCodeTok, Dev4LocationTok, Dev4ItemTok, Dev4BatchTok) then
+                exit;
+
+        ClearStepResults(TempResult, Dev4CreateStepTok);
+        RunNo := GetDev004LastRunNo() + 1;
+        if RunNo > 99 then
+            Error(Dev4TooManyRunsErr);
+
+        if not RunDev4Step(TempResult, Dev4CreateStepTok, 'Setup: tracking code, location, item, vendor, customer, journal batch', RunModeDev4Setup(), '') then
+            exit;
+        if not RunDev4Step(TempResult, Dev4CreateStepTok,
+             StrSubstNo('Item journal %1: lots %2, %3 and %4 with Production Dates', Dev4DocNo('IN'), Dev4LotNo(RunNo, 1), Dev4LotNo(RunNo, 2), Dev4LotNo(RunNo, 4)),
+             RunModeDev4CreateInbound(), '')
+        then
+            exit;
+        RunDev4Step(TempResult, Dev4CreateStepTok, StrSubstNo('Purchase order %1: lot %2 with Production Date', Dev4DocNo('PO'), Dev4LotNo(RunNo, 3)),
+          RunModeDev4CreatePurchOrder(), '');
+
+        AddDev4SetupViews(TempResult, Dev4CreateStepTok);
+        AddDev4CreateViews(TempResult, Dev4CreateStepTok);
+        AddResult(TempResult, Dev4CreateStepTok, 'Next step', InfoTok,
+          StrSubstNo('Run %1 created. Click the Page column on the OPEN lines to see each record and its Item Tracking Lines with the Production Date. Post the documents yourself or use "2. Post Inbound".', RunNo));
+    end;
+
+    procedure PostDev004Inbound(var TempResult: Record "Name/Value Buffer" temporary)
+    begin
+        RunNo := GetDev004LastRunNo();
+        if RunNo = 0 then
+            Error(Dev4NoRunErr);
+        if GuiAllowed() then
+            if not Confirm(Dev4PostInQst, true, RunNo) then
+                exit;
+        ClearStepResults(TempResult, Dev4PostInStepTok);
+
+        if Dev4JournalHasLines() then
+            RunDev4Step(TempResult, Dev4PostInStepTok, StrSubstNo('Post item journal batch %1', Dev4BatchTok), RunModeDev4PostJournal(), '')
+        else
+            AddResult(TempResult, Dev4PostInStepTok, 'Post item journal', InfoTok, 'No open lines in the test journal (already posted?).');
+
+        if Dev4PurchOrderOutstanding(Dev4DocNo('PO')) then
+            RunDev4Step(TempResult, Dev4PostInStepTok, StrSubstNo('Receive purchase order %1', Dev4DocNo('PO')), RunModeDev4PostPurchOrder(), Dev4DocNo('PO'))
+        else
+            AddResult(TempResult, Dev4PostInStepTok, 'Receive purchase order', InfoTok, StrSubstNo('Purchase order %1 has nothing left to receive.', Dev4DocNo('PO')));
+
+        AddDev4InboundViews(TempResult, Dev4PostInStepTok);
+        AddResult(TempResult, Dev4PostInStepTok, 'Next step', InfoTok,
+          'Click the Page column on the OPEN lines to see the posted receipt, item ledger entries and lot cards with the Production Date. Then "3. Create Outbound" or "5. Run Tests".');
+    end;
+
+    procedure CreateDev004Outbound(var TempResult: Record "Name/Value Buffer" temporary)
+    begin
+        RunNo := GetDev004LastRunNo();
+        if RunNo = 0 then
+            Error(Dev4NoRunErr);
+        if not Dev4IleExists(Dev4LotNo(RunNo, 1), "Item Ledger Entry Type"::"Positive Adjmt.", Dev4DocNo('IN')) then
+            Error(Dev4InboundNotPostedErr, Dev4LotNo(RunNo, 1));
+        if Dev4OutboundCreated() then
+            Error(Dev4OutboundExistsErr, RunNo);
+        if GuiAllowed() then
+            if not Confirm(Dev4CreateOutQst, true, RunNo, Dev4LotNo(RunNo, 2), Dev4ChangedLot2Date(), Dev4LotNo(RunNo, 1)) then
+                exit;
+        ClearStepResults(TempResult, Dev4CreateOutStepTok);
+
+        if not RunDev4Step(TempResult, Dev4CreateOutStepTok,
+             StrSubstNo('Lot card %1 changed to %2 + item journal %3 (lot %4 x20 with blank date, lot %1 x5)', Dev4LotNo(RunNo, 2), Dev4ChangedLot2Date(), Dev4DocNo('ADJ2'), Dev4LotNo(RunNo, 1)),
+             RunModeDev4CreateOutboundJnl(), '')
+        then
+            exit;
+        RunDev4Step(TempResult, Dev4CreateOutStepTok, StrSubstNo('Sales order %1: lot %2 x10, Production Date left blank', Dev4DocNo('SO'), Dev4LotNo(RunNo, 1)),
+          RunModeDev4CreateSalesOrder(), '');
+
+        AddDev4OutboundCreateViews(TempResult, Dev4CreateOutStepTok);
+        AddResult(TempResult, Dev4CreateOutStepTok, 'Next step', InfoTok,
+          'Click the Page column on the OPEN lines to see the changed lot card, the journal and the sales order with their Item Tracking Lines. Post them yourself or use "4. Post Outbound".');
+    end;
+
+    procedure PostDev004Outbound(var TempResult: Record "Name/Value Buffer" temporary)
+    begin
+        RunNo := GetDev004LastRunNo();
+        if RunNo = 0 then
+            Error(Dev4NoRunErr);
+        if GuiAllowed() then
+            if not Confirm(Dev4PostOutQst, true, RunNo) then
+                exit;
+        ClearStepResults(TempResult, Dev4PostOutStepTok);
+
+        if Dev4JournalHasLines() then
+            RunDev4Step(TempResult, Dev4PostOutStepTok, StrSubstNo('Post item journal batch %1', Dev4BatchTok), RunModeDev4PostJournal(), '')
+        else
+            AddResult(TempResult, Dev4PostOutStepTok, 'Post item journal', InfoTok, 'No open lines in the test journal (already posted, or "3. Create Outbound" not run yet).');
+
+        if Dev4SalesOrderOutstanding(Dev4DocNo('SO')) then
+            RunDev4Step(TempResult, Dev4PostOutStepTok, StrSubstNo('Ship sales order %1', Dev4DocNo('SO')), RunModeDev4PostSalesOrder(), Dev4DocNo('SO'))
+        else
+            AddResult(TempResult, Dev4PostOutStepTok, 'Ship sales order', InfoTok, StrSubstNo('Sales order %1 has nothing left to ship (or does not exist yet).', Dev4DocNo('SO')));
+
+        AddDev4OutboundPostedViews(TempResult, Dev4PostOutStepTok);
+        AddResult(TempResult, Dev4PostOutStepTok, 'Next step', InfoTok,
+          'Click the Page column on the OPEN lines to see the posted shipment, item ledger entries and lot cards. Then "5. Run Tests".');
+    end;
+
+    procedure RunDev004Tests(var TempResult: Record "Name/Value Buffer" temporary)
+    var
+        InboundPosted: Boolean;
+        PurchPosted: Boolean;
+        OutboundJnlPosted: Boolean;
+        SalePosted: Boolean;
+        Lot2ExpectedDate: Date;
+    begin
+        RunNo := GetDev004LastRunNo();
+        if RunNo = 0 then
+            Error(Dev4NoRunErr);
+        ClearStepResults(TempResult, Dev4TestStepTok);
+
+        // A. Production Date field (66600) must be identical on all tables: Reservation Entry and
+        //    Tracking Specification are copied with TransferFields during posting.
+        CheckSameFieldDefinition(TempResult, Dev4TestStepTok, Database::"Reservation Entry", Database::"Tracking Specification", 66600, 66600);
+        CheckSameFieldDefinition(TempResult, Dev4TestStepTok, Database::"Reservation Entry", Database::"Item Journal Line", 66600, 66600);
+        CheckSameFieldDefinition(TempResult, Dev4TestStepTok, Database::"Reservation Entry", Database::"Item Ledger Entry", 66600, 66600);
+        CheckSameFieldDefinition(TempResult, Dev4TestStepTok, Database::"Reservation Entry", Database::"Lot No. Information", 66600, 66600);
+
+        InboundPosted := Dev4IleExists(Dev4LotNo(RunNo, 1), "Item Ledger Entry Type"::"Positive Adjmt.", Dev4DocNo('IN'));
+        PurchPosted := Dev4IleExists(Dev4LotNo(RunNo, 3), "Item Ledger Entry Type"::Purchase, '');
+        OutboundJnlPosted := Dev4IleExists(Dev4LotNo(RunNo, 1), "Item Ledger Entry Type"::"Positive Adjmt.", Dev4DocNo('ADJ2'));
+        SalePosted := Dev4IleExists(Dev4LotNo(RunNo, 1), "Item Ledger Entry Type"::Sale, '');
+
+        // B. Open documents: what the Item Tracking Lines show (Reservation Entry).
+        CheckDev4OpenTracking(TempResult, InboundPosted);
+
+        // C. Inbound posting: Item Tracking Lines -> Item Ledger Entry -> Lot No. Information.
+        if InboundPosted then begin
+            CheckDev4Ile(TempResult, 'Item journal lot L1 -> item ledger entry', Dev4LotNo(RunNo, 1), "Item Ledger Entry Type"::"Positive Adjmt.", Dev4DocNo('IN'), 100, Dev4ProdDate(1));
+            CheckDev4Ile(TempResult, 'Item journal lot L2 -> item ledger entry', Dev4LotNo(RunNo, 2), "Item Ledger Entry Type"::"Positive Adjmt.", Dev4DocNo('IN'), 50, Dev4ProdDate(2));
+            CheckDev4Ile(TempResult, 'Item journal lot L4 -> item ledger entry', Dev4LotNo(RunNo, 4), "Item Ledger Entry Type"::"Positive Adjmt.", Dev4DocNo('IN'), 40, Dev4ProdDate(4));
+            CheckDev4LotInfo(TempResult, 'Lot No. Information created on posting (L1)', Dev4LotNo(RunNo, 1), Dev4ProdDate(1));
+            Lot2ExpectedDate := Dev4ProdDate(2);
+            if Dev4OutboundCreated() then
+                Lot2ExpectedDate := Dev4ChangedLot2Date();
+            CheckDev4LotInfo(TempResult, 'Lot No. Information created on posting (L2)', Dev4LotNo(RunNo, 2), Lot2ExpectedDate);
+            CheckDev4LotInfo(TempResult, 'Lot card that existed with a blank date is filled on posting (L4)', Dev4LotNo(RunNo, 4), Dev4ProdDate(4));
+        end else
+            AddResult(TempResult, Dev4TestStepTok, 'Inbound item journal', InfoTok, 'Not posted yet. Post the test item journal (manually or "2. Post Inbound") and run the tests again.');
+
+        if PurchPosted then begin
+            CheckDev4Ile(TempResult, 'Purchase receipt lot L3 -> item ledger entry', Dev4LotNo(RunNo, 3), "Item Ledger Entry Type"::Purchase, '', 30, Dev4ProdDate(3));
+            CheckDev4LotInfo(TempResult, 'Lot No. Information created on posting (L3)', Dev4LotNo(RunNo, 3), Dev4ProdDate(3));
+        end else
+            AddResult(TempResult, Dev4TestStepTok, 'Purchase receipt', InfoTok, StrSubstNo('Purchase order %1 not received yet.', Dev4DocNo('PO')));
+
+        // D. Item Tracking Lines rules (in memory only, nothing is saved).
+        if InboundPosted then
+            RunDev4ValidationTests(TempResult)
+        else
+            AddResult(TempResult, Dev4TestStepTok, 'Item Tracking Lines rules', InfoTok, 'Skipped: lot L1 must be posted first.');
+
+        // E. Outbound and follow-up receipt: date taken from the lot / from the changed lot card.
+        if OutboundJnlPosted then begin
+            CheckDev4Ile(TempResult, 'Receipt of existing lot L1 with blank date -> date taken from the lot', Dev4LotNo(RunNo, 1), "Item Ledger Entry Type"::"Positive Adjmt.", Dev4DocNo('ADJ2'), 20, Dev4ProdDate(1));
+            CheckDev4Ile(TempResult, 'Receipt of lot L2 after the card was changed -> new date', Dev4LotNo(RunNo, 2), "Item Ledger Entry Type"::"Positive Adjmt.", Dev4DocNo('ADJ2'), 5, Dev4ChangedLot2Date());
+            CheckDev4LotInfo(TempResult, 'Lot card L1 is not overwritten by a later receipt', Dev4LotNo(RunNo, 1), Dev4ProdDate(1));
+        end else
+            AddResult(TempResult, Dev4TestStepTok, 'Follow-up item journal', InfoTok, 'Not posted yet ("3. Create Outbound" and "4. Post Outbound").');
+
+        if SalePosted then
+            CheckDev4Ile(TempResult, 'Sales shipment lot L1 (blank date on the line) -> date taken from the lot', Dev4LotNo(RunNo, 1), "Item Ledger Entry Type"::Sale, '', -10, Dev4ProdDate(1))
+        else
+            AddResult(TempResult, Dev4TestStepTok, 'Sales shipment', InfoTok, StrSubstNo('Sales order %1 not shipped yet.', Dev4DocNo('SO')));
+
+        // F. Remaining inventory per lot once everything is posted.
+        if InboundPosted and PurchPosted and OutboundJnlPosted and SalePosted then begin
+            CheckDev4LotInventory(TempResult, 1, 110);
+            CheckDev4LotInventory(TempResult, 2, 55);
+            CheckDev4LotInventory(TempResult, 3, 30);
+            CheckDev4LotInventory(TempResult, 4, 40);
+        end;
+
+        AddResult(TempResult, Dev4TestStepTok, 'Summary', InfoTok,
+          StrSubstNo('Run %1 checked: inbound journal %2, purchase receipt %3, follow-up journal %4, sales shipment %5.',
+            RunNo, PostedText(InboundPosted), PostedText(PurchPosted), PostedText(OutboundJnlPosted), PostedText(SalePosted)));
+    end;
+
+    procedure OpenDev004ItemJournal()
+    var
+        ItemJnlTemplate: Record "Item Journal Template";
+        ItemJnlBatch: Record "Item Journal Batch";
+        ItemJnlManagement: Codeunit ItemJnlManagement;
+    begin
+        FindDev4JnlTemplate(ItemJnlTemplate);
+        if not ItemJnlBatch.Get(ItemJnlTemplate.Name, Dev4BatchTok) then
+            Error(Dev4NoRunErr);
+        ItemJnlManagement.TemplateSelectionFromBatch(ItemJnlBatch);
+    end;
+
+    procedure OpenDev004PurchaseOrders()
+    var
+        PurchHeader: Record "Purchase Header";
+    begin
+        PurchHeader.SetRange("Document Type", PurchHeader."Document Type"::Order);
+        PurchHeader.SetFilter("No.", Dev4PrefixTok + '*');
+        Page.Run(Page::"Purchase Order List", PurchHeader);
+    end;
+
+    procedure OpenDev004SalesOrders()
+    var
+        SalesHeader: Record "Sales Header";
+    begin
+        SalesHeader.SetRange("Document Type", SalesHeader."Document Type"::Order);
+        SalesHeader.SetFilter("No.", Dev4PrefixTok + '*');
+        Page.Run(Page::"Sales Order List", SalesHeader);
+    end;
+
+    procedure OpenDev004ItemLedgerEntries()
+    var
+        ItemLedgerEntry: Record "Item Ledger Entry";
+    begin
+        ItemLedgerEntry.SetRange("Item No.", Dev4ItemTok);
+        Page.Run(Page::"Item Ledger Entries", ItemLedgerEntry);
+    end;
+
+    procedure OpenDev004LotNoInformation()
+    var
+        LotNoInformation: Record "Lot No. Information";
+    begin
+        LotNoInformation.SetRange("Item No.", Dev4ItemTok);
+        Page.Run(Page::"Lot No. Information List", LotNoInformation);
+    end;
+
+    procedure DeleteDev004TestData(var TempResult: Record "Name/Value Buffer" temporary)
+    var
+        PurchHeader: Record "Purchase Header";
+        PurchLine: Record "Purchase Line";
+        SalesHeader: Record "Sales Header";
+        SalesLine: Record "Sales Line";
+        PurchOrderNos: List of [Code[20]];
+        SalesOrderNos: List of [Code[20]];
+        DocNo: Code[20];
+        Kept: Integer;
+    begin
+        if GuiAllowed() then
+            if not Confirm(Dev4DeleteQst, true) then
+                exit;
+        ClearStepResults(TempResult, Dev4DeleteStepTok);
+
+        if Dev4JournalHasLines() then
+            RunDev4Step(TempResult, Dev4DeleteStepTok, StrSubstNo('Delete open lines of item journal batch %1', Dev4BatchTok), RunModeDev4DeleteJournal(), '');
+
+        PurchHeader.SetRange("Document Type", PurchHeader."Document Type"::Order);
+        PurchHeader.SetFilter("No.", Dev4PrefixTok + '*');
+        if PurchHeader.FindSet() then
+            repeat
+                PurchLine.SetRange("Document Type", PurchHeader."Document Type");
+                PurchLine.SetRange("Document No.", PurchHeader."No.");
+                PurchLine.SetFilter("Quantity Received", '<>%1', 0);
+                if PurchLine.IsEmpty() then
+                    PurchOrderNos.Add(PurchHeader."No.")
+                else
+                    Kept += 1;
+            until PurchHeader.Next() = 0;
+
+        SalesHeader.SetRange("Document Type", SalesHeader."Document Type"::Order);
+        SalesHeader.SetFilter("No.", Dev4PrefixTok + '*');
+        if SalesHeader.FindSet() then
+            repeat
+                SalesLine.SetRange("Document Type", SalesHeader."Document Type");
+                SalesLine.SetRange("Document No.", SalesHeader."No.");
+                SalesLine.SetFilter("Quantity Shipped", '<>%1', 0);
+                if SalesLine.IsEmpty() then
+                    SalesOrderNos.Add(SalesHeader."No.")
+                else
+                    Kept += 1;
+            until SalesHeader.Next() = 0;
+
+        foreach DocNo in PurchOrderNos do
+            RunDev4Step(TempResult, Dev4DeleteStepTok, StrSubstNo('Delete purchase order %1', DocNo), RunModeDev4DeletePurchOrder(), DocNo);
+        foreach DocNo in SalesOrderNos do
+            RunDev4Step(TempResult, Dev4DeleteStepTok, StrSubstNo('Delete sales order %1', DocNo), RunModeDeleteOrder(), DocNo);
+
+        AddResult(TempResult, Dev4DeleteStepTok, 'Summary', InfoTok,
+          StrSubstNo('%1 purchase order(s) and %2 sales order(s) processed, %3 received/shipped order(s) kept. Posted entries, lots and master data are kept.',
+            PurchOrderNos.Count(), SalesOrderNos.Count(), Kept));
+    end;
+
     // Used by the second instance that runs each step in its own transaction.
-    procedure SetContext(NewRunMode: Integer; NewIndex: Integer; NewDocNo: Code[20]; NewRunNo: Integer; NewNoOfShipments: Integer; NewTemplateItemNo: Code[20]; NewTemplateCustomerNo: Code[20])
+    procedure SetContext(NewRunMode: Integer; NewIndex: Integer; NewDocNo: Code[20]; NewRunNo: Integer; NewNoOfShipments: Integer; NewTemplateItemNo: Code[20]; NewTemplateCustomerNo: Code[20]; NewTemplateVendorNo: Code[20])
     begin
         RunMode := NewRunMode;
         RunIndex := NewIndex;
@@ -284,6 +666,7 @@ codeunit 66690 "CHM Deviation Test Mgt."
         RunNoOfShipments := NewNoOfShipments;
         TemplateItemNo := NewTemplateItemNo;
         TemplateCustomerNo := NewTemplateCustomerNo;
+        TemplateVendorNo := NewTemplateVendorNo;
     end;
 
     procedure GetStepResult(): Text
@@ -312,12 +695,12 @@ codeunit 66690 "CHM Deviation Test Mgt."
         EnsureTestItem(TestItem1Tok, 'CHM TEST Item 1 - DEV-002', TemplateItem);
         EnsureTestItem(TestItem2Tok, 'CHM TEST Item 2 - DEV-002', TemplateItem);
         Item.Get(TestItem1Tok);
-        EnsureInventoryPostingSetup(Item."Inventory Posting Group");
+        EnsureInventoryPostingSetup(TestLocationTok, Item."Inventory Posting Group");
         Item.Get(TestItem2Tok);
-        EnsureInventoryPostingSetup(Item."Inventory Posting Group");
+        EnsureInventoryPostingSetup(TestLocationTok, Item."Inventory Posting Group");
 
         FindTemplateCustomer(TemplateCustomer);
-        EnsureTestCustomer(TemplateCustomer);
+        EnsureTestCustomer(TestCustomerTok, 'CHM TEST Customer DEV-002', TemplateCustomer);
 
         Qty1 := EnsureStock(TestItem1Tok, TotalLineQty(1));
         Qty2 := EnsureStock(TestItem2Tok, TotalLineQty(2));
@@ -453,7 +836,7 @@ codeunit 66690 "CHM Deviation Test Mgt."
     var
         Runner: Codeunit "CHM Deviation Test Mgt.";
     begin
-        Runner.SetContext(StepMode, Index, DocNo, RunNo, RunNoOfShipments, TemplateItemNo, TemplateCustomerNo);
+        Runner.SetContext(StepMode, Index, DocNo, RunNo, RunNoOfShipments, TemplateItemNo, TemplateCustomerNo, TemplateVendorNo);
         Commit();
         ClearLastError();
         if Runner.Run() then begin
@@ -533,7 +916,7 @@ codeunit 66690 "CHM Deviation Test Mgt."
         TemplateItem.SetFilter("Base Unit of Measure", '<>%1', '');
         TemplateItem.SetFilter("Gen. Prod. Posting Group", '<>%1', '');
         TemplateItem.SetFilter("Inventory Posting Group", '<>%1', '');
-        TemplateItem.SetFilter("No.", '<>%1&<>%2', TestItem1Tok, TestItem2Tok);
+        TemplateItem.SetFilter("No.", '<>%1&<>%2&<>%3', TestItem1Tok, TestItem2Tok, Dev4ItemTok);
         if not TemplateItem.FindFirst() then
             Error(NoTemplateItemErr);
     end;
@@ -563,12 +946,12 @@ codeunit 66690 "CHM Deviation Test Mgt."
         Item.Modify(true);
     end;
 
-    local procedure EnsureInventoryPostingSetup(InvtPostingGroupCode: Code[20])
+    local procedure EnsureInventoryPostingSetup(LocationCode: Code[10]; InvtPostingGroupCode: Code[20])
     var
         InvtPostingSetup: Record "Inventory Posting Setup";
         TemplateSetup: Record "Inventory Posting Setup";
     begin
-        if InvtPostingSetup.Get(TestLocationTok, InvtPostingGroupCode) then
+        if InvtPostingSetup.Get(LocationCode, InvtPostingGroupCode) then
             exit;
 
         TemplateSetup.SetRange("Invt. Posting Group Code", InvtPostingGroupCode);
@@ -577,11 +960,11 @@ codeunit 66690 "CHM Deviation Test Mgt."
         if not TemplateSetup.FindFirst() then begin
             TemplateSetup.SetRange("Location Code");
             if not TemplateSetup.FindFirst() then
-                Error(NoInvtPostingSetupErr, InvtPostingGroupCode, TestLocationTok);
+                Error(NoInvtPostingSetupErr, InvtPostingGroupCode, LocationCode);
         end;
 
         InvtPostingSetup := TemplateSetup;
-        InvtPostingSetup."Location Code" := TestLocationTok;
+        InvtPostingSetup."Location Code" := LocationCode;
         InvtPostingSetup.Insert(true);
     end;
 
@@ -599,22 +982,22 @@ codeunit 66690 "CHM Deviation Test Mgt."
         TemplateCustomer.SetRange("Currency Code", '');
         TemplateCustomer.SetFilter("Customer Posting Group", '<>%1', '');
         TemplateCustomer.SetFilter("Gen. Bus. Posting Group", '<>%1', '');
-        TemplateCustomer.SetFilter("No.", '<>%1', TestCustomerTok);
+        TemplateCustomer.SetFilter("No.", '<>%1&<>%2', TestCustomerTok, Dev4CustomerTok);
         if not TemplateCustomer.FindFirst() then
             Error(NoTemplateCustomerErr);
     end;
 
-    local procedure EnsureTestCustomer(TemplateCustomer: Record Customer)
+    local procedure EnsureTestCustomer(CustomerNo: Code[20]; CustomerName: Text[100]; TemplateCustomer: Record Customer)
     var
         Customer: Record Customer;
     begin
-        if Customer.Get(TestCustomerTok) then
+        if Customer.Get(CustomerNo) then
             exit;
 
         Customer.Init();
-        Customer."No." := TestCustomerTok;
+        Customer."No." := CustomerNo;
         Customer.Insert(true);
-        Customer.Validate(Name, 'CHM TEST Customer DEV-002');
+        Customer.Validate(Name, CustomerName);
         Customer.Address := TemplateCustomer.Address;
         Customer.City := TemplateCustomer.City;
         Customer."Post Code" := TemplateCustomer."Post Code";
@@ -944,7 +1327,7 @@ codeunit 66690 "CHM Deviation Test Mgt."
         FldRef.Validate(NewValue);
     end;
 
-    local procedure CheckSameFieldDefinition(var TempResult: Record "Name/Value Buffer" temporary; RefTableNo: Integer; TableNo: Integer; FromFieldNo: Integer; ToFieldNo: Integer)
+    local procedure CheckSameFieldDefinition(var TempResult: Record "Name/Value Buffer" temporary; StepCode: Text; RefTableNo: Integer; TableNo: Integer; FromFieldNo: Integer; ToFieldNo: Integer)
     var
         RefRecRef: RecordRef;
         RecRef: RecordRef;
@@ -966,7 +1349,7 @@ codeunit 66690 "CHM Deviation Test Mgt."
                         Mismatch += StrSubstNo('field %1 differs (%2 %3 vs %4 %5); ', FieldNo, RefFldRef.Name, Format(RefFldRef.Type), FldRef.Name, Format(FldRef.Type));
                 end;
 
-        AddCheck(TempResult, TestStepTok, StrSubstNo('Field %1..%2 definition on %3 matches %4', FromFieldNo, ToFieldNo, RecRef.Caption, RefRecRef.Caption),
+        AddCheck(TempResult, StepCode, StrSubstNo('Field %1..%2 definition on %3 matches %4', FromFieldNo, ToFieldNo, RecRef.Caption, RefRecRef.Caption),
           Mismatch = '', 'Same field IDs, names, types and lengths.', Mismatch);
         RecRef.Close();
         RefRecRef.Close();
@@ -1056,6 +1439,1209 @@ codeunit 66690 "CHM Deviation Test Mgt."
     end;
 
     // =====================================================================
+    // Open Page links: every result line can point to a record, which opens in its real page
+    // =====================================================================
+
+    procedure HasResultLink(ResultId: Integer): Boolean
+    begin
+        exit(ResultLinks.ContainsKey(ResultId));
+    end;
+
+    procedure GetResultLinkCaption(ResultId: Integer): Text
+    var
+        LinkText: Text;
+        Position: Text;
+        TableNo: Integer;
+    begin
+        if not ResultLinks.Get(ResultId, LinkText) then
+            exit('');
+        SplitLink(LinkText, TableNo, Position);
+        exit(TargetPageCaption(TableNo));
+    end;
+
+    procedure ClearResultLinks()
+    begin
+        Clear(ResultLinks);
+        PendingLink := '';
+    end;
+
+    procedure OpenResultRecord(ResultId: Integer)
+    var
+        Item: Record Item;
+        ItemTrackingCode: Record "Item Tracking Code";
+        Location: Record Location;
+        Vendor: Record Vendor;
+        Customer: Record Customer;
+        ItemJnlBatch: Record "Item Journal Batch";
+        ItemJnlLine: Record "Item Journal Line";
+        PurchHeader: Record "Purchase Header";
+        PurchLine: Record "Purchase Line";
+        SalesHeader: Record "Sales Header";
+        SalesLine: Record "Sales Line";
+        PurchRcptHeader: Record "Purch. Rcpt. Header";
+        SalesShptHeader: Record "Sales Shipment Header";
+        ItemLedgerEntry: Record "Item Ledger Entry";
+        LotNoInformation: Record "Lot No. Information";
+        ReservEntry: Record "Reservation Entry";
+        ItemJnlManagement: Codeunit ItemJnlManagement;
+        RecRef: RecordRef;
+        LinkText: Text;
+        Position: Text;
+        TableNo: Integer;
+    begin
+        if not ResultLinks.Get(ResultId, LinkText) then begin
+            Message(NoLinkMsg);
+            exit;
+        end;
+        SplitLink(LinkText, TableNo, Position);
+        RecRef.Open(TableNo);
+        RecRef.SetPosition(Position);
+        if not RecRef.Find('=') then begin
+            Message(RecordGoneMsg, RecRef.Caption);
+            exit;
+        end;
+
+        case TableNo of
+            Database::Item:
+                begin
+                    RecRef.SetTable(Item);
+                    Page.Run(Page::"Item Card", Item);
+                end;
+            Database::"Item Tracking Code":
+                begin
+                    RecRef.SetTable(ItemTrackingCode);
+                    Page.Run(Page::"Item Tracking Code Card", ItemTrackingCode);
+                end;
+            Database::Location:
+                begin
+                    RecRef.SetTable(Location);
+                    Page.Run(Page::"Location Card", Location);
+                end;
+            Database::Vendor:
+                begin
+                    RecRef.SetTable(Vendor);
+                    Page.Run(Page::"Vendor Card", Vendor);
+                end;
+            Database::Customer:
+                begin
+                    RecRef.SetTable(Customer);
+                    Page.Run(Page::"Customer Card", Customer);
+                end;
+            Database::"Item Journal Batch":
+                begin
+                    RecRef.SetTable(ItemJnlBatch);
+                    ItemJnlManagement.TemplateSelectionFromBatch(ItemJnlBatch);
+                end;
+            Database::"Item Journal Line":
+                begin
+                    RecRef.SetTable(ItemJnlLine);
+                    ItemJnlLine.OpenItemTrackingLines(false);
+                end;
+            Database::"Purchase Header":
+                begin
+                    RecRef.SetTable(PurchHeader);
+                    Page.Run(Page::"Purchase Order", PurchHeader);
+                end;
+            Database::"Purchase Line":
+                begin
+                    RecRef.SetTable(PurchLine);
+                    PurchLine.OpenItemTrackingLines();
+                end;
+            Database::"Sales Header":
+                begin
+                    RecRef.SetTable(SalesHeader);
+                    Page.Run(Page::"Sales Order", SalesHeader);
+                end;
+            Database::"Sales Line":
+                begin
+                    RecRef.SetTable(SalesLine);
+                    SalesLine.OpenItemTrackingLines();
+                end;
+            Database::"Purch. Rcpt. Header":
+                begin
+                    RecRef.SetTable(PurchRcptHeader);
+                    Page.Run(Page::"Posted Purchase Receipt", PurchRcptHeader);
+                end;
+            Database::"Sales Shipment Header":
+                begin
+                    RecRef.SetTable(SalesShptHeader);
+                    Page.Run(Page::"Posted Sales Shipment", SalesShptHeader);
+                end;
+            Database::"Item Ledger Entry":
+                begin
+                    // All entries of the same lot, positioned on this one.
+                    RecRef.SetTable(ItemLedgerEntry);
+                    ItemLedgerEntry.SetRange("Item No.", ItemLedgerEntry."Item No.");
+                    if ItemLedgerEntry."Lot No." <> '' then
+                        ItemLedgerEntry.SetRange("Lot No.", ItemLedgerEntry."Lot No.");
+                    Page.Run(Page::"Item Ledger Entries", ItemLedgerEntry);
+                end;
+            Database::"Lot No. Information":
+                begin
+                    RecRef.SetTable(LotNoInformation);
+                    Page.Run(Page::"Lot No. Information Card", LotNoInformation);
+                end;
+            Database::"Reservation Entry":
+                begin
+                    // An open item tracking line: open the Item Tracking Lines of its document line.
+                    RecRef.SetTable(ReservEntry);
+                    case ReservEntry."Source Type" of
+                        Database::"Item Journal Line":
+                            if ItemJnlLine.Get(ReservEntry."Source ID", ReservEntry."Source Batch Name", ReservEntry."Source Ref. No.") then
+                                ItemJnlLine.OpenItemTrackingLines(false);
+                        Database::"Purchase Line":
+                            if PurchLine.Get("Purchase Document Type".FromInteger(ReservEntry."Source Subtype"), ReservEntry."Source ID", ReservEntry."Source Ref. No.") then
+                                PurchLine.OpenItemTrackingLines();
+                        Database::"Sales Line":
+                            if SalesLine.Get("Sales Document Type".FromInteger(ReservEntry."Source Subtype"), ReservEntry."Source ID", ReservEntry."Source Ref. No.") then
+                                SalesLine.OpenItemTrackingLines();
+                    end;
+                end;
+            else
+                Message(NoLinkMsg);
+        end;
+    end;
+
+    procedure ShowDev004ProcessFlow(var TempResult: Record "Name/Value Buffer" temporary)
+    begin
+        RunNo := GetDev004LastRunNo();
+        if RunNo = 0 then
+            Error(Dev4NoRunErr);
+        ClearStepResults(TempResult, Dev4FlowStepTok);
+
+        AddResult(TempResult, Dev4FlowStepTok, StrSubstNo('Run %1 - Step 1: setup and inbound documents', RunNo), InfoTok,
+          'Master data, the item journal with its Item Tracking Lines and the purchase order. Journal lines disappear once posted.');
+        AddDev4SetupViews(TempResult, Dev4FlowStepTok);
+        AddDev4CreateViews(TempResult, Dev4FlowStepTok);
+
+        AddResult(TempResult, Dev4FlowStepTok, StrSubstNo('Run %1 - Step 2: inbound posted', RunNo), InfoTok,
+          'Posted purchase receipt, item ledger entries and Lot No. Information cards of lots L1 to L4.');
+        AddDev4InboundViews(TempResult, Dev4FlowStepTok);
+
+        AddResult(TempResult, Dev4FlowStepTok, StrSubstNo('Run %1 - Step 3: outbound documents', RunNo), InfoTok,
+          'Lot card L2 with the changed date, the follow-up item journal and the sales order with their Item Tracking Lines.');
+        AddDev4OutboundCreateViews(TempResult, Dev4FlowStepTok);
+
+        AddResult(TempResult, Dev4FlowStepTok, StrSubstNo('Run %1 - Step 4: outbound posted', RunNo), InfoTok,
+          'Posted sales shipment and the final item ledger entries and lot cards of lots L1 and L2.');
+        AddDev4OutboundPostedViews(TempResult, Dev4FlowStepTok);
+    end;
+
+    local procedure AddDev4SetupViews(var TempResult: Record "Name/Value Buffer" temporary; StepCode: Text)
+    var
+        Item: Record Item;
+        ItemTrackingCode: Record "Item Tracking Code";
+        Location: Record Location;
+        Vendor: Record Vendor;
+        Customer: Record Customer;
+    begin
+        if Item.Get(Dev4ItemTok) then
+            AddViewRow(TempResult, StepCode, StrSubstNo('Item %1', Item."No."),
+              StrSubstNo('Item Tracking Code %1, Base Unit of Measure %2.', Item."Item Tracking Code", Item."Base Unit of Measure"), Item);
+        if ItemTrackingCode.Get(Dev4TrackingCodeTok) then
+            AddViewRow(TempResult, StepCode, StrSubstNo('Item tracking code %1', ItemTrackingCode.Code),
+              StrSubstNo('Lot Specific Tracking = %1.', ItemTrackingCode."Lot Specific Tracking"), ItemTrackingCode);
+        if Location.Get(Dev4LocationTok) then
+            AddViewRow(TempResult, StepCode, StrSubstNo('Location %1', Location.Code), 'No warehouse handling: documents post directly.', Location);
+        if Vendor.Get(Dev4VendorTok) then
+            AddViewRow(TempResult, StepCode, StrSubstNo('Vendor %1', Vendor."No."), Vendor.Name, Vendor);
+        if Customer.Get(Dev4CustomerTok) then
+            AddViewRow(TempResult, StepCode, StrSubstNo('Customer %1', Customer."No."), Customer.Name, Customer);
+    end;
+
+    local procedure AddDev4CreateViews(var TempResult: Record "Name/Value Buffer" temporary; StepCode: Text)
+    var
+        LotNoInformation: Record "Lot No. Information";
+    begin
+        AddDev4JournalViews(TempResult, StepCode);
+        if LotNoInformation.Get(Dev4ItemTok, '', Dev4LotNo(RunNo, 4)) then
+            AddViewRow(TempResult, StepCode, StrSubstNo('Lot No. Information Card %1 (created before the receipt)', LotNoInformation."Lot No."),
+              StrSubstNo('Production Date now: %1. Expected after posting the journal: %2.', DateText(LotNoInformation."CHM Production Date"), DateText(Dev4ProdDate(4))),
+              LotNoInformation);
+        AddDev4PurchOrderViews(TempResult, StepCode);
+    end;
+
+    local procedure AddDev4InboundViews(var TempResult: Record "Name/Value Buffer" temporary; StepCode: Text)
+    var
+        PurchRcptHeader: Record "Purch. Rcpt. Header";
+        LotIndex: Integer;
+    begin
+        PurchRcptHeader.SetRange("Order No.", Dev4DocNo('PO'));
+        if PurchRcptHeader.FindLast() then
+            AddViewRow(TempResult, StepCode, StrSubstNo('Posted purchase receipt %1', PurchRcptHeader."No."),
+              StrSubstNo('Receipt of purchase order %1 (lot %2).', Dev4DocNo('PO'), Dev4LotNo(RunNo, 3)), PurchRcptHeader)
+        else
+            AddResult(TempResult, StepCode, 'Posted purchase receipt', InfoTok, StrSubstNo('Purchase order %1 not received yet.', Dev4DocNo('PO')));
+
+        for LotIndex := 1 to 4 do
+            AddDev4LotViews(TempResult, StepCode, LotIndex);
+    end;
+
+    local procedure AddDev4OutboundCreateViews(var TempResult: Record "Name/Value Buffer" temporary; StepCode: Text)
+    var
+        LotNoInformation: Record "Lot No. Information";
+        SalesHeader: Record "Sales Header";
+        SalesLine: Record "Sales Line";
+    begin
+        if LotNoInformation.Get(Dev4ItemTok, '', Dev4LotNo(RunNo, 2)) then
+            AddViewRow(TempResult, StepCode, StrSubstNo('Lot No. Information Card %1 (date changed on the card)', LotNoInformation."Lot No."),
+              StrSubstNo('Production Date %1 (was %2). New receipts of this lot default to this date.', DateText(LotNoInformation."CHM Production Date"), DateText(Dev4ProdDate(2))),
+              LotNoInformation);
+
+        AddDev4JournalViews(TempResult, StepCode);
+
+        if not SalesHeader.Get(SalesHeader."Document Type"::Order, Dev4DocNo('SO')) then begin
+            AddResult(TempResult, StepCode, 'Sales order', InfoTok, StrSubstNo('Sales order %1 not created yet ("3. Create Outbound").', Dev4DocNo('SO')));
+            exit;
+        end;
+        AddViewRow(TempResult, StepCode, StrSubstNo('Sales order %1', SalesHeader."No."),
+          StrSubstNo('Customer %1, location %2.', SalesHeader."Sell-to Customer No.", SalesHeader."Location Code"), SalesHeader);
+        SalesLine.SetRange("Document Type", SalesHeader."Document Type");
+        SalesLine.SetRange("Document No.", SalesHeader."No.");
+        SalesLine.SetRange(Type, SalesLine.Type::Item);
+        if SalesLine.FindSet() then
+            repeat
+                AddViewRow(TempResult, StepCode, StrSubstNo('Item Tracking Lines on sales order %1 line %2 (%3 pcs)', SalesLine."Document No.", SalesLine."Line No.", SalesLine.Quantity),
+                  Dev4TrackingSummary(Database::"Sales Line", SalesLine."Document Type".AsInteger(), SalesLine."Document No.", '', SalesLine."Line No.") +
+                  ' The date is left blank on purpose: posting takes it from the lot.', SalesLine);
+            until SalesLine.Next() = 0;
+    end;
+
+    local procedure AddDev4OutboundPostedViews(var TempResult: Record "Name/Value Buffer" temporary; StepCode: Text)
+    var
+        SalesShptHeader: Record "Sales Shipment Header";
+    begin
+        SalesShptHeader.SetRange("Order No.", Dev4DocNo('SO'));
+        if SalesShptHeader.FindLast() then
+            AddViewRow(TempResult, StepCode, StrSubstNo('Posted sales shipment %1', SalesShptHeader."No."),
+              StrSubstNo('Shipment of sales order %1 (lot %2).', Dev4DocNo('SO'), Dev4LotNo(RunNo, 1)), SalesShptHeader)
+        else
+            AddResult(TempResult, StepCode, 'Posted sales shipment', InfoTok, StrSubstNo('Sales order %1 not shipped yet.', Dev4DocNo('SO')));
+
+        AddDev4LotViews(TempResult, StepCode, 1);
+        AddDev4LotViews(TempResult, StepCode, 2);
+    end;
+
+    local procedure AddDev4JournalViews(var TempResult: Record "Name/Value Buffer" temporary; StepCode: Text)
+    var
+        ItemJnlTemplate: Record "Item Journal Template";
+        ItemJnlBatch: Record "Item Journal Batch";
+        ItemJnlLine: Record "Item Journal Line";
+    begin
+        FindDev4JnlTemplate(ItemJnlTemplate);
+        if not ItemJnlBatch.Get(ItemJnlTemplate.Name, Dev4BatchTok) then
+            exit;
+        ItemJnlLine.SetRange("Journal Template Name", ItemJnlTemplate.Name);
+        ItemJnlLine.SetRange("Journal Batch Name", Dev4BatchTok);
+        if ItemJnlLine.IsEmpty() then begin
+            AddResult(TempResult, StepCode, StrSubstNo('Item journal %1 / %2', ItemJnlTemplate.Name, Dev4BatchTok), InfoTok,
+              'No open lines: the journal is posted. See the item ledger entries.');
+            exit;
+        end;
+
+        AddViewRow(TempResult, StepCode, StrSubstNo('Item journal %1 / %2', ItemJnlTemplate.Name, Dev4BatchTok),
+          StrSubstNo('%1 open line(s). On a line use Item Tracking Lines to see the Production Date column.', ItemJnlLine.Count()), ItemJnlBatch);
+        ItemJnlLine.FindSet();
+        repeat
+            AddViewRow(TempResult, StepCode, StrSubstNo('Item Tracking Lines on journal line %1 (%2, %3 pcs)', ItemJnlLine."Line No.", ItemJnlLine."Document No.", ItemJnlLine.Quantity),
+              Dev4TrackingSummary(Database::"Item Journal Line", ItemJnlLine."Entry Type".AsInteger(), ItemJnlLine."Journal Template Name", ItemJnlLine."Journal Batch Name", ItemJnlLine."Line No."),
+              ItemJnlLine);
+        until ItemJnlLine.Next() = 0;
+    end;
+
+    local procedure AddDev4PurchOrderViews(var TempResult: Record "Name/Value Buffer" temporary; StepCode: Text)
+    var
+        PurchHeader: Record "Purchase Header";
+        PurchLine: Record "Purchase Line";
+    begin
+        if not PurchHeader.Get(PurchHeader."Document Type"::Order, Dev4DocNo('PO')) then begin
+            AddResult(TempResult, StepCode, 'Purchase order', InfoTok, StrSubstNo('Purchase order %1 not found.', Dev4DocNo('PO')));
+            exit;
+        end;
+        AddViewRow(TempResult, StepCode, StrSubstNo('Purchase order %1', PurchHeader."No."),
+          StrSubstNo('Vendor %1, location %2.', PurchHeader."Buy-from Vendor No.", PurchHeader."Location Code"), PurchHeader);
+        PurchLine.SetRange("Document Type", PurchHeader."Document Type");
+        PurchLine.SetRange("Document No.", PurchHeader."No.");
+        PurchLine.SetRange(Type, PurchLine.Type::Item);
+        if PurchLine.FindSet() then
+            repeat
+                AddViewRow(TempResult, StepCode, StrSubstNo('Item Tracking Lines on purchase order %1 line %2 (%3 pcs)', PurchLine."Document No.", PurchLine."Line No.", PurchLine.Quantity),
+                  Dev4TrackingSummary(Database::"Purchase Line", PurchLine."Document Type".AsInteger(), PurchLine."Document No.", '', PurchLine."Line No."), PurchLine);
+            until PurchLine.Next() = 0;
+    end;
+
+    local procedure AddDev4LotViews(var TempResult: Record "Name/Value Buffer" temporary; StepCode: Text; LotIndex: Integer)
+    var
+        ItemLedgerEntry: Record "Item Ledger Entry";
+        LotNoInformation: Record "Lot No. Information";
+        LotNo: Code[50];
+        Summary: Text;
+    begin
+        LotNo := Dev4LotNo(RunNo, LotIndex);
+        ItemLedgerEntry.SetRange("Item No.", Dev4ItemTok);
+        ItemLedgerEntry.SetRange("Lot No.", LotNo);
+        if ItemLedgerEntry.FindSet() then begin
+            repeat
+                Summary += StrSubstNo('%1 %2: %3 pcs, Production Date %4. ', ItemLedgerEntry."Entry Type", ItemLedgerEntry."Document No.",
+                  ItemLedgerEntry.Quantity, DateText(ItemLedgerEntry."CHM Production Date"));
+            until ItemLedgerEntry.Next() = 0;
+            ItemLedgerEntry.FindFirst();
+            AddViewRow(TempResult, StepCode, StrSubstNo('Item ledger entries of lot %1', LotNo), Summary, ItemLedgerEntry);
+        end else
+            AddResult(TempResult, StepCode, StrSubstNo('Item ledger entries of lot %1', LotNo), InfoTok, 'Not posted yet.');
+
+        if LotNoInformation.Get(Dev4ItemTok, '', LotNo) then begin
+            LotNoInformation.CalcFields(Inventory);
+            AddViewRow(TempResult, StepCode, StrSubstNo('Lot No. Information Card %1', LotNo),
+              StrSubstNo('Production Date %1, inventory %2 pcs.', DateText(LotNoInformation."CHM Production Date"), LotNoInformation.Inventory), LotNoInformation);
+        end else
+            AddResult(TempResult, StepCode, StrSubstNo('Lot No. Information Card %1', LotNo), InfoTok, 'Not created yet (created when the lot is posted).');
+    end;
+
+    local procedure Dev4TrackingSummary(SourceType: Integer; SourceSubtype: Integer; SourceID: Code[20]; SourceBatchName: Code[10]; SourceRefNo: Integer) Summary: Text
+    var
+        ReservEntry: Record "Reservation Entry";
+    begin
+        ReservEntry.SetRange("Source Type", SourceType);
+        ReservEntry.SetRange("Source Subtype", SourceSubtype);
+        ReservEntry.SetRange("Source ID", SourceID);
+        ReservEntry.SetRange("Source Batch Name", SourceBatchName);
+        ReservEntry.SetRange("Source Ref. No.", SourceRefNo);
+        ReservEntry.SetFilter("Lot No.", '<>%1', '');
+        if ReservEntry.FindSet() then
+            repeat
+                Summary += StrSubstNo('Lot %1: %2 pcs, Production Date %3. ', ReservEntry."Lot No.", Abs(ReservEntry."Quantity (Base)"), DateText(ReservEntry."CHM Production Date"));
+            until ReservEntry.Next() = 0;
+        if Summary = '' then
+            Summary := 'No open item tracking lines (already posted).';
+    end;
+
+    local procedure AddViewRow(var TempResult: Record "Name/Value Buffer" temporary; StepCode: Text; Description: Text; Details: Text; RecVariant: Variant)
+    begin
+        SetResultLink(RecVariant);
+        AddResult(TempResult, StepCode, Description, ViewTok, Details);
+    end;
+
+    local procedure SetResultLink(RecVariant: Variant)
+    var
+        RecRef: RecordRef;
+    begin
+        // The next AddResult stores this record against its result line.
+        RecRef.GetTable(RecVariant);
+        PendingLink := Format(RecRef.Number) + '|' + RecRef.GetPosition(false);
+    end;
+
+    local procedure SplitLink(LinkText: Text; var TableNo: Integer; var Position: Text)
+    var
+        SeparatorPos: Integer;
+    begin
+        SeparatorPos := StrPos(LinkText, '|');
+        Evaluate(TableNo, CopyStr(LinkText, 1, SeparatorPos - 1));
+        Position := CopyStr(LinkText, SeparatorPos + 1);
+    end;
+
+    local procedure TargetPageCaption(TableNo: Integer): Text
+    begin
+        case TableNo of
+            Database::Item:
+                exit('Item Card');
+            Database::"Item Tracking Code":
+                exit('Item Tracking Code Card');
+            Database::Location:
+                exit('Location Card');
+            Database::Vendor:
+                exit('Vendor Card');
+            Database::Customer:
+                exit('Customer Card');
+            Database::"Item Journal Batch":
+                exit('Item Journal');
+            Database::"Item Journal Line", Database::"Purchase Line", Database::"Sales Line", Database::"Reservation Entry":
+                exit('Item Tracking Lines');
+            Database::"Purchase Header":
+                exit('Purchase Order');
+            Database::"Sales Header":
+                exit('Sales Order');
+            Database::"Purch. Rcpt. Header":
+                exit('Posted Purchase Receipt');
+            Database::"Sales Shipment Header":
+                exit('Posted Sales Shipment');
+            Database::"Item Ledger Entry":
+                exit('Item Ledger Entries');
+            Database::"Lot No. Information":
+                exit('Lot No. Information Card');
+        end;
+        exit('Open');
+    end;
+
+    // =====================================================================
+    // DEV-004 steps (run inside OnRun)
+    // =====================================================================
+
+    local procedure RunDev4Setup()
+    var
+        TemplateItem: Record Item;
+        TemplateVendor: Record Vendor;
+        TemplateCustomer: Record Customer;
+        Item: Record Item;
+        ItemJnlTemplate: Record "Item Journal Template";
+    begin
+        CheckDev4NoSeriesSetup();
+        EnsureDev4TrackingCode();
+        EnsureDev4Location();
+
+        FindTemplateItem(TemplateItem);
+        EnsureTestItem(Dev4ItemTok, 'CHM TEST Lot Item - DEV-004', TemplateItem);
+        EnsureDev4ItemTrackingCode();
+        Item.Get(Dev4ItemTok);
+        EnsureInventoryPostingSetup(Dev4LocationTok, Item."Inventory Posting Group");
+
+        FindTemplateVendor(TemplateVendor, Item."Gen. Prod. Posting Group");
+        EnsureTestVendor(TemplateVendor);
+        FindTemplateCustomer(TemplateCustomer);
+        EnsureTestCustomer(Dev4CustomerTok, 'CHM TEST Customer DEV-004', TemplateCustomer);
+
+        EnsureDev4JournalBatch();
+        CheckDev4JournalEmpty();
+        FindDev4JnlTemplate(ItemJnlTemplate);
+
+        StepResultText := StrSubstNo('Tracking code %1 (lot), location %2, item %3 (template %4), vendor %5 (template %6), customer %7 (template %8), item journal %9.',
+            Dev4TrackingCodeTok, Dev4LocationTok, Dev4ItemTok, TemplateItem."No.", Dev4VendorTok, TemplateVendor."No.",
+            Dev4CustomerTok, TemplateCustomer."No.", ItemJnlTemplate.Name + ' / ' + Dev4BatchTok);
+    end;
+
+    local procedure CreateDev4InboundJournal()
+    var
+        LotNoInformation: Record "Lot No. Information";
+        ItemJnlLine: Record "Item Journal Line";
+    begin
+        CheckDev4JournalEmpty();
+
+        // Lot L4 exists on the Lot No. Information Card without a Production Date: posting must fill it.
+        if not LotNoInformation.Get(Dev4ItemTok, '', Dev4LotNo(RunNo, 4)) then begin
+            LotNoInformation.Init();
+            LotNoInformation."Item No." := Dev4ItemTok;
+            LotNoInformation."Variant Code" := '';
+            LotNoInformation."Lot No." := Dev4LotNo(RunNo, 4);
+            LotNoInformation.Description := 'CHM TEST DEV-004 lot created before receipt';
+            LotNoInformation.Insert(true);
+        end;
+
+        // Line 1: 150 pcs split over 2 lots with different Production Dates.
+        CreateDev4JnlLine(ItemJnlLine, Dev4DocNo('IN'), 150);
+        AddDev4JnlLineLot(ItemJnlLine, Dev4LotNo(RunNo, 1), 100, Dev4ProdDate(1));
+        AddDev4JnlLineLot(ItemJnlLine, Dev4LotNo(RunNo, 2), 50, Dev4ProdDate(2));
+
+        // Line 2: 40 pcs of the lot that already has a (blank) Lot No. Information card.
+        CreateDev4JnlLine(ItemJnlLine, Dev4DocNo('IN'), 40);
+        AddDev4JnlLineLot(ItemJnlLine, Dev4LotNo(RunNo, 4), 40, Dev4ProdDate(4));
+
+        StepResultText := StrSubstNo('Line 1: 150 pcs = lot %1 x100 (%2) + lot %3 x50 (%4). Line 2: lot %5 x40 (%6). Lot %5 created on the Lot No. Information card with a blank Production Date.',
+            Dev4LotNo(RunNo, 1), Dev4ProdDate(1), Dev4LotNo(RunNo, 2), Dev4ProdDate(2), Dev4LotNo(RunNo, 4), Dev4ProdDate(4));
+    end;
+
+    local procedure CreateDev4PurchOrder()
+    var
+        PurchHeader: Record "Purchase Header";
+        PurchLine: Record "Purchase Line";
+    begin
+        PurchHeader.Init();
+        PurchHeader.Validate("Document Type", PurchHeader."Document Type"::Order);
+        PurchHeader."No." := Dev4DocNo('PO');
+        PurchHeader.Insert(true);
+        PurchHeader.Validate("Buy-from Vendor No.", Dev4VendorTok);
+        PurchHeader.Validate("Posting Date", WorkDate());
+        PurchHeader.Validate("Location Code", Dev4LocationTok);
+        PurchHeader."Vendor Invoice No." := PurchHeader."No.";
+        PurchHeader."Vendor Shipment No." := PurchHeader."No.";
+        PurchHeader.Modify(true);
+
+        PurchLine.Init();
+        PurchLine.Validate("Document Type", PurchHeader."Document Type");
+        PurchLine.Validate("Document No.", PurchHeader."No.");
+        PurchLine."Line No." := 10000;
+        PurchLine.Insert(true);
+        PurchLine.Validate(Type, PurchLine.Type::Item);
+        PurchLine.Validate("No.", Dev4ItemTok);
+        PurchLine.Validate("Location Code", Dev4LocationTok);
+        PurchLine.Validate(Quantity, 30);
+        PurchLine.Validate("Direct Unit Cost", 10);
+        PurchLine.Modify(true);
+
+        AddDev4Lot(Database::"Purchase Line", PurchLine."Document Type".AsInteger(), PurchLine."Document No.", '', PurchLine."Line No.",
+          PurchLine."Qty. per Unit of Measure", Dev4LotNo(RunNo, 3), 30, Dev4ProdDate(3), PurchLine."Expected Receipt Date", 0D, "Reservation Status"::Surplus);
+
+        StepResultText := StrSubstNo('Purchase order %1 for vendor %2: 30 pcs, lot %3 with Production Date %4.', PurchHeader."No.", Dev4VendorTok, Dev4LotNo(RunNo, 3), Dev4ProdDate(3));
+    end;
+
+    local procedure CreateDev4OutboundJournal()
+    var
+        LotNoInformation: Record "Lot No. Information";
+        ItemJnlLine: Record "Item Journal Line";
+    begin
+        CheckDev4JournalEmpty();
+
+        // Same as changing the Production Date on the Lot No. Information Card.
+        LotNoInformation.Get(Dev4ItemTok, '', Dev4LotNo(RunNo, 2));
+        LotNoInformation."CHM Production Date" := Dev4ChangedLot2Date();
+        LotNoInformation.Modify(true);
+
+        // Existing lot L1, Production Date left blank: posting must take it from the lot.
+        CreateDev4JnlLine(ItemJnlLine, Dev4DocNo('ADJ2'), 20);
+        AddDev4JnlLineLot(ItemJnlLine, Dev4LotNo(RunNo, 1), 20, 0D);
+
+        // Lot L2 with the new date from the card (what Item Tracking Lines default to).
+        CreateDev4JnlLine(ItemJnlLine, Dev4DocNo('ADJ2'), 5);
+        AddDev4JnlLineLot(ItemJnlLine, Dev4LotNo(RunNo, 2), 5, Dev4ChangedLot2Date());
+
+        StepResultText := StrSubstNo('Lot %1 card: Production Date %2 -> %3. Item journal %4: lot %5 x20 (Production Date blank), lot %1 x5 (%3).',
+            Dev4LotNo(RunNo, 2), Dev4ProdDate(2), Dev4ChangedLot2Date(), Dev4DocNo('ADJ2'), Dev4LotNo(RunNo, 1));
+    end;
+
+    local procedure CreateDev4SalesOrder()
+    var
+        SalesHeader: Record "Sales Header";
+        SalesLine: Record "Sales Line";
+    begin
+        SalesHeader.Init();
+        SalesHeader.Validate("Document Type", SalesHeader."Document Type"::Order);
+        SalesHeader."No." := Dev4DocNo('SO');
+        SalesHeader.Insert(true);
+        SalesHeader.Validate("Sell-to Customer No.", Dev4CustomerTok);
+        SalesHeader.Validate("Posting Date", WorkDate());
+        SalesHeader.Validate("Shipment Date", WorkDate());
+        SalesHeader.Validate("Location Code", Dev4LocationTok);
+        SalesHeader."External Document No." := SalesHeader."No.";
+        SalesHeader.Modify(true);
+
+        SalesLine.Init();
+        SalesLine.Validate("Document Type", SalesHeader."Document Type");
+        SalesLine.Validate("Document No.", SalesHeader."No.");
+        SalesLine."Line No." := 10000;
+        SalesLine.Insert(true);
+        SalesLine.Validate(Type, SalesLine.Type::Item);
+        SalesLine.Validate("No.", Dev4ItemTok);
+        SalesLine.Validate("Location Code", Dev4LocationTok);
+        SalesLine.Validate(Quantity, 10);
+        SalesLine.Validate("Unit Price", 100);
+        SalesLine.Modify(true);
+
+        AddDev4Lot(Database::"Sales Line", SalesLine."Document Type".AsInteger(), SalesLine."Document No.", '', SalesLine."Line No.",
+          SalesLine."Qty. per Unit of Measure", Dev4LotNo(RunNo, 1), 10, 0D, 0D, SalesLine."Shipment Date", "Reservation Status"::Surplus);
+
+        StepResultText := StrSubstNo('Sales order %1 for customer %2: 10 pcs from lot %3, Production Date left blank on the tracking line.', SalesHeader."No.", Dev4CustomerTok, Dev4LotNo(RunNo, 1));
+    end;
+
+    local procedure PostDev4Journal()
+    var
+        ItemJnlTemplate: Record "Item Journal Template";
+        ItemJnlLine: Record "Item Journal Line";
+        ItemJnlPostBatch: Codeunit "Item Jnl.-Post Batch";
+        LineCount: Integer;
+    begin
+        FindDev4JnlTemplate(ItemJnlTemplate);
+        ItemJnlLine.SetRange("Journal Template Name", ItemJnlTemplate.Name);
+        ItemJnlLine.SetRange("Journal Batch Name", Dev4BatchTok);
+        LineCount := ItemJnlLine.Count();
+        ItemJnlLine.FindFirst();
+        ItemJnlPostBatch.Run(ItemJnlLine);
+        StepResultText := StrSubstNo('%1 journal line(s) posted.', LineCount);
+    end;
+
+    local procedure PostDev4PurchOrder(PurchOrderNo: Code[20])
+    var
+        PurchHeader: Record "Purchase Header";
+        PurchPost: Codeunit "Purch.-Post";
+    begin
+        PurchHeader.Get(PurchHeader."Document Type"::Order, PurchOrderNo);
+        PurchHeader.Receive := true;
+        PurchHeader.Invoice := false;
+        PurchPost.Run(PurchHeader);
+        PurchHeader.Get(PurchHeader."Document Type"::Order, PurchOrderNo);
+        StepResultText := StrSubstNo('Received: Posted Purchase Receipt %1.', PurchHeader."Last Receiving No.");
+    end;
+
+    local procedure PostDev4SalesOrder(SalesOrderNo: Code[20])
+    var
+        SalesHeader: Record "Sales Header";
+        SalesPost: Codeunit "Sales-Post";
+    begin
+        SalesHeader.Get(SalesHeader."Document Type"::Order, SalesOrderNo);
+        SalesHeader.Ship := true;
+        SalesHeader.Invoice := false;
+        SalesPost.Run(SalesHeader);
+        SalesHeader.Get(SalesHeader."Document Type"::Order, SalesOrderNo);
+        StepResultText := StrSubstNo('Shipped: Posted Sales Shipment %1.', SalesHeader."Last Shipping No.");
+    end;
+
+    local procedure DeleteDev4Journal()
+    var
+        ItemJnlTemplate: Record "Item Journal Template";
+        ItemJnlLine: Record "Item Journal Line";
+        LineCount: Integer;
+    begin
+        FindDev4JnlTemplate(ItemJnlTemplate);
+        ItemJnlLine.SetRange("Journal Template Name", ItemJnlTemplate.Name);
+        ItemJnlLine.SetRange("Journal Batch Name", Dev4BatchTok);
+        LineCount := ItemJnlLine.Count();
+        ItemJnlLine.DeleteAll(true);
+        StepResultText := StrSubstNo('%1 line(s) and their item tracking deleted.', LineCount);
+    end;
+
+    local procedure DeleteDev4PurchOrder(PurchOrderNo: Code[20])
+    var
+        PurchHeader: Record "Purchase Header";
+        ReleasePurchDoc: Codeunit "Release Purchase Document";
+    begin
+        PurchHeader.Get(PurchHeader."Document Type"::Order, PurchOrderNo);
+        if PurchHeader.Status <> PurchHeader.Status::Open then
+            ReleasePurchDoc.Reopen(PurchHeader);
+        PurchHeader.Delete(true);
+        StepResultText := 'Deleted.';
+    end;
+
+    local procedure RunDev4Step(var TempResult: Record "Name/Value Buffer" temporary; StepCode: Text; Description: Text; StepMode: Integer; DocNo: Code[20]): Boolean
+    var
+        ResultTxt: Text;
+    begin
+        if RunStep(StepMode, 0, DocNo, ResultTxt) then begin
+            AddResult(TempResult, StepCode, Description, PassTok, ResultTxt);
+            exit(true);
+        end;
+        AddResult(TempResult, StepCode, Description, FailTok, ResultTxt);
+        exit(false);
+    end;
+
+    // =====================================================================
+    // DEV-004 setup helpers
+    // =====================================================================
+
+    local procedure CheckDev4NoSeriesSetup()
+    var
+        PurchSetup: Record "Purchases & Payables Setup";
+        SalesSetup: Record "Sales & Receivables Setup";
+    begin
+        PurchSetup.Get();
+        PurchSetup.TestField("Posted Receipt Nos.");
+        SalesSetup.Get();
+        SalesSetup.TestField("Posted Shipment Nos.");
+    end;
+
+    local procedure EnsureDev4TrackingCode()
+    var
+        ItemTrackingCode: Record "Item Tracking Code";
+    begin
+        if ItemTrackingCode.Get(Dev4TrackingCodeTok) then begin
+            if not ItemTrackingCode."Lot Specific Tracking" then
+                Error(Dev4TrackingCodeErr, Dev4TrackingCodeTok);
+            exit;
+        end;
+
+        ItemTrackingCode.Init();
+        ItemTrackingCode.Code := Dev4TrackingCodeTok;
+        ItemTrackingCode.Description := 'CHM TEST Lot tracking DEV-004';
+        ItemTrackingCode.Insert(true);
+        ItemTrackingCode.Validate("Lot Specific Tracking", true);
+        ItemTrackingCode.Modify(true);
+    end;
+
+    local procedure EnsureDev4Location()
+    var
+        Location: Record Location;
+    begin
+        if Location.Get(Dev4LocationTok) then begin
+            if Location."Require Receive" or Location."Require Shipment" or Location."Require Put-away" or Location."Require Pick" or
+               Location."Bin Mandatory" or Location."Directed Put-away and Pick"
+            then
+                Error(Dev4LocationSetupErr, Dev4LocationTok);
+            exit;
+        end;
+
+        Location.Init();
+        Location.Code := Dev4LocationTok;
+        Location.Name := 'CHM TEST Location DEV-004';
+        Location.Insert(true);
+    end;
+
+    local procedure EnsureDev4ItemTrackingCode()
+    var
+        Item: Record Item;
+    begin
+        Item.Get(Dev4ItemTok);
+        if Item."Item Tracking Code" = Dev4TrackingCodeTok then
+            exit;
+        if Item."Item Tracking Code" <> '' then
+            Error(Dev4ItemTrackingErr, Dev4ItemTok, Item."Item Tracking Code", Dev4TrackingCodeTok);
+        Item.Validate("Item Tracking Code", Dev4TrackingCodeTok);
+        Item.Modify(true);
+    end;
+
+    local procedure FindTemplateVendor(var TemplateVendor: Record Vendor; GenProdPostingGroup: Code[20])
+    var
+        GeneralPostingSetup: Record "General Posting Setup";
+    begin
+        if TemplateVendorNo <> '' then begin
+            TemplateVendor.Get(TemplateVendorNo);
+            TemplateVendor.TestField(Blocked, TemplateVendor.Blocked::" ");
+            TemplateVendor.TestField("Vendor Posting Group");
+            TemplateVendor.TestField("Gen. Bus. Posting Group");
+            exit;
+        end;
+
+        TemplateVendor.SetRange(Blocked, TemplateVendor.Blocked::" ");
+        TemplateVendor.SetRange("Currency Code", '');
+        TemplateVendor.SetFilter("Vendor Posting Group", '<>%1', '');
+        TemplateVendor.SetFilter("Gen. Bus. Posting Group", '<>%1', '');
+        TemplateVendor.SetFilter("No.", '<>%1', Dev4VendorTok);
+        if TemplateVendor.FindSet() then
+            repeat
+                if GeneralPostingSetup.Get(TemplateVendor."Gen. Bus. Posting Group", GenProdPostingGroup) then
+                    exit;
+            until TemplateVendor.Next() = 0;
+        Error(NoTemplateVendorErr, GenProdPostingGroup);
+    end;
+
+    local procedure EnsureTestVendor(TemplateVendor: Record Vendor)
+    var
+        Vendor: Record Vendor;
+    begin
+        if Vendor.Get(Dev4VendorTok) then
+            exit;
+
+        Vendor.Init();
+        Vendor."No." := Dev4VendorTok;
+        Vendor.Insert(true);
+        Vendor.Validate(Name, 'CHM TEST Vendor DEV-004');
+        Vendor.Address := TemplateVendor.Address;
+        Vendor.City := TemplateVendor.City;
+        Vendor."Post Code" := TemplateVendor."Post Code";
+        Vendor.County := TemplateVendor.County;
+        Vendor."Country/Region Code" := TemplateVendor."Country/Region Code";
+        Vendor.Validate("Vendor Posting Group", TemplateVendor."Vendor Posting Group");
+        Vendor.Validate("Gen. Bus. Posting Group", TemplateVendor."Gen. Bus. Posting Group");
+        Vendor.Validate("VAT Bus. Posting Group", TemplateVendor."VAT Bus. Posting Group");
+        Vendor."Tax Area Code" := TemplateVendor."Tax Area Code";
+        Vendor."Tax Liable" := TemplateVendor."Tax Liable";
+        Vendor."Payment Terms Code" := TemplateVendor."Payment Terms Code";
+        Vendor."Payment Method Code" := TemplateVendor."Payment Method Code";
+        Vendor."Prices Including VAT" := TemplateVendor."Prices Including VAT";
+        Vendor.Modify(true);
+    end;
+
+    local procedure FindDev4JnlTemplate(var ItemJnlTemplate: Record "Item Journal Template")
+    begin
+        ItemJnlTemplate.SetRange(Type, ItemJnlTemplate.Type::Item);
+        ItemJnlTemplate.SetRange(Recurring, false);
+        if not ItemJnlTemplate.FindFirst() then
+            Error(NoItemJnlTemplateErr);
+    end;
+
+    local procedure EnsureDev4JournalBatch()
+    var
+        ItemJnlTemplate: Record "Item Journal Template";
+        ItemJnlBatch: Record "Item Journal Batch";
+    begin
+        FindDev4JnlTemplate(ItemJnlTemplate);
+        if not ItemJnlBatch.Get(ItemJnlTemplate.Name, Dev4BatchTok) then begin
+            ItemJnlBatch.Init();
+            ItemJnlBatch."Journal Template Name" := ItemJnlTemplate.Name;
+            ItemJnlBatch.Name := Dev4BatchTok;
+            ItemJnlBatch.Description := 'CHM TEST DEV-004';
+            ItemJnlBatch.Insert(true);
+        end;
+
+        // Manual document numbers are used, so the batch must not have number series.
+        if (ItemJnlBatch."No. Series" <> '') or (ItemJnlBatch."Posting No. Series" <> '') then begin
+            ItemJnlBatch."No. Series" := '';
+            ItemJnlBatch."Posting No. Series" := '';
+            ItemJnlBatch.Modify(true);
+        end;
+    end;
+
+    local procedure CheckDev4JournalEmpty()
+    var
+        ItemJnlTemplate: Record "Item Journal Template";
+    begin
+        FindDev4JnlTemplate(ItemJnlTemplate);
+        if Dev4JournalHasLines() then
+            Error(Dev4BatchNotEmptyErr, ItemJnlTemplate.Name, Dev4BatchTok);
+    end;
+
+    local procedure CreateDev4JnlLine(var ItemJnlLine: Record "Item Journal Line"; DocNo: Code[20]; Qty: Decimal)
+    var
+        ItemJnlTemplate: Record "Item Journal Template";
+        LastItemJnlLine: Record "Item Journal Line";
+        LineNo: Integer;
+    begin
+        FindDev4JnlTemplate(ItemJnlTemplate);
+        LastItemJnlLine.SetRange("Journal Template Name", ItemJnlTemplate.Name);
+        LastItemJnlLine.SetRange("Journal Batch Name", Dev4BatchTok);
+        if LastItemJnlLine.FindLast() then
+            LineNo := LastItemJnlLine."Line No.";
+        LineNo += 10000;
+
+        Clear(ItemJnlLine);
+        ItemJnlLine.Init();
+        ItemJnlLine."Journal Template Name" := ItemJnlTemplate.Name;
+        ItemJnlLine."Journal Batch Name" := Dev4BatchTok;
+        ItemJnlLine."Line No." := LineNo;
+        ItemJnlLine.Insert(true);
+        ItemJnlLine.Validate("Posting Date", WorkDate());
+        ItemJnlLine."Document Date" := WorkDate();
+        ItemJnlLine."Document No." := DocNo;
+        ItemJnlLine."Source Code" := ItemJnlTemplate."Source Code";
+        ItemJnlLine.Validate("Entry Type", ItemJnlLine."Entry Type"::"Positive Adjmt.");
+        ItemJnlLine.Validate("Item No.", Dev4ItemTok);
+        ItemJnlLine.Validate("Location Code", Dev4LocationTok);
+        ItemJnlLine.Validate(Quantity, Qty);
+        ItemJnlLine.Validate("Unit Amount", 10);
+        ItemJnlLine.Modify(true);
+    end;
+
+    local procedure AddDev4JnlLineLot(ItemJnlLine: Record "Item Journal Line"; LotNo: Code[50]; QtyBase: Decimal; ProductionDate: Date)
+    begin
+        AddDev4Lot(Database::"Item Journal Line", ItemJnlLine."Entry Type".AsInteger(), ItemJnlLine."Journal Template Name", ItemJnlLine."Journal Batch Name",
+          ItemJnlLine."Line No.", ItemJnlLine."Qty. per Unit of Measure", LotNo, QtyBase, ProductionDate, ItemJnlLine."Posting Date", 0D, "Reservation Status"::Prospect);
+    end;
+
+    local procedure AddDev4Lot(SourceType: Integer; SourceSubtype: Integer; SourceID: Code[20]; SourceBatchName: Code[10]; SourceRefNo: Integer; QtyPerUoM: Decimal; LotNo: Code[50]; QtyBase: Decimal; ProductionDate: Date; ExpectedReceiptDate: Date; ShipmentDate: Date; Status: Enum "Reservation Status")
+    var
+        ForReservEntry: Record "Reservation Entry";
+        ReservEntry: Record "Reservation Entry";
+        CreateReservEntry: Codeunit "Create Reserv. Entry";
+    begin
+        // Same records the Item Tracking Lines page creates for a lot line.
+        if QtyPerUoM = 0 then
+            QtyPerUoM := 1;
+        ForReservEntry.Init();
+        ForReservEntry."Lot No." := LotNo;
+        CreateReservEntry.CreateReservEntryFor(SourceType, SourceSubtype, SourceID, SourceBatchName, 0, SourceRefNo, QtyPerUoM, QtyBase / QtyPerUoM, QtyBase, ForReservEntry);
+        CreateReservEntry.CreateEntry(Dev4ItemTok, '', Dev4LocationTok, '', ExpectedReceiptDate, ShipmentDate, 0, Status);
+
+        // Production Date column of the Item Tracking Lines is stored in field 66600 of the Reservation Entry.
+        ReservEntry.SetRange("Source Type", SourceType);
+        ReservEntry.SetRange("Source Subtype", SourceSubtype);
+        ReservEntry.SetRange("Source ID", SourceID);
+        ReservEntry.SetRange("Source Batch Name", SourceBatchName);
+        ReservEntry.SetRange("Source Ref. No.", SourceRefNo);
+        ReservEntry.SetRange("Lot No.", LotNo);
+        if ReservEntry.IsEmpty() then
+            Error(Dev4NoReservEntryErr, LotNo, SourceID);
+        ReservEntry.ModifyAll("CHM Production Date", ProductionDate);
+    end;
+
+    local procedure Dev4JournalHasLines(): Boolean
+    var
+        ItemJnlTemplate: Record "Item Journal Template";
+        ItemJnlLine: Record "Item Journal Line";
+    begin
+        FindDev4JnlTemplate(ItemJnlTemplate);
+        ItemJnlLine.SetRange("Journal Template Name", ItemJnlTemplate.Name);
+        ItemJnlLine.SetRange("Journal Batch Name", Dev4BatchTok);
+        exit(not ItemJnlLine.IsEmpty());
+    end;
+
+    local procedure Dev4PurchOrderOutstanding(PurchOrderNo: Code[20]): Boolean
+    var
+        PurchLine: Record "Purchase Line";
+    begin
+        PurchLine.SetRange("Document Type", PurchLine."Document Type"::Order);
+        PurchLine.SetRange("Document No.", PurchOrderNo);
+        PurchLine.SetFilter("Outstanding Quantity", '>%1', 0);
+        exit(not PurchLine.IsEmpty());
+    end;
+
+    local procedure Dev4SalesOrderOutstanding(SalesOrderNo: Code[20]): Boolean
+    var
+        SalesLine: Record "Sales Line";
+    begin
+        SalesLine.SetRange("Document Type", SalesLine."Document Type"::Order);
+        SalesLine.SetRange("Document No.", SalesOrderNo);
+        SalesLine.SetFilter("Outstanding Quantity", '>%1', 0);
+        exit(not SalesLine.IsEmpty());
+    end;
+
+    local procedure Dev4OutboundCreated(): Boolean
+    var
+        SalesHeader: Record "Sales Header";
+    begin
+        if SalesHeader.Get(SalesHeader."Document Type"::Order, Dev4DocNo('SO')) then
+            exit(true);
+        if Dev4IleExists(Dev4LotNo(RunNo, 1), "Item Ledger Entry Type"::Sale, '') then
+            exit(true);
+        exit(Dev4IleExists(Dev4LotNo(RunNo, 1), "Item Ledger Entry Type"::"Positive Adjmt.", Dev4DocNo('ADJ2')));
+    end;
+
+    local procedure GetDev004LastRunNo() LastRunNo: Integer
+    var
+        LotNoInformation: Record "Lot No. Information";
+        Value: Integer;
+    begin
+        // Every run creates lot L4 on the Lot No. Information card, so the cards give the run numbers.
+        LotNoInformation.SetRange("Item No.", Dev4ItemTok);
+        LotNoInformation.SetFilter("Lot No.", Dev4PrefixTok + '*');
+        if LotNoInformation.FindSet() then
+            repeat
+                if Evaluate(Value, CopyStr(LotNoInformation."Lot No.", StrLen(Dev4PrefixTok) + 1, 2)) then
+                    LastRunNo := MaxInt(LastRunNo, Value);
+            until LotNoInformation.Next() = 0;
+    end;
+
+    // =====================================================================
+    // DEV-004 test helpers
+    // =====================================================================
+
+    local procedure CheckDev4OpenTracking(var TempResult: Record "Name/Value Buffer" temporary; InboundPosted: Boolean)
+    var
+        ReservEntry: Record "Reservation Entry";
+        ExpectedDate: Date;
+        SourceText: Text;
+    begin
+        ReservEntry.SetRange("Item No.", Dev4ItemTok);
+        ReservEntry.SetFilter("Lot No.", Dev4LotPrefix(RunNo) + '*');
+        if not ReservEntry.FindSet() then begin
+            AddResult(TempResult, Dev4TestStepTok, 'Open item tracking lines', InfoTok, 'None open: all test documents of this run are posted or not created yet.');
+            exit;
+        end;
+
+        repeat
+            ExpectedDate := Dev4ExpectedOpenDate(ReservEntry, InboundPosted);
+            case ReservEntry."Source Type" of
+                Database::"Item Journal Line":
+                    SourceText := StrSubstNo('item journal %1 line %2', ReservEntry."Source Batch Name", ReservEntry."Source Ref. No.");
+                Database::"Purchase Line":
+                    SourceText := StrSubstNo('purchase order %1', ReservEntry."Source ID");
+                Database::"Sales Line":
+                    SourceText := StrSubstNo('sales order %1', ReservEntry."Source ID");
+                else
+                    SourceText := StrSubstNo('source %1 %2', ReservEntry."Source Type", ReservEntry."Source ID");
+            end;
+            SetResultLink(ReservEntry);
+            AddCheck(TempResult, Dev4TestStepTok, StrSubstNo('Item Tracking Lines on %1, lot %2', SourceText, ReservEntry."Lot No."),
+              ReservEntry."CHM Production Date" = ExpectedDate,
+              StrSubstNo('Qty (base) %1, Production Date %2.', Abs(ReservEntry."Quantity (Base)"), DateText(ReservEntry."CHM Production Date")),
+              StrSubstNo('Production Date %1, expected %2.', DateText(ReservEntry."CHM Production Date"), DateText(ExpectedDate)));
+        until ReservEntry.Next() = 0;
+    end;
+
+    local procedure Dev4ExpectedOpenDate(ReservEntry: Record "Reservation Entry"; InboundPosted: Boolean): Date
+    var
+        LotIndex: Integer;
+    begin
+        if ReservEntry."Source Type" = Database::"Sales Line" then
+            exit(0D);
+        if not Evaluate(LotIndex, CopyStr(ReservEntry."Lot No.", StrLen(ReservEntry."Lot No."), 1)) then
+            exit(0D);
+        if (ReservEntry."Source Type" = Database::"Item Journal Line") and InboundPosted then
+            case LotIndex of
+                1:
+                    exit(0D);
+                2:
+                    exit(Dev4ChangedLot2Date());
+            end;
+        exit(Dev4ProdDate(LotIndex));
+    end;
+
+    local procedure Dev4IleExists(LotNo: Code[50]; EntryType: Enum "Item Ledger Entry Type"; DocNo: Code[20]): Boolean
+    var
+        ItemLedgerEntry: Record "Item Ledger Entry";
+    begin
+        ItemLedgerEntry.SetRange("Item No.", Dev4ItemTok);
+        ItemLedgerEntry.SetRange("Lot No.", LotNo);
+        ItemLedgerEntry.SetRange("Entry Type", EntryType);
+        if DocNo <> '' then
+            ItemLedgerEntry.SetRange("Document No.", DocNo);
+        exit(not ItemLedgerEntry.IsEmpty());
+    end;
+
+    local procedure CheckDev4Ile(var TempResult: Record "Name/Value Buffer" temporary; Description: Text; LotNo: Code[50]; EntryType: Enum "Item Ledger Entry Type"; DocNo: Code[20]; ExpectedQty: Decimal; ExpectedDate: Date)
+    var
+        ItemLedgerEntry: Record "Item Ledger Entry";
+    begin
+        ItemLedgerEntry.SetRange("Item No.", Dev4ItemTok);
+        ItemLedgerEntry.SetRange("Lot No.", LotNo);
+        ItemLedgerEntry.SetRange("Entry Type", EntryType);
+        if DocNo <> '' then
+            ItemLedgerEntry.SetRange("Document No.", DocNo);
+        if not ItemLedgerEntry.FindFirst() then begin
+            AddResult(TempResult, Dev4TestStepTok, Description, FailTok, StrSubstNo('No %1 item ledger entry found for lot %2.', EntryType, LotNo));
+            exit;
+        end;
+
+        SetResultLink(ItemLedgerEntry);
+        AddCheck(TempResult, Dev4TestStepTok, Description,
+          (ItemLedgerEntry.Quantity = ExpectedQty) and (ItemLedgerEntry."CHM Production Date" = ExpectedDate),
+          StrSubstNo('Entry %1 (%2 %3): lot %4, Qty %5, Production Date %6.', ItemLedgerEntry."Entry No.", ItemLedgerEntry."Document Type", ItemLedgerEntry."Document No.",
+            LotNo, ItemLedgerEntry.Quantity, DateText(ItemLedgerEntry."CHM Production Date")),
+          StrSubstNo('Entry %1 (%2): Qty %3 (expected %4), Production Date %5 (expected %6).', ItemLedgerEntry."Entry No.", ItemLedgerEntry."Document No.",
+            ItemLedgerEntry.Quantity, ExpectedQty, DateText(ItemLedgerEntry."CHM Production Date"), DateText(ExpectedDate)));
+    end;
+
+    local procedure CheckDev4LotInfo(var TempResult: Record "Name/Value Buffer" temporary; Description: Text; LotNo: Code[50]; ExpectedDate: Date)
+    var
+        LotNoInformation: Record "Lot No. Information";
+    begin
+        if not LotNoInformation.Get(Dev4ItemTok, '', LotNo) then begin
+            AddResult(TempResult, Dev4TestStepTok, Description, FailTok, StrSubstNo('No Lot No. Information card for lot %1.', LotNo));
+            exit;
+        end;
+        SetResultLink(LotNoInformation);
+        AddCheck(TempResult, Dev4TestStepTok, Description, LotNoInformation."CHM Production Date" = ExpectedDate,
+          StrSubstNo('Lot %1: Production Date %2 on the Lot No. Information card.', LotNo, DateText(LotNoInformation."CHM Production Date")),
+          StrSubstNo('Lot %1: Production Date %2, expected %3.', LotNo, DateText(LotNoInformation."CHM Production Date"), DateText(ExpectedDate)));
+    end;
+
+    local procedure CheckDev4LotInventory(var TempResult: Record "Name/Value Buffer" temporary; LotIndex: Integer; ExpectedQty: Decimal)
+    var
+        LotNoInformation: Record "Lot No. Information";
+    begin
+        if not LotNoInformation.Get(Dev4ItemTok, '', Dev4LotNo(RunNo, LotIndex)) then
+            exit;
+        LotNoInformation.CalcFields(Inventory);
+        SetResultLink(LotNoInformation);
+        AddCheck(TempResult, Dev4TestStepTok, StrSubstNo('Inventory of lot %1', LotNoInformation."Lot No."), LotNoInformation.Inventory = ExpectedQty,
+          StrSubstNo('%1 pcs, Production Date %2.', LotNoInformation.Inventory, DateText(LotNoInformation."CHM Production Date")),
+          StrSubstNo('%1 pcs, expected %2.', LotNoInformation.Inventory, ExpectedQty));
+    end;
+
+    local procedure RunDev4ValidationTests(var TempResult: Record "Name/Value Buffer" temporary)
+    var
+        TempTrackingSpec: Record "Tracking Specification" temporary;
+        LotProductionDateMgt: Codeunit "CHM Lot Production Date Mgt.";
+        Lot1: Code[50];
+        Lot2: Code[50];
+        NewLot: Code[50];
+        Lot1Date: Date;
+        Lot2Date: Date;
+        Succeeded: Boolean;
+    begin
+        // Same field logic the Item Tracking Lines page runs (table extension 66606), on a temporary record.
+        Lot1 := Dev4LotNo(RunNo, 1);
+        Lot2 := Dev4LotNo(RunNo, 2);
+        NewLot := Dev4LotNo(RunNo, 9);
+        Lot1Date := LotProductionDateMgt.GetLotProductionDate(Dev4ItemTok, '', Lot1);
+        Lot2Date := LotProductionDateMgt.GetLotProductionDate(Dev4ItemTok, '', Lot2);
+        if Lot1Date = 0D then begin
+            AddResult(TempResult, Dev4TestStepTok, 'Item Tracking Lines rules', InfoTok, StrSubstNo('Skipped: lot %1 has no Production Date on its card.', Lot1));
+            exit;
+        end;
+
+        TempTrackingSpec.Init();
+        TempTrackingSpec."Entry No." := 1;
+        TempTrackingSpec."Item No." := Dev4ItemTok;
+        TempTrackingSpec."Location Code" := Dev4LocationTok;
+        TempTrackingSpec."Qty. per Unit of Measure" := 1;
+        TempTrackingSpec.Insert();
+
+        ClearLastError();
+        Succeeded := TryValidateTrackingLotNo(TempTrackingSpec, Lot1);
+        AddCheck(TempResult, Dev4TestStepTok, StrSubstNo('Item Tracking Lines: entering existing lot %1 fills the Production Date', Lot1),
+          Succeeded and (TempTrackingSpec."CHM Production Date" = Lot1Date),
+          StrSubstNo('Production Date filled with %1 from the Lot No. Information card.', DateText(Lot1Date)),
+          StrSubstNo('Production Date %1, expected %2. %3', DateText(TempTrackingSpec."CHM Production Date"), DateText(Lot1Date), GetLastErrorText()));
+
+        ClearLastError();
+        Succeeded := TryValidateTrackingProdDate(TempTrackingSpec, Lot1Date + 1);
+        AddCheck(TempResult, Dev4TestStepTok, StrSubstNo('Item Tracking Lines: a different Production Date for lot %1 is blocked', Lot1),
+          (not Succeeded) and (StrPos(GetLastErrorText(), Lot1) > 0),
+          StrSubstNo(ErrorAsExpectedTxt, GetLastErrorText()),
+          StrSubstNo('%1 %2', NoErrorRaisedTxt, GetLastErrorText()));
+
+        ClearLastError();
+        Succeeded := TryValidateTrackingProdDate(TempTrackingSpec, Lot1Date);
+        AddCheck(TempResult, Dev4TestStepTok, StrSubstNo('Item Tracking Lines: the same Production Date for lot %1 is accepted', Lot1),
+          Succeeded, AcceptedTxt, GetLastErrorText());
+
+        if Lot2Date <> 0D then begin
+            ClearLastError();
+            Succeeded := TryValidateTrackingLotNo(TempTrackingSpec, Lot2);
+            AddCheck(TempResult, Dev4TestStepTok, StrSubstNo('Item Tracking Lines: switching to lot %1 takes that lot''s date', Lot2),
+              Succeeded and (TempTrackingSpec."CHM Production Date" = Lot2Date),
+              StrSubstNo('Production Date changed to %1.', DateText(Lot2Date)),
+              StrSubstNo('Production Date %1, expected %2. %3', DateText(TempTrackingSpec."CHM Production Date"), DateText(Lot2Date), GetLastErrorText()));
+        end;
+
+        ClearLastError();
+        Succeeded := TryValidateTrackingLotNo(TempTrackingSpec, NewLot);
+        AddCheck(TempResult, Dev4TestStepTok, StrSubstNo('Item Tracking Lines: switching to new lot %1 clears the date', NewLot),
+          Succeeded and (TempTrackingSpec."CHM Production Date" = 0D),
+          'Production Date cleared, ready to be entered for the new lot.',
+          StrSubstNo('Production Date %1, expected blank. %2', DateText(TempTrackingSpec."CHM Production Date"), GetLastErrorText()));
+
+        ClearLastError();
+        Succeeded := TryValidateTrackingProdDate(TempTrackingSpec, Dev4ProdDate(1) - 30);
+        AddCheck(TempResult, Dev4TestStepTok, StrSubstNo('Item Tracking Lines: any Production Date is accepted for new lot %1', NewLot),
+          Succeeded, AcceptedTxt, GetLastErrorText());
+    end;
+
+    [TryFunction]
+    local procedure TryValidateTrackingLotNo(var TrackingSpecification: Record "Tracking Specification"; LotNo: Code[50])
+    begin
+        TrackingSpecification.Validate("Lot No.", LotNo);
+    end;
+
+    [TryFunction]
+    local procedure TryValidateTrackingProdDate(var TrackingSpecification: Record "Tracking Specification"; ProductionDate: Date)
+    begin
+        TrackingSpecification.Validate("CHM Production Date", ProductionDate);
+    end;
+
+    // =====================================================================
+    // DEV-004 test data definition
+    // =====================================================================
+
+    local procedure Dev4LotPrefix(TestRunNo: Integer): Text
+    begin
+        // e.g. CHMT4-R01-
+        exit(Dev4PrefixTok + Format(TestRunNo, 0, '<Integer,2><Filler Character,0>') + '-');
+    end;
+
+    local procedure Dev4LotNo(TestRunNo: Integer; LotIndex: Integer): Code[50]
+    begin
+        // e.g. CHMT4-R01-L1
+        exit(CopyStr(Dev4LotPrefix(TestRunNo) + 'L' + Format(LotIndex), 1, 50));
+    end;
+
+    local procedure Dev4DocNo(Suffix: Text): Code[20]
+    begin
+        // e.g. CHMT4-R01-IN, CHMT4-R01-ADJ2, CHMT4-R01-PO, CHMT4-R01-SO
+        exit(CopyStr(Dev4LotPrefix(RunNo) + Suffix, 1, 20));
+    end;
+
+    local procedure Dev4ProdDate(LotIndex: Integer): Date
+    begin
+        case LotIndex of
+            1:
+                exit(DMY2Date(15, 10, 2026));
+            2:
+                exit(DMY2Date(20, 10, 2026));
+            3:
+                exit(DMY2Date(25, 10, 2026));
+            4:
+                exit(DMY2Date(28, 10, 2026));
+        end;
+        exit(0D);
+    end;
+
+    local procedure Dev4ChangedLot2Date(): Date
+    begin
+        exit(DMY2Date(21, 10, 2026));
+    end;
+
+    local procedure DateText(Value: Date): Text
+    begin
+        if Value = 0D then
+            exit('blank');
+        exit(Format(Value));
+    end;
+
+    local procedure PostedText(Posted: Boolean): Text
+    begin
+        if Posted then
+            exit('posted');
+        exit('not posted');
+    end;
+
+    // =====================================================================
     // Result helpers and constants
     // =====================================================================
 
@@ -1093,6 +2679,14 @@ codeunit 66690 "CHM Deviation Test Mgt."
         TempResult.Value := CopyStr(Status, 1, MaxStrLen(TempResult.Value));
         TempResult."Value Long" := CopyStr(Details, 1, MaxStrLen(TempResult."Value Long"));
         TempResult.Insert();
+
+        // Result IDs can be reused after results are cleared, so always overwrite or remove the link.
+        if PendingLink <> '' then
+            ResultLinks.Set(NextId, PendingLink)
+        else
+            if ResultLinks.ContainsKey(NextId) then
+                ResultLinks.Remove(NextId);
+        PendingLink := '';
     end;
 
     local procedure OrderNo(TestRunNo: Integer; i: Integer): Code[20]
@@ -1149,5 +2743,55 @@ codeunit 66690 "CHM Deviation Test Mgt."
     local procedure RunModeDeleteOrder(): Integer
     begin
         exit(5);
+    end;
+
+    local procedure RunModeDev4Setup(): Integer
+    begin
+        exit(10);
+    end;
+
+    local procedure RunModeDev4CreateInbound(): Integer
+    begin
+        exit(11);
+    end;
+
+    local procedure RunModeDev4CreatePurchOrder(): Integer
+    begin
+        exit(12);
+    end;
+
+    local procedure RunModeDev4PostJournal(): Integer
+    begin
+        exit(13);
+    end;
+
+    local procedure RunModeDev4PostPurchOrder(): Integer
+    begin
+        exit(14);
+    end;
+
+    local procedure RunModeDev4CreateOutboundJnl(): Integer
+    begin
+        exit(15);
+    end;
+
+    local procedure RunModeDev4CreateSalesOrder(): Integer
+    begin
+        exit(16);
+    end;
+
+    local procedure RunModeDev4PostSalesOrder(): Integer
+    begin
+        exit(17);
+    end;
+
+    local procedure RunModeDev4DeleteJournal(): Integer
+    begin
+        exit(18);
+    end;
+
+    local procedure RunModeDev4DeletePurchOrder(): Integer
+    begin
+        exit(19);
     end;
 }

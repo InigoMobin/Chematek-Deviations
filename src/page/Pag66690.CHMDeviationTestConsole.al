@@ -1,8 +1,8 @@
 page 66690 "CHM Deviation Test Console"
 {
-    // TEST ONLY - DEV-002 shipment fields: creates postable warehouse shipments with lines,
-    // posts them and checks the flow to Posted Whse. Shipment and Posted Sales Shipment.
-    Caption = 'CHM Deviation Test Console (DEV-002)';
+    // TEST ONLY - DEV-002 shipment fields and DEV-004 Production Date on lot numbers.
+    // Creates real test documents, posts them and checks the flow to the posted records.
+    Caption = 'CHM Deviation Test Console (DEV-002, DEV-004)';
     PageType = Worksheet;
     ApplicationArea = All;
     UsageCategory = Tasks;
@@ -15,6 +15,29 @@ page 66690 "CHM Deviation Test Console"
     {
         area(Content)
         {
+            group(Templates)
+            {
+                Caption = 'Templates (DEV-002 and DEV-004)';
+
+                field(TemplateItemNo; TemplateItemNo)
+                {
+                    Caption = 'Template Item No.';
+                    TableRelation = Item;
+                    ToolTip = 'Specifies the item whose posting groups and unit of measure are copied to the test items. Leave blank to pick one automatically. It must not use item tracking.';
+                }
+                field(TemplateCustomerNo; TemplateCustomerNo)
+                {
+                    Caption = 'Template Customer No.';
+                    TableRelation = Customer;
+                    ToolTip = 'Specifies the customer whose posting groups are copied to the test customers. Leave blank to pick one automatically.';
+                }
+                field(TemplateVendorNo; TemplateVendorNo)
+                {
+                    Caption = 'Template Vendor No.';
+                    TableRelation = Vendor;
+                    ToolTip = 'Specifies the vendor whose posting groups are copied to the DEV-004 test vendor. Leave blank to pick one automatically.';
+                }
+            }
             group(Setup)
             {
                 Caption = 'DEV-002 Setup';
@@ -32,17 +55,28 @@ page 66690 "CHM Deviation Test Console"
                     MaxValue = 50;
                     ToolTip = 'Specifies how many sales orders with warehouse shipments are created per run.';
                 }
-                field(TemplateItemNo; TemplateItemNo)
+            }
+            group(Dev004Setup)
+            {
+                Caption = 'DEV-004 Setup';
+
+                field(Dev004Location; Dev004LocationCode)
                 {
-                    Caption = 'Template Item No.';
-                    TableRelation = Item;
-                    ToolTip = 'Specifies the item whose posting groups and unit of measure are copied to the test items. Leave blank to pick one automatically. It must not use item tracking.';
+                    Caption = 'Test Location';
+                    Editable = false;
+                    ToolTip = 'Specifies the location used for the DEV-004 tests. It has no warehouse handling, so documents post directly.';
                 }
-                field(TemplateCustomerNo; TemplateCustomerNo)
+                field(Dev004Item; Dev004ItemNo)
                 {
-                    Caption = 'Template Customer No.';
-                    TableRelation = Customer;
-                    ToolTip = 'Specifies the customer whose posting groups are copied to the test customer. Leave blank to pick one automatically.';
+                    Caption = 'Test Item';
+                    Editable = false;
+                    ToolTip = 'Specifies the lot-tracked item used for the DEV-004 tests.';
+                }
+                field(Dev004Run; Dev004RunText)
+                {
+                    Caption = 'Current Run';
+                    Editable = false;
+                    ToolTip = 'Specifies the latest DEV-004 test run and its lot numbers. Steps 2 to 5 work on this run.';
                 }
             }
             group(Summary)
@@ -95,7 +129,17 @@ page 66690 "CHM Deviation Test Console"
                 {
                     Caption = 'Result';
                     StyleExpr = ResultStyle;
-                    ToolTip = 'Specifies PASS, FAIL, WARN or INFO.';
+                    ToolTip = 'Specifies PASS, FAIL, WARN, INFO, or OPEN for a line that shows a record you can open.';
+                }
+                field(OpenPage; OpenPageText)
+                {
+                    Caption = 'Page';
+                    ToolTip = 'Specifies the page that shows the record of this line. Click it to open the page with the actual data.';
+
+                    trigger OnDrillDown()
+                    begin
+                        TestMgt.OpenResultRecord(Rec.ID);
+                    end;
                 }
                 field(Details; Rec."Value Long")
                 {
@@ -110,6 +154,18 @@ page 66690 "CHM Deviation Test Console"
     {
         area(Processing)
         {
+            action(OpenResultPage)
+            {
+                Caption = 'Open Page';
+                Image = View;
+                Scope = Repeater;
+                ToolTip = 'Open the page with the actual data of the selected result line, for example the Item Tracking Lines, the item ledger entries or the Lot No. Information Card.';
+
+                trigger OnAction()
+                begin
+                    TestMgt.OpenResultRecord(Rec.ID);
+                end;
+            }
             group(DEV002Actions)
             {
                 Caption = 'DEV-002 Shipment Fields';
@@ -122,7 +178,7 @@ page 66690 "CHM Deviation Test Console"
 
                     trigger OnAction()
                     begin
-                        TestMgt.SetTemplates(TemplateItemNo, TemplateCustomerNo);
+                        TestMgt.SetTemplates(TemplateItemNo, TemplateCustomerNo, TemplateVendorNo);
                         TestMgt.CreateDev002TestData(Rec, NoOfShipments);
                         RefreshPage();
                     end;
@@ -197,6 +253,152 @@ page 66690 "CHM Deviation Test Console"
                     end;
                 }
             }
+            group(DEV004Actions)
+            {
+                Caption = 'DEV-004 Lot Production Date';
+
+                action(Dev004CreateData)
+                {
+                    Caption = '1. Create Test Data';
+                    Image = CreateDocument;
+                    ToolTip = 'Create the lot-tracked test item, location, vendor and customer, an item journal with lots L1, L2 and L4 and a purchase order with lot L3, all with Production Dates on the item tracking lines.';
+
+                    trigger OnAction()
+                    begin
+                        TestMgt.SetTemplates(TemplateItemNo, TemplateCustomerNo, TemplateVendorNo);
+                        TestMgt.CreateDev004TestData(Rec);
+                        RefreshPage();
+                    end;
+                }
+                action(Dev004PostInbound)
+                {
+                    Caption = '2. Post Inbound';
+                    Image = PostOrder;
+                    ToolTip = 'Post the test item journal and receive the test purchase order of the current run.';
+
+                    trigger OnAction()
+                    begin
+                        TestMgt.PostDev004Inbound(Rec);
+                        RefreshPage();
+                    end;
+                }
+                action(Dev004CreateOutbound)
+                {
+                    Caption = '3. Create Outbound';
+                    Image = NewDocument;
+                    ToolTip = 'Change the Production Date of lot L2 on its card, create item journal lines for lots L1 (blank date) and L2, and a sales order for lot L1.';
+
+                    trigger OnAction()
+                    begin
+                        TestMgt.SetTemplates(TemplateItemNo, TemplateCustomerNo, TemplateVendorNo);
+                        TestMgt.CreateDev004Outbound(Rec);
+                        RefreshPage();
+                    end;
+                }
+                action(Dev004PostOutbound)
+                {
+                    Caption = '4. Post Outbound';
+                    Image = PostOrder;
+                    ToolTip = 'Post the test item journal and ship the test sales order of the current run.';
+
+                    trigger OnAction()
+                    begin
+                        TestMgt.PostDev004Outbound(Rec);
+                        RefreshPage();
+                    end;
+                }
+                action(Dev004RunTests)
+                {
+                    Caption = '5. Run Tests';
+                    Image = TestReport;
+                    ToolTip = 'Check the Production Date on the open item tracking lines, the item ledger entries and the Lot No. Information cards, and the Item Tracking Lines rules.';
+
+                    trigger OnAction()
+                    begin
+                        TestMgt.RunDev004Tests(Rec);
+                        RefreshPage();
+                    end;
+                }
+                action(Dev004ShowFlow)
+                {
+                    Caption = 'Show Process Flow';
+                    Image = Navigate;
+                    ToolTip = 'List every record of the current run in process order, from the item journal and purchase order with their Item Tracking Lines to the item ledger entries and Lot No. Information cards. Click the Page column to open each one.';
+
+                    trigger OnAction()
+                    begin
+                        TestMgt.ShowDev004ProcessFlow(Rec);
+                        RefreshPage();
+                    end;
+                }
+                action(Dev004OpenItemJournal)
+                {
+                    Caption = 'Open Item Journal';
+                    Image = Journal;
+                    ToolTip = 'Open the test item journal batch. Use Item Tracking Lines on a line to see the Production Date.';
+
+                    trigger OnAction()
+                    begin
+                        TestMgt.OpenDev004ItemJournal();
+                    end;
+                }
+                action(Dev004OpenPurchaseOrders)
+                {
+                    Caption = 'Open Purchase Orders';
+                    Image = Document;
+                    ToolTip = 'Open the DEV-004 test purchase orders.';
+
+                    trigger OnAction()
+                    begin
+                        TestMgt.OpenDev004PurchaseOrders();
+                    end;
+                }
+                action(Dev004OpenSalesOrders)
+                {
+                    Caption = 'Open Sales Orders';
+                    Image = Document;
+                    ToolTip = 'Open the DEV-004 test sales orders.';
+
+                    trigger OnAction()
+                    begin
+                        TestMgt.OpenDev004SalesOrders();
+                    end;
+                }
+                action(Dev004OpenItemLedgerEntries)
+                {
+                    Caption = 'Open Item Ledger Entries';
+                    Image = ItemLedger;
+                    ToolTip = 'Open the item ledger entries of the test item with the Production Date column.';
+
+                    trigger OnAction()
+                    begin
+                        TestMgt.OpenDev004ItemLedgerEntries();
+                    end;
+                }
+                action(Dev004OpenLotNoInformation)
+                {
+                    Caption = 'Open Lot No. Information';
+                    Image = Lot;
+                    ToolTip = 'Open the Lot No. Information list of the test item with the Production Date column.';
+
+                    trigger OnAction()
+                    begin
+                        TestMgt.OpenDev004LotNoInformation();
+                    end;
+                }
+                action(Dev004DeleteData)
+                {
+                    Caption = 'Delete Open Test Data';
+                    Image = Delete;
+                    ToolTip = 'Delete the open lines of the test item journal and the test purchase and sales orders that were not received or shipped. Posted entries, lots and master data are kept.';
+
+                    trigger OnAction()
+                    begin
+                        TestMgt.DeleteDev004TestData(Rec);
+                        RefreshPage();
+                    end;
+                }
+            }
             action(ClearResults)
             {
                 Caption = 'Clear Results';
@@ -207,6 +409,7 @@ page 66690 "CHM Deviation Test Console"
                 begin
                     Rec.Reset();
                     Rec.DeleteAll();
+                    TestMgt.ClearResultLinks();
                     RefreshPage();
                 end;
             }
@@ -225,6 +428,24 @@ page 66690 "CHM Deviation Test Console"
                 actionref(Dev002OpenPostedSales_Promoted; Dev002OpenPostedSales) { }
                 actionref(Dev002DeleteData_Promoted; Dev002DeleteData) { }
             }
+            group(DEV004Promoted)
+            {
+                Caption = 'DEV-004';
+
+                actionref(Dev004CreateData_Promoted; Dev004CreateData) { }
+                actionref(Dev004PostInbound_Promoted; Dev004PostInbound) { }
+                actionref(Dev004CreateOutbound_Promoted; Dev004CreateOutbound) { }
+                actionref(Dev004PostOutbound_Promoted; Dev004PostOutbound) { }
+                actionref(Dev004RunTests_Promoted; Dev004RunTests) { }
+                actionref(Dev004ShowFlow_Promoted; Dev004ShowFlow) { }
+                actionref(Dev004OpenItemJournal_Promoted; Dev004OpenItemJournal) { }
+                actionref(Dev004OpenPurchaseOrders_Promoted; Dev004OpenPurchaseOrders) { }
+                actionref(Dev004OpenSalesOrders_Promoted; Dev004OpenSalesOrders) { }
+                actionref(Dev004OpenItemLedgerEntries_Promoted; Dev004OpenItemLedgerEntries) { }
+                actionref(Dev004OpenLotNoInformation_Promoted; Dev004OpenLotNoInformation) { }
+                actionref(Dev004DeleteData_Promoted; Dev004DeleteData) { }
+            }
+            actionref(OpenResultPage_Promoted; OpenResultPage) { }
             actionref(ClearResults_Promoted; ClearResults) { }
         }
     }
@@ -235,6 +456,11 @@ page 66690 "CHM Deviation Test Console"
         NoOfShipments: Integer;
         TemplateItemNo: Code[20];
         TemplateCustomerNo: Code[20];
+        TemplateVendorNo: Code[20];
+        Dev004LocationCode: Code[10];
+        Dev004ItemNo: Code[20];
+        Dev004RunText: Text;
+        OpenPageText: Text;
         TotalCount: Integer;
         PassCount: Integer;
         FailCount: Integer;
@@ -248,6 +474,8 @@ page 66690 "CHM Deviation Test Console"
     begin
         TestLocationCode := TestMgt.GetTestLocationCode();
         NoOfShipments := 20;
+        Dev004LocationCode := TestMgt.GetDev004LocationCode();
+        Dev004ItemNo := TestMgt.GetDev004ItemNo();
         UpdateSummary();
     end;
 
@@ -260,9 +488,12 @@ page 66690 "CHM Deviation Test Console"
                 ResultStyle := 'Unfavorable';
             'WARN':
                 ResultStyle := 'Ambiguous';
+            'OPEN':
+                ResultStyle := 'StrongAccent';
             else
                 ResultStyle := 'Standard';
         end;
+        OpenPageText := TestMgt.GetResultLinkCaption(Rec.ID);
     end;
 
     local procedure RefreshPage()
@@ -277,6 +508,7 @@ page 66690 "CHM Deviation Test Console"
     var
         TempResultCopy: Record "Name/Value Buffer" temporary;
     begin
+        Dev004RunText := TestMgt.GetDev004RunText();
         TempResultCopy.Copy(Rec, true);
         TempResultCopy.Reset();
         TotalCount := TempResultCopy.Count();
