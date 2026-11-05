@@ -78,12 +78,12 @@ report 66601 "CHM Sales Quote"
             column(Payment_DueDate_Caption; DueDateCaptionLbl) { }
             column(ShipmentFrom_Caption; ShipmentFromCaptionLbl) { }
 
-            // Logos (see LoadDocumentLogos)
-            column(FooterLogo; TempFooterLogo.Picture) { }
+            // Logos: Company Information > Picture (left) and Chematek Customizations Setup (others)
+            column(FooterLogo; CHMSetup."Footer Logo") { }
             column(LeftHeaderLogo; CompanyInfo.Picture) { }
-            column(RightHeaderLogo; TempRightHeaderLogo.Picture) { }
-            column(Iso9001Logo; TempIso9001Logo.Picture) { }
-            column(ASSICCLogo; TempASSICCLogo.Picture) { }
+            column(RightHeaderLogo; CHMSetup."Right Header Logo") { }
+            column(Iso9001Logo; CHMSetup."ISO 9001 Logo") { }
+            column(ASSICCLogo; CHMSetup."ASSICC Logo") { }
             column(ShowIso; ShowIso) { }
 
             // Chematek header fields
@@ -107,6 +107,7 @@ report 66601 "CHM Sales Quote"
             column(FiscalCodeNo; FiscalCodeNo) { }
 
             // Contacts
+            column(EMail_Lbl; EMailCaptionLbl) { }
             column(SellToContactEmailLbl; SellToContactEmailLbl) { }
             column(BillToContactEmailLbl; BillToContactEmailLbl) { }
             column(SellToContactPhoneNo; SellToContact."Phone No.") { }
@@ -362,9 +363,12 @@ report 66601 "CHM Sales Quote"
 
                     trigger OnPreDataItem()
                     begin
-                        // Assembly components are not printed on the quote. The data item is kept
-                        // only because the layout dataset contains its columns.
-                        CurrReport.Break();
+                        if not DisplayAssemblyInformation then
+                            CurrReport.Break();
+                        if not AsmInfoExistsForLine then
+                            CurrReport.Break();
+                        AssemblyLine.SetRange("Document Type", AsmHeader."Document Type");
+                        AssemblyLine.SetRange("Document No.", AsmHeader."No.");
                     end;
                 }
 
@@ -398,6 +402,10 @@ report 66601 "CHM Sales Quote"
                     FormatDocument.SetSalesLine(Line, FormattedQuantity, FormattedUnitPrice, FormattedVATPct, FormattedLineAmount);
 
                     GetLineItemInfo(Line);
+
+                    AsmInfoExistsForLine := false;
+                    if DisplayAssemblyInformation then
+                        AsmInfoExistsForLine := Line.AsmToOrderExists(AsmHeader);
 
                     if FirstLineHasBeenOutput then
                         Clear(DummyCompanyInfo.Picture);
@@ -617,7 +625,10 @@ report 66601 "CHM Sales Quote"
                 FillVATClauseSummary();
                 FillPaymentSchedule();
 
-                if not IsReportInPreviewMode() then
+                if not IsReportInPreviewMode() and
+                   (CurrReport.UseRequestPage and ArchiveDocument or
+                    not CurrReport.UseRequestPage and (SalesSetup."Archive Quotes" <> SalesSetup."Archive Quotes"::Never))
+                then
                     case SalesSetup."Archive Quotes" of
                         SalesSetup."Archive Quotes"::Always:
                             ArchiveManagement.ArchSalesDocumentNoConfirm(Header);
@@ -634,9 +645,51 @@ report 66601 "CHM Sales Quote"
 
     requestpage
     {
-        // Filters only (Filter: Sales Quote). Log interaction and archiving follow the setup:
-        // Interaction Templates (Sales Qte.) and Sales & Receivables Setup > Archive Quotes.
         SaveValues = true;
+
+        layout
+        {
+            area(Content)
+            {
+                group(Options)
+                {
+                    Caption = 'Options';
+
+                    field(LogInteractionReq; LogInteraction)
+                    {
+                        ApplicationArea = Basic, Suite;
+                        Caption = 'Log Interaction';
+                        Enabled = LogInteractionEnable;
+                        ToolTip = 'Specifies that interactions with the contact are logged.';
+                    }
+                    field(DisplayAsmInformationReq; DisplayAssemblyInformation)
+                    {
+                        ApplicationArea = Assembly;
+                        Caption = 'Show Assembly Components';
+                        ToolTip = 'Specifies if you want the report to include information about components that were used in linked assembly orders that supplied the item(s) being sold.';
+                    }
+                    field(ArchiveDocumentReq; ArchiveDocument)
+                    {
+                        ApplicationArea = Basic, Suite;
+                        Caption = 'Archive Document';
+                        ToolTip = 'Specifies if the document is archived after you preview or print it.';
+
+                        trigger OnValidate()
+                        begin
+                            if not ArchiveDocument then
+                                LogInteraction := false;
+                        end;
+                    }
+                }
+            }
+        }
+
+        trigger OnInit()
+        begin
+            InitLogInteraction();
+            LogInteractionEnable := LogInteraction;
+            ArchiveDocument := SalesSetup."Archive Quotes" <> SalesSetup."Archive Quotes"::Never;
+        end;
     }
 
     rendering
@@ -717,8 +770,6 @@ report 66601 "CHM Sales Quote"
 
         if SalesHeader.GetLegalStatement() <> '' then
             LegalStatementLbl := SalesHeader.GetLegalStatement();
-
-        InitLogInteraction();
     end;
 
     trigger OnPreReport()
@@ -754,6 +805,7 @@ report 66601 "CHM Sales Quote"
         SalesSetup: Record "Sales & Receivables Setup";
         CompanyInfo: Record "Company Information";
         DummyCompanyInfo: Record "Company Information";
+        CHMSetup: Record "CHM Customizations Setup";
         CompanyBankAccount: Record "Bank Account";
         Cust: Record Customer;
         SellToCust: Record Customer;
@@ -764,10 +816,7 @@ report 66601 "CHM Sales Quote"
         PaymentTerms: Record "Payment Terms";
         PaymentMethod: Record "Payment Method";
         SalespersonPurchaser: Record "Salesperson/Purchaser";
-        TempRightHeaderLogo: Record "Company Information" temporary;
-        TempFooterLogo: Record "Company Information" temporary;
-        TempIso9001Logo: Record "Company Information" temporary;
-        TempASSICCLogo: Record "Company Information" temporary;
+        AsmHeader: Record "Assembly Header";
         LanguageMgt: Codeunit Language;
         FormatAddr: Codeunit "Format Address";
         FormatDocument: Codeunit "Format Document";
@@ -781,7 +830,11 @@ report 66601 "CHM Sales Quote"
         ShowShippingAddr: Boolean;
         MoreLines: Boolean;
         FirstLineHasBeenOutput: Boolean;
+        ArchiveDocument: Boolean;
         LogInteraction: Boolean;
+        LogInteractionEnable: Boolean;
+        DisplayAssemblyInformation: Boolean;
+        AsmInfoExistsForLine: Boolean;
         CompanyLogoPosition: Integer;
         CalculatedExchRate: Decimal;
         ExchangeRateText: Text;
@@ -858,6 +911,7 @@ report 66601 "CHM Sales Quote"
         ReasonCaptionLbl: Label 'Reason';
         CustomerNoCaptionLbl: Label 'Customer No.';
         ContactCaptionLbl: Label 'Contact';
+        EMailCaptionLbl: Label 'E-mail';
         VATRegNoCaptionLbl: Label 'VAT Reg. No.';
         FiscalCodeCaptionLbl: Label 'Fiscal Code';
         PaymentTermsCaptionLbl: Label 'Payment Terms';
@@ -925,11 +979,12 @@ report 66601 "CHM Sales Quote"
         NoFilterSetErr: Label 'You must specify one or more filters to avoid accidentally printing all documents.';
 
     /// <summary>
-    /// Overrides the log interaction default when the report is run from code.
+    /// Initializes the request options when the report is run from code.
     /// </summary>
-    procedure InitializeRequest(NewLogInteraction: Boolean)
+    procedure InitializeRequest(NewLogInteraction: Boolean; NewDisplayAssemblyInformation: Boolean)
     begin
         LogInteraction := NewLogInteraction;
+        DisplayAssemblyInformation := NewDisplayAssemblyInformation;
     end;
 
     local procedure InitLogInteraction()
@@ -1195,16 +1250,11 @@ report 66601 "CHM Sales Quote"
 
     local procedure LoadDocumentLogos()
     begin
-        // LeftHeaderLogo uses the company picture from Company Information.
-        // TODO (pending decision): load the right header, footer, ISO 9001 and ASSICC logos from the
-        // agreed source into the Picture field of these temporary records.
-        Clear(TempRightHeaderLogo);
-        Clear(TempFooterLogo);
-        Clear(TempIso9001Logo);
-        Clear(TempASSICCLogo);
-
-        // The ISO / ASSICC certification logos are only shown when at least one of them is loaded.
-        ShowIso := TempIso9001Logo.Picture.HasValue() or TempASSICCLogo.Picture.HasValue();
+        CHMSetup.SetAutoCalcFields("Right Header Logo", "Footer Logo", "ISO 9001 Logo", "ASSICC Logo");
+        if not CHMSetup.Get() then
+            CHMSetup.Init();
+        // Show ISO controls the ISO certification text (certificate number / revision) in the footer.
+        ShowIso := CHMSetup."Show ISO";
     end;
 
     local procedure GetUOMText(UOMCode: Code[10]): Text[50]

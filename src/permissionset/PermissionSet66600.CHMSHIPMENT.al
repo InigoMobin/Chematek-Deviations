@@ -12,5 +12,8 @@ permissionset 66600 "CHM SHIPMENT"
         tabledata "CHM Michelin Labels" = RIMD,
         page "CHM Michelin Labels" = X,
         report "CHM Michelin Labels" = X,
-        report "CHM Sales Quote" = X;
+        report "CHM Sales Quote" = X,
+        table "CHM Customizations Setup" = X,
+        tabledata "CHM Customizations Setup" = RIMD,
+        page "CHM Customizations Setup" = X;
 }

@@ -33,31 +33,31 @@
                               <TablixBody>
                                 <TablixColumns>
                                   <TablixColumn>
-                                    <Width>0.90671in</Width>
+                                    <Width>0.78in</Width>
                                   </TablixColumn>
                                   <TablixColumn>
-                                    <Width>2.49783in</Width>
+                                    <Width>2.0883in</Width>
                                   </TablixColumn>
                                   <TablixColumn>
-                                    <Width>0.63437in</Width>
+                                    <Width>0.58in</Width>
                                   </TablixColumn>
                                   <TablixColumn>
-                                    <Width>0.47574in</Width>
+                                    <Width>0.36in</Width>
                                   </TablixColumn>
                                   <TablixColumn>
-                                    <Width>0.66947in</Width>
+                                    <Width>0.66in</Width>
                                   </TablixColumn>
                                   <TablixColumn>
-                                    <Width>0.39077in</Width>
+                                    <Width>0.65in</Width>
                                   </TablixColumn>
                                   <TablixColumn>
-                                    <Width>0.88401in</Width>
+                                    <Width>0.86in</Width>
                                   </TablixColumn>
                                   <TablixColumn>
-                                    <Width>0.7531in</Width>
+                                    <Width>0.92in</Width>
                                   </TablixColumn>
                                   <TablixColumn>
-                                    <Width>0.4263in</Width>
+                                    <Width>0.74in</Width>
                                   </TablixColumn>
                                 </TablixColumns>
                                 <TablixRows>
@@ -749,6 +749,7 @@
                                                   <TextRun>
                                                     <Value>=Code.BlankZero(Fields!Line_Quantity.Value)</Value>
                                                     <Style>
+                                                      <Format>=Fields!Line_QuantityFormat.Value</Format>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
                                                     </Style>
@@ -812,6 +813,7 @@
                                                   <TextRun>
                                                     <Value>=Code.BlankZero(Fields!Line_UnitPrice.Value)</Value>
                                                     <Style>
+                                                      <Format>=Fields!Line_UnitPriceFormat.Value</Format>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
                                                     </Style>
@@ -845,6 +847,7 @@
                                                   <TextRun>
                                                     <Value>=Code.BlankZero(Fields!Line_LineDiscountPerc.Value)</Value>
                                                     <Style>
+                                                      <Format>=Fields!Line_LineDiscountPercFormat.Value</Format>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
                                                     </Style>
@@ -878,6 +881,7 @@
                                                   <TextRun>
                                                     <Value>=Code.BlankZero(Fields!Line_Amount.Value)</Value>
                                                     <Style>
+                                                      <Format>=Fields!Line_AmountFormat.Value</Format>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
                                                     </Style>
@@ -2761,7 +2765,7 @@
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value>=Parameters!VATClausesCaption.Value</Value>
+                                                    <Value>=Fields!VATClauses_Lbl.Value</Value>
                                                     <Style>
                                                       <FontStyle>Italic</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -3184,7 +3188,7 @@ fields!FiscalCodeNo.Value + chr(177) +
 fields!DocumentTypeLabel.Value + chr(177) +
 fields!SalesPerson_Lbl.Value + chr(177) + 
 fields!DueDate.value + chr(177) + 
-"43" + chr(177) +
+fields!Page_Lbl.Value + chr(177) +
 fields!PaymentTermsDescription_Lbl.Value + chr(177) +
 fields!PaymentMethodDescription_Lbl.Value + chr(177) +
 fields!ReasonLbl.Value + chr(177) +
@@ -3203,7 +3207,7 @@ fields!YourReference.Value + chr(177) +
 fields!ValidDueDate.Value + chr(177) +
 fields!RequestedDeliveryDate.Value + chr(177) +
 fields!DateLbl.Value + chr(177) +
-"62" ,1)</Hidden>
+fields!EMail_Lbl.Value ,1)</Hidden>
                                             </Visibility>
                                             <Style>
                                               <Border>
@@ -4163,8 +4167,8 @@ fields!LocationName.Value + chr(177) +
                     <VerticalAlign>Middle</VerticalAlign>
                     <PaddingLeft>2pt</PaddingLeft>
                     <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>1pt</PaddingTop>
-                    <PaddingBottom>1pt</PaddingBottom>
+                    <PaddingTop>0pt</PaddingTop>
+                    <PaddingBottom>0pt</PaddingBottom>
                   </Style>
                 </Textbox>
                 <Line Name="Line62">
@@ -4185,7 +4189,7 @@ fields!LocationName.Value + chr(177) +
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>=Parameters!Page_Caption.Value</Value>
+                          <Value>=Code.GetData(43,1)</Value>
                           <Style>
                             <FontFamily>Segoe UI</FontFamily>
                             <FontSize>8pt</FontSize>
@@ -4211,8 +4215,8 @@ fields!LocationName.Value + chr(177) +
                     <VerticalAlign>Middle</VerticalAlign>
                     <PaddingLeft>2pt</PaddingLeft>
                     <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>1pt</PaddingTop>
-                    <PaddingBottom>1pt</PaddingBottom>
+                    <PaddingTop>0pt</PaddingTop>
+                    <PaddingBottom>0pt</PaddingBottom>
                   </Style>
                 </Textbox>
                 <Textbox Name="SalespersonCaption4">
@@ -4221,7 +4225,7 @@ fields!LocationName.Value + chr(177) +
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>=Parameters!CustomerVendorMail_Caption.Value</Value>
+                          <Value>=Code.GetData(62,1)</Value>
                           <Style>
                             <FontFamily>Segoe UI</FontFamily>
                             <FontSize>8pt</FontSize>
@@ -4237,7 +4241,7 @@ fields!LocationName.Value + chr(177) +
                   </Paragraphs>
                   <Top>1.58423cm</Top>
                   <Left>2.39233cm</Left>
-                  <Height>12pt</Height>
+                  <Height>0.450cm</Height>
                   <Width>0.58185in</Width>
                   <ZIndex>12</ZIndex>
                   <Style>
@@ -4247,8 +4251,8 @@ fields!LocationName.Value + chr(177) +
                     <VerticalAlign>Middle</VerticalAlign>
                     <PaddingLeft>2pt</PaddingLeft>
                     <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>1pt</PaddingTop>
-                    <PaddingBottom>1pt</PaddingBottom>
+                    <PaddingTop>0pt</PaddingTop>
+                    <PaddingBottom>0pt</PaddingBottom>
                   </Style>
                 </Textbox>
                 <Textbox Name="SalespersonCaption9">
@@ -4273,8 +4277,8 @@ fields!LocationName.Value + chr(177) +
                   </Paragraphs>
                   <Top>2.07812cm</Top>
                   <Left>6.43365cm</Left>
-                  <Height>12.49998pt</Height>
-                  <Width>0.9281in</Width>
+                  <Height>0.450cm</Height>
+                  <Width>3.300cm</Width>
                   <ZIndex>13</ZIndex>
                   <Style>
                     <Border>
@@ -4283,8 +4287,8 @@ fields!LocationName.Value + chr(177) +
                     <VerticalAlign>Middle</VerticalAlign>
                     <PaddingLeft>2pt</PaddingLeft>
                     <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>1pt</PaddingTop>
-                    <PaddingBottom>1pt</PaddingBottom>
+                    <PaddingTop>0pt</PaddingTop>
+                    <PaddingBottom>0pt</PaddingBottom>
                   </Style>
                 </Textbox>
                 <Textbox Name="SalespersonCaption10">
@@ -4309,8 +4313,8 @@ fields!LocationName.Value + chr(177) +
                   </Paragraphs>
                   <Top>2.58965cm</Top>
                   <Left>6.43365cm</Left>
-                  <Height>11.37731pt</Height>
-                  <Width>0.9281in</Width>
+                  <Height>0.450cm</Height>
+                  <Width>3.300cm</Width>
                   <ZIndex>14</ZIndex>
                   <Style>
                     <Border>
@@ -4319,8 +4323,8 @@ fields!LocationName.Value + chr(177) +
                     <VerticalAlign>Middle</VerticalAlign>
                     <PaddingLeft>2pt</PaddingLeft>
                     <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>1pt</PaddingTop>
-                    <PaddingBottom>1pt</PaddingBottom>
+                    <PaddingTop>0pt</PaddingTop>
+                    <PaddingBottom>0pt</PaddingBottom>
                   </Style>
                 </Textbox>
                 <Textbox Name="HeaderFieldLabel1">
@@ -4345,7 +4349,7 @@ fields!LocationName.Value + chr(177) +
                   </Paragraphs>
                   <Top>2.13267cm</Top>
                   <Left>13.69766cm</Left>
-                  <Height>11.49998pt</Height>
+                  <Height>0.450cm</Height>
                   <Width>2.16407in</Width>
                   <ZIndex>15</ZIndex>
                   <Style>
@@ -4355,8 +4359,8 @@ fields!LocationName.Value + chr(177) +
                     <VerticalAlign>Middle</VerticalAlign>
                     <PaddingLeft>2pt</PaddingLeft>
                     <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>1pt</PaddingTop>
-                    <PaddingBottom>1pt</PaddingBottom>
+                    <PaddingTop>0pt</PaddingTop>
+                    <PaddingBottom>0pt</PaddingBottom>
                   </Style>
                 </Textbox>
                 <Textbox Name="Textbox15">
@@ -4378,7 +4382,7 @@ fields!LocationName.Value + chr(177) +
                   <rd:DefaultName>Textbox13</rd:DefaultName>
                   <Top>44.36084pt</Top>
                   <Left>0.03836cm</Left>
-                  <Height>12.54644pt</Height>
+                  <Height>0.450cm</Height>
                   <Width>0.86486in</Width>
                   <ZIndex>16</ZIndex>
                   <Style>
@@ -4388,8 +4392,8 @@ fields!LocationName.Value + chr(177) +
                     <VerticalAlign>Middle</VerticalAlign>
                     <PaddingLeft>2pt</PaddingLeft>
                     <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>1pt</PaddingTop>
-                    <PaddingBottom>1pt</PaddingBottom>
+                    <PaddingTop>0pt</PaddingTop>
+                    <PaddingBottom>0pt</PaddingBottom>
                   </Style>
                 </Textbox>
                 <Textbox Name="ShipToAddress22">
@@ -4416,7 +4420,7 @@ fields!LocationName.Value + chr(177) +
                   <rd:DefaultName>ShipToAddress8</rd:DefaultName>
                   <Top>0.56142cm</Top>
                   <Left>0.03836cm</Left>
-                  <Height>0.44613cm</Height>
+                  <Height>0.450cm</Height>
                   <Width>2.51006cm</Width>
                   <ZIndex>17</ZIndex>
                   <Style>
@@ -4451,7 +4455,7 @@ fields!LocationName.Value + chr(177) +
                   <rd:DefaultName>ShipToAddress8</rd:DefaultName>
                   <Top>0.56141cm</Top>
                   <Left>2.70983cm</Left>
-                  <Height>0.44614cm</Height>
+                  <Height>0.450cm</Height>
                   <Width>2.78735cm</Width>
                   <ZIndex>18</ZIndex>
                   <Style>
@@ -4485,7 +4489,7 @@ fields!LocationName.Value + chr(177) +
                   <rd:DefaultName>ShipToAddress8</rd:DefaultName>
                   <Top>0.56142cm</Top>
                   <Left>5.67357cm</Left>
-                  <Height>0.44614cm</Height>
+                  <Height>0.450cm</Height>
                   <Width>2.17398cm</Width>
                   <ZIndex>19</ZIndex>
                   <Style>
@@ -4553,7 +4557,7 @@ fields!LocationName.Value + chr(177) +
                   <rd:DefaultName>ShipToAddress8</rd:DefaultName>
                   <Top>0.56142cm</Top>
                   <Left>10.57021cm</Left>
-                  <Height>0.44614cm</Height>
+                  <Height>0.450cm</Height>
                   <Width>6.65243cm</Width>
                   <ZIndex>21</ZIndex>
                   <Style>
@@ -4587,7 +4591,7 @@ fields!LocationName.Value + chr(177) +
                   <rd:DefaultName>ShipToAddress8</rd:DefaultName>
                   <Top>0.56142cm</Top>
                   <Left>17.39903cm</Left>
-                  <Height>0.44614cm</Height>
+                  <Height>0.450cm</Height>
                   <Width>1.79538cm</Width>
                   <ZIndex>22</ZIndex>
                   <Style>
@@ -4621,7 +4625,7 @@ fields!LocationName.Value + chr(177) +
                   <rd:DefaultName>ShipToAddress8</rd:DefaultName>
                   <Top>1.06753cm</Top>
                   <Left>3.9408cm</Left>
-                  <Height>0.44614cm</Height>
+                  <Height>0.450cm</Height>
                   <Width>5.23865cm</Width>
                   <ZIndex>23</ZIndex>
                   <Style>
@@ -4655,7 +4659,7 @@ fields!LocationName.Value + chr(177) +
                   <rd:DefaultName>ShipToAddress8</rd:DefaultName>
                   <Top>1.58423cm</Top>
                   <Left>3.9408cm</Left>
-                  <Height>0.42333cm</Height>
+                  <Height>0.450cm</Height>
                   <Width>5.23865cm</Width>
                   <ZIndex>24</ZIndex>
                   <Style>
@@ -4688,9 +4692,9 @@ fields!LocationName.Value + chr(177) +
                   </Paragraphs>
                   <rd:DefaultName>ShipToAddress8</rd:DefaultName>
                   <Top>1.06944cm</Top>
-                  <Left>11.6991cm</Left>
-                  <Height>0.44614cm</Height>
-                  <Width>4.55033cm</Width>
+                  <Left>13.150cm</Left>
+                  <Height>0.450cm</Height>
+                  <Width>3.250cm</Width>
                   <ZIndex>25</ZIndex>
                   <Style>
                     <FontFamily>Segoe UI</FontFamily>
@@ -4722,9 +4726,9 @@ fields!LocationName.Value + chr(177) +
                   </Paragraphs>
                   <rd:DefaultName>ShipToAddress8</rd:DefaultName>
                   <Top>1.57013cm</Top>
-                  <Left>11.6991cm</Left>
-                  <Height>0.42333cm</Height>
-                  <Width>4.55033cm</Width>
+                  <Left>13.150cm</Left>
+                  <Height>0.450cm</Height>
+                  <Width>3.250cm</Width>
                   <ZIndex>26</ZIndex>
                   <Style>
                     <FontFamily>Segoe UI</FontFamily>
@@ -4757,7 +4761,7 @@ fields!LocationName.Value + chr(177) +
                   <rd:DefaultName>ShipToAddress8</rd:DefaultName>
                   <Top>1.57012cm</Top>
                   <Left>16.43993cm</Left>
-                  <Height>0.42333cm</Height>
+                  <Height>0.450cm</Height>
                   <Width>2.75448cm</Width>
                   <ZIndex>27</ZIndex>
                   <Style>
@@ -4791,7 +4795,7 @@ fields!LocationName.Value + chr(177) +
                   <rd:DefaultName>ShipToAddress8</rd:DefaultName>
                   <Top>2.07812cm</Top>
                   <Left>2.39974cm</Left>
-                  <Height>0.44097cm</Height>
+                  <Height>0.450cm</Height>
                   <Width>3.92808cm</Width>
                   <ZIndex>28</ZIndex>
                   <Style>
@@ -4825,7 +4829,7 @@ fields!LocationName.Value + chr(177) +
                   <rd:DefaultName>ShipToAddress8</rd:DefaultName>
                   <Top>2.57364cm</Top>
                   <Left>2.39974cm</Left>
-                  <Height>0.42333cm</Height>
+                  <Height>0.450cm</Height>
                   <Width>3.92808cm</Width>
                   <ZIndex>29</ZIndex>
                   <Style>
@@ -4859,7 +4863,7 @@ fields!LocationName.Value + chr(177) +
                   <rd:DefaultName>ShipToAddress8</rd:DefaultName>
                   <Top>2.56769cm</Top>
                   <Left>13.69766cm</Left>
-                  <Height>0.42333cm</Height>
+                  <Height>0.450cm</Height>
                   <Width>5.49674cm</Width>
                   <ZIndex>30</ZIndex>
                   <Style>
@@ -4892,9 +4896,9 @@ fields!LocationName.Value + chr(177) +
                   </Paragraphs>
                   <rd:DefaultName>ShipToAddress8</rd:DefaultName>
                   <Top>2.07295cm</Top>
-                  <Left>8.89686cm</Left>
-                  <Height>0.42333cm</Height>
-                  <Width>4.27164cm</Width>
+                  <Left>9.750cm</Left>
+                  <Height>0.450cm</Height>
+                  <Width>3.450cm</Width>
                   <ZIndex>31</ZIndex>
                   <Style>
                     <FontFamily>Segoe UI</FontFamily>
@@ -4926,9 +4930,9 @@ fields!LocationName.Value + chr(177) +
                   </Paragraphs>
                   <rd:DefaultName>ShipToAddress8</rd:DefaultName>
                   <Top>2.57364cm</Top>
-                  <Left>8.89686cm</Left>
-                  <Height>0.42333cm</Height>
-                  <Width>4.27164cm</Width>
+                  <Left>9.750cm</Left>
+                  <Height>0.450cm</Height>
+                  <Width>3.450cm</Width>
                   <ZIndex>32</ZIndex>
                   <Style>
                     <FontFamily>Segoe UI</FontFamily>
@@ -4983,8 +4987,8 @@ fields!LocationName.Value + chr(177) +
                     <VerticalAlign>Middle</VerticalAlign>
                     <PaddingLeft>2pt</PaddingLeft>
                     <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>1pt</PaddingTop>
-                    <PaddingBottom>1pt</PaddingBottom>
+                    <PaddingTop>0pt</PaddingTop>
+                    <PaddingBottom>0pt</PaddingBottom>
                   </Style>
                 </Textbox>
                 <Textbox Name="PostingDateCaption">
@@ -5019,8 +5023,8 @@ fields!LocationName.Value + chr(177) +
                     <VerticalAlign>Middle</VerticalAlign>
                     <PaddingLeft>2pt</PaddingLeft>
                     <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>1pt</PaddingTop>
-                    <PaddingBottom>1pt</PaddingBottom>
+                    <PaddingTop>0pt</PaddingTop>
+                    <PaddingBottom>0pt</PaddingBottom>
                   </Style>
                 </Textbox>
                 <Textbox Name="SalespersonCaption13">
@@ -5055,8 +5059,8 @@ fields!LocationName.Value + chr(177) +
                     <VerticalAlign>Middle</VerticalAlign>
                     <PaddingLeft>2pt</PaddingLeft>
                     <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>1pt</PaddingTop>
-                    <PaddingBottom>1pt</PaddingBottom>
+                    <PaddingTop>0pt</PaddingTop>
+                    <PaddingBottom>0pt</PaddingBottom>
                   </Style>
                 </Textbox>
                 <Textbox Name="SalespersonCaption20">
@@ -5081,7 +5085,7 @@ fields!LocationName.Value + chr(177) +
                   </Paragraphs>
                   <Top>0.56141cm</Top>
                   <Left>8.18461cm</Left>
-                  <Height>12.64644pt</Height>
+                  <Height>0.450cm</Height>
                   <Width>0.9281in</Width>
                   <ZIndex>37</ZIndex>
                   <Style>
@@ -5091,8 +5095,8 @@ fields!LocationName.Value + chr(177) +
                     <VerticalAlign>Middle</VerticalAlign>
                     <PaddingLeft>2pt</PaddingLeft>
                     <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>1pt</PaddingTop>
-                    <PaddingBottom>1pt</PaddingBottom>
+                    <PaddingTop>0pt</PaddingTop>
+                    <PaddingBottom>0pt</PaddingBottom>
                   </Style>
                 </Textbox>
                 <Textbox Name="CustomerCaption2">
@@ -5125,8 +5129,8 @@ fields!LocationName.Value + chr(177) +
                     <VerticalAlign>Middle</VerticalAlign>
                     <PaddingLeft>2pt</PaddingLeft>
                     <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>1pt</PaddingTop>
-                    <PaddingBottom>1pt</PaddingBottom>
+                    <PaddingTop>0pt</PaddingTop>
+                    <PaddingBottom>0pt</PaddingBottom>
                   </Style>
                 </Textbox>
                 <Textbox Name="SalespersonCaption14">
@@ -5161,8 +5165,8 @@ fields!LocationName.Value + chr(177) +
                     <VerticalAlign>Middle</VerticalAlign>
                     <PaddingLeft>2pt</PaddingLeft>
                     <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>1pt</PaddingTop>
-                    <PaddingBottom>1pt</PaddingBottom>
+                    <PaddingTop>0pt</PaddingTop>
+                    <PaddingBottom>0pt</PaddingBottom>
                   </Style>
                 </Textbox>
                 <Textbox Name="SalespersonCaption18">
@@ -5187,7 +5191,7 @@ fields!LocationName.Value + chr(177) +
                   </Paragraphs>
                   <Top>2.07812cm</Top>
                   <Left>0.03836cm</Left>
-                  <Height>12.49998pt</Height>
+                  <Height>0.450cm</Height>
                   <Width>0.90488in</Width>
                   <ZIndex>40</ZIndex>
                   <Style>
@@ -5197,8 +5201,8 @@ fields!LocationName.Value + chr(177) +
                     <VerticalAlign>Middle</VerticalAlign>
                     <PaddingLeft>2pt</PaddingLeft>
                     <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>1pt</PaddingTop>
-                    <PaddingBottom>1pt</PaddingBottom>
+                    <PaddingTop>0pt</PaddingTop>
+                    <PaddingBottom>0pt</PaddingBottom>
                   </Style>
                 </Textbox>
                 <Textbox Name="SalespersonCaption19">
@@ -5223,7 +5227,7 @@ fields!LocationName.Value + chr(177) +
                   </Paragraphs>
                   <Top>2.57364cm</Top>
                   <Left>0.04594cm</Left>
-                  <Height>11.37731pt</Height>
+                  <Height>0.450cm</Height>
                   <Width>0.9019in</Width>
                   <ZIndex>41</ZIndex>
                   <Style>
@@ -5233,8 +5237,8 @@ fields!LocationName.Value + chr(177) +
                     <VerticalAlign>Middle</VerticalAlign>
                     <PaddingLeft>2pt</PaddingLeft>
                     <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>1pt</PaddingTop>
-                    <PaddingBottom>1pt</PaddingBottom>
+                    <PaddingTop>0pt</PaddingTop>
+                    <PaddingBottom>0pt</PaddingBottom>
                   </Style>
                 </Textbox>
                 <Textbox Name="SalespersonCaption16">
@@ -5260,7 +5264,7 @@ fields!LocationName.Value + chr(177) +
                   <Top>1.0781cm</Top>
                   <Left>9.32056cm</Left>
                   <Height>12.80002pt</Height>
-                  <Width>0.92255in</Width>
+                  <Width>3.800cm</Width>
                   <ZIndex>42</ZIndex>
                   <Style>
                     <Border>
@@ -5269,8 +5273,8 @@ fields!LocationName.Value + chr(177) +
                     <VerticalAlign>Middle</VerticalAlign>
                     <PaddingLeft>2pt</PaddingLeft>
                     <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>1pt</PaddingTop>
-                    <PaddingBottom>1pt</PaddingBottom>
+                    <PaddingTop>0pt</PaddingTop>
+                    <PaddingBottom>0pt</PaddingBottom>
                   </Style>
                 </Textbox>
                 <Textbox Name="SalespersonCaption17">
@@ -5295,8 +5299,8 @@ fields!LocationName.Value + chr(177) +
                   </Paragraphs>
                   <Top>1.60022cm</Top>
                   <Left>9.32056cm</Left>
-                  <Height>12pt</Height>
-                  <Width>0.92255in</Width>
+                  <Height>0.450cm</Height>
+                  <Width>3.800cm</Width>
                   <ZIndex>43</ZIndex>
                   <Style>
                     <Border>
@@ -5305,8 +5309,8 @@ fields!LocationName.Value + chr(177) +
                     <VerticalAlign>Middle</VerticalAlign>
                     <PaddingLeft>2pt</PaddingLeft>
                     <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>1pt</PaddingTop>
-                    <PaddingBottom>1pt</PaddingBottom>
+                    <PaddingTop>0pt</PaddingTop>
+                    <PaddingBottom>0pt</PaddingBottom>
                   </Style>
                 </Textbox>
                 <Textbox Name="SelltoCustomerNo_Lbl7">
@@ -5334,7 +5338,7 @@ fields!LocationName.Value + chr(177) +
                   </Paragraphs>
                   <Top>1.0621cm</Top>
                   <Left>16.43993cm</Left>
-                  <Height>0.43746cm</Height>
+                  <Height>0.450cm</Height>
                   <Width>2.81743cm</Width>
                   <ZIndex>44</ZIndex>
                   <Style>
@@ -5398,7 +5402,7 @@ fields!LocationName.Value + chr(177) +
             </Textbox>
             <Image Name="Image4">
               <Source>Database</Source>
-              <Value>=Convert.FromBase64String(First(Fields!LeftHeaderLogo.Value, "DataSet_Result"))</Value>
+              <Value>=System.Convert.ToBase64String(Fields!LeftHeaderLogo.Value)</Value>
               <MIMEType>image/bmp</MIMEType>
               <Sizing>FitProportional</Sizing>
               <Left>0cm</Left>
@@ -5410,10 +5414,13 @@ fields!LocationName.Value + chr(177) +
                   <Style>None</Style>
                 </Border>
               </Style>
+              <Visibility>
+                <Hidden>=IsNothing(First(Fields!LeftHeaderLogo.Value, "DataSet_Result")) OrElse (System.Convert.ToBase64String(First(Fields!LeftHeaderLogo.Value, "DataSet_Result")) = "")</Hidden>
+              </Visibility>
             </Image>
             <Image Name="Image5">
               <Source>Database</Source>
-              <Value>=Convert.FromBase64String(First(Fields!RightHeaderLogo.Value, "DataSet_Result"))</Value>
+              <Value>=System.Convert.ToBase64String(Fields!RightHeaderLogo.Value)</Value>
               <MIMEType>image/bmp</MIMEType>
               <Sizing>FitProportional</Sizing>
               <Top>0.49361cm</Top>
@@ -5426,6 +5433,9 @@ fields!LocationName.Value + chr(177) +
                   <Style>None</Style>
                 </Border>
               </Style>
+              <Visibility>
+                <Hidden>=IsNothing(First(Fields!RightHeaderLogo.Value, "DataSet_Result")) OrElse (System.Convert.ToBase64String(First(Fields!RightHeaderLogo.Value, "DataSet_Result")) = "")</Hidden>
+              </Visibility>
             </Image>
           </ReportItems>
           <Style>
@@ -7100,7 +7110,7 @@ fields!LocationName.Value + chr(177) +
             </Textbox>
             <Image Name="Image3">
               <Source>Database</Source>
-              <Value>=Convert.FromBase64String(First(Fields!FooterLogo.Value, "DataSet_Result"))</Value>
+              <Value>=System.Convert.ToBase64String(Fields!FooterLogo.Value)</Value>
               <MIMEType>image/bmp</MIMEType>
               <Sizing>FitProportional</Sizing>
               <Top>4.62049cm</Top>
@@ -7113,10 +7123,13 @@ fields!LocationName.Value + chr(177) +
                   <Style>None</Style>
                 </Border>
               </Style>
+              <Visibility>
+                <Hidden>=IsNothing(First(Fields!FooterLogo.Value, "DataSet_Result")) OrElse (System.Convert.ToBase64String(First(Fields!FooterLogo.Value, "DataSet_Result")) = "")</Hidden>
+              </Visibility>
             </Image>
             <Image Name="Image6">
               <Source>Database</Source>
-              <Value>=Convert.FromBase64String(First(Fields!Iso9001Logo.Value, "DataSet_Result"))</Value>
+              <Value>=System.Convert.ToBase64String(Fields!Iso9001Logo.Value)</Value>
               <MIMEType>image/bmp</MIMEType>
               <Sizing>FitProportional</Sizing>
               <Top>4.78983cm</Top>
@@ -7129,10 +7142,13 @@ fields!LocationName.Value + chr(177) +
                   <Style>None</Style>
                 </Border>
               </Style>
+              <Visibility>
+                <Hidden>=IsNothing(First(Fields!Iso9001Logo.Value, "DataSet_Result")) OrElse (System.Convert.ToBase64String(First(Fields!Iso9001Logo.Value, "DataSet_Result")) = "")</Hidden>
+              </Visibility>
             </Image>
             <Image Name="Image7">
               <Source>Database</Source>
-              <Value>=Convert.FromBase64String(First(Fields!ASSICCLogo.Value, "DataSet_Result"))</Value>
+              <Value>=System.Convert.ToBase64String(Fields!ASSICCLogo.Value)</Value>
               <MIMEType>image/bmp</MIMEType>
               <Sizing>FitProportional</Sizing>
               <Top>4.78983cm</Top>
@@ -7145,6 +7161,9 @@ fields!LocationName.Value + chr(177) +
                   <Style>None</Style>
                 </Border>
               </Style>
+              <Visibility>
+                <Hidden>=IsNothing(First(Fields!ASSICCLogo.Value, "DataSet_Result")) OrElse (System.Convert.ToBase64String(First(Fields!ASSICCLogo.Value, "DataSet_Result")) = "")</Hidden>
+              </Visibility>
             </Image>
             <Textbox Name="Textbox17">
               <CanGrow>true</CanGrow>
@@ -8259,6 +8278,9 @@ End Function
         </Field>
         <Field Name="FiscalCodeNo">
           <DataField>FiscalCodeNo</DataField>
+        </Field>
+        <Field Name="EMail_Lbl">
+          <DataField>EMail_Lbl</DataField>
         </Field>
         <Field Name="SellToContactEmailLbl">
           <DataField>SellToContactEmailLbl</DataField>

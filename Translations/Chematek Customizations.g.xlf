@@ -508,6 +508,11 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Quote - NamedType DueDateCaptionLbl</note>
         </trans-unit>
+        <trans-unit id="Report 1683474224 - NamedType 595034892" size-unit="char" translate="yes" xml:space="preserve">
+          <source>E-mail</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Quote - NamedType EMailCaptionLbl</note>
+        </trans-unit>
         <trans-unit id="Report 1683474224 - NamedType 3642584667" size-unit="char" translate="yes" xml:space="preserve">
           <source>Exchange rate: %1/%2</source>
           <note from="Developer" annotates="general" priority="2">%1 and %2 are both amounts.</note>
