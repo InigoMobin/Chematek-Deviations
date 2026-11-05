@@ -6,7 +6,7 @@ pageextension 66603 "CHM Posted Sales Shpt. Update" extends "Posted Sales Shipme
         {
             group(CHMShipmentDetails)
             {
-                Caption = 'Shipment Details';
+                Caption = 'Advanced Shipment & Receipt';
 
                 field("CHM Total Net Weight"; Rec."CHM Total Net Weight")
                 {

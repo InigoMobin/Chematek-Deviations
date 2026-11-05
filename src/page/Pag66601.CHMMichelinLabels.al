@@ -19,22 +19,12 @@ page 66601 "CHM Michelin Labels"
                 field(SalesOrderNoFilter; SalesOrderNoFilter)
                 {
                     Caption = 'Sales Order No.';
-                    ToolTip = 'Specifies a filter on the sales order number of the loaded lines.';
-
-                    trigger OnValidate()
-                    begin
-                        ApplyPageFilters();
-                    end;
+                    ToolTip = 'Specifies a filter on the sales order number of the loaded lines. Click Apply Filters to filter the list.';
                 }
                 field(SalesShptCodeFilter; SalesShptCodeFilter)
                 {
                     Caption = 'Sales Shipment Code';
-                    ToolTip = 'Specifies a filter on the posted sales shipment number of the loaded lines.';
-
-                    trigger OnValidate()
-                    begin
-                        ApplyPageFilters();
-                    end;
+                    ToolTip = 'Specifies a filter on the posted sales shipment number of the loaded lines. Click Apply Filters to filter the list.';
                 }
             }
             group(Copies)
@@ -67,18 +57,22 @@ page 66601 "CHM Michelin Labels"
                 }
                 field(Description; Rec.Description)
                 {
+                    Editable = false;
                     ToolTip = 'Specifies the item description.';
                 }
                 field("Lot No."; Rec."Lot No.")
                 {
+                    Editable = false;
                     ToolTip = 'Specifies the lot number shipped.';
                 }
                 field("Production Date"; Rec."Production Date")
                 {
+                    Editable = false;
                     ToolTip = 'Specifies the production date of the lot (DD.MM.YY).';
                 }
                 field(Quantity; Rec.Quantity)
                 {
+                    Editable = false;
                     ToolTip = 'Specifies the quantity printed on the label.';
                 }
                 field("Michelin Purch. Order"; Rec."Michelin Purch. Order")
@@ -87,50 +81,62 @@ page 66601 "CHM Michelin Labels"
                 }
                 field("Ship-from Name"; Rec."Ship-from Name")
                 {
+                    Editable = false;
                     ToolTip = 'Specifies the ship-from name.';
                 }
                 field("Ship-from Address"; Rec."Ship-from Address")
                 {
+                    Editable = false;
                     ToolTip = 'Specifies the ship-from address.';
                 }
                 field("Ship-from City"; Rec."Ship-from City")
                 {
+                    Editable = false;
                     ToolTip = 'Specifies the ship-from city.';
                 }
                 field("Ship-from Post Code"; Rec."Ship-from Post Code")
                 {
+                    Editable = false;
                     ToolTip = 'Specifies the ship-from post code.';
                 }
                 field("Ship-from County"; Rec."Ship-from County")
                 {
+                    Editable = false;
                     ToolTip = 'Specifies the ship-from county.';
                 }
                 field("Ship-from Country"; Rec."Ship-from Country")
                 {
+                    Editable = false;
                     ToolTip = 'Specifies the ship-from country.';
                 }
                 field("Ship-to Name"; Rec."Ship-to Name")
                 {
+                    Editable = false;
                     ToolTip = 'Specifies the ship-to name.';
                 }
                 field("Ship-to Address"; Rec."Ship-to Address")
                 {
+                    Editable = false;
                     ToolTip = 'Specifies the ship-to address.';
                 }
                 field("Ship-to City"; Rec."Ship-to City")
                 {
+                    Editable = false;
                     ToolTip = 'Specifies the ship-to city.';
                 }
                 field("Ship-to Post Code"; Rec."Ship-to Post Code")
                 {
+                    Editable = false;
                     ToolTip = 'Specifies the ship-to post code.';
                 }
                 field("Ship-to County"; Rec."Ship-to County")
                 {
+                    Editable = false;
                     ToolTip = 'Specifies the ship-to county.';
                 }
                 field("Ship-to Country"; Rec."Ship-to Country")
                 {
+                    Editable = false;
                     ToolTip = 'Specifies the ship-to country.';
                 }
             }
@@ -141,63 +147,97 @@ page 66601 "CHM Michelin Labels"
     {
         area(Processing)
         {
-            action(LoadShipment)
+            group(LinesGroup)
             {
-                Caption = 'Load Shipment Lines';
-                Image = GetLines;
-                ToolTip = 'Select a posted sales shipment of a Michelin customer and load its lines with lot details.';
+                Caption = 'Lines';
 
-                trigger OnAction()
-                begin
-                    LoadShipmentLines();
-                end;
+                action(LoadShipment)
+                {
+                    Caption = 'Load Shipment Lines';
+                    Image = GetLines;
+                    ToolTip = 'Select a posted sales shipment of a Michelin customer and load its lines with lot details.';
+
+                    trigger OnAction()
+                    begin
+                        LoadShipmentLines();
+                    end;
+                }
+                action(ClearLines)
+                {
+                    Caption = 'Clear Lines';
+                    Image = ClearLog;
+                    ToolTip = 'Remove all loaded lines from the page.';
+
+                    trigger OnAction()
+                    begin
+                        Rec.Reset();
+                        Rec.DeleteAll();
+                        ApplyPageFilters();
+                    end;
+                }
             }
-            action(ApplyFilters)
+            group(FiltersGroup)
             {
-                Caption = 'Apply Filters';
-                Image = UseFilters;
-                ToolTip = 'Apply the Sales Order No. and Sales Shipment Code filters to the lines.';
+                Caption = 'Filters';
 
-                trigger OnAction()
-                begin
-                    ApplyPageFilters();
-                end;
+                action(ApplyFilters)
+                {
+                    Caption = 'Apply Filters';
+                    Image = UseFilters;
+                    ToolTip = 'Apply the Sales Order No. and Sales Shipment Code filters to the lines.';
+
+                    trigger OnAction()
+                    begin
+                        ApplyPageFilters();
+                    end;
+                }
+                action(ClearFilters)
+                {
+                    Caption = 'Clear Filters';
+                    Image = Cancel;
+                    ToolTip = 'Clear the Sales Order No. and Sales Shipment Code filters and show all loaded lines.';
+
+                    trigger OnAction()
+                    begin
+                        SalesOrderNoFilter := '';
+                        SalesShptCodeFilter := '';
+                        ApplyPageFilters();
+                    end;
+                }
             }
-            action(PrintLabels)
+            group(PrintGroup)
             {
-                Caption = 'Print labels';
-                Image = Print;
-                ToolTip = 'Print Michelin labels for the selected lines, using the No. of copies entered above.';
+                Caption = 'Print';
 
-                trigger OnAction()
-                begin
-                    PrintSelectedLabels();
-                end;
-            }
-            action(ClearLines)
-            {
-                Caption = 'Clear Lines';
-                Image = ClearLog;
-                ToolTip = 'Remove all loaded lines from the page.';
+                action(PrintLabels)
+                {
+                    Caption = 'Print labels';
+                    Image = Print;
+                    ToolTip = 'Print Michelin labels for the selected lines, using the No. of copies entered above.';
 
-                trigger OnAction()
-                begin
-                    Rec.Reset();
-                    Rec.DeleteAll();
-                    ApplyPageFilters();
-                end;
+                    trigger OnAction()
+                    begin
+                        PrintSelectedLabels();
+                    end;
+                }
             }
         }
         area(Promoted)
         {
-            group(Category_Process)
+            group(Category_Category4)
             {
-                Caption = 'Process';
+                Caption = 'Home';
 
                 actionref(LoadShipment_Promoted; LoadShipment) { }
-                actionref(ApplyFilters_Promoted; ApplyFilters) { }
-                actionref(PrintLabels_Promoted; PrintLabels) { }
                 actionref(ClearLines_Promoted; ClearLines) { }
+                group(Category_Category5)
+                {
+                    Caption = 'Apply Filter';
+                    ShowAs = SplitButton;
+                    actionref(ApplyFilters_Promoted; ApplyFilters) { }
+                    actionref(ClearFilters_Promoted; ClearFilters) { }
+                }
+                actionref(PrintLabels_Promoted; PrintLabels) { }
             }
         }
     }
