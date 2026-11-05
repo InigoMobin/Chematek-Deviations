@@ -3,6 +3,41 @@
   <file datatype="xml" source-language="en-US" target-language="en-US" original="Chematek Customizations">
     <body>
       <group id="body">
+        <trans-unit id="Table 1765147265 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Chematek Customizations Setup</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table CHM Customizations Setup - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 1765147265 - Field 583085013 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>ASSICC Logo</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table CHM Customizations Setup - Field ASSICC Logo - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 1765147265 - Field 1418565970 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Footer Logo</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table CHM Customizations Setup - Field Footer Logo - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 1765147265 - Field 1616017634 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>ISO 9001 Logo</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table CHM Customizations Setup - Field ISO 9001 Logo - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 1765147265 - Field 1663593181 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Primary Key</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table CHM Customizations Setup - Field Primary Key - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 1765147265 - Field 4181093104 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Right Header Logo</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table CHM Customizations Setup - Field Right Header Logo - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 1765147265 - Field 261623994 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Show ISO</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table CHM Customizations Setup - Field Show ISO - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Table 2135333572 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Goods Appearance</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -137,6 +172,41 @@
           <source>Lot %1 of item %2 already has Production Date %3. To change it, update the Lot No. Information Card.</source>
           <note from="Developer" annotates="general" priority="2">%1 = Lot No., %2 = Item No., %3 = Production Date</note>
           <note from="Xliff Generator" annotates="general" priority="3">Codeunit CHM Lot Production Date Mgt. - NamedType ProductionDateMismatchErr</note>
+        </trans-unit>
+        <trans-unit id="Page 1765147265 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Chematek Customizations Setup</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page CHM Customizations Setup - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1765147265 - Control 3451143242 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Report Logos</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page CHM Customizations Setup - Control ReportLogos - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1765147265 - Control 583085013 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the ASSICC logo printed in the footer of the sales documents. The print area is about 12 x 11 mm.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page CHM Customizations Setup - Control ASSICC Logo - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 1765147265 - Control 1418565970 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the banner printed at the bottom of the sales documents. The print area is about 164 x 19 mm; the picture is scaled to fit.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page CHM Customizations Setup - Control Footer Logo - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 1765147265 - Control 1616017634 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the ISO 9001 certification logo printed in the footer of the sales documents. The print area is about 12 x 11 mm.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page CHM Customizations Setup - Control ISO 9001 Logo - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 1765147265 - Control 4181093104 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the logo printed at the top right of the sales documents. The print area is about 47 x 17 mm; the picture is scaled to fit.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page CHM Customizations Setup - Control Right Header Logo - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 1765147265 - Control 261623994 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies whether the ISO certification text (certificate number and revision) is printed in the footer of the sales documents.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page CHM Customizations Setup - Control Show ISO - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 320614565 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Goods Appearances</source>
@@ -1058,13 +1128,48 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Quote - ReportLabel YourReference_Caption</note>
         </trans-unit>
+        <trans-unit id="Report 1683474224 - Control 2346885236 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Options</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Quote - Control Options - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1683474224 - Control 2256484917 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies if the document is archived after you preview or print it.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Quote - Control ArchiveDocumentReq - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Report 1683474224 - Control 2256484917 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Archive Document</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Quote - Control ArchiveDocumentReq - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1683474224 - Control 1768134489 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies if you want the report to include information about components that were used in linked assembly orders that supplied the item(s) being sold.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Quote - Control DisplayAsmInformationReq - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Report 1683474224 - Control 1768134489 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Show Assembly Components</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Quote - Control DisplayAsmInformationReq - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1683474224 - Control 1196393644 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies that interactions with the contact are logged.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Quote - Control LogInteractionReq - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Report 1683474224 - Control 1196393644 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Log Interaction</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Quote - Control LogInteractionReq - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Report 1683474224 - ReportLayout 1693405421 - Property 2166945456" size-unit="char" translate="yes" xml:space="preserve">
           <source>Chematek sales quote with VAT summary, VAT clauses and dangerous goods information per line.</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Quote - ReportLayout SalesQuoteRDLC - Property Summary</note>
         </trans-unit>
         <trans-unit id="Report 1683474224 - ReportLayout 1693405421 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Chematek Sales Quote (RDLC)</source>
+          <source>Chematek Sales Quote</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Quote - ReportLayout SalesQuoteRDLC - Property Caption</note>
         </trans-unit>

@@ -698,7 +698,7 @@ report 66601 "CHM Sales Quote"
         {
             Type = RDLC;
             LayoutFile = './src/report/layout/CHMSalesQuote.rdl';
-            Caption = 'Chematek Sales Quote (RDLC)';
+            Caption = 'Chematek Sales Quote';
             Summary = 'Chematek sales quote with VAT summary, VAT clauses and dangerous goods information per line.';
         }
     }
