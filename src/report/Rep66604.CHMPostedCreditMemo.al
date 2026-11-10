@@ -1430,10 +1430,11 @@ report 66604 "CHM Posted Credit Memo"
     end;
 
     local procedure GetCustomerFiscalCode(CustomerNo: Code[20]): Text
+    var
+        CHMManagement: Codeunit "CHM Management";
     begin
-        // TODO (pending decision): standard BC has no Fiscal Code (Codice Fiscale) on the customer.
-        // Return it from the agreed source for CustomerNo (same decision as the Invoice / Order Confirmation reports).
-        exit('');
+        // Fiscal Code from the customer card (Italian localization field, see codeunit 66602 "CHM Management").
+        exit(CHMManagement.GetCustomerFiscalCode(CustomerNo));
     end;
 
     local procedure GetLineVATExemption(SalesCrMemoLine: Record "Sales Cr.Memo Line")

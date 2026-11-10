@@ -1444,10 +1444,11 @@ report 66603 "CHM Posted Sales Invoice"
     end;
 
     local procedure GetCustomerFiscalCode(CustomerNo: Code[20]): Text
+    var
+        CHMManagement: Codeunit "CHM Management";
     begin
-        // TODO (pending decision): standard BC has no Fiscal Code (Codice Fiscale) on the customer.
-        // Return it from the agreed source for CustomerNo (same decision as the Order Confirmation report).
-        exit('');
+        // Fiscal Code from the customer card (Italian localization field, see codeunit 66602 "CHM Management").
+        exit(CHMManagement.GetCustomerFiscalCode(CustomerNo));
     end;
 
     local procedure GetLineVATExemption(SalesInvoiceLine: Record "Sales Invoice Line")

@@ -1341,10 +1341,11 @@ report 66602 "CHM Sales Order Confirmation"
     end;
 
     local procedure GetCustomerFiscalCode(CustomerNo: Code[20]): Text
+    var
+        CHMManagement: Codeunit "CHM Management";
     begin
-        // TODO (pending decision): standard BC has no Fiscal Code (Codice Fiscale) on the customer.
-        // Return it from the agreed source for CustomerNo, e.g. a Customer table extension field.
-        exit('');
+        // Fiscal Code from the customer card (Italian localization field, see codeunit 66602 "CHM Management").
+        exit(CHMManagement.GetCustomerFiscalCode(CustomerNo));
     end;
 
     local procedure GetItemReferenceDescription(SalesLine: Record "Sales Line"): Text

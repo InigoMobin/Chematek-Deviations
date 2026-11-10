@@ -1070,10 +1070,11 @@ report 66606 "CHM Purchase Order"
     end;
 
     local procedure GetVendorFiscalCode(VendorNo: Code[20]): Text
+    var
+        CHMManagement: Codeunit "CHM Management";
     begin
-        // TODO (pending decision): standard BC has no Fiscal Code (Codice Fiscale) on the vendor.
-        // Return it from the agreed source for VendorNo, e.g. a Vendor table extension field.
-        exit('');
+        // Fiscal Code from the vendor card (Italian localization field, see codeunit 66602 "CHM Management").
+        exit(CHMManagement.GetVendorFiscalCode(VendorNo));
     end;
 
     local procedure GetDocumentNote(PurchHeader: Record "Purchase Header"): Text
