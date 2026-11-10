@@ -1853,6 +1853,11 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report CHM Purchase Order - NamedType DeliveryDateCaptionLbl</note>
         </trans-unit>
+        <trans-unit id="Report 4009826269 - NamedType 2833281111" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Document No.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Purchase Order - NamedType DocNoCaptionLbl</note>
+        </trans-unit>
         <trans-unit id="Report 4009826269 - NamedType 3558753334" size-unit="char" translate="yes" xml:space="preserve">
           <source>No.</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -1867,6 +1872,11 @@
           <source>Due Date</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report CHM Purchase Order - NamedType DueDateCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 4009826269 - NamedType 595034892" size-unit="char" translate="yes" xml:space="preserve">
+          <source>E-Mail</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Purchase Order - NamedType EMailCaptionLbl</note>
         </trans-unit>
         <trans-unit id="Report 4009826269 - NamedType 3642584667" size-unit="char" translate="yes" xml:space="preserve">
           <source>Exchange rate: %1/%2</source>
@@ -2133,6 +2143,16 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report CHM Purchase Order - NamedType VATBaseLCYLbl</note>
         </trans-unit>
+        <trans-unit id="Report 4009826269 - NamedType 2678680001" size-unit="char" translate="yes" xml:space="preserve">
+          <source>VAT</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Purchase Order - NamedType VATCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 4009826269 - NamedType 1551035531" size-unit="char" translate="yes" xml:space="preserve">
+          <source>VAT Clauses</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Purchase Order - NamedType VATClausesCaptionLbl</note>
+        </trans-unit>
         <trans-unit id="Report 4009826269 - NamedType 2760006609" size-unit="char" translate="yes" xml:space="preserve">
           <source>VAT Clause</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -2162,6 +2182,11 @@
           <source>VAT Reg. No.</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report CHM Purchase Order - NamedType VATRegNoCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 4009826269 - NamedType 1921651732" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Vendor</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Purchase Order - NamedType VendorCaptionLbl</note>
         </trans-unit>
         <trans-unit id="Report 4009826269 - NamedType 3314371211" size-unit="char" translate="yes" xml:space="preserve">
           <source>Vendor No.</source>

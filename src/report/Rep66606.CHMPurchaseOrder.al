@@ -68,6 +68,14 @@ report 66606 "CHM Purchase Order"
             column(PostingDate_Caption; PostingDateCaptionLbl) { }
             column(ShptMethodDescLbl; ShipmentMethodCaptionLbl) { }
             column(LocationLbl; LocationCaptionLbl) { }
+            // Captions printed in the vendor's language. The layout takes every caption from the dataset,
+            // not from the labels section, because report labels are fixed in the language of the user
+            // running the report and do not follow CurrReport.Language (see OnAfterGetRecord).
+            column(DocNo_Lbl; DocNoCaptionLbl) { }
+            column(Vendor_Lbl; VendorCaptionLbl) { }
+            column(EMail_Lbl; EMailCaptionLbl) { }
+            column(VAT_Lbl; VATCaptionLbl) { }
+            column(VATClausesCaption_Lbl; VATClausesCaptionLbl) { }
 
             // Document header values
             column(DocumentNo; Header."No.") { }
@@ -645,7 +653,8 @@ report 66606 "CHM Purchase Order"
         }
     }
 
-    // Report parameters declared in the RDLC layout (Parameters!<Name>.Value).
+    // Report parameters declared in the RDLC layout. The layout no longer uses them (labels are fixed in the
+    // language of the user running the report); they are kept because the layout still declares them.
     labels
     {
         BillToAddress_Caption = 'Vendor';
@@ -849,6 +858,11 @@ report 66606 "CHM Purchase Order"
         PostingDateCaptionLbl: Label 'Posting Date';
         ReasonCaptionLbl: Label 'Reason';
         VendorNoCaptionLbl: Label 'Vendor No.';
+        VendorCaptionLbl: Label 'Vendor';
+        DocNoCaptionLbl: Label 'Document No.';
+        EMailCaptionLbl: Label 'E-Mail';
+        VATCaptionLbl: Label 'VAT';
+        VATClausesCaptionLbl: Label 'VAT Clauses';
         ContactCaptionLbl: Label 'Contact';
         ContactEmailCaptionLbl: Label 'Contact E-Mail';
         VATRegNoCaptionLbl: Label 'VAT Reg. No.';
@@ -918,6 +932,7 @@ report 66606 "CHM Purchase Order"
         ExchangeRateTxt: Label 'Exchange rate: %1/%2', Comment = '%1 and %2 are both amounts.';
         LCYTxt: Label ' (LCY)';
         LineDiscountPctTok: Label '%1%', Locked = true;
+        ShippingAgentCodeFieldTok: Label 'Shipping Agent Code', Locked = true;
         NoFilterSetErr: Label 'You must specify one or more filters to avoid accidentally printing all documents.';
 
     /// <summary>
@@ -1028,10 +1043,30 @@ report 66606 "CHM Purchase Order"
     end;
 
     local procedure GetShippingAgentName(PurchHeader: Record "Purchase Header"): Text
+    var
+        ShippingAgent: Record "Shipping Agent";
+        FieldRec: Record Field;
+        RecRef: RecordRef;
+        ShippingAgentCode: Code[10];
     begin
-        // TODO (pending decision): the Purchase Header has no Shipping Agent. Return the agreed value
-        // for the "Shipped By" box of the layout (e.g. a new field on the order). Until then it is empty.
-        exit('');
+        // The W1 Purchase Header has no Shipping Agent; the Italian localization adds "Shipping Agent Code".
+        // The field is read by name, so the report compiles and runs on both versions and prints the
+        // shipping agent automatically where the field exists. Prints the agent name, else the code.
+        FieldRec.SetRange(TableNo, Database::"Purchase Header");
+        FieldRec.SetRange(FieldName, ShippingAgentCodeFieldTok);
+        FieldRec.SetRange(Class, FieldRec.Class::Normal);
+        FieldRec.SetFilter(ObsoleteState, '<>%1', FieldRec.ObsoleteState::Removed);
+        if not FieldRec.FindFirst() then
+            exit('');
+
+        RecRef.GetTable(PurchHeader);
+        ShippingAgentCode := CopyStr(Format(RecRef.Field(FieldRec."No.").Value()), 1, MaxStrLen(ShippingAgentCode));
+        if ShippingAgentCode = '' then
+            exit('');
+        if ShippingAgent.Get(ShippingAgentCode) then
+            if ShippingAgent.Name <> '' then
+                exit(ShippingAgent.Name);
+        exit(ShippingAgentCode);
     end;
 
     local procedure GetVendorFiscalCode(VendorNo: Code[20]): Text
