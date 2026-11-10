@@ -2483,6 +2483,686 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Order Confirmation - ReportLayout SalesOrderConfRDLC - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Report 1669070391 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>CHM Sales Proforma Invoice from order</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 3068723543" size-unit="char" translate="yes" xml:space="preserve">
+          <source>ADR Class:</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType ADRClassCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 2868892446" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Bill-to Address</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType BillToAddressCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 1851005282" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Bill-to Contact E-Mail</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType BillToContactEmailLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 2423794985" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Bill-to Contact Mobile Phone No.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType BillToContactMobilePhoneNoLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 24137681" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Bill-to Contact Phone No.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType BillToContactPhoneNoLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 1908025102" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Thank you for your business. Your proforma invoice is attached to this message.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType BodyLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 2771379227" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Sincerely</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType ClosingLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 3701423681" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Copy</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType CopyLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 2938773363" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Country of Origin:</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType CountryOfOriginCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 3937387347" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Customer No.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType CustomerNoCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 35837468" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Date</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType DateCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 271179559" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Delivery Terms</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType DeliveryTermsCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 3558753334" size-unit="char" translate="yes" xml:space="preserve">
+          <source>No.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType DocumentNoCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 1348779307" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Document Total</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType DocumentTotalCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 4092352280" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Due Date</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType DueDateCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 3642584667" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Exchange rate: %1/%2</source>
+          <note from="Developer" annotates="general" priority="2">%1 and %2 are both amounts.</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType ExchangeRateTxt</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 2063466741" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Fiscal Code</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType FiscalCodeCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 514421613" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Hello</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType GreetingLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 3479778493" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Invoice Discount Base Amount</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType InvDiscBaseAmtLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 3079811618" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Invoice Discount</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType InvDiscountAmtLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 2751058498" size-unit="char" translate="yes" xml:space="preserve">
+          <source> (LCY)</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType LCYTxt</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 1085275642" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Amount</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType LineAmountCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 1448166496" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Payment Discount on VAT</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType LineAmtAfterInvDiscLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 617327944" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Description</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType LineDescriptionCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 955628588" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Disc. %</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType LineDiscPctCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 3664537309" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Item No.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType LineNoCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 1910661697" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Unit Price</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType LinePriceCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 234337251" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Quantity</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType LineQuantityCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 2871831930" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Shipment Date</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType LineShipmentDateCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 426587207" size-unit="char" translate="yes" xml:space="preserve">
+          <source>UoM</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType LineUoMCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 3076993755" size-unit="char" translate="yes" xml:space="preserve">
+          <source>VAT</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType LineVATCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 2284888724" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Local Currency</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType LocalCurrencyLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 3926274846" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Lot No.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType LotNoCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 3188887224" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Net Amount to Pay</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType NetAmountToPayCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 2491107794" size-unit="char" translate="yes" xml:space="preserve">
+          <source>You must specify one or more filters to avoid accidentally printing all documents.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType NoFilterSetErr</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 3268937432" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Operator</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType OperatorCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 2536333798" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Order</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType OrderCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 3570497350" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Our Bank</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType OurBankCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 1877187315" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Page</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType PageLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 290227238" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Amount Due</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType PaymentAmountCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 1160489787" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Payment Method</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType PaymentMethodCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 1302573237" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Payment Terms</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType PaymentTermsCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 3007589352" size-unit="char" translate="yes" xml:space="preserve">
+          <source>If we receive the payment before %1, you are eligible for a %2% payment discount.</source>
+          <note from="Developer" annotates="general" priority="2">%1 = Discount Due Date %2 = value of Payment Discount % </note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType PmtDiscTxt</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 1188221785" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Proforma Invoice</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType ProformaInvoiceCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 1745962921" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Quote No.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType QuoteNoCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 1395001292" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Reason</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType ReasonCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 3900471320" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Delivery Date</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType RequestedDeliveryDateCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 2105550444" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Discount %</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType SalesInvLineDiscLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 746789835" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Salesperson</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType SalespersonCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 2518404021" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Sell-to Contact E-Mail</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType SellToContactEmailLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 689955230" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Sell-to Contact Mobile Phone No.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType SellToContactMobilePhoneNoLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 1096796838" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Sell-to Contact Phone No.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType SellToContactPhoneNoLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 1474002046" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Shipment from</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType ShipmentFromCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 2531235046" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Shipment</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType ShipmentLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 3956110661" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Shipment Method</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType ShipmentMethodCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 1915237209" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Shipping Agent</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType ShippingAgentCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 319427301" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Ship-to Address</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType ShipToAddressCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 3014721408" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Subtotal</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType SubtotalLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 3588700781" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Tariff No.:</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType TariffNoCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 1320402353" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Taxable Amount</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType TaxableAmountCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 2410138484" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Total</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType TotalLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 3306080199" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Total VAT</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType TotalVATCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 1593512474" size-unit="char" translate="yes" xml:space="preserve">
+          <source>UN No.:</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType UNNoCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 803899421" size-unit="char" translate="yes" xml:space="preserve">
+          <source>VAT Amount (LCY)</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType VATAmountLCYLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 3751533915" size-unit="char" translate="yes" xml:space="preserve">
+          <source>VAT Amount</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType VATAmtLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 3978645464" size-unit="char" translate="yes" xml:space="preserve">
+          <source>VAT Amount Specification</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType VATAmtSpecificationLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 3259128960" size-unit="char" translate="yes" xml:space="preserve">
+          <source>VAT Base</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType VATBaseLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 282000566" size-unit="char" translate="yes" xml:space="preserve">
+          <source>VAT Base (LCY)</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType VATBaseLCYLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 2760006609" size-unit="char" translate="yes" xml:space="preserve">
+          <source>VAT Clause</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType VATClausesLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 3851411006" size-unit="char" translate="yes" xml:space="preserve">
+          <source>VAT Code</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType VATCodeCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 3646190467" size-unit="char" translate="yes" xml:space="preserve">
+          <source>VAT Description</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType VATDescriptionCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 1071970054" size-unit="char" translate="yes" xml:space="preserve">
+          <source>VAT Identifier</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType VATIdentifierLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 1532992371" size-unit="char" translate="yes" xml:space="preserve">
+          <source>VAT %</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType VATPercentageLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 1306668226" size-unit="char" translate="yes" xml:space="preserve">
+          <source>VAT Reg. No.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType VATRegNoCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - NamedType 142445042" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Your Reference</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType YourReferenceCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - ReportDataItem 907109761 - Property 1806354803" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Sales Order</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - ReportDataItem Header - Property RequestFilterHeading</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - ReportLabel 3862105617" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Bill-to Address</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - ReportLabel BillToAddress_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - ReportLabel 1863312425" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Country of Origin</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - ReportLabel CountryOfOriginLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - ReportLabel 3059990419" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Contact</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - ReportLabel CustomerVendorContact_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - ReportLabel 3056450812" size-unit="char" translate="yes" xml:space="preserve">
+          <source>E-Mail</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - ReportLabel CustomerVendorMail_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - ReportLabel 826095332" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Customer No.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - ReportLabel CustomerVendorNo_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - ReportLabel 2385736825" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Document No.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - ReportLabel DocumentNo_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - ReportLabel 3883326266" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Fiscal Code</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - ReportLabel FiscalCode_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - ReportLabel 1451874953" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Goods Appearance</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - ReportLabel GoodsAppearance_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - ReportLabel 2460167661" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Gross Weight</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - ReportLabel GrossWeight_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - ReportLabel 2162186408" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Amount</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - ReportLabel Line_Amount_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - ReportLabel 460132802" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Description</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - ReportLabel Line_Description_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - ReportLabel 551540224" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Item No.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - ReportLabel Line_ItemNo_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - ReportLabel 2805077001" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Disc. %</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - ReportLabel Line_LineDiscountPerc_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - ReportLabel 1315480607" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Order Qty.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - ReportLabel Line_OrderQuantity_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - ReportLabel 4276699525" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Quantity</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - ReportLabel Line_Quantity_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - ReportLabel 2450167800" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Shipment Date</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - ReportLabel Line_ShipmentDate_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - ReportLabel 3615068088" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Type</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - ReportLabel Line_Type_Descr_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - ReportLabel 1635507053" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Unit Price</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - ReportLabel Line_UnitPrice_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - ReportLabel 1288768529" size-unit="char" translate="yes" xml:space="preserve">
+          <source>UoM</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - ReportLabel Line_UoM_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - ReportLabel 2982936740" size-unit="char" translate="yes" xml:space="preserve">
+          <source>VAT</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - ReportLabel Line_VATIdentifier_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - ReportLabel 3612711280" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Location</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - ReportLabel Location_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - ReportLabel 875500059" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Net Weight</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - ReportLabel NetWeightCaption</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - ReportLabel 326692037" size-unit="char" translate="yes" xml:space="preserve">
+          <source>No. of Parcels</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - ReportLabel NoOfParcels_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - ReportLabel 3999287698" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Operator</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - ReportLabel OperatorName_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - ReportLabel 3467475087" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Proforma Invoice</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - ReportLabel OrderConf_Title</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - ReportLabel 503490221" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Order Date</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - ReportLabel OrderDate_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - ReportLabel 471182307" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Our Bank</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - ReportLabel Our_Bank</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - ReportLabel 3653912790" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Page</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - ReportLabel Page_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - ReportLabel 1712204368" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Payment Method</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - ReportLabel PaymentMethod_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - ReportLabel 2743034362" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Payment Terms</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - ReportLabel PaymentTerms_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - ReportLabel 1173755671" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Posting Date</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - ReportLabel PostingDate_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - ReportLabel 1950496351" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Reason</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - ReportLabel Reason_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - ReportLabel 1753088956" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Return Address</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - ReportLabel ReturnAddr_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - ReportLabel 241495872" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Salesperson</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - ReportLabel Salesperson_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - ReportLabel 324960055" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Shipment Date</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - ReportLabel ShipmentDate_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - ReportLabel 664160842" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Ship-to Address</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - ReportLabel ShipToAddress_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - ReportLabel 1892003589" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Shipping Agent</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - ReportLabel ShpAgent_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - ReportLabel 1974838135" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Shipped By</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - ReportLabel ShptBy_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - ReportLabel 453487851" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Shipment Method</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - ReportLabel ShptMethod_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - ReportLabel 863206746" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Shipment Start</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - ReportLabel ShptStart_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - ReportLabel 2233818414" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Driver Signature</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - ReportLabel SigDriver_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - ReportLabel 1575189401" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Recipient Signature</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - ReportLabel SigRecipient_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - ReportLabel 1004375538" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Shipping Agent Signature</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - ReportLabel SigShpAgent_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - ReportLabel 1378079743" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Tariff No.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - ReportLabel TariffNoLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - ReportLabel 1074131689" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Total Excl. VAT</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - ReportLabel Total_DocumentTotalVatExclCaption</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - ReportLabel 3013176120" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Valid To</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - ReportLabel ValidTo_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - ReportLabel 2358362909" size-unit="char" translate="yes" xml:space="preserve">
+          <source>VAT Clauses</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - ReportLabel VATClausesCaption</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - ReportLabel 1813042605" size-unit="char" translate="yes" xml:space="preserve">
+          <source>VAT Reg. No.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - ReportLabel VATRegNo_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - ReportLabel 1166384323" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Volume</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - ReportLabel Volume_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - ReportLabel 3409671805" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Your Reference</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - ReportLabel YourReference_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - Control 2346885236 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Options</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - Control Options - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - Control 2256484917 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies if the document is archived after you preview or print it.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - Control ArchiveDocumentReq - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - Control 2256484917 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Archive Document</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - Control ArchiveDocumentReq - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - Control 1768134489 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies if you want the report to include information about components that were used in linked assembly orders that supplied the item(s) being sold.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - Control DisplayAsmInformationReq - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - Control 1768134489 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Show Assembly Components</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - Control DisplayAsmInformationReq - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - Control 1196393644 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies that interactions with the contact are logged.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - Control LogInteractionReq - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - Control 1196393644 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Log Interaction</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - Control LogInteractionReq - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - ReportLayout 1926378758 - Property 2166945456" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Chematek proforma invoice from a sales order with VAT summary, VAT clauses, payment schedule, customer IBAN, lot numbers and dangerous goods information per line.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - ReportLayout SalesProformaInvRDLC - Property Summary</note>
+        </trans-unit>
+        <trans-unit id="Report 1669070391 - ReportLayout 1926378758 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Chematek Sales Proforma Invoice</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - ReportLayout SalesProformaInvRDLC - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Report 1683474224 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Sales Quote</source>
           <note from="Developer" annotates="general" priority="2"></note>
