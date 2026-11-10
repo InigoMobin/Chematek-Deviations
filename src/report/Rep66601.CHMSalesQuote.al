@@ -21,180 +21,654 @@ report 66601 "CHM Sales Quote"
             RequestFilterHeading = 'Sales Quote';
 
             // Addresses
-            column(BillToAddress_Lbl; BillToAddressCaptionLbl) { }
-            column(CustomerAddress1; CustAddr[1]) { }
-            column(CustomerAddress2; CustAddr[2]) { }
-            column(CustomerAddress3; CustAddr[3]) { }
-            column(CustomerAddress4; CustAddr[4]) { }
-            column(CustomerAddress5; CustAddr[5]) { }
-            column(CustomerAddress6; CustAddr[6]) { }
-            column(CustomerAddress7; CustAddr[7]) { }
-            column(CustomerAddress8; CustAddr[8]) { }
-            column(ShipToAddress_Lbl; ShipToAddressCaptionLbl) { }
-            column(ShipToAddress1; ShipToAddr[1]) { }
-            column(ShipToAddress2; ShipToAddr[2]) { }
-            column(ShipToAddress3; ShipToAddr[3]) { }
-            column(ShipToAddress4; ShipToAddr[4]) { }
-            column(ShipToAddress5; ShipToAddr[5]) { }
-            column(ShipToAddress6; ShipToAddr[6]) { }
-            column(ShipToAddress7; ShipToAddr[7]) { }
-            column(ShipToAddress8; ShipToAddr[8]) { }
+            column(BillToAddress_Lbl; BillToAddressCaptionLbl)
+            {
+
+            }
+            column(CustomerAddress1; CustAddr[1])
+            {
+
+            }
+            column(CustomerAddress2; CustAddr[2])
+            {
+
+            }
+            column(CustomerAddress3; CustAddr[3])
+            {
+
+            }
+            column(CustomerAddress4; CustAddr[4])
+            {
+
+            }
+            column(CustomerAddress5; CustAddr[5])
+            {
+
+            }
+            column(CustomerAddress6; CustAddr[6])
+            {
+
+            }
+            column(CustomerAddress7; CustAddr[7])
+            {
+
+            }
+            column(CustomerAddress8; CustAddr[8])
+            {
+
+            }
+            column(ShipToAddress_Lbl; ShipToAddressCaptionLbl)
+            {
+
+            }
+            column(ShipToAddress1; ShipToAddr[1])
+            {
+
+            }
+            column(ShipToAddress2; ShipToAddr[2])
+            {
+
+            }
+            column(ShipToAddress3; ShipToAddr[3])
+            {
+
+            }
+            column(ShipToAddress4; ShipToAddr[4])
+            {
+
+            }
+            column(ShipToAddress5; ShipToAddr[5])
+            {
+
+            }
+            column(ShipToAddress6; ShipToAddr[6])
+            {
+
+            }
+            column(ShipToAddress7; ShipToAddr[7])
+            {
+
+            }
+            column(ShipToAddress8; ShipToAddr[8])
+            {
+
+            }
 
             // Document header captions
-            column(DocumentTypeLabel; SalesQuoteCaptionLbl) { }
-            column(DocumentNoLbl; DocumentNoCaptionLbl) { }
-            column(DateLbl; DateCaptionLbl) { }
-            column(ReasonLbl; ReasonCaptionLbl) { }
-            column(CustomerVendorNoLbl; CustomerNoCaptionLbl) { }
-            column(CustomerVendorContactLbl; ContactCaptionLbl) { }
-            column(VatRegNoLbl; VATRegNoCaptionLbl) { }
-            column(FiscalCodeLbl; FiscalCodeCaptionLbl) { }
-            column(PaymentTermsDescLbl; PaymentTermsCaptionLbl) { }
-            column(PaymentMethodDescLbl; PaymentMethodCaptionLbl) { }
-            column(SalespersonLbl; SalespersonCaptionLbl) { }
-            column(OperatorNameLbl; OperatorCaptionLbl) { }
-            column(ShptTermsLbl; DeliveryTermsCaptionLbl) { }
-            column(OurBankAccountLbl; OurBankCaptionLbl) { }
-            column(ShptByLbl; ShippingAgentCaptionLbl) { }
-            column(YourReferenceLbl; YourReferenceCaptionLbl) { }
+            column(DocumentTypeLabel; SalesQuoteCaptionLbl)
+            {
+
+            }
+            column(DocumentNoLbl; DocumentNoCaptionLbl)
+            {
+
+            }
+            column(DateLbl; DateCaptionLbl)
+            {
+
+            }
+            column(ReasonLbl; ReasonCaptionLbl)
+            {
+
+            }
+            column(CustomerVendorNoLbl; CustomerNoCaptionLbl)
+            {
+
+            }
+            column(CustomerVendorContactLbl; ContactCaptionLbl)
+            {
+
+            }
+            column(VatRegNoLbl; VATRegNoCaptionLbl)
+            {
+
+            }
+            column(FiscalCodeLbl; FiscalCodeCaptionLbl)
+            {
+
+            }
+            column(PaymentTermsDescLbl; PaymentTermsCaptionLbl)
+            {
+
+            }
+            column(PaymentMethodDescLbl; PaymentMethodCaptionLbl)
+            {
+
+            }
+            column(SalespersonLbl; SalespersonCaptionLbl)
+            {
+
+            }
+            column(OperatorNameLbl; OperatorCaptionLbl)
+            {
+
+            }
+            column(ShptTermsLbl; DeliveryTermsCaptionLbl)
+            {
+
+            }
+            column(OurBankAccountLbl; OurBankCaptionLbl)
+            {
+
+            }
+            column(ShptByLbl; ShippingAgentCaptionLbl)
+            {
+
+            }
+            column(YourReferenceLbl; YourReferenceCaptionLbl)
+            {
+
+            }
             // In the layout this caption sits above the quote validity date (ValidDueDate).
-            column(ExpShptReqDateLbl; ValidUntilCaptionLbl) { }
-            column(ShptMethodLbl; ShipmentMethodCaptionLbl) { }
+            column(ExpShptReqDateLbl; ValidUntilCaptionLbl)
+            {
+
+            }
+            column(ShptMethodLbl; ShipmentMethodCaptionLbl)
+            {
+
+            }
 
             // Totals / VAT summary / payment captions
-            column(Total_NetAmountToPayCaption; NetAmountToPayCaptionLbl) { }
-            column(Total_TotalAmountCaption; TotalVATCaptionLbl) { }
-            column(Total_TotalBaseCaption; TaxableAmountCaptionLbl) { }
-            column(Total_TotalInvDiscCaption; InvDiscountAmtLbl) { }
-            column(Total_TotalCaption; SubtotalLbl) { }
-            column(Total_DocumentTotalCaption; DocumentTotalCaptionLbl) { }
-            column(VAT_InvDisc_Caption; InvDiscountAmtLbl) { }
-            column(VAT_Line_VATIdentifier_Caption; VATCodeCaptionLbl) { }
-            column(VAT_VATAmount_Caption; VATAmtLbl) { }
-            column(VAT_VATBase_Caption; TaxableAmountCaptionLbl) { }
-            column(VAT_VATPercent_Caption; VATPercentageLbl) { }
-            column(VAT_VATText_Caption; VATDescriptionCaptionLbl) { }
-            column(Payment_Amount_Caption; PaymentAmountCaptionLbl) { }
-            column(Payment_DueDate_Caption; DueDateCaptionLbl) { }
-            column(ShipmentFrom_Caption; ShipmentFromCaptionLbl) { }
+            column(Total_NetAmountToPayCaption; NetAmountToPayCaptionLbl)
+            {
+
+            }
+            column(Total_TotalAmountCaption; TotalVATCaptionLbl)
+            {
+
+            }
+            column(Total_TotalBaseCaption; TaxableAmountCaptionLbl)
+            {
+
+            }
+            column(Total_TotalInvDiscCaption; InvDiscountAmtLbl)
+            {
+
+            }
+            column(Total_TotalCaption; SubtotalLbl)
+            {
+
+            }
+            column(Total_DocumentTotalCaption; DocumentTotalCaptionLbl)
+            {
+
+            }
+            column(VAT_InvDisc_Caption; InvDiscountAmtLbl)
+            {
+
+            }
+            column(VAT_Line_VATIdentifier_Caption; VATCodeCaptionLbl)
+            {
+
+            }
+            column(VAT_VATAmount_Caption; VATAmtLbl)
+            {
+
+            }
+            column(VAT_VATBase_Caption; TaxableAmountCaptionLbl)
+            {
+
+            }
+            column(VAT_VATPercent_Caption; VATPercentageLbl)
+            {
+
+            }
+            column(VAT_VATText_Caption; VATDescriptionCaptionLbl)
+            {
+
+            }
+            column(Payment_Amount_Caption; PaymentAmountCaptionLbl)
+            {
+
+            }
+            column(Payment_DueDate_Caption; DueDateCaptionLbl)
+            {
+
+            }
+            column(ShipmentFrom_Caption; ShipmentFromCaptionLbl)
+            {
+
+            }
 
             // Logos: Company Information > Picture (left) and Chematek Customizations Setup (others)
-            column(FooterLogo; CHMSetup."Footer Logo") { }
-            column(LeftHeaderLogo; CompanyInfo.Picture) { }
-            column(RightHeaderLogo; CHMSetup."Right Header Logo") { }
-            column(Iso9001Logo; CHMSetup."ISO 9001 Logo") { }
-            column(ASSICCLogo; CHMSetup."ASSICC Logo") { }
-            column(ShowIso; ShowIso) { }
+            column(FooterLogo; CHMSetup."Footer Logo")
+            {
+
+            }
+            column(LeftHeaderLogo; CompanyInfo.Picture)
+            {
+
+            }
+            column(RightHeaderLogo; CHMSetup."Right Header Logo")
+            {
+
+            }
+            column(Iso9001Logo; CHMSetup."ISO 9001 Logo")
+            {
+
+            }
+            column(ASSICCLogo; CHMSetup."ASSICC Logo")
+            {
+
+            }
+            column(ShowIso; ShowIso)
+            {
+
+            }
 
             // Chematek header fields
-            column(AssignedUserID; Header."Assigned User ID") { }
-            column(OperatorName; OperatorName) { }
-            column(LocationName; LocationName) { }
-            column(LocationAddress; LocationAddress) { }
-            column(LocationCity; LocationCity) { }
-            column(ViewLocation; ViewLocation) { }
-            column(ReasonCode; ReasonCodeText) { }
-            column(ValidDueDate; Format(Header."Quote Valid Until Date")) { }
-            column(CompanyPicture; DummyCompanyInfo.Picture) { }
-            column(OrderDate; Format(Header."Order Date")) { }
-            column(CompanyIBAN; CompanyBankAccount.IBAN) { }
-            column(CompanyIBAN_Lbl; CompanyBankAccount.FieldCaption(IBAN)) { }
-            column(CompanyLogoPosition; CompanyLogoPosition) { }
-            column(CompanyLegalStatement; LegalStatementLbl) { }
-            column(ShptBy; ShippingAgentName) { }
-            column(ShptMethod; Header."Shipment Method Code") { }
-            column(RequestedDeliveryDate; Format(Header."Requested Delivery Date")) { }
-            column(FiscalCodeNo; FiscalCodeNo) { }
+            column(AssignedUserID; Header."Assigned User ID")
+            {
+
+            }
+            column(OperatorName; OperatorName)
+            {
+
+            }
+            column(LocationName; LocationName)
+            {
+
+            }
+            column(LocationAddress; LocationAddress)
+            {
+
+            }
+            column(LocationCity; LocationCity)
+            {
+
+            }
+            column(ViewLocation; ViewLocation)
+            {
+
+            }
+            column(ReasonCode; ReasonCodeText)
+            {
+
+            }
+            column(ValidDueDate; Format(Header."Quote Valid Until Date"))
+            {
+
+            }
+            column(CompanyPicture; DummyCompanyInfo.Picture)
+            {
+
+            }
+            column(OrderDate; Format(Header."Order Date"))
+            {
+
+            }
+            column(CompanyIBAN; CompanyBankAccount.IBAN)
+            {
+
+            }
+            column(CompanyIBAN_Lbl; CompanyBankAccount.FieldCaption(IBAN))
+            {
+
+            }
+            column(CompanyLogoPosition; CompanyLogoPosition)
+            {
+
+            }
+            column(CompanyLegalStatement; LegalStatementLbl)
+            {
+
+            }
+            column(ShptBy; ShippingAgentName)
+            {
+
+            }
+            column(ShptMethod; Header."Shipment Method Code")
+            {
+
+            }
+            column(RequestedDeliveryDate; Format(Header."Requested Delivery Date"))
+            {
+
+            }
+            column(FiscalCodeNo; FiscalCodeNo)
+            {
+
+            }
 
             // Contacts
-            column(EMail_Lbl; EMailCaptionLbl) { }
-            column(SellToContactEmailLbl; SellToContactEmailLbl) { }
-            column(BillToContactEmailLbl; BillToContactEmailLbl) { }
-            column(SellToContactPhoneNo; SellToContact."Phone No.") { }
-            column(SellToContactMobilePhoneNo; SellToContact."Mobile Phone No.") { }
-            column(SellToContactEmail; SellToContactEmail) { }
-            column(SellToContactName; Header."Sell-to Contact") { }
-            column(BillToContactEmail; BillToContact."E-Mail") { }
-            column(CustomerPostalBarCode; FormatAddr.PostalBarCode(1)) { }
+            column(EMail_Lbl; EMailCaptionLbl)
+            {
+
+            }
+            column(SellToContactEmailLbl; SellToContactEmailLbl)
+            {
+
+            }
+            column(BillToContactEmailLbl; BillToContactEmailLbl)
+            {
+
+            }
+            column(SellToContactPhoneNo; SellToContact."Phone No.")
+            {
+
+            }
+            column(SellToContactMobilePhoneNo; SellToContact."Mobile Phone No.")
+            {
+
+            }
+            column(SellToContactEmail; SellToContactEmail)
+            {
+
+            }
+            column(SellToContactName; Header."Sell-to Contact")
+            {
+
+            }
+            column(BillToContactEmail; BillToContact."E-Mail")
+            {
+
+            }
+            column(CustomerPostalBarCode; FormatAddr.PostalBarCode(1))
+            {
+
+            }
 
             // Standard quote header fields
-            column(YourReference; Header."Your Reference") { }
-            column(YourReference_Lbl; Header.FieldCaption("Your Reference")) { }
-            column(ShipmentMethodDescription; ShipmentMethod.Description) { }
-            column(ShipmentMethodDescription_Lbl; ShipmentMethodCaptionLbl) { }
-            column(Shipment_Lbl; ShipmentLbl) { }
-            column(ShipmentDate; Format(Header."Shipment Date")) { }
-            column(ShipmentDate_Lbl; Header.FieldCaption("Shipment Date")) { }
-            column(ShowShippingAddress; ShowShippingAddr) { }
-            column(PaymentTermsDescription; PaymentTerms.Description) { }
-            column(PaymentTermsDescription_Lbl; PaymentTermsCaptionLbl) { }
-            column(PaymentMethodDescription; PaymentMethod.Description) { }
-            column(PaymentMethodDescription_Lbl; PaymentMethodCaptionLbl) { }
-            column(DocumentCopyText; SalesQuoteCaptionLbl) { }
-            column(BilltoCustumerNo; Header."Bill-to Customer No.") { }
-            column(BilltoCustomerNo_Lbl; Header.FieldCaption("Bill-to Customer No.")) { }
-            column(DocumentDate; Format(Header."Document Date")) { }
-            column(DocumentDate_Lbl; Header.FieldCaption("Document Date")) { }
-            column(DueDate; Format(Header."Due Date")) { }
-            column(DueDate_Lbl; Header.FieldCaption("Due Date")) { }
-            column(DocumentNo; Header."No.") { }
-            column(DocumentNo_Lbl; DocumentNoCaptionLbl) { }
-            column(QuoteNo; Header."No.") { }
-            column(QuoteNo_Lbl; QuoteNoCaptionLbl) { }
-            column(PricesIncludingVAT; Header."Prices Including VAT") { }
-            column(PricesIncludingVAT_Lbl; Header.FieldCaption("Prices Including VAT")) { }
-            column(PricesIncludingVATYesNo; Format(Header."Prices Including VAT")) { }
-            column(SalesPerson_Lbl; SalespersonCaptionLbl) { }
-            column(SalesPersonText_Lbl; SalesPersonText) { }
-            column(SalesPersonName; SalespersonPurchaser.Name) { }
-            column(SelltoCustomerNo; Header."Sell-to Customer No.") { }
-            column(SelltoCustomerNo_Lbl; Header.FieldCaption("Sell-to Customer No.")) { }
-            column(VATRegistrationNo; Header.GetCustomerVATRegistrationNumber()) { }
-            column(VATRegistrationNo_Lbl; Header.GetCustomerVATRegistrationNumberLbl()) { }
-            column(SellToFaxNo; SellToCust."Fax No.") { }
-            column(SellToPhoneNo; Header."Sell-to Phone No.") { }
-            column(LegalEntityType; Cust.GetLegalEntityType()) { }
-            column(LegalEntityType_Lbl; Cust.GetLegalEntityTypeLbl()) { }
-            column(Copy_Lbl; CopyLbl) { }
-            column(InvoiceDiscountBaseAmount_Lbl; InvDiscBaseAmtLbl) { }
-            column(InvoiceDiscountAmount_Lbl; InvDiscountAmtLbl) { }
-            column(LineAmountAfterInvoiceDiscount_Lbl; LineAmtAfterInvDiscLbl) { }
-            column(LocalCurrency_Lbl; LocalCurrencyLbl) { }
-            column(ExchangeRateAsText; ExchangeRateText) { }
-            column(Page_Lbl; PageLbl) { }
-            column(SalesInvoiceLineDiscount_Lbl; SalesInvLineDiscLbl) { }
-            column(Invoice_Lbl; QuoteCaptionLbl) { }
-            column(Subtotal_Lbl; SubtotalLbl) { }
-            column(Total_Lbl; TotalLbl) { }
-            column(VATAmount_Lbl; VATAmtLbl) { }
-            column(VATBase_Lbl; VATBaseLbl) { }
-            column(VATAmountSpecification_Lbl; VATAmtSpecificationLbl) { }
-            column(VATClauses_Lbl; VATClausesLbl) { }
-            column(VATIdentifier_Lbl; VATIdentifierLbl) { }
-            column(VATPercentage_Lbl; VATPercentageLbl) { }
-            column(VATClause_Lbl; VATClause.TableCaption()) { }
-            column(ExtDocNo_SalesHeader; Header."External Document No.") { }
-            column(ExtDocNo_SalesHeader_Lbl; Header.FieldCaption("External Document No.")) { }
-            column(ShowWorkDescription; ShowWorkDescription) { }
+            column(YourReference; Header."Your Reference")
+            {
+
+            }
+            column(YourReference_Lbl; Header.FieldCaption("Your Reference"))
+            {
+
+            }
+            column(ShipmentMethodDescription; ShipmentMethod.Description)
+            {
+
+            }
+            column(ShipmentMethodDescription_Lbl; ShipmentMethodCaptionLbl)
+            {
+
+            }
+            column(Shipment_Lbl; ShipmentLbl)
+            {
+
+            }
+            column(ShipmentDate; Format(Header."Shipment Date"))
+            {
+
+            }
+            column(ShipmentDate_Lbl; Header.FieldCaption("Shipment Date"))
+            {
+
+            }
+            column(ShowShippingAddress; ShowShippingAddr)
+            {
+
+            }
+            column(PaymentTermsDescription; PaymentTerms.Description)
+            {
+
+            }
+            column(PaymentTermsDescription_Lbl; PaymentTermsCaptionLbl)
+            {
+
+            }
+            column(PaymentMethodDescription; PaymentMethod.Description)
+            {
+
+            }
+            column(PaymentMethodDescription_Lbl; PaymentMethodCaptionLbl)
+            {
+
+            }
+            column(DocumentCopyText; SalesQuoteCaptionLbl)
+            {
+
+            }
+            column(BilltoCustumerNo; Header."Bill-to Customer No.")
+            {
+
+            }
+            column(BilltoCustomerNo_Lbl; Header.FieldCaption("Bill-to Customer No."))
+            {
+
+            }
+            column(DocumentDate; Format(Header."Document Date"))
+            {
+
+            }
+            column(DocumentDate_Lbl; Header.FieldCaption("Document Date"))
+            {
+
+            }
+            column(DueDate; Format(Header."Due Date"))
+            {
+
+            }
+            column(DueDate_Lbl; Header.FieldCaption("Due Date"))
+            {
+
+            }
+            column(DocumentNo; Header."No.")
+            {
+
+            }
+            column(DocumentNo_Lbl; DocumentNoCaptionLbl)
+            {
+
+            }
+            column(QuoteNo; Header."No.")
+            {
+
+            }
+            column(QuoteNo_Lbl; QuoteNoCaptionLbl)
+            {
+
+            }
+            column(PricesIncludingVAT; Header."Prices Including VAT")
+            {
+
+            }
+            column(PricesIncludingVAT_Lbl; Header.FieldCaption("Prices Including VAT"))
+            {
+
+            }
+            column(PricesIncludingVATYesNo; Format(Header."Prices Including VAT"))
+            {
+
+            }
+            column(SalesPerson_Lbl; SalespersonCaptionLbl)
+            {
+
+            }
+            column(SalesPersonText_Lbl; SalesPersonText)
+            {
+
+            }
+            column(SalesPersonName; SalespersonPurchaser.Name)
+            {
+
+            }
+            column(SelltoCustomerNo; Header."Sell-to Customer No.")
+            {
+
+            }
+            column(SelltoCustomerNo_Lbl; Header.FieldCaption("Sell-to Customer No."))
+            {
+
+            }
+            column(VATRegistrationNo; Header.GetCustomerVATRegistrationNumber())
+            {
+
+            }
+            column(VATRegistrationNo_Lbl; Header.GetCustomerVATRegistrationNumberLbl())
+            {
+
+            }
+            column(SellToFaxNo; SellToCust."Fax No.")
+            {
+
+            }
+            column(SellToPhoneNo; Header."Sell-to Phone No.")
+            {
+
+            }
+            column(LegalEntityType; Cust.GetLegalEntityType())
+            {
+
+            }
+            column(LegalEntityType_Lbl; Cust.GetLegalEntityTypeLbl())
+            {
+
+            }
+            column(Copy_Lbl; CopyLbl)
+            {
+
+            }
+            column(InvoiceDiscountBaseAmount_Lbl; InvDiscBaseAmtLbl)
+            {
+
+            }
+            column(InvoiceDiscountAmount_Lbl; InvDiscountAmtLbl)
+            {
+
+            }
+            column(LineAmountAfterInvoiceDiscount_Lbl; LineAmtAfterInvDiscLbl)
+            {
+
+            }
+            column(LocalCurrency_Lbl; LocalCurrencyLbl)
+            {
+
+            }
+            column(ExchangeRateAsText; ExchangeRateText)
+            {
+
+            }
+            column(Page_Lbl; PageLbl)
+            {
+
+            }
+            column(SalesInvoiceLineDiscount_Lbl; SalesInvLineDiscLbl)
+            {
+
+            }
+            column(Invoice_Lbl; QuoteCaptionLbl)
+            {
+
+            }
+            column(Subtotal_Lbl; SubtotalLbl)
+            {
+
+            }
+            column(Total_Lbl; TotalLbl)
+            {
+
+            }
+            column(VATAmount_Lbl; VATAmtLbl)
+            {
+
+            }
+            column(VATBase_Lbl; VATBaseLbl)
+            {
+
+            }
+            column(VATAmountSpecification_Lbl; VATAmtSpecificationLbl)
+            {
+
+            }
+            column(VATClauses_Lbl; VATClausesLbl)
+            {
+
+            }
+            column(VATIdentifier_Lbl; VATIdentifierLbl)
+            {
+
+            }
+            column(VATPercentage_Lbl; VATPercentageLbl)
+            {
+
+            }
+            column(VATClause_Lbl; VATClause.TableCaption())
+            {
+
+            }
+            column(ExtDocNo_SalesHeader; Header."External Document No.")
+            {
+
+            }
+            column(ExtDocNo_SalesHeader_Lbl; Header.FieldCaption("External Document No."))
+            {
+
+            }
+            column(ShowWorkDescription; ShowWorkDescription)
+            {
+
+            }
             // Full work description text, printed in the page footer of the layout.
-            column(DescrLav; WorkDescriptionText) { }
-            column(CurrencyCode; CurrCode) { }
+            column(DescrLav; WorkDescriptionText)
+            {
+
+            }
+            column(CurrencyCode; CurrCode)
+            {
+
+            }
 
             // Line table captions (header row of the lines table)
-            column(Line_NoLbl; LineNoCaptionLbl) { }
-            column(Line_DesciptionLbl; LineDescriptionCaptionLbl) { }
-            column(Line_QuantityLbl; LineQuantityCaptionLbl) { }
-            column(Line_UMLbl; LineUoMCaptionLbl) { }
-            column(Line_PriceLbl; LinePriceCaptionLbl) { }
-            column(Line_DiscPercLbl; LineDiscPctCaptionLbl) { }
-            column(Line_AmountLbl; LineAmountCaptionLbl) { }
-            column(Line_VATLbl; LineVATCaptionLbl) { }
-            column(Line_ShptReqDate; LineShipmentDateCaptionLbl) { }
-            column(LotNo_Caption; LotNoCaptionLbl) { }
-            column(CountryOfOrigin_Caption; CountryOfOriginCaptionLbl) { }
-            column(Tariff_No_Caption; TariffNoCaptionLbl) { }
-            column(UN_Caption; UNNoCaptionLbl) { }
-            column(ADR_Class_Caption; ADRClassCaptionLbl) { }
+            column(Line_NoLbl; LineNoCaptionLbl)
+            {
+
+            }
+            column(Line_DesciptionLbl; LineDescriptionCaptionLbl)
+            {
+
+            }
+            column(Line_QuantityLbl; LineQuantityCaptionLbl)
+            {
+
+            }
+            column(Line_UMLbl; LineUoMCaptionLbl)
+            {
+
+            }
+            column(Line_PriceLbl; LinePriceCaptionLbl)
+            {
+
+            }
+            column(Line_DiscPercLbl; LineDiscPctCaptionLbl)
+            {
+
+            }
+            column(Line_AmountLbl; LineAmountCaptionLbl)
+            {
+
+            }
+            column(Line_VATLbl; LineVATCaptionLbl)
+            {
+
+            }
+            column(Line_ShptReqDate; LineShipmentDateCaptionLbl)
+            {
+
+            }
+            column(LotNo_Caption; LotNoCaptionLbl)
+            {
+
+            }
+            column(CountryOfOrigin_Caption; CountryOfOriginCaptionLbl)
+            {
+
+            }
+            column(Tariff_No_Caption; TariffNoCaptionLbl)
+            {
+
+            }
+            column(UN_Caption; UNNoCaptionLbl)
+            {
+
+            }
+            column(ADR_Class_Caption; ADRClassCaptionLbl)
+            {
+
+            }
 
             // Document totals (calculated in CalcDocumentTotals, available on every row)
             column(TotalNetAmount; TotalAmount)
@@ -202,7 +676,10 @@ report 66601 "CHM Sales Quote"
                 AutoFormatExpression = Header."Currency Code";
                 AutoFormatType = 1;
             }
-            column(TotalVATBaseLCY; TotalVATBaseLCY) { }
+            column(TotalVATBaseLCY; TotalVATBaseLCY)
+            {
+
+            }
             column(TotalAmountIncludingVAT; TotalAmountInclVAT)
             {
                 AutoFormatExpression = Header."Currency Code";
@@ -213,16 +690,31 @@ report 66601 "CHM Sales Quote"
                 AutoFormatExpression = Header."Currency Code";
                 AutoFormatType = 1;
             }
-            column(TotalVATAmountLCY; TotalVATAmountLCY) { }
+            column(TotalVATAmountLCY; TotalVATAmountLCY)
+            {
+
+            }
             column(TotalInvoiceDiscountAmount; TotalInvDiscAmount)
             {
                 AutoFormatExpression = Header."Currency Code";
                 AutoFormatType = 1;
             }
-            column(TotalPaymentDiscountOnVAT; TotalPaymentDiscOnVAT) { }
-            column(TotalVATAmountText; TotalVATAmountText) { }
-            column(TotalExcludingVATText; TotalExclVATText) { }
-            column(TotalIncludingVATText; TotalInclVATText) { }
+            column(TotalPaymentDiscountOnVAT; TotalPaymentDiscOnVAT)
+            {
+
+            }
+            column(TotalVATAmountText; TotalVATAmountText)
+            {
+
+            }
+            column(TotalExcludingVATText; TotalExclVATText)
+            {
+
+            }
+            column(TotalIncludingVATText; TotalInclVATText)
+            {
+
+            }
             column(TotalSubTotal; TotalSubTotal)
             {
                 AutoFormatExpression = Header."Currency Code";
@@ -233,32 +725,86 @@ report 66601 "CHM Sales Quote"
                 AutoFormatExpression = Header."Currency Code";
                 AutoFormatType = 1;
             }
-            column(TotalText; TotalText) { }
+            column(TotalText; TotalText)
+            {
+
+            }
 
             // VAT clauses summary: 4 fixed slots (see FillVATClauseSummary)
-            column(VAT_ClauseCode1; VATClauseSlotCode[1]) { }
-            column(VAT_ClauseDescription1; VATClauseSlotDescription[1]) { }
-            column(VAT_ClauseCode2; VATClauseSlotCode[2]) { }
-            column(VAT_ClauseDescription2; VATClauseSlotDescription[2]) { }
-            column(VAT_ClauseCode3; VATClauseSlotCode[3]) { }
-            column(VAT_ClauseDescription3; VATClauseSlotDescription[3]) { }
-            column(VAT_ClauseCode4; VATClauseSlotCode[4]) { }
-            column(VAT_ClauseDescription4; VATClauseSlotDescription[4]) { }
-            column(ShowVATClauseTab; ShowVATClauseTab) { }
+            column(VAT_ClauseCode1; VATClauseSlotCode[1])
+            {
+
+            }
+            column(VAT_ClauseDescription1; VATClauseSlotDescription[1])
+            {
+
+            }
+            column(VAT_ClauseCode2; VATClauseSlotCode[2])
+            {
+
+            }
+            column(VAT_ClauseDescription2; VATClauseSlotDescription[2])
+            {
+
+            }
+            column(VAT_ClauseCode3; VATClauseSlotCode[3])
+            {
+
+            }
+            column(VAT_ClauseDescription3; VATClauseSlotDescription[3])
+            {
+
+            }
+            column(VAT_ClauseCode4; VATClauseSlotCode[4])
+            {
+
+            }
+            column(VAT_ClauseDescription4; VATClauseSlotDescription[4])
+            {
+
+            }
+            column(ShowVATClauseTab; ShowVATClauseTab)
+            {
+
+            }
 
             // VAT summary: 4 fixed slots (see FillVATSummary). Names/casing match the layout.
-            column(CodIVA1; VATSlotCode[1]) { }
-            column(CodIVA2; VATSlotCode[2]) { }
-            column(CodIva3; VATSlotCode[3]) { }
-            column(CodIva4; VATSlotCode[4]) { }
+            column(CodIVA1; VATSlotCode[1])
+            {
+
+            }
+            column(CodIVA2; VATSlotCode[2])
+            {
+
+            }
+            column(CodIva3; VATSlotCode[3])
+            {
+
+            }
+            column(CodIva4; VATSlotCode[4])
+            {
+
+            }
             column(VatPerc1; VATSlotPct[1]) { DecimalPlaces = 0 : 5; }
             column(VatPerc2; VATSlotPct[2]) { DecimalPlaces = 0 : 5; }
             column(VatPerc3; VATSlotPct[3]) { DecimalPlaces = 0 : 5; }
             column(VatPerc4; VATSlotPct[4]) { DecimalPlaces = 0 : 5; }
-            column(DesIVA1; VATSlotDescription[1]) { }
-            column(DesIVA2; VATSlotDescription[2]) { }
-            column(DesIVA3; VATSlotDescription[3]) { }
-            column(DesIVA4; VATSlotDescription[4]) { }
+            column(DesIVA1; VATSlotDescription[1])
+            {
+
+            }
+            column(DesIVA2; VATSlotDescription[2])
+            {
+
+            }
+            column(DesIVA3; VATSlotDescription[3])
+            {
+
+            }
+            column(DesIVA4; VATSlotDescription[4])
+            {
+
+            }
             column(VatBase1; VATSlotBase[1]) { AutoFormatExpression = Header."Currency Code"; AutoFormatType = 1; }
             column(VatBase2; VATSlotBase[2]) { AutoFormatExpression = Header."Currency Code"; AutoFormatType = 1; }
             column(VatBase3; VATSlotBase[3]) { AutoFormatExpression = Header."Currency Code"; AutoFormatType = 1; }
@@ -269,10 +815,22 @@ report 66601 "CHM Sales Quote"
             column(VatAmount4; VATSlotAmount[4]) { AutoFormatExpression = Header."Currency Code"; AutoFormatType = 1; }
 
             // Payment schedule: 4 fixed slots (see FillPaymentSchedule)
-            column(DueDate1; DueDateSlot[1]) { }
-            column(DueDate2; DueDateSlot[2]) { }
-            column(DueDate3; DueDateSlot[3]) { }
-            column(DueDate4; DueDateSlot[4]) { }
+            column(DueDate1; DueDateSlot[1])
+            {
+
+            }
+            column(DueDate2; DueDateSlot[2])
+            {
+
+            }
+            column(DueDate3; DueDateSlot[3])
+            {
+
+            }
+            column(DueDate4; DueDateSlot[4])
+            {
+
+            }
             column(DueAmount1; DueAmountSlot[1]) { AutoFormatExpression = Header."Currency Code"; AutoFormatType = 1; }
             column(DueAmount2; DueAmountSlot[2]) { AutoFormatExpression = Header."Currency Code"; AutoFormatType = 1; }
             column(DueAmount3; DueAmountSlot[3]) { AutoFormatExpression = Header."Currency Code"; AutoFormatType = 1; }
@@ -287,79 +845,193 @@ report 66601 "CHM Sales Quote"
 
                 // The layout groups the lines table on DocumentNo + Line_LineNo and filters out
                 // rows where Line_LineNo is empty, so this column must only be filled on line rows.
-                column(Line_LineNo; "Line No.") { }
+                column(Line_LineNo; "Line No.")
+                {
+
+                }
                 column(AmountExcludingVAT_Line; Amount)
                 {
                     AutoFormatExpression = "Currency Code";
                     AutoFormatType = 1;
                 }
-                column(AmountExcludingVAT_Line_Lbl; FieldCaption(Amount)) { }
+                column(AmountExcludingVAT_Line_Lbl; FieldCaption(Amount))
+                {
+
+                }
                 column(AmountIncludingVAT_Line; "Amount Including VAT")
                 {
                     AutoFormatExpression = Header."Currency Code";
                     AutoFormatType = 1;
                 }
-                column(AmountIncludingVAT_Line_Lbl; FieldCaption("Amount Including VAT")) { }
-                column(Line_RequestedDeliveryDate; Format("Requested Delivery Date")) { }
-                column(Line_Description; Description) { }
-                column(Description_Line_Lbl; FieldCaption(Description)) { }
+                column(AmountIncludingVAT_Line_Lbl; FieldCaption("Amount Including VAT"))
+                {
+
+                }
+                column(Line_RequestedDeliveryDate; Format("Requested Delivery Date"))
+                {
+
+                }
+                column(Line_Description; Description)
+                {
+
+                }
+                column(Description_Line_Lbl; FieldCaption(Description))
+                {
+
+                }
                 column(Line_LineDiscountPerc; "Line Discount %") { DecimalPlaces = 0 : 5; }
-                column(LineDiscountPercentText_Line; LineDiscountPctText) { }
+                column(LineDiscountPercentText_Line; LineDiscountPctText)
+                {
+
+                }
                 column(Line_Amount; "Line Amount")
                 {
                     AutoFormatExpression = "Currency Code";
                     AutoFormatType = 1;
                 }
-                column(LineAmount_Line_Lbl; FieldCaption("Line Amount")) { }
-                column(Line_ItemNo; "No.") { }
-                column(Line_Type; Format(Type)) { }
-                column(ItemNo_Line_Lbl; FieldCaption("No.")) { }
-                column(Line_ShipmentDate; Format("Shipment Date")) { }
-                column(ShipmentDate_Line_Lbl; FieldCaption("Shipment Date")) { }
-                column(Line_PlannedShipmentDate; Format("Planned Shipment Date")) { }
-                column(PlannedShipmentDate_Line_Lbl; FieldCaption("Planned Shipment Date")) { }
+                column(LineAmount_Line_Lbl; FieldCaption("Line Amount"))
+                {
+
+                }
+                column(Line_ItemNo; "No.")
+                {
+
+                }
+                column(Line_Type; Format(Type))
+                {
+
+                }
+                column(ItemNo_Line_Lbl; FieldCaption("No."))
+                {
+
+                }
+                column(Line_ShipmentDate; Format("Shipment Date"))
+                {
+
+                }
+                column(ShipmentDate_Line_Lbl; FieldCaption("Shipment Date"))
+                {
+
+                }
+                column(Line_PlannedShipmentDate; Format("Planned Shipment Date"))
+                {
+
+                }
+                column(PlannedShipmentDate_Line_Lbl; FieldCaption("Planned Shipment Date"))
+                {
+
+                }
                 column(Line_Quantity; Quantity) { DecimalPlaces = 0 : 5; }
-                column(Quantity_Line_Lbl; FieldCaption(Quantity)) { }
-                column(Type_Line; Format(Type)) { }
+                column(Quantity_Line_Lbl; FieldCaption(Quantity))
+                {
+
+                }
+                column(Type_Line; Format(Type))
+                {
+
+                }
                 column(Line_UnitPrice; "Unit Price")
                 {
                     AutoFormatExpression = "Currency Code";
                     AutoFormatType = 2;
                 }
-                column(UnitPrice_Lbl; FieldCaption("Unit Price")) { }
-                column(UnitOfMeasure; "Unit of Measure") { }
-                column(Line_UoMCode; "Unit of Measure Code") { }
-                column(UnitOfMeasure_Lbl; FieldCaption("Unit of Measure")) { }
-                column(Line_VATIdentifier; "VAT Identifier") { }
-                column(VATIdentifier_Line_Lbl; FieldCaption("VAT Identifier")) { }
-                column(VATPct_Line; FormattedVATPct) { }
-                column(VATPct_Line_Lbl; FieldCaption("VAT %")) { }
+                column(UnitPrice_Lbl; FieldCaption("Unit Price"))
+                {
+
+                }
+                column(UnitOfMeasure; "Unit of Measure")
+                {
+
+                }
+                column(Line_UoMCode; "Unit of Measure Code")
+                {
+
+                }
+                column(UnitOfMeasure_Lbl; FieldCaption("Unit of Measure"))
+                {
+
+                }
+                column(Line_VATIdentifier; "VAT Identifier")
+                {
+
+                }
+                column(VATIdentifier_Line_Lbl; FieldCaption("VAT Identifier"))
+                {
+
+                }
+                column(VATPct_Line; FormattedVATPct)
+                {
+
+                }
+                column(VATPct_Line_Lbl; FieldCaption("VAT %"))
+                {
+
+                }
                 column(TransHeaderAmount; TransHeaderAmount)
                 {
                     AutoFormatExpression = "Currency Code";
                     AutoFormatType = 1;
                 }
-                column(ItemReferenceNo; "Item Reference No.") { }
-                column(ItemReferenceNo_Lbl; FieldCaption("Item Reference No.")) { }
+                column(ItemReferenceNo; "Item Reference No.")
+                {
+
+                }
+                column(ItemReferenceNo_Lbl; FieldCaption("Item Reference No."))
+                {
+
+                }
 
                 // Item / dangerous goods information (see GetLineItemInfo)
-                column(ItemHazardousDescr; ItemHazardousDescr) { }
-                column(Hazardous; Hazardous) { }
-                column(TariffNo; TariffNo) { }
-                column(ADRClass; ADRClass) { }
-                column(ItemUN; ItemUN) { }
-                column(ItemUNValue; ItemUNValue) { }
-                column(CountryOrigin; CountryOrigin) { }
+                column(ItemHazardousDescr; ItemHazardousDescr)
+                {
+
+                }
+                column(Hazardous; Hazardous)
+                {
+
+                }
+                column(TariffNo; TariffNo)
+                {
+
+                }
+                column(ADRClass; ADRClass)
+                {
+
+                }
+                column(ItemUN; ItemUN)
+                {
+
+                }
+                column(ItemUNValue; ItemUNValue)
+                {
+
+                }
+                column(CountryOrigin; CountryOrigin)
+                {
+
+                }
 
                 dataitem(AssemblyLine; "Assembly Line")
                 {
                     DataItemTableView = sorting("Document Type", "Document No.", "Line No.");
 
-                    column(LineNo_AssemblyLine; "No.") { }
-                    column(Description_AssemblyLine; Description) { }
+                    column(LineNo_AssemblyLine; "No.")
+                    {
+
+                    }
+                    column(Description_AssemblyLine; Description)
+                    {
+
+                    }
                     column(Quantity_AssemblyLine; Quantity) { DecimalPlaces = 0 : 5; }
-                    column(UnitOfMeasure_AssemblyLine; GetUOMText("Unit of Measure Code")) { }
-                    column(VariantCode_AssemblyLine; "Variant Code") { }
+                    column(UnitOfMeasure_AssemblyLine; GetUOMText("Unit of Measure Code"))
+                    {
+
+                    }
+                    column(VariantCode_AssemblyLine; "Variant Code")
+                    {
+
+                    }
 
                     trigger OnPreDataItem()
                     begin
@@ -416,7 +1088,10 @@ report 66601 "CHM Sales Quote"
             {
                 DataItemTableView = sorting(Number) where(Number = filter(1 .. 99999));
 
-                column(WorkDescriptionLine; WorkDescriptionLine) { }
+                column(WorkDescriptionLine; WorkDescriptionLine)
+                {
+
+                }
 
                 trigger OnPreDataItem()
                 begin
@@ -451,40 +1126,79 @@ report 66601 "CHM Sales Quote"
                     AutoFormatExpression = Header."Currency Code";
                     AutoFormatType = 1;
                 }
-                column(InvoiceDiscountAmount_VATAmountLine_Lbl; FieldCaption("Invoice Discount Amount")) { }
+                column(InvoiceDiscountAmount_VATAmountLine_Lbl; FieldCaption("Invoice Discount Amount"))
+                {
+
+                }
                 column(InvoiceDiscountBaseAmount_VATAmountLine; "Inv. Disc. Base Amount")
                 {
                     AutoFormatExpression = Header."Currency Code";
                     AutoFormatType = 1;
                 }
-                column(InvoiceDiscountBaseAmount_VATAmountLine_Lbl; FieldCaption("Inv. Disc. Base Amount")) { }
+                column(InvoiceDiscountBaseAmount_VATAmountLine_Lbl; FieldCaption("Inv. Disc. Base Amount"))
+                {
+
+                }
                 column(LineAmount_VatAmountLine; "Line Amount")
                 {
                     AutoFormatExpression = Header."Currency Code";
                     AutoFormatType = 1;
                 }
-                column(LineAmount_VatAmountLine_Lbl; FieldCaption("Line Amount")) { }
+                column(LineAmount_VatAmountLine_Lbl; FieldCaption("Line Amount"))
+                {
+
+                }
                 column(VATAmount_VatAmountLine; "VAT Amount")
                 {
                     AutoFormatExpression = Header."Currency Code";
                     AutoFormatType = 1;
                 }
-                column(VATAmount_VatAmountLine_Lbl; FieldCaption("VAT Amount")) { }
-                column(VATAmountLCY_VATAmountLine; VATAmountLCY) { }
-                column(VATAmountLCY_VATAmountLine_Lbl; VATAmountLCYLbl) { }
+                column(VATAmount_VatAmountLine_Lbl; FieldCaption("VAT Amount"))
+                {
+
+                }
+                column(VATAmountLCY_VATAmountLine; VATAmountLCY)
+                {
+
+                }
+                column(VATAmountLCY_VATAmountLine_Lbl; VATAmountLCYLbl)
+                {
+
+                }
                 column(VATBase_VatAmountLine; "VAT Base")
                 {
                     AutoFormatExpression = Header."Currency Code";
                     AutoFormatType = 1;
                 }
-                column(VATBase_VatAmountLine_Lbl; FieldCaption("VAT Base")) { }
-                column(VATBaseLCY_VATAmountLine; VATBaseLCY) { }
-                column(VATBaseLCY_VATAmountLine_Lbl; VATBaseLCYLbl) { }
-                column(VATIdentifier_VatAmountLine; "VAT Identifier") { }
-                column(VATIdentifier_VatAmountLine_Lbl; FieldCaption("VAT Identifier")) { }
+                column(VATBase_VatAmountLine_Lbl; FieldCaption("VAT Base"))
+                {
+
+                }
+                column(VATBaseLCY_VATAmountLine; VATBaseLCY)
+                {
+
+                }
+                column(VATBaseLCY_VATAmountLine_Lbl; VATBaseLCYLbl)
+                {
+
+                }
+                column(VATIdentifier_VatAmountLine; "VAT Identifier")
+                {
+
+                }
+                column(VATIdentifier_VatAmountLine_Lbl; FieldCaption("VAT Identifier"))
+                {
+
+                }
                 column(VATPct_VatAmountLine; "VAT %") { DecimalPlaces = 0 : 5; }
-                column(VATPct_VatAmountLine_Lbl; FieldCaption("VAT %")) { }
-                column(NoOfVATIdentifiers; Count) { }
+                column(VATPct_VatAmountLine_Lbl; FieldCaption("VAT %"))
+                {
+
+                }
+                column(NoOfVATIdentifiers; Count)
+                {
+
+                }
 
                 trigger OnPreDataItem()
                 begin
@@ -509,17 +1223,35 @@ report 66601 "CHM Sales Quote"
                 DataItemTableView = sorting("VAT Identifier", "VAT Calculation Type", "Tax Group Code", "Use Tax", Positive);
                 UseTemporary = true;
 
-                column(VATIdentifier_VATClauseLine; "VAT Identifier") { }
-                column(Code_VATClauseLine; VATClause.Code) { }
-                column(Code_VATClauseLine_Lbl; VATClause.FieldCaption(Code)) { }
-                column(Description_VATClauseLine; VATClauseText) { }
-                column(Description2_VATClauseLine; VATClause."Description 2") { }
+                column(VATIdentifier_VATClauseLine; "VAT Identifier")
+                {
+
+                }
+                column(Code_VATClauseLine; VATClause.Code)
+                {
+
+                }
+                column(Code_VATClauseLine_Lbl; VATClause.FieldCaption(Code))
+                {
+
+                }
+                column(Description_VATClauseLine; VATClauseText)
+                {
+
+                }
+                column(Description2_VATClauseLine; VATClause."Description 2")
+                {
+
+                }
                 column(VATAmount_VATClauseLine; "VAT Amount")
                 {
                     AutoFormatExpression = Header."Currency Code";
                     AutoFormatType = 1;
                 }
-                column(NoOfVATClauses; Count) { }
+                column(NoOfVATClauses; Count)
+                {
+
+                }
 
                 trigger OnAfterGetRecord()
                 begin
@@ -535,15 +1267,27 @@ report 66601 "CHM Sales Quote"
                 DataItemTableView = sorting("Line No.");
                 UseTemporary = true;
 
-                column(Description_ReportTotalsLine; Description) { }
+                column(Description_ReportTotalsLine; Description)
+                {
+
+                }
                 column(Amount_ReportTotalsLine; Amount)
                 {
                     AutoFormatExpression = Header."Currency Code";
                     AutoFormatType = 1;
                 }
-                column(AmountFormatted_ReportTotalsLine; "Amount Formatted") { }
-                column(FontBold_ReportTotalsLine; "Font Bold") { }
-                column(FontUnderline_ReportTotalsLine; "Font Underline") { }
+                column(AmountFormatted_ReportTotalsLine; "Amount Formatted")
+                {
+
+                }
+                column(FontBold_ReportTotalsLine; "Font Bold")
+                {
+
+                }
+                column(FontUnderline_ReportTotalsLine; "Font Underline")
+                {
+
+                }
 
                 trigger OnPreDataItem()
                 begin
@@ -554,10 +1298,22 @@ report 66601 "CHM Sales Quote"
             {
                 DataItemTableView = sorting(Number) where(Number = const(1));
 
-                column(GreetingText; GreetingLbl) { }
-                column(BodyText; BodyLbl) { }
-                column(ClosingText; ClosingLbl) { }
-                column(PmtDiscText; PmtDiscText) { }
+                column(GreetingText; GreetingLbl)
+                {
+
+                }
+                column(BodyText; BodyLbl)
+                {
+
+                }
+                column(ClosingText; ClosingLbl)
+                {
+
+                }
+                column(PmtDiscText; PmtDiscText)
+                {
+
+                }
 
                 trigger OnPreDataItem()
                 begin

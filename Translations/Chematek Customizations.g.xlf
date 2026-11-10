@@ -173,6 +173,16 @@
           <note from="Developer" annotates="general" priority="2">%1 = Lot No., %2 = Item No., %3 = Production Date</note>
           <note from="Xliff Generator" annotates="general" priority="3">Codeunit CHM Lot Production Date Mgt. - NamedType ProductionDateMismatchErr</note>
         </trans-unit>
+        <trans-unit id="Codeunit 1054075039 - NamedType 2371502375" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Declaration of intent no. %1 of %2</source>
+          <note from="Developer" annotates="general" priority="2">%1 = VAT Exempt. No., %2 = VAT Exempt. Date</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit CHM Management - NamedType DeclarationOfIntentTxt</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 1054075039 - NamedType 3547613564" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Declaration of intent no. %1</source>
+          <note from="Developer" annotates="general" priority="2">%1 = VAT Exempt. No.</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit CHM Management - NamedType DeclarationOfIntentNoDateTxt</note>
+        </trans-unit>
         <trans-unit id="Page 1765147265 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Chematek Customizations Setup</source>
           <note from="Developer" annotates="general" priority="2"></note>
