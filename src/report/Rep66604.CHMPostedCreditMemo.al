@@ -167,7 +167,7 @@ report 66604 "CHM Posted Credit Memo"
             column(AmountExcludingVAT_Line_Lbl; AmountExclVATCaptionLbl) { }
             column(AmountIncludingVAT_Line_Lbl; AmountInclVATCaptionLbl) { }
             column(LineAmount_Line_Lbl; LineAmountCaptionLbl) { }
-            column(VATIdentifier_Line_Lbl; VATIdentifierLbl) { }
+            column(VATIdentifier_Line_Lbl; LineVATCaptionLbl) { }
             column(VATPct_Line_Lbl; VATPercentageLbl) { }
             column(Qty_Lbl; QtyLbl) { }
             column(PricePer_Lbl; PricePerLbl) { }
@@ -1009,7 +1009,6 @@ report 66604 "CHM Posted Credit Memo"
         VATBaseLbl: Label 'VAT Base';
         VATBaseLCYLbl: Label 'VAT Base (LCY)';
         VATClausesLbl: Label 'VAT Clause';
-        VATIdentifierLbl: Label 'VAT Identifier';
         VATPercentageLbl: Label 'VAT %';
         SellToContactPhoneNoLbl: Label 'Sell-to Contact Phone No.';
         SellToContactMobilePhoneNoLbl: Label 'Sell-to Contact Mobile Phone No.';

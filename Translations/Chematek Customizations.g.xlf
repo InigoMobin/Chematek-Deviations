@@ -943,11 +943,6 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report CHM Posted Credit Memo - NamedType VATDescriptionCaptionLbl</note>
         </trans-unit>
-        <trans-unit id="Report 950276140 - NamedType 1071970054" size-unit="char" translate="yes" xml:space="preserve">
-          <source>VAT Identifier</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Posted Credit Memo - NamedType VATIdentifierLbl</note>
-        </trans-unit>
         <trans-unit id="Report 950276140 - NamedType 1532992371" size-unit="char" translate="yes" xml:space="preserve">
           <source>VAT %</source>
           <note from="Developer" annotates="general" priority="2"></note>
