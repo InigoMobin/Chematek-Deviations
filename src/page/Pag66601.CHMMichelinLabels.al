@@ -442,11 +442,14 @@ page 66601 "CHM Michelin Labels"
     end;
 
     local procedure GetProductionDate(ItemNo: Code[20]; VariantCode: Code[10]; LotNo: Code[50]): Code[8]
+    var
+        LotProductionDateMgt: Codeunit "CHM Lot Production Date Mgt.";
+        ProductionDate: Date;
     begin
-        // TODO DEV-004: read the Production Date field from Lot No. Information once DEV-004 is deployed, e.g.
-        // if LotNoInformation.Get(ItemNo, VariantCode, LotNo) then
-        //     exit(Format(LotNoInformation."CHM Production Date", 0, '<Day,2>.<Month,2>.<Year,2>'));
-        exit('');
+        ProductionDate := LotProductionDateMgt.GetLotProductionDate(ItemNo, VariantCode, LotNo);
+        if ProductionDate = 0D then
+            exit('');
+        exit(Format(ProductionDate, 0, '<Day,2>.<Month,2>.<Year,2>'));
     end;
 
     local procedure PrintSelectedLabels()
