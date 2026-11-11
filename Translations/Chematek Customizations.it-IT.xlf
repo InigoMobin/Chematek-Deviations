@@ -5409,6 +5409,606 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Quote - ReportLayout SalesQuoteRDLC - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Report 729228690 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>CHM Sales Shipment</source>
+          <target state="translated">CHM Spedizione vendita</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - NamedType 3068723543" size-unit="char" translate="yes" xml:space="preserve">
+          <source>ADR Class:</source>
+          <target state="translated">Classe ADR:</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - NamedType ADRClassCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - NamedType 1851005282" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Bill-to Contact E-Mail</source>
+          <target state="translated">E-mail contatto fatturazione</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - NamedType BillToContactEmailLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - NamedType 1751396840" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Carrier Signature</source>
+          <target state="translated">Firma vettore</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - NamedType CarrierSignatureCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - NamedType 2592074967" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Consignee</source>
+          <target state="translated">Destinatario</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - NamedType ConsigneeCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - NamedType 3550254176" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Contact</source>
+          <target state="translated">Contatto</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - NamedType ContactCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - NamedType 3701423681" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Copy</source>
+          <target state="translated">Copia</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - NamedType CopyLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - NamedType 2938773363" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Country of Origin:</source>
+          <target state="translated">Paese di origine:</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - NamedType CountryOfOriginCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - NamedType 3937387347" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Customer No.</source>
+          <target state="translated">Cod. cliente</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - NamedType CustomerNoCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - NamedType 35837468" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Date</source>
+          <target state="translated">Data</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - NamedType DateCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - NamedType 3558753334" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Document No.</source>
+          <target state="translated">N. documento</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - NamedType DocumentNoCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - NamedType 1617769526" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Driver</source>
+          <target state="translated">Conducente</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - NamedType DriverCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - NamedType 3349446514" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Driver Signature</source>
+          <target state="translated">Firma conducente</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - NamedType DriverSignatureCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - NamedType 2063466741" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Fiscal Code</source>
+          <target state="translated">Codice fiscale</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - NamedType FiscalCodeCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - NamedType 463659750" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Goods Appearance</source>
+          <target state="translated">Aspetto dei beni</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - NamedType GoodsAppearanceCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - NamedType 3373067010" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Gross Weight</source>
+          <target state="translated">Peso lordo</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - NamedType GrossWeightCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - NamedType 2813721509" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Invoice</source>
+          <target state="translated">Fattura</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - NamedType InvoiceLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - NamedType 617327944" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Description</source>
+          <target state="translated">Descrizione</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - NamedType LineDescriptionCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - NamedType 3664537309" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Item No.</source>
+          <target state="translated">Cod. articolo</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - NamedType LineNoCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - NamedType 234337251" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Quantity</source>
+          <target state="translated">Quantità</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - NamedType LineQuantityCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - NamedType 426587207" size-unit="char" translate="yes" xml:space="preserve">
+          <source>UoM</source>
+          <target state="translated">UM</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - NamedType LineUoMCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - NamedType 3926274846" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Lot No.</source>
+          <target state="translated">N. lotto</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - NamedType LotNoCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - NamedType 2766159901" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Net Weight</source>
+          <target state="translated">Peso netto</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - NamedType NetWeightCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - NamedType 2491107794" size-unit="char" translate="yes" xml:space="preserve">
+          <source>You must specify one or more filters to avoid accidentally printing all documents.</source>
+          <target state="translated">È necessario specificare uno o più filtri per evitare di stampare accidentalmente tutti i documenti.</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - NamedType NoFilterSetErr</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - NamedType 888553641" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Non-reusable Packaging</source>
+          <target state="translated">Imballaggi non riutilizzabili</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - NamedType NonReusablePackagingCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - NamedType 4257211361" size-unit="char" translate="yes" xml:space="preserve">
+          <source>No. of Pallets</source>
+          <target state="translated">N. pallet</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - NamedType NoOfPalletsCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - NamedType 1781533930" size-unit="char" translate="yes" xml:space="preserve">
+          <source>No. of Parcels</source>
+          <target state="translated">N. colli</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - NamedType NoOfParcelsCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - NamedType 3268937432" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Operator</source>
+          <target state="translated">Operatore</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - NamedType OperatorCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - NamedType 3570497350" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Our Bank</source>
+          <target state="translated">Nostra banca</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - NamedType OurBankCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - NamedType 3247520521" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Package No.</source>
+          <target state="translated">N. pacchetto</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - NamedType PackageNoCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - NamedType 1877187315" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Page</source>
+          <target state="translated">Pagina</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - NamedType PageLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - NamedType 1160489787" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Payment Method</source>
+          <target state="translated">Modalità di pagamento</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - NamedType PaymentMethodCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - NamedType 1302573237" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Payment Terms</source>
+          <target state="translated">Condizioni di pagamento</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - NamedType PaymentTermsCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - NamedType 1395001292" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Reason</source>
+          <target state="translated">Causale</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - NamedType ReasonCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - NamedType 1971431541" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Recipient Signature</source>
+          <target state="translated">Firma destinatario</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - NamedType RecipientSignatureCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - NamedType 746789835" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Salesperson</source>
+          <target state="translated">Agente</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - NamedType SalespersonCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - NamedType 2518404021" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Sell-to Contact E-Mail</source>
+          <target state="translated">E-mail contatto cliente</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - NamedType SellToContactEmailLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - NamedType 1474002046" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Shipment from</source>
+          <target state="translated">Luogo di partenza</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - NamedType ShipmentFromCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - NamedType 3956110661" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Shipment Method</source>
+          <target state="translated">Metodo di spedizione</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - NamedType ShipmentMethodCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - NamedType 1915237209" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Shipping Agent</source>
+          <target state="translated">Vettore</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - NamedType ShippingAgentCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - NamedType 319427301" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Ship-to Address</source>
+          <target state="translated">Destinazione merce</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - NamedType ShipToAddressCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - NamedType 3588700781" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Tariff No.:</source>
+          <target state="translated">Codice doganale:</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - NamedType TariffNoCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - NamedType 1561707466" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Transport Document</source>
+          <target state="translated">Documento di trasporto</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - NamedType TransportDocumentLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - NamedType 3395573289" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Transport Start Date/Time</source>
+          <target state="translated">Data/ora inizio trasporto</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - NamedType TransportStartCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - NamedType 1593512474" size-unit="char" translate="yes" xml:space="preserve">
+          <source>UN No.:</source>
+          <target state="translated">N. ONU:</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - NamedType UNNoCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - NamedType 1306668226" size-unit="char" translate="yes" xml:space="preserve">
+          <source>VAT Reg. No.</source>
+          <target state="translated">Partita IVA</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - NamedType VATRegNoCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - NamedType 3259225756" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Vehicle Plate</source>
+          <target state="translated">Targa automezzo</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - NamedType VehiclePlateCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - NamedType 454812648" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Volume</source>
+          <target state="translated">Volume</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - NamedType VolumeCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - ReportDataItem 907109761 - Property 1806354803" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Posted Sales Shipment</source>
+          <target state="translated">Spedizione vendita registrata</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - ReportDataItem Header - Property RequestFilterHeading</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - ReportLabel 3862105617" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Bill-to Address</source>
+          <target state="translated">Indirizzo di fatturazione</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - ReportLabel BillToAddress_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - ReportLabel 1863312425" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Country of Origin</source>
+          <target state="translated">Paese di origine</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - ReportLabel CountryOfOriginLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - ReportLabel 3059990419" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Contact</source>
+          <target state="translated">Contatto</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - ReportLabel CustomerVendorContact_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - ReportLabel 3056450812" size-unit="char" translate="yes" xml:space="preserve">
+          <source>E-Mail</source>
+          <target state="translated">E-mail</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - ReportLabel CustomerVendorMail_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - ReportLabel 2385736825" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Document No.</source>
+          <target state="translated">N. documento</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - ReportLabel DocumentNo_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - ReportLabel 2241675417" size-unit="char" translate="yes" xml:space="preserve">
+          <source>(Presidential Decree no. 472 of 14/08/1996)</source>
+          <target state="translated">(D.P.R. n. 472 del 14/08/1996)</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - ReportLabel DPR_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - ReportLabel 2162186408" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Amount</source>
+          <target state="translated">Importo</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - ReportLabel Line_Amount_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - ReportLabel 460132802" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Description</source>
+          <target state="translated">Descrizione</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - ReportLabel Line_Description_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - ReportLabel 551540224" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Item No.</source>
+          <target state="translated">Cod. articolo</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - ReportLabel Line_ItemNo_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - ReportLabel 2805077001" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Disc. %</source>
+          <target state="translated">Sconto %</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - ReportLabel Line_LineDiscountPerc_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - ReportLabel 1315480607" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Order Quantity</source>
+          <target state="translated">Quantità ordinata</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - ReportLabel Line_OrderQuantity_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - ReportLabel 4276699525" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Quantity</source>
+          <target state="translated">Quantità</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - ReportLabel Line_Quantity_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - ReportLabel 2450167800" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Shipment Date</source>
+          <target state="translated">Data spedizione</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - ReportLabel Line_ShipmentDate_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - ReportLabel 3615068088" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Type</source>
+          <target state="translated">Tipo</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - ReportLabel Line_Type_Descr_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - ReportLabel 1635507053" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Unit Price</source>
+          <target state="translated">Prezzo unitario</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - ReportLabel Line_UnitPrice_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - ReportLabel 1288768529" size-unit="char" translate="yes" xml:space="preserve">
+          <source>UoM</source>
+          <target state="translated">UM</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - ReportLabel Line_UoM_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - ReportLabel 2982936740" size-unit="char" translate="yes" xml:space="preserve">
+          <source>VAT</source>
+          <target state="translated">IVA</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - ReportLabel Line_VATIdentifier_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - ReportLabel 3467475087" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Order Confirmation</source>
+          <target state="translated">Conferma d'ordine</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - ReportLabel OrderConf_Title</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - ReportLabel 503490221" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Order Date</source>
+          <target state="translated">Data ordine</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - ReportLabel OrderDate_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - ReportLabel 3653912790" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Page</source>
+          <target state="translated">Pagina</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - ReportLabel Page_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - ReportLabel 3594508916" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Amount Due</source>
+          <target state="translated">Importo scadenza</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - ReportLabel Payment_Amount_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - ReportLabel 3273962848" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Due Date</source>
+          <target state="translated">Scadenza</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - ReportLabel Payment_DueDate_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - ReportLabel 1753088956" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Return Address</source>
+          <target state="translated">Indirizzo di reso</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - ReportLabel ReturnAddr_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - ReportLabel 241495872" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Salesperson</source>
+          <target state="translated">Agente</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - ReportLabel Salesperson_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - ReportLabel 324960055" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Shipment Date</source>
+          <target state="translated">Data spedizione</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - ReportLabel ShipmentDate_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - ReportLabel 664160842" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Ship-to Address</source>
+          <target state="translated">Destinazione merce</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - ReportLabel ShipToAddress_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - ReportLabel 1892003589" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Shipping Agent</source>
+          <target state="translated">Vettore</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - ReportLabel ShpAgent_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - ReportLabel 1378079743" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Tariff No.</source>
+          <target state="translated">Codice doganale</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - ReportLabel TariffNoLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - ReportLabel 2354469978" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Document Total</source>
+          <target state="translated">Totale documento</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - ReportLabel Total_DocumentTotalCaption</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - ReportLabel 1074131689" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Document Total Excl. VAT</source>
+          <target state="translated">Totale documento IVA esclusa</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - ReportLabel Total_DocumentTotalVatExclCaption</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - ReportLabel 935148605" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Net Amount to Pay</source>
+          <target state="translated">Netto a pagare</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - ReportLabel Total_NetAmountToPayCaption</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - ReportLabel 458396127" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Total VAT</source>
+          <target state="translated">Totale IVA</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - ReportLabel Total_TotalAmountCaption</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - ReportLabel 3020419392" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Taxable Amount</source>
+          <target state="translated">Imponibile</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - ReportLabel Total_TotalBaseCaption</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - ReportLabel 2372671035" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Subtotal</source>
+          <target state="translated">Subtotale</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - ReportLabel Total_TotalCaption</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - ReportLabel 3013176120" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Valid To</source>
+          <target state="translated">Valida fino al</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - ReportLabel ValidTo_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - ReportLabel 2192086595" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Invoice Discount</source>
+          <target state="translated">Sconto fattura</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - ReportLabel VAT_InvDisc_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - ReportLabel 3460754344" size-unit="char" translate="yes" xml:space="preserve">
+          <source>VAT Code</source>
+          <target state="translated">Cod. IVA</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - ReportLabel VAT_Line_VATIdentifier_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - ReportLabel 133608725" size-unit="char" translate="yes" xml:space="preserve">
+          <source>VAT Description</source>
+          <target state="translated">Descrizione IVA</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - ReportLabel VAT_VATText_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - ReportLabel 2358362909" size-unit="char" translate="yes" xml:space="preserve">
+          <source>VAT Clause</source>
+          <target state="translated">Clausola IVA</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - ReportLabel VATClausesCaption</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - ReportLabel 1813042605" size-unit="char" translate="yes" xml:space="preserve">
+          <source>VAT Reg. No.</source>
+          <target state="translated">Partita IVA</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - ReportLabel VATRegNo_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - ReportLabel 1166384323" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Volume</source>
+          <target state="translated">Volume</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - ReportLabel Volume_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - ReportLabel 3409671805" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Your Reference</source>
+          <target state="translated">Vs. riferimento</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - ReportLabel YourReference_Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - Control 2346885236 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Options</source>
+          <target state="translated">Opzioni</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - Control Options - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - Control 2256484917 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies if the document is archived after you preview or print it.</source>
+          <target state="translated">Specifica se il documento viene archiviato dopo l'anteprima o la stampa.</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - Control ArchiveDocumentReq - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - Control 2256484917 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Archive Document</source>
+          <target state="translated">Archivia documento</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - Control ArchiveDocumentReq - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - Control 1768134489 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies if you want the report to include information about components that were used in linked assembly orders that supplied the item(s) being sold.</source>
+          <target state="translated">Specifica se il report deve includere informazioni sui componenti utilizzati negli ordini di assemblaggio collegati che hanno fornito gli articoli venduti.</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - Control DisplayAsmInformationReq - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - Control 1768134489 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Show Assembly Components</source>
+          <target state="translated">Mostra componenti assemblaggio</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - Control DisplayAsmInformationReq - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - Control 1196393644 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies that interactions with the contact are logged.</source>
+          <target state="translated">Specifica che le interazioni con il contatto vengono registrate.</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - Control LogInteractionReq - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - Control 1196393644 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Log Interaction</source>
+          <target state="translated">Registra interazione</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - Control LogInteractionReq - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - ReportLayout 635029291 - Property 2166945456" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Chematek transport document (DDT) with shipment data, lot numbers and dangerous goods information per line.</source>
+          <target state="translated">Documento di trasporto (DDT) Chematek con dati di spedizione, numeri di lotto e informazioni sulle merci pericolose per riga.</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - ReportLayout SalesShipmentRDLC - Property Summary</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - ReportLayout 635029291 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Chematek Sales Shipment</source>
+          <target state="translated">Documento di trasporto Chematek</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - ReportLayout SalesShipmentRDLC - Property Caption</note>
+        </trans-unit>
         <trans-unit id="PageExtension 339891858 - Control 1014473133 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 523354100">
           <source>Specifies whether the customer is a Michelin customer. Only posted shipments of Michelin customers can be loaded on the Michelin labels page.</source>
           <target state="translated">Specifica se il cliente è un cliente Michelin. Nella pagina Etichette Michelin si possono caricare solo le spedizioni registrate dei clienti Michelin.</target>
