@@ -17,134 +17,99 @@ report 66600 "CHM Michelin Labels"
 
                 column(Number; LabelCounter)
                 {
-
                 }
-
                 column(Ship_from_Name; Labels."Ship-from Name")
                 {
-
                 }
                 column(Ship_from_Address; Labels."Ship-from Address")
                 {
-
                 }
                 column(Ship_from_City; Labels."Ship-from City")
                 {
-
                 }
                 column(Ship_from_Post_Code; Labels."Ship-from Post Code")
                 {
-
                 }
                 column(Ship_from_County; Labels."Ship-from County")
                 {
-
                 }
                 column(Ship_from_Country; Labels."Ship-from Country")
                 {
-
                 }
                 column(Ship_to_Name; Labels."Ship-to Name")
                 {
-
                 }
                 column(Ship_to_Address; Labels."Ship-to Address")
                 {
-
                 }
                 column(Ship_to_City; Labels."Ship-to City")
                 {
-
                 }
                 column(Ship_to_Post_Code; Labels."Ship-to Post Code")
                 {
-
                 }
                 column(Ship_to_County; Labels."Ship-to County")
                 {
-
                 }
                 column(Ship_to_Country; Labels."Ship-to Country")
                 {
-
                 }
-
                 column(SupplierCode; SupplierCode)
                 {
-
                 }
                 column(Lot_No_; Labels."Lot No.")
                 {
-
                 }
                 column(Michelin_Purch__Order; Labels."Michelin Purch. Order")
                 {
-
                 }
                 column(Item_No_; Labels."Item No.")
                 {
-
                 }
                 column(Description; Labels.Description)
                 {
-
                 }
                 column(Label_SN; LabelSN)
                 {
-
                 }
                 column(Production_Date; ProductionDateText)
                 {
-
                 }
                 column(Quantity; QuantityText)
                 {
-
                 }
                 column(BidimCode; BidimCode)
                 {
-
                 }
                 column(Sales_Shpt_Code; Labels."Sales Shpt. Code")
                 {
-
                 }
                 column(Sales_Order_No_; Labels."Sales Order No.")
                 {
-
                 }
-
                 column(Barcode_SupplierCode; BarcodeSupplierCode)
                 {
-
                 }
                 column(Barcode_LotNo; BarcodeLotNo)
                 {
-
                 }
                 column(Barcode_MichelinPO; BarcodeMichelinPO)
                 {
-
                 }
                 column(Barcode_ItemNo; BarcodeItemNo)
                 {
-
                 }
                 column(Barcode_LabelSN; BarcodeLabelSN)
                 {
-
                 }
                 column(Barcode_ProdDate; BarcodeProdDate)
                 {
-
                 }
                 column(Barcode_Qty; BarcodeQty)
                 {
-
                 }
                 column(Barcode_QRCode; BarcodeQRCode)
                 {
-
                 }
 
                 trigger OnPreDataItem()

@@ -15,584 +15,433 @@ report 66606 "CHM Purchase Order"
 
             column(CustomerAddress1; VendAddr[1])
             {
-
             }
             column(CustomerAddress2; VendAddr[2])
             {
-
             }
             column(CustomerAddress3; VendAddr[3])
             {
-
             }
             column(CustomerAddress4; VendAddr[4])
             {
-
             }
             column(CustomerAddress5; VendAddr[5])
             {
-
             }
             column(CustomerAddress6; VendAddr[6])
             {
-
             }
             column(CustomerAddress7; VendAddr[7])
             {
-
             }
             column(CustomerAddress8; VendAddr[8])
             {
-
             }
             column(ShipToAddress_Lbl; ShipToAddressCaptionLbl)
             {
-
             }
             column(ShipToAddress1; ShipToAddr[1])
             {
-
             }
             column(ShipToAddress2; ShipToAddr[2])
             {
-
             }
             column(ShipToAddress3; ShipToAddr[3])
             {
-
             }
             column(ShipToAddress4; ShipToAddr[4])
             {
-
             }
             column(ShipToAddress5; ShipToAddr[5])
             {
-
             }
             column(ShipToAddress6; ShipToAddr[6])
             {
-
             }
             column(ShipToAddress7; ShipToAddr[7])
             {
-
             }
             column(ShipToAddress8; ShipToAddr[8])
             {
-
             }
             column(ShowShippingAddress; ShowShippingAddr)
             {
-
             }
-
             column(SelltoCustomerNo_Lbl; VendorNoCaptionLbl)
             {
-
             }
             column(DocumentLbl; PurchaseOrderCaptionLbl)
             {
-
             }
             column(PaymentTermsDescription_Lbl; PaymentTermsCaptionLbl)
             {
-
             }
             column(PaymentMethodDescription_Lbl; PaymentMethodCaptionLbl)
             {
-
             }
             column(SalesPerson_Lbl; PurchaserCaptionLbl)
             {
-
             }
             column(OperatorName_Lbl; OperatorCaptionLbl)
             {
-
             }
             column(DateLbl; DateCaptionLbl)
             {
-
             }
             column(CustomerVendorNoLbl; VendorNoCaptionLbl)
             {
-
             }
             column(CustomerVendorContactLbl; ContactCaptionLbl)
             {
-
             }
             column(ShipmentMethodDescription_Lbl; ShipmentMethodCaptionLbl)
             {
-
             }
             column(VatRegNoLbl; VATRegNoCaptionLbl)
             {
-
             }
             column(FiscalCodeLbl; FiscalCodeCaptionLbl)
             {
-
             }
             column(SellToContactEmailLbl; ContactEmailCaptionLbl)
             {
-
             }
             column(ReasonLbl; ReasonCaptionLbl)
             {
-
             }
             column(YourReference_Lbl; YourReferenceCaptionLbl)
             {
-
             }
             column(ShptByLbl; ShippingAgentCaptionLbl)
             {
-
             }
             column(OrderDate_Caption; OrderDateCaptionLbl)
             {
-
             }
             column(PostingDate_Caption; PostingDateCaptionLbl)
             {
-
             }
             column(ShptMethodDescLbl; ShipmentMethodCaptionLbl)
             {
-
             }
             column(LocationLbl; LocationCaptionLbl)
             {
-
             }
             column(DocNo_Lbl; DocNoCaptionLbl)
             {
-
             }
             column(Vendor_Lbl; VendorCaptionLbl)
             {
-
             }
             column(EMail_Lbl; EMailCaptionLbl)
             {
-
             }
             column(VAT_Lbl; VATCaptionLbl)
             {
-
             }
             column(VATClausesCaption_Lbl; VATClausesCaptionLbl)
             {
-
             }
-
             column(DocumentNo; Header."No.")
             {
-
             }
             column(BilltoCustumerNo; Header."Buy-from Vendor No.")
             {
-
             }
             column(SelltoCustomerNo; Header."Buy-from Vendor No.")
             {
-
             }
             column(ShptBy; ShippingAgentName)
             {
-
             }
             column(ShptMethod; Header."Shipment Method Code")
             {
-
             }
             column(OperatorName; OperatorName)
             {
-
             }
             column(AssignedUserID; Header."Assigned User ID")
             {
-
             }
             column(ReasonCode; ReasonCodeText)
             {
-
             }
             column(FiscalCodeNo; FiscalCodeNo)
             {
-
             }
             column(SellToContactName; Header."Buy-from Contact")
             {
-
             }
             column(SellToContactEmail; ContactEmail)
             {
-
             }
             column(BillToContactEmail; ContactEmail)
             {
-
             }
             column(BillToContactEmailLbl; ContactEmailCaptionLbl)
             {
-
             }
             column(YourReference; Header."Your Reference")
             {
-
             }
             column(ShipmentMethodDescription; ShipmentMethod.Description)
             {
-
             }
             column(PaymentTermsDescription; PaymentTerms.Description)
             {
-
             }
             column(PaymentMethodDescription; PaymentMethod.Description)
             {
-
             }
             column(SalesPersonText_Lbl; PurchaserText)
             {
-
             }
             column(SalesPersonName; SalespersonPurchaser.Name)
             {
-
             }
             column(OrderDate; Format(Header."Order Date"))
             {
-
             }
             column(PostingDate; Format(Header."Posting Date"))
             {
-
             }
             column(LocationName; LocationName)
             {
-
             }
             column(LocationAddress; LocationAddress)
             {
-
             }
             column(LocationCity; LocationCity)
             {
-
             }
             column(ViewLocation; ViewLocation)
             {
-
             }
-
             column(LeftHeaderLogo; CompanyInfo.Picture)
             {
-
             }
             column(RightHeaderLogo; CHMSetup."Right Header Logo")
             {
-
             }
             column(Iso9001Logo; CHMSetup."ISO 9001 Logo")
             {
-
             }
             column(ASSICCLogo; CHMSetup."ASSICC Logo")
             {
-
             }
             column(FooterLogo; CHMSetup."Footer Logo")
             {
-
             }
             column(ShowIso; ShowIso)
             {
-
             }
-
             column(Total_NetAmountToPayCaption; NetAmountToPayCaptionLbl)
             {
-
             }
             column(Total_TotalAmountCaption; TotalVATCaptionLbl)
             {
-
             }
             column(Total_TotalBaseCaption; TaxableAmountCaptionLbl)
             {
-
             }
             column(Total_TotalInvDiscCaption; InvDiscountAmtLbl)
             {
-
             }
             column(Total_TotalCaption; SubtotalLbl)
             {
-
             }
             column(Total_DocumentTotalCaption; DocumentTotalCaptionLbl)
             {
-
             }
             column(VAT_InvDisc_Caption; InvDiscountAmtLbl)
             {
-
             }
             column(VAT_Line_VATIdentifier_Caption; VATCodeCaptionLbl)
             {
-
             }
             column(VAT_VATAmount_Caption; VATAmtLbl)
             {
-
             }
             column(VAT_VATBase_Caption; TaxableAmountCaptionLbl)
             {
-
             }
             column(VAT_VATPercent_Caption; VATPercentageLbl)
             {
-
             }
             column(VAT_VATText_Caption; VATDescriptionCaptionLbl)
             {
-
             }
             column(Payment_Amount_Caption; PaymentAmountCaptionLbl)
             {
-
             }
             column(Payment_DueDate_Caption; DueDateCaptionLbl)
             {
-
             }
-
             column(Shipment_Lbl; ShipmentLbl)
             {
-
             }
             column(ShipmentDate_Lbl; Header.FieldCaption("Expected Receipt Date"))
             {
-
             }
             column(BilltoCustomerNo_Lbl; Header.FieldCaption("Buy-from Vendor No."))
             {
-
             }
             column(DocumentDate; Format(Header."Document Date"))
             {
-
             }
             column(DocumentDate_Lbl; Header.FieldCaption("Document Date"))
             {
-
             }
             column(DueDate; Format(Header."Due Date"))
             {
-
             }
             column(DueDate_Lbl; Header.FieldCaption("Due Date"))
             {
-
             }
             column(DocumentNo_Lbl; DocumentNoCaptionLbl)
             {
-
             }
             column(QuoteNo; Header."Quote No.")
             {
-
             }
             column(QuoteNo_Lbl; QuoteNoCaptionLbl)
             {
-
             }
             column(PricesIncludingVAT; Header."Prices Including VAT")
             {
-
             }
             column(PricesIncludingVAT_Lbl; Header.FieldCaption("Prices Including VAT"))
             {
-
             }
             column(PricesIncludingVATYesNo; Format(Header."Prices Including VAT"))
             {
-
             }
             column(VATRegistrationNo; VATRegistrationNo)
             {
-
             }
             column(Copy_Lbl; CopyLbl)
             {
-
             }
             column(InvoiceDiscountBaseAmount_Lbl; InvDiscBaseAmtLbl)
             {
-
             }
             column(InvoiceDiscountAmount_Lbl; InvDiscountAmtLbl)
             {
-
             }
             column(LineAmountAfterInvoiceDiscount_Lbl; LineAmtAfterInvDiscLbl)
             {
-
             }
             column(LocalCurrency_Lbl; LocalCurrencyLbl)
             {
-
             }
             column(ExchangeRateAsText; ExchangeRateText)
             {
-
             }
             column(Page_Lbl; PageLbl)
             {
-
             }
             column(Subtotal_Lbl; SubtotalLbl)
             {
-
             }
             column(Total_Lbl; TotalLbl)
             {
-
             }
             column(VATAmount_Lbl; VATAmtLbl)
             {
-
             }
             column(VATBase_Lbl; VATBaseLbl)
             {
-
             }
             column(VATAmountSpecification_Lbl; VATAmtSpecificationLbl)
             {
-
             }
             column(VATClauses_Lbl; VATClausesLbl)
             {
-
             }
             column(VATIdentifier_Lbl; VATIdentifierLbl)
             {
-
             }
             column(VATPercentage_Lbl; VATPercentageLbl)
             {
-
             }
             column(VATClause_Lbl; VATClause.TableCaption())
             {
-
             }
             column(DescrLav; DocumentNoteText)
             {
-
             }
             column(CurrencyCode; CurrCode)
             {
-
             }
-
             column(ShelfLifeClauseText; ShelfLifeClauseLbl)
             {
-
             }
             column(TermsAcceptanceText; TermsAcceptanceLbl)
             {
-
             }
-
             column(ItemNo_Line_Lbl; LineNoCaptionLbl)
             {
-
             }
             column(Description_Line_Lbl; LineDescriptionCaptionLbl)
             {
-
             }
             column(Quantity_Line_Lbl; LineQuantityCaptionLbl)
             {
-
             }
             column(UnitOfMeasure_Lbl; LineUoMCaptionLbl)
             {
-
             }
             column(AmountExcludingVAT_Line_Lbl; LineAmountCaptionLbl)
             {
-
             }
             column(LineAmount_Line_Lbl; LineAmountCaptionLbl)
             {
-
             }
             column(VATIdentifier_Line_Lbl; VATIdentifierLbl)
             {
-
             }
             column(VATPct_Line_Lbl; VATPercentageLbl)
             {
-
             }
             column(AmountIncludingVAT_Line_Lbl; AmountInclVATCaptionLbl)
             {
-
             }
             column(Qty_Lbl; QtyLbl)
             {
-
             }
             column(Price_Lbl; PriceLbl)
             {
-
             }
             column(PricePer_Lbl; PricePerLbl)
             {
-
             }
             column(Unit_Lbl; UnitLbl)
             {
-
             }
             column(LineAmount_Lbl; LineAmountCaptionLbl)
             {
-
             }
             column(SalesInvoiceLineDiscount_Lbl; LineDiscPctCaptionLbl)
             {
-
             }
             column(LotNo_Caption; LotNoCaptionLbl)
             {
-
             }
             column(CountryOfOrigin_Caption; CountryOfOriginCaptionLbl)
             {
-
             }
             column(Tariff_No_Caption; TariffNoCaptionLbl)
             {
-
             }
             column(UN_Caption; UNNoCaptionLbl)
             {
-
             }
             column(ADR_Class_Caption; ADRClassCaptionLbl)
             {
-
             }
             column(TypeLbl; LineTypeCaptionLbl)
             {
-
             }
-
             column(TotalNetAmount; TotalAmount)
             {
                 AutoFormatExpression = Header."Currency Code";
@@ -600,7 +449,6 @@ report 66606 "CHM Purchase Order"
             }
             column(TotalVATBaseLCY; TotalVATBaseLCY)
             {
-
             }
             column(TotalAmountIncludingVAT; TotalAmountInclVAT)
             {
@@ -614,7 +462,6 @@ report 66606 "CHM Purchase Order"
             }
             column(TotalVATAmountLCY; TotalVATAmountLCY)
             {
-
             }
             column(TotalInvoiceDiscountAmount; TotalInvDiscAmount)
             {
@@ -623,19 +470,15 @@ report 66606 "CHM Purchase Order"
             }
             column(TotalPaymentDiscountOnVAT; TotalPaymentDiscOnVAT)
             {
-
             }
             column(TotalVATAmountText; TotalVATAmountText)
             {
-
             }
             column(TotalExcludingVATText; TotalExclVATText)
             {
-
             }
             column(TotalIncludingVATText; TotalInclVATText)
             {
-
             }
             column(TotalSubTotal; TotalSubTotal)
             {
@@ -649,112 +492,146 @@ report 66606 "CHM Purchase Order"
             }
             column(TotalText; TotalText)
             {
-
             }
-
             column(VAT_ClauseCode1; VATClauseSlotCode[1])
             {
-
             }
             column(VAT_ClauseDescription1; VATClauseSlotDescription[1])
             {
-
             }
             column(VAT_ClauseCode2; VATClauseSlotCode[2])
             {
-
             }
             column(VAT_ClauseDescription2; VATClauseSlotDescription[2])
             {
-
             }
             column(VAT_ClauseCode3; VATClauseSlotCode[3])
             {
-
             }
             column(VAT_ClauseDescription3; VATClauseSlotDescription[3])
             {
-
             }
             column(VAT_ClauseCode4; VATClauseSlotCode[4])
             {
-
             }
             column(VAT_ClauseDescription4; VATClauseSlotDescription[4])
             {
-
             }
             column(ShowVATClauseTab; ShowVATClauseTab)
             {
-
             }
-
             column(CodIVA1; VATSlotCode[1])
             {
-
             }
             column(CodIVA2; VATSlotCode[2])
             {
-
             }
             column(CodIva3; VATSlotCode[3])
             {
-
             }
             column(CodIva4; VATSlotCode[4])
             {
-
             }
-            column(VatPerc1; VATSlotPct[1]) { DecimalPlaces = 0 : 5; }
-            column(VatPerc2; VATSlotPct[2]) { DecimalPlaces = 0 : 5; }
-            column(VatPerc3; VATSlotPct[3]) { DecimalPlaces = 0 : 5; }
-            column(VatPerc4; VATSlotPct[4]) { DecimalPlaces = 0 : 5; }
+            column(VatPerc1; VATSlotPct[1])
+            {
+                DecimalPlaces = 0 : 5;
+            }
+            column(VatPerc2; VATSlotPct[2])
+            {
+                DecimalPlaces = 0 : 5;
+            }
+            column(VatPerc3; VATSlotPct[3])
+            {
+                DecimalPlaces = 0 : 5;
+            }
+            column(VatPerc4; VATSlotPct[4])
+            {
+                DecimalPlaces = 0 : 5;
+            }
             column(DesIVA1; VATSlotDescription[1])
             {
-
             }
             column(DesIVA2; VATSlotDescription[2])
             {
-
             }
             column(DesIVA3; VATSlotDescription[3])
             {
-
             }
             column(DesIVA4; VATSlotDescription[4])
             {
-
             }
-            column(VatBase1; VATSlotBase[1]) { AutoFormatExpression = Header."Currency Code"; AutoFormatType = 1; }
-            column(VatBase2; VATSlotBase[2]) { AutoFormatExpression = Header."Currency Code"; AutoFormatType = 1; }
-            column(VatBase3; VATSlotBase[3]) { AutoFormatExpression = Header."Currency Code"; AutoFormatType = 1; }
-            column(VatBase4; VATSlotBase[4]) { AutoFormatExpression = Header."Currency Code"; AutoFormatType = 1; }
-            column(VatAmount1; VATSlotAmount[1]) { AutoFormatExpression = Header."Currency Code"; AutoFormatType = 1; }
-            column(VatAmount2; VATSlotAmount[2]) { AutoFormatExpression = Header."Currency Code"; AutoFormatType = 1; }
-            column(VatAmount3; VATSlotAmount[3]) { AutoFormatExpression = Header."Currency Code"; AutoFormatType = 1; }
-            column(VatAmount4; VATSlotAmount[4]) { AutoFormatExpression = Header."Currency Code"; AutoFormatType = 1; }
-
+            column(VatBase1; VATSlotBase[1])
+            {
+                AutoFormatExpression = Header."Currency Code";
+                AutoFormatType = 1;
+            }
+            column(VatBase2; VATSlotBase[2])
+            {
+                AutoFormatExpression = Header."Currency Code";
+                AutoFormatType = 1;
+            }
+            column(VatBase3; VATSlotBase[3])
+            {
+                AutoFormatExpression = Header."Currency Code";
+                AutoFormatType = 1;
+            }
+            column(VatBase4; VATSlotBase[4])
+            {
+                AutoFormatExpression = Header."Currency Code";
+                AutoFormatType = 1;
+            }
+            column(VatAmount1; VATSlotAmount[1])
+            {
+                AutoFormatExpression = Header."Currency Code";
+                AutoFormatType = 1;
+            }
+            column(VatAmount2; VATSlotAmount[2])
+            {
+                AutoFormatExpression = Header."Currency Code";
+                AutoFormatType = 1;
+            }
+            column(VatAmount3; VATSlotAmount[3])
+            {
+                AutoFormatExpression = Header."Currency Code";
+                AutoFormatType = 1;
+            }
+            column(VatAmount4; VATSlotAmount[4])
+            {
+                AutoFormatExpression = Header."Currency Code";
+                AutoFormatType = 1;
+            }
             column(DueDate1; DueDateSlot[1])
             {
-
             }
             column(DueDate2; DueDateSlot[2])
             {
-
             }
             column(DueDate3; DueDateSlot[3])
             {
-
             }
             column(DueDate4; DueDateSlot[4])
             {
-
             }
-            column(DueAmount1; DueAmountSlot[1]) { AutoFormatExpression = Header."Currency Code"; AutoFormatType = 1; }
-            column(DueAmount2; DueAmountSlot[2]) { AutoFormatExpression = Header."Currency Code"; AutoFormatType = 1; }
-            column(DueAmount3; DueAmountSlot[3]) { AutoFormatExpression = Header."Currency Code"; AutoFormatType = 1; }
-            column(DueAmount4; DueAmountSlot[4]) { AutoFormatExpression = Header."Currency Code"; AutoFormatType = 1; }
-
+            column(DueAmount1; DueAmountSlot[1])
+            {
+                AutoFormatExpression = Header."Currency Code";
+                AutoFormatType = 1;
+            }
+            column(DueAmount2; DueAmountSlot[2])
+            {
+                AutoFormatExpression = Header."Currency Code";
+                AutoFormatType = 1;
+            }
+            column(DueAmount3; DueAmountSlot[3])
+            {
+                AutoFormatExpression = Header."Currency Code";
+                AutoFormatType = 1;
+            }
+            column(DueAmount4; DueAmountSlot[4])
+            {
+                AutoFormatExpression = Header."Currency Code";
+                AutoFormatType = 1;
+            }
             dataitem(Line; "Purchase Line")
             {
                 DataItemLink = "Document No." = field("No.");
@@ -764,7 +641,6 @@ report 66606 "CHM Purchase Order"
 
                 column(Line_LineNo; "Line No.")
                 {
-
                 }
                 column(AmountExcludingVAT_Line; Amount)
                 {
@@ -778,16 +654,16 @@ report 66606 "CHM Purchase Order"
                 }
                 column(Line_RequestedDeliveryDate; Format("Requested Receipt Date"))
                 {
-
                 }
                 column(Line_Description; Description)
                 {
-
                 }
-                column(Line_LineDiscountPerc; "Line Discount %") { DecimalPlaces = 0 : 5; }
+                column(Line_LineDiscountPerc; "Line Discount %")
+                {
+                    DecimalPlaces = 0 : 5;
+                }
                 column(LineDiscountPercentText_Line; LineDiscountPctText)
                 {
-
                 }
                 column(Line_Amount; "Line Amount")
                 {
@@ -796,32 +672,28 @@ report 66606 "CHM Purchase Order"
                 }
                 column(Line_ItemNo; "No.")
                 {
-
                 }
                 column(Line_Type; Format(Type))
                 {
-
                 }
                 column(Line_ShipmentDate; Format("Expected Receipt Date"))
                 {
-
                 }
                 column(ShipmentDate_Line_Lbl; DeliveryDateCaptionLbl)
                 {
-
                 }
                 column(Line_PlannedShipmentDate; Format("Planned Receipt Date"))
                 {
-
                 }
                 column(PlannedShipmentDate_Line_Lbl; FieldCaption("Planned Receipt Date"))
                 {
-
                 }
-                column(Line_Quantity; Quantity) { DecimalPlaces = 0 : 5; }
+                column(Line_Quantity; Quantity)
+                {
+                    DecimalPlaces = 0 : 5;
+                }
                 column(Type_Line; Format(Type))
                 {
-
                 }
                 column(Line_UnitPrice; "Direct Unit Cost")
                 {
@@ -830,23 +702,18 @@ report 66606 "CHM Purchase Order"
                 }
                 column(UnitPrice_Lbl; LinePriceCaptionLbl)
                 {
-
                 }
                 column(UnitOfMeasure; "Unit of Measure")
                 {
-
                 }
                 column(Line_UoMCode; "Unit of Measure Code")
                 {
-
                 }
                 column(Line_VATIdentifier; "VAT Identifier")
                 {
-
                 }
                 column(VATPct_Line; FormattedVATPct)
                 {
-
                 }
                 column(TransHeaderAmount; TransHeaderAmount)
                 {
@@ -855,115 +722,89 @@ report 66606 "CHM Purchase Order"
                 }
                 column(ItemReferenceNo; "Item Reference No.")
                 {
-
                 }
                 column(ItemReferenceNo_Lbl; FieldCaption("Item Reference No."))
                 {
-
                 }
-
                 column(ItemHazardousDescr; ItemHazardousDescr)
                 {
-
                 }
                 column(Hazardous; Hazardous)
                 {
-
                 }
                 column(TariffNo; TariffNo)
                 {
-
                 }
                 column(ADRClass; ADRClass)
                 {
-
                 }
                 column(ItemUN; ItemUN)
                 {
-
                 }
                 column(ItemUnSingle; ItemUnSingle)
                 {
-
                 }
                 column(ItemADRDescr; ItemADRDescr)
                 {
-
                 }
                 column(ItemADRLabel; ItemADRLabel)
                 {
-
                 }
                 column(ItemADRPackingGroup; ItemADRPackingGroup)
                 {
-
                 }
                 column(ItemGalleryCode; ItemGalleryCode)
                 {
-
                 }
                 column(CountryOrigin; CountryOrigin)
                 {
-
                 }
                 column(gLocationDesc; LocationName)
                 {
-
                 }
-
                 column(DocumentNo_CHMDocVATExemptionLink; VATExemptDocumentNo)
                 {
-
                 }
                 column(LineNo_CHMDocVATExemptionLink; VATExemptLineNo)
                 {
-
                 }
                 column(NoVATExemption_CHMDocVATExemptionLink; NoVATExemption)
                 {
-
                 }
                 column(Source_CHMDocVATExemptionLink; VATExemptSource)
                 {
-
                 }
                 column(VATExemptEndingDate_CHMDocVATExemptionLink; VATExemptEndingDate)
                 {
-
                 }
                 column(VATExemptNo_CHMDocVATExemptionLink; VATExemptNo)
                 {
-
                 }
                 column(VATExemptStartingDate_CHMDocVATExemptionLink; VATExemptStartingDate)
                 {
-
                 }
                 column(VATExemptionType_CHMDocVATExemptionLink; VATExemptionType)
                 {
-
                 }
-
                 dataitem(AssemblyLine; "BOM Component")
                 {
                     DataItemTableView = sorting("Parent Item No.", "Line No.");
 
                     column(LineNo_AssemblyLine; "No.")
                     {
-
                     }
                     column(Description_AssemblyLine; Description)
                     {
-
                     }
-                    column(Quantity_AssemblyLine; ComponentQuantity) { DecimalPlaces = 0 : 5; }
+                    column(Quantity_AssemblyLine; ComponentQuantity)
+                    {
+                        DecimalPlaces = 0 : 5;
+                    }
                     column(UnitOfMeasure_AssemblyLine; CHMMgmt.GetUOMText("Unit of Measure Code"))
                     {
-
                     }
                     column(VariantCode_AssemblyLine; "Variant Code")
                     {
-
                     }
 
                     trigger OnPreDataItem()
@@ -1025,7 +866,6 @@ report 66606 "CHM Purchase Order"
                 }
                 column(InvoiceDiscountAmount_VATAmountLine_Lbl; FieldCaption("Invoice Discount Amount"))
                 {
-
                 }
                 column(InvoiceDiscountBaseAmount_VATAmountLine; "Inv. Disc. Base Amount")
                 {
@@ -1034,7 +874,6 @@ report 66606 "CHM Purchase Order"
                 }
                 column(InvoiceDiscountBaseAmount_VATAmountLine_Lbl; FieldCaption("Inv. Disc. Base Amount"))
                 {
-
                 }
                 column(LineAmount_VatAmountLine; "Line Amount")
                 {
@@ -1043,7 +882,6 @@ report 66606 "CHM Purchase Order"
                 }
                 column(LineAmount_VatAmountLine_Lbl; FieldCaption("Line Amount"))
                 {
-
                 }
                 column(VATAmount_VatAmountLine; "VAT Amount")
                 {
@@ -1052,15 +890,12 @@ report 66606 "CHM Purchase Order"
                 }
                 column(VATAmount_VatAmountLine_Lbl; FieldCaption("VAT Amount"))
                 {
-
                 }
                 column(VATAmountLCY_VATAmountLine; VATAmountLCY)
                 {
-
                 }
                 column(VATAmountLCY_VATAmountLine_Lbl; VATAmountLCYLbl)
                 {
-
                 }
                 column(VATBase_VatAmountLine; "VAT Base")
                 {
@@ -1069,32 +904,28 @@ report 66606 "CHM Purchase Order"
                 }
                 column(VATBase_VatAmountLine_Lbl; FieldCaption("VAT Base"))
                 {
-
                 }
                 column(VATBaseLCY_VATAmountLine; VATBaseLCY)
                 {
-
                 }
                 column(VATBaseLCY_VATAmountLine_Lbl; VATBaseLCYLbl)
                 {
-
                 }
                 column(VATIdentifier_VatAmountLine; "VAT Identifier")
                 {
-
                 }
                 column(VATIdentifier_VatAmountLine_Lbl; FieldCaption("VAT Identifier"))
                 {
-
                 }
-                column(VATPct_VatAmountLine; "VAT %") { DecimalPlaces = 0 : 5; }
+                column(VATPct_VatAmountLine; "VAT %")
+                {
+                    DecimalPlaces = 0 : 5;
+                }
                 column(VATPct_VatAmountLine_Lbl; FieldCaption("VAT %"))
                 {
-
                 }
                 column(NoOfVATIdentifiers; Count)
                 {
-
                 }
 
                 trigger OnPreDataItem()
@@ -1122,23 +953,18 @@ report 66606 "CHM Purchase Order"
 
                 column(VATIdentifier_VATClauseLine; "VAT Identifier")
                 {
-
                 }
                 column(Code_VATClauseLine; VATClause.Code)
                 {
-
                 }
                 column(Code_VATClauseLine_Lbl; VATClause.FieldCaption(Code))
                 {
-
                 }
                 column(Description_VATClauseLine; VATClauseText)
                 {
-
                 }
                 column(Description2_VATClauseLine; VATClause."Description 2")
                 {
-
                 }
                 column(VATAmount_VATClauseLine; "VAT Amount")
                 {
@@ -1147,7 +973,6 @@ report 66606 "CHM Purchase Order"
                 }
                 column(NoOfVATClauses; Count)
                 {
-
                 }
 
                 trigger OnAfterGetRecord()
@@ -1166,7 +991,6 @@ report 66606 "CHM Purchase Order"
 
                 column(Description_ReportTotalsLine; Description)
                 {
-
                 }
                 column(Amount_ReportTotalsLine; Amount)
                 {
@@ -1175,15 +999,12 @@ report 66606 "CHM Purchase Order"
                 }
                 column(AmountFormatted_ReportTotalsLine; "Amount Formatted")
                 {
-
                 }
                 column(FontBold_ReportTotalsLine; "Font Bold")
                 {
-
                 }
                 column(FontUnderline_ReportTotalsLine; "Font Underline")
                 {
-
                 }
 
                 trigger OnPreDataItem()
@@ -1197,19 +1018,15 @@ report 66606 "CHM Purchase Order"
 
                 column(GreetingText; GreetingLbl)
                 {
-
                 }
                 column(BodyText; BodyLbl)
                 {
-
                 }
                 column(ClosingText; ClosingLbl)
                 {
-
                 }
                 column(PmtDiscText; PmtDiscText)
                 {
-
                 }
 
                 trigger OnPreDataItem()
@@ -1462,7 +1279,6 @@ report 66606 "CHM Purchase Order"
         FormattedUnitPrice: Text;
         FormattedQuantity: Text;
         FormattedLineAmount: Text;
-
         TotalSubTotal: Decimal;
         TotalAmount: Decimal;
         TotalAmountInclVAT: Decimal;
@@ -1475,7 +1291,6 @@ report 66606 "CHM Purchase Order"
         PrevLineAmount: Decimal;
         VATBaseLCY: Decimal;
         VATAmountLCY: Decimal;
-
         OperatorName: Text;
         LocationName: Text;
         LocationAddress: Text;
@@ -1488,7 +1303,6 @@ report 66606 "CHM Purchase Order"
         ContactEmail: Text;
         DocumentNoteText: Text;
         ShowIso: Boolean;
-
         ItemHazardousDescr: Text;
         Hazardous: Boolean;
         TariffNo: Text;
@@ -1500,7 +1314,6 @@ report 66606 "CHM Purchase Order"
         ItemADRPackingGroup: Text;
         ItemGalleryCode: Text;
         CountryOrigin: Text;
-
         VATExemptDocumentNo: Code[20];
         VATExemptLineNo: Integer;
         NoVATExemption: Boolean;
@@ -1509,7 +1322,6 @@ report 66606 "CHM Purchase Order"
         VATExemptEndingDate: Text;
         VATExemptNo: Text;
         VATExemptionType: Text;
-
         VATSlotCode: array[4] of Code[20];
         VATSlotDescription: array[4] of Text;
         VATSlotPct: array[4] of Decimal;
@@ -1520,7 +1332,6 @@ report 66606 "CHM Purchase Order"
         ShowVATClauseTab: Boolean;
         DueDateSlot: array[4] of Text;
         DueAmountSlot: array[4] of Decimal;
-
         PurchaseOrderCaptionLbl: Label 'Purchase Order';
         QuoteNoCaptionLbl: Label 'Quote No.';
         ShipToAddressCaptionLbl: Label 'Delivery Address';
@@ -1574,10 +1385,8 @@ report 66606 "CHM Purchase Order"
         PriceLbl: Label 'Price';
         PricePerLbl: Label 'Price per';
         UnitLbl: Label 'Unit';
-
         ShelfLifeClauseLbl: Label 'All supplied chemical products must have a minimum of two-thirds (2/3) of their original shelf life remaining at the time of delivery, unless otherwise agreed, and the Certificate of Analysis (CoA) must be approved by the buyer.';
         TermsAcceptanceLbl: Label 'Acceptance of this Purchase Order constitutes acceptance of the Terms and Conditions attached.';
-
         CopyLbl: Label 'Copy';
         InvDiscBaseAmtLbl: Label 'Invoice Discount Base Amount';
         InvDiscountAmtLbl: Label 'Invoice Discount';

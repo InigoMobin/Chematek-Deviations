@@ -15,450 +15,343 @@ report 66608 "CHM Return Shipment"
 
             column(PaymentTermsDescription_Lbl; PaymentTermsCaptionLbl)
             {
-
             }
             column(PaymentMethodDescription_Lbl; PaymentMethodCaptionLbl)
             {
-
             }
             column(SalesPerson_Lbl; PurchaserCaptionLbl)
             {
-
             }
             column(OperatorName_Lbl; OperatorCaptionLbl)
             {
-
             }
             column(DateLbl; DateCaptionLbl)
             {
-
             }
             column(LocationLbl; ShipmentFromCaptionLbl)
             {
-
             }
             column(CustomerVendorNoLbl; VendorNoCaptionLbl)
             {
-
             }
             column(CustomerVendorContactLbl; ContactCaptionLbl)
             {
-
             }
             column(ShipmentMethodDescription_Lbl; ShipmentMethodCaptionLbl)
             {
-
             }
             column(VatRegNoLbl; VATRegNoCaptionLbl)
             {
-
             }
             column(FiscalCodeLbl; FiscalCodeCaptionLbl)
             {
-
             }
             column(ShptByLbl; ShippingAgentCaptionLbl)
             {
-
             }
             column(ShptMethodLbl; ShipmentMethodCaptionLbl)
             {
-
             }
             column(ReasonCaption; ReasonCaptionLbl)
             {
-
             }
-
             column(ShptStartLbl; TransportStartCaptionLbl)
             {
-
             }
             column(SigDriverLbl; DriverSignatureCaptionLbl)
             {
-
             }
             column(SigRecipientLbl; RecipientSignatureCaptionLbl)
             {
-
             }
             column(SigAgentLbl; CarrierSignatureCaptionLbl)
             {
-
             }
             column(NoPalletsLbl; NoOfPalletsCaptionLbl)
             {
-
             }
             column(DriverLbl; DriverCaptionLbl)
             {
-
             }
             column(NoParcelsLbl; NoOfParcelsCaptionLbl)
             {
-
             }
             column(GoodsAppLbl; GoodsAppearanceCaptionLbl)
             {
-
             }
             column(GrossWLbl; GrossWeightCaptionLbl)
             {
-
             }
             column(PlateLbl; VehiclePlateCaptionLbl)
             {
-
             }
             column(NetWLbl; NetWeightCaptionLbl)
             {
-
             }
             column(VolumeLbl; VolumeCaptionLbl)
             {
-
             }
-
             column(Barcode; BarcodeImageText)
             {
-
             }
             column(FooterLogo; CHMSetup."Footer Logo")
             {
-
             }
             column(LeftHeaderLogo; CompanyInfo.Picture)
             {
-
             }
             column(RightHeaderLogo; CHMSetup."Right Header Logo")
             {
-
             }
             column(Iso9001Logo; CHMSetup."ISO 9001 Logo")
             {
-
             }
             column(ASSICCLogo; CHMSetup."ASSICC Logo")
             {
-
             }
             column(ShowIso; ShowIso)
             {
-
             }
             column(AssignedUserID; Header."User ID")
             {
-
             }
             column(OperatorName; OperatorName)
             {
-
             }
             column(ReasonCode; ReasonCodeText)
             {
-
             }
             column(ShippingAgent; ShippingAgentName)
             {
-
             }
             column(LocationName; LocationName)
             {
-
             }
             column(LocationAddress; LocationAddress)
             {
-
             }
             column(LocationCity; LocationCity)
             {
-
             }
             column(OrderDate; Format(Header."Document Date"))
             {
-
             }
             column(ShptBy; ShippingAgentName)
             {
-
             }
             column(ShptMethod; ShipmentMethod.Description)
             {
-
             }
             column(PostingDate; Format(Header."Posting Date"))
             {
-
             }
             column(ShipmentStartingDateTime; ShipmentStartingDateTime)
             {
-
             }
             column(FiscalCodeNo; FiscalCodeNo)
             {
-
             }
-
             column(CustomerAddress1; VendAddr[1])
             {
-
             }
             column(CustomerAddress2; VendAddr[2])
             {
-
             }
             column(CustomerAddress3; VendAddr[3])
             {
-
             }
             column(CustomerAddress4; VendAddr[4])
             {
-
             }
             column(CustomerAddress5; VendAddr[5])
             {
-
             }
             column(CustomerAddress6; VendAddr[6])
             {
-
             }
             column(CustomerAddress7; VendAddr[7])
             {
-
             }
             column(CustomerAddress8; VendAddr[8])
             {
-
             }
             column(SellToContactEmailLbl; BuyFromContactEmailLbl)
             {
-
             }
             column(BillToContactEmailLbl; PayToContactEmailLbl)
             {
-
             }
             column(SellToContactEmail; BuyFromContactEmail)
             {
-
             }
             column(SellToContactName; Header."Buy-from Contact")
             {
-
             }
             column(BillToContactEmail; PayToContact."E-Mail")
             {
-
             }
             column(CustomerPostalBarCode; FormatAddr.PostalBarCode(1))
             {
-
             }
             column(ShipmentMethodDescription; ShipmentMethod.Description)
             {
-
             }
             column(Shipment_Lbl; TransportDocumentLbl)
             {
-
             }
             column(ShipmentDate; Format(Header."Posting Date"))
             {
-
             }
             column(ShipmentDate_Lbl; ShipmentDateCaptionLbl)
             {
-
             }
             column(ShowShippingAddress; ShowShippingAddr)
             {
-
             }
             column(ShipToAddress_Lbl; ShipToAddressCaptionLbl)
             {
-
             }
             column(ShipToAddress1; ShipToAddr[1])
             {
-
             }
             column(ShipToAddress2; ShipToAddr[2])
             {
-
             }
             column(ShipToAddress3; ShipToAddr[3])
             {
-
             }
             column(ShipToAddress4; ShipToAddr[4])
             {
-
             }
             column(ShipToAddress5; ShipToAddr[5])
             {
-
             }
             column(ShipToAddress6; ShipToAddr[6])
             {
-
             }
             column(ShipToAddress7; ShipToAddr[7])
             {
-
             }
             column(ShipToAddress8; ShipToAddr[8])
             {
-
             }
             column(PaymentTermsDescription; PaymentTerms.Description)
             {
-
             }
             column(PaymentMethodDescription; PaymentMethod.Description)
             {
-
             }
             column(DocumentCopyText; DocumentCopyText)
             {
-
             }
             column(DocumentDate; Format(Header."Document Date"))
             {
-
             }
             column(DocumentNo; Header."No.")
             {
-
             }
             column(DocumentNo_Lbl; DocumentNoCaptionLbl)
             {
-
             }
             column(SalesPersonText_Lbl; PurchaserText)
             {
-
             }
             column(SalesPersonName; SalespersonPurchaser.Name)
             {
-
             }
             column(SelltoCustomerNo; Header."Buy-from Vendor No.")
             {
-
             }
             column(SelltoCustomerNo_Lbl; ConsigneeCaptionLbl)
             {
-
             }
             column(VATRegistrationNo; VATRegistrationNo)
             {
-
             }
             column(VATRegistrationNo_Lbl; BuyFromVendor.FieldCaption("VAT Registration No."))
             {
-
             }
             column(Copy_Lbl; CopyLbl)
             {
-
             }
             column(Page_Lbl; PageLbl)
             {
-
             }
             column(Invoice_Lbl; InvoiceLbl)
             {
-
             }
             column(ShowWorkDescription; ShowWorkDescription)
             {
-
             }
             column(DescrLav; WorkDescriptionText)
             {
-
             }
             column(CurrencyCode; CurrCode)
             {
-
             }
-
             column(NoOfParcels; NoOfParcels)
             {
-
             }
-            column(GrossWeight; TotalGrossWeight) { DecimalPlaces = 0 : 5; }
-            column(NetWeight; TotalNetWeight) { DecimalPlaces = 0 : 5; }
-            column(Volume; TotalVolume) { DecimalPlaces = 0 : 5; }
+            column(GrossWeight; TotalGrossWeight)
+            {
+                DecimalPlaces = 0 : 5;
+            }
+            column(NetWeight; TotalNetWeight)
+            {
+                DecimalPlaces = 0 : 5;
+            }
+            column(Volume; TotalVolume)
+            {
+                DecimalPlaces = 0 : 5;
+            }
             column(NoOfPallets; NoOfPallets)
             {
-
             }
             column(GoodsAppearance; GoodsAppearanceText)
             {
-
             }
-
             column(BarCodeShipNo; BarcodeShipmentNo)
             {
-
             }
             column(AppNote; AppNoteText)
             {
-
             }
             column(ResaDescr; ShipmentMethod.Description)
             {
-
             }
             column(SignPicture; SignPictureText)
             {
-
             }
-
             column(ItemNo_Line_Lbl; LineNoCaptionLbl)
             {
-
             }
             column(Description_Line_Lbl; LineDescriptionCaptionLbl)
             {
-
             }
             column(Quantity_Line_Lbl; LineQuantityCaptionLbl)
             {
-
             }
             column(UnitOfMeasure_Lbl; LineUoMCaptionLbl)
             {
-
             }
             column(LotNo_Caption; LotNoCaptionLbl)
             {
-
             }
             column(CountryOfOrigin_Caption; CountryOfOriginCaptionLbl)
             {
-
             }
             column(Tariff_No_Caption; TariffNoCaptionLbl)
             {
-
             }
             column(UN_Caption; UNNoCaptionLbl)
             {
-
             }
             column(ADR_Class_Caption; ADRClassCaptionLbl)
             {
-
             }
             column(UnitPrice_Line_Lbl; LineUnitCostCaptionLbl)
             {
-
             }
-
             dataitem(Line; "Return Shipment Line")
             {
                 DataItemLink = "Document No." = field("No.");
@@ -467,21 +360,20 @@ report 66608 "CHM Return Shipment"
 
                 column(Line_LineNo; "Line No.")
                 {
-
                 }
                 column(Line_Description; Description)
                 {
-
                 }
                 column(Line_ItemNo; "No.")
                 {
-
                 }
                 column(ShipmentDate_Line_Lbl; ShipmentDateCaptionLbl)
                 {
-
                 }
-                column(Line_Quantity; Quantity) { DecimalPlaces = 0 : 5; }
+                column(Line_Quantity; Quantity)
+                {
+                    DecimalPlaces = 0 : 5;
+                }
                 column(Line_UnitCost; "Direct Unit Cost")
                 {
                     AutoFormatType = 2;
@@ -489,54 +381,40 @@ report 66608 "CHM Return Shipment"
                 }
                 column(UnitOfMeasure; "Unit of Measure")
                 {
-
                 }
                 column(Line_UoMCode; "Unit of Measure Code")
                 {
-
                 }
-
                 column(ItemHazardousDescr; ItemHazardousDescr)
                 {
-
                 }
                 column(Hazardous; Hazardous)
                 {
-
                 }
                 column(TariffNo; TariffNo)
                 {
-
                 }
                 column(ADRClass; ADRClass)
                 {
-
                 }
                 column(ItemUN; ItemUN)
                 {
-
                 }
                 column(ItemADRDescr; ItemADRDescr)
                 {
-
                 }
                 column(ItemADRLabel; ItemADRLabel)
                 {
-
                 }
                 column(ItemADRPackingGroup; ItemADRPackingGroup)
                 {
-
                 }
                 column(ItemGalleryCode; ItemGalleryCode)
                 {
-
                 }
                 column(CountryOrigin; CountryOrigin)
                 {
-
                 }
-
                 dataitem(TrackingSpecBuffer; "Tracking Specification")
                 {
                     DataItemTableView = sorting("Entry No.");
@@ -544,32 +422,28 @@ report 66608 "CHM Return Shipment"
 
                     column(TrackingSpecBufferItemNo; "Item No.")
                     {
-
                     }
                     column(TrackingSpecBufferLotNo; "Lot No.")
                     {
-
                     }
                     column(TrackingSpecBufferDesc; Description)
                     {
-
                     }
-                    column(TrackingSpecBufferQty; "Qty. to Handle") { DecimalPlaces = 0 : 5; }
+                    column(TrackingSpecBufferQty; "Qty. to Handle")
+                    {
+                        DecimalPlaces = 0 : 5;
+                    }
                     column(QuantityCaption; LineQuantityCaptionLbl)
                     {
-
                     }
                     column(LotNoCaption; LotNoCaptionLbl)
                     {
-
                     }
                     column(DescriptionCaption; LineDescriptionCaptionLbl)
                     {
-
                     }
                     column(NoCaption; LineNoCaptionLbl)
                     {
-
                     }
 
                     trigger OnPreDataItem()
@@ -823,7 +697,6 @@ report 66608 "CHM Return Shipment"
         BuyFromContactEmail: Text[80];
         WorkDescriptionText: Text;
         DocumentCopyText: Text;
-
         OperatorName: Text;
         LocationName: Text;
         LocationAddress: Text;
@@ -837,7 +710,6 @@ report 66608 "CHM Return Shipment"
         BarcodeImageText: Text;
         SignPictureText: Text;
         ShowIso: Boolean;
-
         GoodsAppearanceText: Text;
         ShipmentStartingDateTime: Text;
         TotalGrossWeight: Decimal;
@@ -845,7 +717,6 @@ report 66608 "CHM Return Shipment"
         TotalVolume: Decimal;
         NoOfParcels: Integer;
         NoOfPallets: Integer;
-
         TariffNo: Text;
         ADRClass: Text;
         ItemUN: Text;
@@ -856,8 +727,6 @@ report 66608 "CHM Return Shipment"
         ItemHazardousDescr: Text;
         Hazardous: Boolean;
         CountryOrigin: Text;
-
-
         TransportDocumentLbl: Label 'Transport Document';
         DocumentNoCaptionLbl: Label 'Document No.';
         ConsigneeCaptionLbl: Label 'Consignee';
