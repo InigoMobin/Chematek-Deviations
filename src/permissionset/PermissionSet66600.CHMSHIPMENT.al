@@ -19,6 +19,7 @@ permissionset 66600 "CHM SHIPMENT"
         report "CHM Posted Credit Memo" = X,
         report "CHM Purchase Order" = X,
         report "CHM Sales Shipment" = X,
+        report "CHM Return Shipment" = X,
         table "CHM Customizations Setup" = X,
         tabledata "CHM Customizations Setup" = RIMD,
         page "CHM Customizations Setup" = X;

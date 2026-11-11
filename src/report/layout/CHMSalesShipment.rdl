@@ -2331,6 +2331,9 @@ last(Fields!PlateLbl.Value) + Chr(177) +
             <ZIndex>1</ZIndex>
             <Style>
               <Border>
+                <Visibility>
+                  <Hidden>true</Hidden>
+                </Visibility>
                 <Style>None</Style>
               </Border>
               <PaddingLeft>2pt</PaddingLeft>
@@ -3238,7 +3241,7 @@ last(Fields!PlateLbl.Value) + Chr(177) +
                   <Top>2.07154cm</Top>
                   <Left>2.21712cm</Left>
                   <Height>12.80002pt</Height>
-                  <Width>0.53328in</Width>
+                  <Width>1.43000cm</Width>
                   <ZIndex>12</ZIndex>
                   <Style>
                     <Border>
@@ -3274,7 +3277,7 @@ last(Fields!PlateLbl.Value) + Chr(177) +
                   <Top>2.55837cm</Top>
                   <Left>2.21594cm</Left>
                   <Height>12pt</Height>
-                  <Width>0.53375in</Width>
+                  <Width>1.43000cm</Width>
                   <ZIndex>13</ZIndex>
                   <Style>
                     <Border>
@@ -3490,7 +3493,7 @@ last(Fields!PlateLbl.Value) + Chr(177) +
                   <Top>3.10874cm</Top>
                   <Left>6.43365cm</Left>
                   <Height>12.49998pt</Height>
-                  <Width>0.9281in</Width>
+                  <Width>3.35000cm</Width>
                   <ZIndex>19</ZIndex>
                   <Style>
                     <Border>
@@ -4004,9 +4007,9 @@ last(Fields!PlateLbl.Value) + Chr(177) +
                   </Paragraphs>
                   <rd:DefaultName>ShipToAddress8</rd:DefaultName>
                   <Top>3.10357cm</Top>
-                  <Left>8.89686cm</Left>
+                  <Left>9.85686cm</Left>
                   <Height>0.91806cm</Height>
-                  <Width>5.88037cm</Width>
+                  <Width>4.92000cm</Width>
                   <ZIndex>34</ZIndex>
                   <Style>
                     <FontFamily>Segoe UI</FontFamily>
@@ -4111,7 +4114,7 @@ last(Fields!PlateLbl.Value) + Chr(177) +
                   <Top>1.21294cm</Top>
                   <Left>5.88108cm</Left>
                   <Height>12.10031pt</Height>
-                  <Width>0.85629in</Width>
+                  <Width>2.85000cm</Width>
                   <ZIndex>39</ZIndex>
                   <Style>
                     <Border>
@@ -4143,9 +4146,9 @@ last(Fields!PlateLbl.Value) + Chr(177) +
                     </Paragraph>
                   </Paragraphs>
                   <Top>1.21294cm</Top>
-                  <Left>230.36051pt</Left>
+                  <Left>8.80661cm</Left>
                   <Height>21.94627pt</Height>
-                  <Width>4.3574in</Width>
+                  <Width>10.39000cm</Width>
                   <ZIndex>40</ZIndex>
                   <Style>
                     <Border>
@@ -4783,7 +4786,7 @@ last(Fields!PlateLbl.Value) + Chr(177) +
                   <Top>0.91722cm</Top>
                   <Left>12.147cm</Left>
                   <Height>11pt</Height>
-                  <Width>0.65167in</Width>
+                  <Width>1.92000cm</Width>
                   <ZIndex>14</ZIndex>
                   <Style>
                     <Border>
@@ -4816,9 +4819,9 @@ last(Fields!PlateLbl.Value) + Chr(177) +
                     </Paragraph>
                   </Paragraphs>
                   <Top>0.91722cm</Top>
-                  <Left>13.96311cm</Left>
+                  <Left>14.08311cm</Left>
                   <Height>11pt</Height>
-                  <Width>0.64425in</Width>
+                  <Width>1.55000cm</Width>
                   <ZIndex>15</ZIndex>
                   <Style>
                     <Border>
@@ -4853,7 +4856,7 @@ last(Fields!PlateLbl.Value) + Chr(177) +
                   <Top>0.91722cm</Top>
                   <Left>15.70533cm</Left>
                   <Height>11pt</Height>
-                  <Width>1.41143in</Width>
+                  <Width>3.69000cm</Width>
                   <ZIndex>16</ZIndex>
                   <Style>
                     <Border>
@@ -4886,7 +4889,7 @@ last(Fields!PlateLbl.Value) + Chr(177) +
                   <Top>0.52778in</Top>
                   <Left>344.32428pt</Left>
                   <Height>0.38806cm</Height>
-                  <Width>0.65167in</Width>
+                  <Width>1.92000cm</Width>
                   <ZIndex>17</ZIndex>
                   <Style>
                     <Border>
@@ -4917,9 +4920,9 @@ last(Fields!PlateLbl.Value) + Chr(177) +
                     </Paragraph>
                   </Paragraphs>
                   <Top>0.54167in</Top>
-                  <Left>395.80472pt</Left>
+                  <Left>14.08311cm</Left>
                   <Height>11pt</Height>
-                  <Width>0.64425in</Width>
+                  <Width>1.55000cm</Width>
                   <ZIndex>18</ZIndex>
                   <Style>
                     <Border>
@@ -4952,7 +4955,7 @@ last(Fields!PlateLbl.Value) + Chr(177) +
                   <Top>0.54167in</Top>
                   <Left>445.19055pt</Left>
                   <Height>11pt</Height>
-                  <Width>1.41143in</Width>
+                  <Width>3.69000cm</Width>
                   <ZIndex>19</ZIndex>
                   <Style>
                     <Border>
