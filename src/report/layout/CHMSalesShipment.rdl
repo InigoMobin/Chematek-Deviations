@@ -1724,8 +1724,8 @@
                                                   </TextRun>
                                                 </TextRuns>
                                                 <Style>
-<TextAlign>Right</TextAlign>
-</Style>
+                                                  <TextAlign>Right</TextAlign>
+                                                </Style>
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>Textbox41</rd:DefaultName>
@@ -1854,8 +1854,8 @@
                                                   </TextRun>
                                                 </TextRuns>
                                                 <Style>
-<TextAlign>Right</TextAlign>
-</Style>
+                                                  <TextAlign>Right</TextAlign>
+                                                </Style>
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>AsmLineQuantity</rd:DefaultName>
