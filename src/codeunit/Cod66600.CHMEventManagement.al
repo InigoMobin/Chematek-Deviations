@@ -3,12 +3,18 @@ codeunit 66600 "CHM Event Management"
     var
         GrossLessThanNetErr: Label 'Total Gross Weight (%1) cannot be less than Total Net Weight (%2).', Comment = '%1 = Total Gross Weight, %2 = Total Net Weight';
 
+    /// <summary>
+    /// Raises an error when the total gross weight is lower than the total net weight.
+    /// </summary>
     procedure CheckWeights(NetWeight: Decimal; GrossWeight: Decimal)
     begin
         if (GrossWeight <> 0) and (GrossWeight < NetWeight) then
             Error(GrossLessThanNetErr, GrossWeight, NetWeight);
     end;
 
+    /// <summary>
+    /// Copies the Chematek shipment fields from the warehouse shipment to the posted warehouse shipment.
+    /// </summary>
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Whse.-Post Shipment", 'OnBeforePostedWhseShptHeaderInsert', '', false, false)]
     local procedure CopyToPostedWhseShptHeader(var PostedWhseShipmentHeader: Record "Posted Whse. Shipment Header"; WarehouseShipmentHeader: Record "Warehouse Shipment Header")
     begin
@@ -21,6 +27,9 @@ codeunit 66600 "CHM Event Management"
         PostedWhseShipmentHeader."CHM Non-reusable Packaging" := WarehouseShipmentHeader."CHM Non-reusable Packaging";
     end;
 
+    /// <summary>
+    /// Copies the Chematek shipment fields from the warehouse shipment to the posted sales shipment.
+    /// </summary>
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Post", 'OnBeforeSalesShptHeaderInsert', '', false, false)]
     local procedure CopyToSalesShptHeader(var SalesShptHeader: Record "Sales Shipment Header"; var TempWhseShptHeader: Record "Warehouse Shipment Header" temporary; WhseShip: Boolean)
     var
@@ -40,6 +49,9 @@ codeunit 66600 "CHM Event Management"
         SalesShptHeader."CHM Non-reusable Packaging" := WarehouseShipmentHeader."CHM Non-reusable Packaging";
     end;
 
+    /// <summary>
+    /// Marks the Posted Sales Shipment - Update page as changed when a Chematek shipment field is changed.
+    /// </summary>
     [EventSubscriber(ObjectType::Page, Page::"Posted Sales Shipment - Update", 'OnAfterRecordChanged', '', false, false)]
     local procedure MarkChangedOnShptUpdate(var SalesShipmentHeader: Record "Sales Shipment Header"; xSalesShipmentHeader: Record "Sales Shipment Header"; var IsChanged: Boolean)
     begin
@@ -56,6 +68,9 @@ codeunit 66600 "CHM Event Management"
           (SalesShipmentHeader."CHM Non-reusable Packaging" <> xSalesShipmentHeader."CHM Non-reusable Packaging");
     end;
 
+    /// <summary>
+    /// Saves the Chematek shipment fields changed on the Posted Sales Shipment - Update page.
+    /// </summary>
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Shipment Header - Edit", 'OnBeforeSalesShptHeaderModify', '', false, false)]
     local procedure CopyShipmentFieldsOnEdit(var SalesShptHeader: Record "Sales Shipment Header"; FromSalesShptHeader: Record "Sales Shipment Header")
     begin

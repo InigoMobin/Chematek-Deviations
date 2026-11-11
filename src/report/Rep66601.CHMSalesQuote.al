@@ -1,12 +1,5 @@
 report 66601 "CHM Sales Quote"
 {
-    // Chematek Sales Quote.
-    // Based on the standard "Standard Sales - Quote" (report 1304, BC 28 W1), extended with the
-    // columns used by the Chematek RDLC layout (DataSet_Result, 331 fields).
-    // Column names must stay exactly as they are: the RDLC layout binds to them by name.
-    // Decimal columns automatically get a companion "<Name>Format" field in the RDLC dataset,
-    // which is why no "...Format" columns are declared here.
-
     Caption = 'Sales Quote';
     UsageCategory = None;
     DefaultRenderingLayout = SalesQuoteRDLC;
@@ -20,7 +13,6 @@ report 66601 "CHM Sales Quote"
             RequestFilterFields = "No.", "Sell-to Customer No.", "No. Printed";
             RequestFilterHeading = 'Sales Quote';
 
-            // Addresses
             column(BillToAddress_Lbl; BillToAddressCaptionLbl)
             {
 
@@ -94,7 +86,6 @@ report 66601 "CHM Sales Quote"
 
             }
 
-            // Document header captions
             column(DocumentTypeLabel; SalesQuoteCaptionLbl)
             {
 
@@ -159,7 +150,6 @@ report 66601 "CHM Sales Quote"
             {
 
             }
-            // In the layout this caption sits above the quote validity date (ValidDueDate).
             column(ExpShptReqDateLbl; ValidUntilCaptionLbl)
             {
 
@@ -169,7 +159,6 @@ report 66601 "CHM Sales Quote"
 
             }
 
-            // Totals / VAT summary / payment captions
             column(Total_NetAmountToPayCaption; NetAmountToPayCaptionLbl)
             {
 
@@ -231,7 +220,6 @@ report 66601 "CHM Sales Quote"
 
             }
 
-            // Logos: Company Information > Picture (left) and Chematek Customizations Setup (others)
             column(FooterLogo; CHMSetup."Footer Logo")
             {
 
@@ -257,7 +245,6 @@ report 66601 "CHM Sales Quote"
 
             }
 
-            // Chematek header fields
             column(AssignedUserID; Header."Assigned User ID")
             {
 
@@ -331,7 +318,6 @@ report 66601 "CHM Sales Quote"
 
             }
 
-            // Contacts
             column(EMail_Lbl; EMailCaptionLbl)
             {
 
@@ -369,7 +355,6 @@ report 66601 "CHM Sales Quote"
 
             }
 
-            // Standard quote header fields
             column(YourReference; Header."Your Reference")
             {
 
@@ -602,7 +587,6 @@ report 66601 "CHM Sales Quote"
             {
 
             }
-            // Full work description text, printed in the page footer of the layout.
             column(DescrLav; WorkDescriptionText)
             {
 
@@ -612,7 +596,6 @@ report 66601 "CHM Sales Quote"
 
             }
 
-            // Line table captions (header row of the lines table)
             column(Line_NoLbl; LineNoCaptionLbl)
             {
 
@@ -670,7 +653,6 @@ report 66601 "CHM Sales Quote"
 
             }
 
-            // Document totals (calculated in CalcDocumentTotals, available on every row)
             column(TotalNetAmount; TotalAmount)
             {
                 AutoFormatExpression = Header."Currency Code";
@@ -730,7 +712,6 @@ report 66601 "CHM Sales Quote"
 
             }
 
-            // VAT clauses summary: 4 fixed slots (see FillVATClauseSummary)
             column(VAT_ClauseCode1; VATClauseSlotCode[1])
             {
 
@@ -768,7 +749,6 @@ report 66601 "CHM Sales Quote"
 
             }
 
-            // VAT summary: 4 fixed slots (see FillVATSummary). Names/casing match the layout.
             column(CodIVA1; VATSlotCode[1])
             {
 
@@ -814,7 +794,6 @@ report 66601 "CHM Sales Quote"
             column(VatAmount3; VATSlotAmount[3]) { AutoFormatExpression = Header."Currency Code"; AutoFormatType = 1; }
             column(VatAmount4; VATSlotAmount[4]) { AutoFormatExpression = Header."Currency Code"; AutoFormatType = 1; }
 
-            // Payment schedule: 4 fixed slots (see FillPaymentSchedule)
             column(DueDate1; DueDateSlot[1])
             {
 
@@ -843,8 +822,6 @@ report 66601 "CHM Sales Quote"
                 DataItemTableView = sorting("Document No.", "Line No.");
                 UseTemporary = true;
 
-                // The layout groups the lines table on DocumentNo + Line_LineNo and filters out
-                // rows where Line_LineNo is empty, so this column must only be filled on line rows.
                 column(Line_LineNo; "Line No.")
                 {
 
@@ -981,7 +958,6 @@ report 66601 "CHM Sales Quote"
 
                 }
 
-                // Item / dangerous goods information (see GetLineItemInfo)
                 column(ItemHazardousDescr; ItemHazardousDescr)
                 {
 
@@ -1024,7 +1000,7 @@ report 66601 "CHM Sales Quote"
 
                     }
                     column(Quantity_AssemblyLine; Quantity) { DecimalPlaces = 0 : 5; }
-                    column(UnitOfMeasure_AssemblyLine; GetUOMText("Unit of Measure Code"))
+                    column(UnitOfMeasure_AssemblyLine; CHMMgmt.GetUOMText("Unit of Measure Code"))
                     {
 
                     }
@@ -1342,7 +1318,7 @@ report 66601 "CHM Sales Quote"
                 Line.CalcVATAmountLines(0, Header, Line, VATAmountLine);
                 Line.UpdateVATOnLines(0, Header, Line, VATAmountLine);
 
-                if not IsReportInPreviewMode() then
+                if not CHMMgmt.IsDocumentPreview(CurrReport.Preview()) then
                     Codeunit.Run(Codeunit::"Sales-Printed", Header);
 
                 CurrReport.FormatRegion := LanguageMgt.GetFormatRegionOrDefault(Header."Format Region");
@@ -1364,7 +1340,7 @@ report 66601 "CHM Sales Quote"
                 if not SellToCust.Get(Header."Sell-to Customer No.") then
                     Clear(SellToCust);
 
-                SetCurrencyInfo(Header);
+                CHMMgmt.GetCurrencyInfo(Header."Currency Code", Header."Posting Date", Header."Currency Factor", CurrCode, ExchangeRateText, CalculatedExchRate);
                 FormatDocumentFields(Header);
 
                 Clear(SellToContact);
@@ -1377,11 +1353,11 @@ report 66601 "CHM Sales Quote"
 
                 SetChematekHeaderFields(Header);
                 CalcDocumentTotals();
-                FillVATSummary();
-                FillVATClauseSummary();
-                FillPaymentSchedule();
+                CHMMgmt.FillVATSlots(VATAmountLine, Header."VAT Bus. Posting Group", VATSlotCode, VATSlotDescription, VATSlotPct, VATSlotBase, VATSlotAmount);
+                ShowVATClauseTab := CHMMgmt.FillVATClauseSlots(VATAmountLine, Header, VATClauseSlotCode, VATClauseSlotDescription);
+                CHMMgmt.FillPaymentSchedule(Header."Due Date", TotalAmountInclVAT, DueDateSlot, DueAmountSlot);
 
-                if not IsReportInPreviewMode() and
+                if not CHMMgmt.IsDocumentPreview(CurrReport.Preview()) and
                    (CurrReport.UseRequestPage and ArchiveDocument or
                     not CurrReport.UseRequestPage and (SalesSetup."Archive Quotes" <> SalesSetup."Archive Quotes"::Never))
                 then
@@ -1442,7 +1418,7 @@ report 66601 "CHM Sales Quote"
 
         trigger OnInit()
         begin
-            InitLogInteraction();
+            LogInteraction := CHMMgmt.InteractionTemplateExists(Enum::"Interaction Log Entry Document Type"::"Sales Qte.");
             LogInteractionEnable := LogInteraction;
             ArchiveDocument := SalesSetup."Archive Quotes" <> SalesSetup."Archive Quotes"::Never;
         end;
@@ -1459,7 +1435,6 @@ report 66601 "CHM Sales Quote"
         }
     }
 
-    // Report parameters declared in the RDLC layout (Parameters!<Name>.Value).
     labels
     {
         BillToAddress_Caption = 'Bill-to Address';
@@ -1534,12 +1509,13 @@ report 66601 "CHM Sales Quote"
             Error(NoFilterSetErr);
 
         CompanyLogoPosition := SalesSetup."Logo Position on Documents";
-        LoadDocumentLogos();
+        CHMMgmt.GetDocumentSetup(CHMSetup);
+        ShowIso := CHMSetup."Show ISO";
     end;
 
     trigger OnPostReport()
     begin
-        if LogInteraction and not IsReportInPreviewMode() then
+        if LogInteraction and not CHMMgmt.IsDocumentPreview(CurrReport.Preview()) then
             if Header.FindSet() then
                 repeat
                     Header.CalcFields("No. of Archived Versions");
@@ -1577,6 +1553,7 @@ report 66601 "CHM Sales Quote"
         FormatAddr: Codeunit "Format Address";
         FormatDocument: Codeunit "Format Document";
         SegManagement: Codeunit SegManagement;
+        CHMMgmt: Codeunit "CHM Customization Mgmt.";
         WorkDescriptionInstream: InStream;
         CustAddr: array[8] of Text[100];
         ShipToAddr: array[8] of Text[100];
@@ -1610,7 +1587,6 @@ report 66601 "CHM Sales Quote"
         FormattedQuantity: Text;
         FormattedLineAmount: Text;
 
-        // Totals
         TotalSubTotal: Decimal;
         TotalAmount: Decimal;
         TotalAmountInclVAT: Decimal;
@@ -1624,7 +1600,6 @@ report 66601 "CHM Sales Quote"
         VATBaseLCY: Decimal;
         VATAmountLCY: Decimal;
 
-        // Chematek header fields
         OperatorName: Text;
         LocationName: Text;
         LocationAddress: Text;
@@ -1635,7 +1610,6 @@ report 66601 "CHM Sales Quote"
         FiscalCodeNo: Text;
         ShowIso: Boolean;
 
-        // Line item / dangerous goods fields
         ItemHazardousDescr: Text;
         Hazardous: Boolean;
         TariffNo: Text;
@@ -1644,7 +1618,6 @@ report 66601 "CHM Sales Quote"
         ItemUNValue: Text;
         CountryOrigin: Text;
 
-        // Fixed slots used by the layout
         VATSlotCode: array[4] of Code[20];
         VATSlotDescription: array[4] of Text;
         VATSlotPct: array[4] of Decimal;
@@ -1656,7 +1629,6 @@ report 66601 "CHM Sales Quote"
         DueDateSlot: array[4] of Text;
         DueAmountSlot: array[4] of Decimal;
 
-        // Captions
         SalesQuoteCaptionLbl: Label 'Sales Quote';
         QuoteCaptionLbl: Label 'Quote';
         QuoteNoCaptionLbl: Label 'Quote No.';
@@ -1704,7 +1676,6 @@ report 66601 "CHM Sales Quote"
         UNNoCaptionLbl: Label 'UN No.:';
         ADRClassCaptionLbl: Label 'ADR Class:';
 
-        // Standard report 1304 texts
         CopyLbl: Label 'Copy';
         InvDiscBaseAmtLbl: Label 'Invoice Discount Base Amount';
         InvDiscountAmtLbl: Label 'Invoice Discount';
@@ -1729,13 +1700,12 @@ report 66601 "CHM Sales Quote"
         ClosingLbl: Label 'Sincerely';
         BodyLbl: Label 'Thank you for your business. Your quote is attached to this message.';
         PmtDiscTxt: Label 'If we receive the payment before %1, you are eligible for a %2% payment discount.', Comment = '%1 = Discount Due Date %2 = value of Payment Discount % ';
-        ExchangeRateTxt: Label 'Exchange rate: %1/%2', Comment = '%1 and %2 are both amounts.';
         LCYTxt: Label ' (LCY)';
         LineDiscountPctTok: Label '%1%', Locked = true;
         NoFilterSetErr: Label 'You must specify one or more filters to avoid accidentally printing all documents.';
 
     /// <summary>
-    /// Initializes the request options when the report is run from code.
+    /// Sets the request options when the report is run from code.
     /// </summary>
     procedure InitializeRequest(NewLogInteraction: Boolean; NewDisplayAssemblyInformation: Boolean)
     begin
@@ -1743,33 +1713,9 @@ report 66601 "CHM Sales Quote"
         DisplayAssemblyInformation := NewDisplayAssemblyInformation;
     end;
 
-    local procedure InitLogInteraction()
-    begin
-        LogInteraction := SegManagement.FindInteractionTemplateCode(Enum::"Interaction Log Entry Document Type"::"Sales Qte.") <> '';
-    end;
-
-    local procedure IsReportInPreviewMode(): Boolean
-    var
-        MailManagement: Codeunit "Mail Management";
-    begin
-        exit(CurrReport.Preview() or MailManagement.IsHandlingGetEmailBody());
-    end;
-
-    local procedure SetCurrencyInfo(SalesHeader: Record "Sales Header")
-    var
-        CurrencyExchangeRate: Record "Currency Exchange Rate";
-    begin
-        ExchangeRateText := '';
-        if SalesHeader."Currency Code" <> '' then begin
-            CurrencyExchangeRate.FindCurrency(SalesHeader."Posting Date", SalesHeader."Currency Code", 1);
-            CalculatedExchRate :=
-              Round(1 / SalesHeader."Currency Factor" * CurrencyExchangeRate."Exchange Rate Amount", 0.000001);
-            ExchangeRateText := StrSubstNo(ExchangeRateTxt, CalculatedExchRate, CurrencyExchangeRate."Exchange Rate Amount");
-            CurrCode := SalesHeader."Currency Code";
-        end else
-            CurrCode := GLSetup."LCY Code";
-    end;
-
+    /// <summary>
+    /// Sets the total labels, salesperson / purchaser, payment terms, payment method and shipment method texts printed on the document.
+    /// </summary>
     local procedure FormatDocumentFields(SalesHeader: Record "Sales Header")
     begin
         FormatDocument.SetTotalLabels(SalesHeader.GetCurrencySymbol(), TotalText, TotalInclVATText, TotalExclVATText);
@@ -1779,63 +1725,22 @@ report 66601 "CHM Sales Quote"
         FormatDocument.SetShipmentMethod(ShipmentMethod, SalesHeader."Shipment Method Code", SalesHeader."Language Code");
     end;
 
+    /// <summary>
+    /// Fills the Chematek header fields: operator, shipment from location, reason code, shipping agent and fiscal code.
+    /// </summary>
     local procedure SetChematekHeaderFields(SalesHeader: Record "Sales Header")
-    var
-        Location: Record Location;
-        ReasonCode: Record "Reason Code";
-        ShippingAgent: Record "Shipping Agent";
     begin
-        // Operator: the user assigned to the quote, otherwise the user printing it.
-        if SalesHeader."Assigned User ID" <> '' then
-            OperatorName := GetUserFullName(SalesHeader."Assigned User ID")
-        else
-            OperatorName := GetUserFullName(CopyStr(UserId(), 1, 50));
-
-        // Shipment from: the location on the quote.
-        LocationName := '';
-        LocationAddress := '';
-        LocationCity := '';
-        if SalesHeader."Location Code" <> '' then
-            if Location.Get(SalesHeader."Location Code") then begin
-                LocationName := Location.Name;
-                LocationAddress := Location.Address;
-                if Location."Address 2" <> '' then
-                    LocationAddress += ' ' + Location."Address 2";
-                LocationCity := DelChr(Location."Post Code" + ' ' + Location.City, '<>', ' ');
-                if Location.County <> '' then
-                    LocationCity += ' (' + Location.County + ')';
-            end;
+        OperatorName := CHMMgmt.GetOperatorName(SalesHeader."Assigned User ID");
+        CHMMgmt.GetLocationAddress(SalesHeader."Location Code", LocationName, LocationAddress, LocationCity);
         ViewLocation := LocationAddress <> '';
-
-        // Reason code (DEV-005): print the description, fall back to the code.
-        ReasonCodeText := SalesHeader."Reason Code";
-        if SalesHeader."Reason Code" <> '' then
-            if ReasonCode.Get(SalesHeader."Reason Code") then
-                if ReasonCode.Description <> '' then
-                    ReasonCodeText := ReasonCode.Description;
-
-        ShippingAgentName := SalesHeader."Shipping Agent Code";
-        if SalesHeader."Shipping Agent Code" <> '' then
-            if ShippingAgent.Get(SalesHeader."Shipping Agent Code") then
-                if ShippingAgent.Name <> '' then
-                    ShippingAgentName := ShippingAgent.Name;
-
-        FiscalCodeNo := GetCustomerFiscalCode(SalesHeader."Bill-to Customer No.");
+        ReasonCodeText := CHMMgmt.GetReasonCodeText(SalesHeader."Reason Code");
+        ShippingAgentName := CHMMgmt.GetShippingAgentName(SalesHeader."Shipping Agent Code");
+        FiscalCodeNo := CHMMgmt.GetCustomerFiscalCode(SalesHeader."Bill-to Customer No.");
     end;
 
-    local procedure GetUserFullName(UserName: Code[50]): Text
-    var
-        User: Record User;
-    begin
-        if UserName = '' then
-            exit('');
-        User.SetRange("User Name", UserName);
-        if User.FindFirst() then
-            if User."Full Name" <> '' then
-                exit(User."Full Name");
-        exit(UserName);
-    end;
-
+    /// <summary>
+    /// Calculates the document totals and the VAT amounts in LCY printed in the footer of the document.
+    /// </summary>
     local procedure CalcDocumentTotals()
     var
         TempSalesLineCalc: Record "Sales Line" temporary;
@@ -1873,92 +1778,12 @@ report 66601 "CHM Sales Quote"
         TotalVATAmountText := VATAmountLine.VATAmountText();
     end;
 
-    local procedure FillVATSummary()
-    var
-        TempVATAmountLineCalc: Record "VAT Amount Line" temporary;
-        SlotNo: Integer;
-    begin
-        // The layout prints at most 4 VAT rates. Additional rates are not printed in the summary.
-        Clear(VATSlotCode);
-        Clear(VATSlotDescription);
-        Clear(VATSlotPct);
-        Clear(VATSlotBase);
-        Clear(VATSlotAmount);
-
-        TempVATAmountLineCalc.Copy(VATAmountLine, true);
-        TempVATAmountLineCalc.Reset();
-        if TempVATAmountLineCalc.FindSet() then
-            repeat
-                SlotNo += 1;
-                if SlotNo <= ArrayLen(VATSlotCode) then begin
-                    VATSlotCode[SlotNo] := TempVATAmountLineCalc."VAT Identifier";
-                    VATSlotDescription[SlotNo] := GetVATDescription(TempVATAmountLineCalc);
-                    VATSlotPct[SlotNo] := TempVATAmountLineCalc."VAT %";
-                    VATSlotBase[SlotNo] := TempVATAmountLineCalc."VAT Base";
-                    VATSlotAmount[SlotNo] := TempVATAmountLineCalc."VAT Amount";
-                end;
-            until TempVATAmountLineCalc.Next() = 0;
-    end;
-
-    local procedure GetVATDescription(VATAmountLineRec: Record "VAT Amount Line"): Text
-    var
-        VATPostingSetup: Record "VAT Posting Setup";
-    begin
-        VATPostingSetup.SetRange("VAT Bus. Posting Group", Header."VAT Bus. Posting Group");
-        VATPostingSetup.SetRange("VAT Identifier", VATAmountLineRec."VAT Identifier");
-        if VATPostingSetup.FindFirst() then
-            if VATPostingSetup.Description <> '' then
-                exit(VATPostingSetup.Description);
-        exit(VATAmountLineRec."VAT Identifier");
-    end;
-
-    local procedure FillVATClauseSummary()
-    var
-        TempVATAmountLineCalc: Record "VAT Amount Line" temporary;
-        VATClauseRec: Record "VAT Clause";
-        SlotNo: Integer;
-        i: Integer;
-        AlreadyAdded: Boolean;
-    begin
-        Clear(VATClauseSlotCode);
-        Clear(VATClauseSlotDescription);
-
-        TempVATAmountLineCalc.Copy(VATAmountLine, true);
-        TempVATAmountLineCalc.Reset();
-        TempVATAmountLineCalc.SetFilter("VAT Clause Code", '<>%1', '');
-        if TempVATAmountLineCalc.FindSet() then
-            repeat
-                AlreadyAdded := false;
-                for i := 1 to SlotNo do
-                    if VATClauseSlotCode[i] = TempVATAmountLineCalc."VAT Clause Code" then
-                        AlreadyAdded := true;
-                if not AlreadyAdded and (SlotNo < ArrayLen(VATClauseSlotCode)) then
-                    if VATClauseRec.Get(TempVATAmountLineCalc."VAT Clause Code") then begin
-                        SlotNo += 1;
-                        VATClauseSlotCode[SlotNo] := VATClauseRec.Code;
-                        VATClauseSlotDescription[SlotNo] := VATClauseRec.GetDescriptionText(Header);
-                    end;
-            until TempVATAmountLineCalc.Next() = 0;
-
-        ShowVATClauseTab := SlotNo > 0;
-    end;
-
-    local procedure FillPaymentSchedule()
-    begin
-        // Standard BC (W1) has one due date per document, so only the first slot is used.
-        // The other 3 slots are kept because the layout expects them.
-        Clear(DueDateSlot);
-        Clear(DueAmountSlot);
-        if TotalAmountInclVAT = 0 then
-            exit;
-        DueDateSlot[1] := Format(Header."Due Date");
-        DueAmountSlot[1] := TotalAmountInclVAT;
-    end;
-
+    /// <summary>
+    /// Fills the item data printed under the line: tariff no., country of origin and dangerous goods data.
+    /// </summary>
     local procedure GetLineItemInfo(SalesLine: Record "Sales Line")
     var
         Item: Record Item;
-        CountryRegion: Record "Country/Region";
     begin
         Hazardous := false;
         ItemHazardousDescr := '';
@@ -1973,56 +1798,14 @@ report 66601 "CHM Sales Quote"
         if not Item.Get(SalesLine."No.") then
             exit;
 
-        TariffNo := Item."Tariff No.";
-        if Item."Country/Region of Origin Code" <> '' then begin
-            CountryOrigin := Item."Country/Region of Origin Code";
-            if CountryRegion.Get(Item."Country/Region of Origin Code") then
-                if CountryRegion.Name <> '' then
-                    CountryOrigin := CountryRegion.Name;
-        end;
-
-        GetItemDangerousGoodsInfo(Item, Hazardous, ItemHazardousDescr, ADRClass, ItemUN);
-        // The layout shows the UN row when ItemUNValue is filled and prints ItemUN.
+        CHMMgmt.GetItemCustomsInfo(Item, TariffNo, CountryOrigin);
+        CHMMgmt.GetItemDangerousGoodsInfo(Item, Hazardous, ItemHazardousDescr, ADRClass, ItemUN);
         ItemUNValue := ItemUN;
     end;
 
-    local procedure GetItemDangerousGoodsInfo(Item: Record Item; var IsHazardous: Boolean; var HazardousDescription: Text; var ADRClassCode: Text; var UNNo: Text)
-    begin
-        // TODO (pending decision): standard BC has no dangerous goods fields on the item.
-        // Fill these from the agreed source (new Item table extension fields, item attributes
-        // or an existing extension). Until then the hazardous / ADR / UN rows are not printed.
-        IsHazardous := false;
-        HazardousDescription := '';
-        ADRClassCode := '';
-        UNNo := '';
-    end;
-
-    local procedure GetCustomerFiscalCode(CustomerNo: Code[20]): Text
-    var
-        CHMManagement: Codeunit "CHM Management";
-    begin
-        // Fiscal Code from the customer card (Italian localization field, see codeunit 66602 "CHM Management").
-        exit(CHMManagement.GetCustomerFiscalCode(CustomerNo));
-    end;
-
-    local procedure LoadDocumentLogos()
-    begin
-        CHMSetup.SetAutoCalcFields("Right Header Logo", "Footer Logo", "ISO 9001 Logo", "ASSICC Logo");
-        if not CHMSetup.Get() then
-            CHMSetup.Init();
-        // Show ISO controls the ISO certification text (certificate number / revision) in the footer.
-        ShowIso := CHMSetup."Show ISO";
-    end;
-
-    local procedure GetUOMText(UOMCode: Code[10]): Text[50]
-    var
-        UnitOfMeasure: Record "Unit of Measure";
-    begin
-        if not UnitOfMeasure.Get(UOMCode) then
-            exit(UOMCode);
-        exit(UnitOfMeasure.Description);
-    end;
-
+    /// <summary>
+    /// Fills the report totals buffer (subtotal, invoice discount, VAT) printed in the footer.
+    /// </summary>
     local procedure CreateReportTotalLines()
     begin
         ReportTotalsLine.DeleteAll();

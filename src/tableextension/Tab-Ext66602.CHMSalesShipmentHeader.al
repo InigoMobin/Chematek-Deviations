@@ -62,7 +62,6 @@ tableextension 66602 "CHM Sales Shipment Header" extends "Sales Shipment Header"
             DecimalPlaces = 2 : 5;
             MinValue = 0;
         }
-        // DEV-003: used to show only Michelin customers' shipments on the Michelin labels page
         field(66607; "CHM Michelin Customer"; Boolean)
         {
             Caption = 'Michelin Customer';

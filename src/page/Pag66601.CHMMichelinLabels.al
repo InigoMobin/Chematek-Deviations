@@ -256,12 +256,14 @@ page 66601 "CHM Michelin Labels"
 
     trigger OnOpenPage()
     begin
-        // The page always opens empty; lines are loaded only through the Load Shipment Lines action
         Rec.Reset();
         Rec.DeleteAll();
         NoOfCopies := 1;
     end;
 
+    /// <summary>
+    /// Lets the user select posted sales shipments of Michelin customers and loads their lines as labels.
+    /// </summary>
     local procedure LoadShipmentLines()
     var
         SalesShptHeader: Record "Sales Shipment Header";
@@ -277,7 +279,6 @@ page 66601 "CHM Michelin Labels"
         if PostedSalesShipments.RunModal() <> Action::LookupOK then
             exit;
 
-        // Get every selected shipment, not just the current one
         PostedSalesShipments.GetSelectedShipments(SelectedShptHeader);
         SelectedShptHeader.SetRange("CHM Michelin Customer", true);
         if not SelectedShptHeader.FindSet() then
@@ -305,6 +306,9 @@ page 66601 "CHM Michelin Labels"
             Message(LinesLoadedMsg, LinesInserted, ShipmentsLoaded);
     end;
 
+    /// <summary>
+    /// Loads the item lines of one posted sales shipment. Returns false when it has no item lines or the user does not reload it.
+    /// </summary>
     local procedure LoadSingleShipment(SalesShptHeader: Record "Sales Shipment Header"; var TotalLinesInserted: Integer): Boolean
     var
         SalesShptLine: Record "Sales Shipment Line";
@@ -314,9 +318,8 @@ page 66601 "CHM Michelin Labels"
         SalesShptLine.SetRange(Correction, false);
         SalesShptLine.SetFilter(Quantity, '<>0');
         if SalesShptLine.IsEmpty() then
-            exit(false); // no item lines - reported as skipped, does not stop the other shipments
+            exit(false);
 
-        // Avoid loading the same shipment twice
         Rec.Reset();
         Rec.SetRange("Sales Shpt. Code", SalesShptHeader."No.");
         if not Rec.IsEmpty() then begin
@@ -335,6 +338,9 @@ page 66601 "CHM Michelin Labels"
         exit(true);
     end;
 
+    /// <summary>
+    /// Returns true when lines of the shipment are already loaded on the page.
+    /// </summary>
     local procedure IsShipmentLoaded(ShipmentNo: Code[20]): Boolean
     begin
         Rec.Reset();
@@ -342,6 +348,9 @@ page 66601 "CHM Michelin Labels"
         exit(not Rec.IsEmpty());
     end;
 
+    /// <summary>
+    /// Inserts one label line per lot of the shipment line and returns the number of lines inserted.
+    /// </summary>
     local procedure InsertLinesForShipmentLine(SalesShptHeader: Record "Sales Shipment Header"; SalesShptLine: Record "Sales Shipment Line") LinesInserted: Integer
     var
         ItemLedgerEntry: Record "Item Ledger Entry";
@@ -353,7 +362,6 @@ page 66601 "CHM Michelin Labels"
         if QtyPerUoM = 0 then
             QtyPerUoM := 1;
 
-        // One label line per distinct lot shipped on this shipment line
         ItemLedgerEntry.SetRange("Document Type", ItemLedgerEntry."Document Type"::"Sales Shipment");
         ItemLedgerEntry.SetRange("Document No.", SalesShptLine."Document No.");
         ItemLedgerEntry.SetRange("Document Line No.", SalesShptLine."Line No.");
@@ -363,7 +371,6 @@ page 66601 "CHM Michelin Labels"
             exit(1);
         end;
 
-        // Sum quantities per lot, so the same lot split over several entries gives one label
         repeat
             if LotQty.ContainsKey(ItemLedgerEntry."Lot No.") then
                 LotQty.Set(ItemLedgerEntry."Lot No.", LotQty.Get(ItemLedgerEntry."Lot No.") + Abs(ItemLedgerEntry.Quantity))
@@ -377,6 +384,9 @@ page 66601 "CHM Michelin Labels"
         end;
     end;
 
+    /// <summary>
+    /// Inserts a label line with item, lot, production date, quantity and ship-from / ship-to addresses.
+    /// </summary>
     local procedure InsertLabelLine(SalesShptHeader: Record "Sales Shipment Header"; SalesShptLine: Record "Sales Shipment Line"; LotNo: Code[50]; Qty: Decimal)
     begin
         NextIndex += 1;
@@ -397,12 +407,14 @@ page 66601 "CHM Michelin Labels"
         Rec.Insert();
     end;
 
+    /// <summary>
+    /// Sets the ship-from address from the location, otherwise from the company information.
+    /// </summary>
     local procedure SetShipFromAddress(LocationCode: Code[10])
     var
         Location: Record Location;
         CompanyInformation: Record "Company Information";
     begin
-        // Ship-from = shipping location address; falls back to Company Information
         if Location.Get(LocationCode) and (Location.Address <> '') then begin
             Rec."Ship-from Name" := Location.Name;
             Rec."Ship-from Address" := Location.Address;
@@ -422,6 +434,9 @@ page 66601 "CHM Michelin Labels"
         Rec."Ship-from Country" := GetCountryName(CompanyInformation."Country/Region Code");
     end;
 
+    /// <summary>
+    /// Sets the ship-to address from the posted sales shipment.
+    /// </summary>
     local procedure SetShipToAddress(SalesShptHeader: Record "Sales Shipment Header")
     begin
         Rec."Ship-to Name" := SalesShptHeader."Ship-to Name";
@@ -432,6 +447,9 @@ page 66601 "CHM Michelin Labels"
         Rec."Ship-to Country" := GetCountryName(SalesShptHeader."Ship-to Country/Region Code");
     end;
 
+    /// <summary>
+    /// Returns the name of the country/region, or the code when it is not found.
+    /// </summary>
     local procedure GetCountryName(CountryCode: Code[10]): Text[50]
     var
         CountryRegion: Record "Country/Region";
@@ -441,17 +459,23 @@ page 66601 "CHM Michelin Labels"
         exit(CountryCode);
     end;
 
+    /// <summary>
+    /// Returns the production date of the lot formatted as DD.MM.YY.
+    /// </summary>
     local procedure GetProductionDate(ItemNo: Code[20]; VariantCode: Code[10]; LotNo: Code[50]): Code[8]
     var
-        LotProductionDateMgt: Codeunit "CHM Lot Production Date Mgt.";
+        CHMMgmt: Codeunit "CHM Customization Mgmt.";
         ProductionDate: Date;
     begin
-        ProductionDate := LotProductionDateMgt.GetLotProductionDate(ItemNo, VariantCode, LotNo);
+        ProductionDate := CHMMgmt.GetLotProductionDate(ItemNo, VariantCode, LotNo);
         if ProductionDate = 0D then
             exit('');
         exit(Format(ProductionDate, 0, '<Day,2>.<Month,2>.<Year,2>'));
     end;
 
+    /// <summary>
+    /// Prints the selected lines with report "CHM Michelin Labels".
+    /// </summary>
     local procedure PrintSelectedLabels()
     var
         TempSelectedLabels: Record "CHM Michelin Labels" temporary;
@@ -469,6 +493,9 @@ page 66601 "CHM Michelin Labels"
         MichelinLabels.RunModal();
     end;
 
+    /// <summary>
+    /// Applies the Sales Order No. and Sales Shpt. Code filters to the lines.
+    /// </summary>
     local procedure ApplyPageFilters()
     begin
         Rec.Reset();

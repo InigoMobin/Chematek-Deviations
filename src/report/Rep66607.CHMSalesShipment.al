@@ -1,15 +1,5 @@
 report 66607 "CHM Sales Shipment"
 {
-    // Chematek Sales Shipment (DDT - Documento di trasporto, D.P.R. 472/1996), printed from the Posted Sales Shipment.
-    // Based on the standard "Sales - Shipment" (report 208, BC 28 W1), extended with the columns used by the
-    // Chematek RDLC layout (DataSet_Result, 172 fields).
-    // Column names must stay exactly as they are: the RDLC layout binds to them by name.
-    // Decimal columns automatically get a companion "<n>Format" field in the RDLC dataset,
-    // which is why no "...Format" columns are declared here.
-    // The page header and footer read their values through Code.SetData / Code.GetData from the first and last row,
-    // so everything they print is declared on the Header data item and is available on every row of the dataset.
-    // To print it from the Posted Sales Shipment, set it up in Report Selections - Sales, usage "Shipment".
-
     Caption = 'CHM Sales Shipment';
     UsageCategory = None;
     DefaultRenderingLayout = SalesShipmentRDLC;
@@ -23,9 +13,6 @@ report 66607 "CHM Sales Shipment"
             RequestFilterFields = "No.", "Bill-to Customer No.", "Sell-to Customer No.";
             RequestFilterHeading = 'Posted Sales Shipment';
 
-            // Addresses
-            // The layout prints SelltoCustomerNo_Lbl as the caption above the customer (sell-to) address box
-            // and ShipToAddress_Lbl above the place of destination (ship-to address).
             column(SelltoCustomerNo_Lbl; ConsigneeCaptionLbl)
             {
 
@@ -99,7 +86,6 @@ report 66607 "CHM Sales Shipment"
 
             }
 
-            // Document header captions
             column(PaymentTermsDescription_Lbl; PaymentTermsCaptionLbl)
             {
 
@@ -148,7 +134,6 @@ report 66607 "CHM Sales Shipment"
             {
 
             }
-            // Printed above ShippingAgent (the carrier).
             column(ShptByLbl; ShippingAgentCaptionLbl)
             {
 
@@ -162,19 +147,14 @@ report 66607 "CHM Sales Shipment"
 
             }
 
-            // Chematek header fields
             column(SelltoCustomerNo; Header."Sell-to Customer No.")
             {
 
             }
-            // Not printed: the layout prints the barcode from BarCodeShipNo with the IDAutomationC39M font, like the
-            // other Chematek reports (see report 66600 "CHM Michelin Labels"). Kept so the dataset of the original
-            // layout stays complete; it is always empty.
             column(Barcode; BarcodeImageText)
             {
 
             }
-            // Logos: Company Information > Picture (left) and Chematek Customizations Setup (others)
             column(LeftHeaderLogo; CompanyInfo.Picture)
             {
 
@@ -195,7 +175,6 @@ report 66607 "CHM Sales Shipment"
             {
 
             }
-            // Shipment from: the location on the shipment
             column(LocationName; LocationName)
             {
 
@@ -240,8 +219,6 @@ report 66607 "CHM Sales Shipment"
             {
 
             }
-            // Printed under the "Date" caption next to the document no.: the date of the transport document,
-            // which is the posting date of the shipment.
             column(ShipmentDate; Format(Header."Posting Date"))
             {
 
@@ -275,7 +252,6 @@ report 66607 "CHM Sales Shipment"
 
             }
 
-            // Shipment data entered on the posted sales shipment (DEV-001 / DEV-002), printed in the page footer
             column(GoodsAppearance; GoodsAppearanceText)
             {
 
@@ -286,8 +262,6 @@ report 66607 "CHM Sales Shipment"
             }
             column(GrossWeight; Header."CHM Total Gross Weight") { DecimalPlaces = 0 : 5; }
             column(NetWeight; Header."CHM Total Net Weight") { DecimalPlaces = 0 : 5; }
-            // The layout prints Volume on the plastic row (next to PlasticLbl, only when ShowPlastic is true),
-            // so this column carries the non-reusable packaging quantity of the shipment (same as the posted invoice).
             column(Volume; Header."CHM Non-reusable Packaging") { DecimalPlaces = 0 : 5; }
             column(NoOfPallets; Header."CHM Total Pallet")
             {
@@ -358,7 +332,6 @@ report 66607 "CHM Sales Shipment"
 
             }
 
-            // Standard sales shipment header fields
             column(OrderDate; Format(Header."Order Date"))
             {
 
@@ -399,7 +372,6 @@ report 66607 "CHM Sales Shipment"
             {
 
             }
-            // Document title (DDT)
             column(Shipment_Lbl; TransportDocumentLbl)
             {
 
@@ -408,7 +380,6 @@ report 66607 "CHM Sales Shipment"
             {
 
             }
-            // The place of destination is mandatory on a DDT, so the ship-to box (and its caption) is always printed.
             column(ShowShippingAddress; ShowShippingAddr)
             {
 
@@ -501,12 +472,10 @@ report 66607 "CHM Sales Shipment"
             {
 
             }
-            // Font-encoded Code 39 of the shipment no., printed in the page header with the IDAutomationC39M font.
             column(BarCodeShipNo; BarcodeShipmentNo)
             {
 
             }
-            // Comments of the posted shipment (header comments), printed under the lines.
             column(AppNote; AppNoteText)
             {
 
@@ -515,7 +484,6 @@ report 66607 "CHM Sales Shipment"
             {
 
             }
-            // Base64 image (PNG) printed in the footer. See GetSignPicture.
             column(SignPicture; SignPictureText)
             {
 
@@ -524,19 +492,15 @@ report 66607 "CHM Sales Shipment"
             {
 
             }
-            // Printed under the lines (same as report 66606 "CHM Purchase Order").
             column(gLocationDesc; LocationName)
             {
 
             }
-            // The work description is a header column and not a separate data item: the layout groups the lines on
-            // Line_LineNo, so extra data item rows would be printed as an empty line at the top of the lines table.
             column(WorkDescriptionLine; WorkDescriptionText)
             {
 
             }
 
-            // Line table captions (header row of the lines table and the rows under each line)
             column(ItemNo_Line_Lbl; LineNoCaptionLbl)
             {
 
@@ -594,7 +558,6 @@ report 66607 "CHM Sales Shipment"
 
                 }
 
-                // Item / dangerous goods information (see GetLineItemInfo)
                 column(TariffNo; TariffNo)
                 {
 
@@ -627,12 +590,10 @@ report 66607 "CHM Sales Shipment"
                 {
 
                 }
-                // The layout hides the item no. for G/L account (1) and charge (item) (5) lines.
                 column(Line_Type; Type.AsInteger())
                 {
 
                 }
-                // The layout groups the lines table on DocumentNo + Line_LineNo.
                 column(Line_LineNo; "Line No.")
                 {
 
@@ -682,9 +643,6 @@ report 66607 "CHM Sales Shipment"
 
                 }
 
-                // Lots / packages shipped on the line (posted item tracking). Filled in FillLotBuffer.
-                // Quantities are in the unit of measure of the shipment line.
-                // The layout prints one row per lot under the line, only when TrackingSpecBufferLotNo is filled.
                 dataitem(TrackingSpecBuffer; "Tracking Specification")
                 {
                     DataItemTableView = sorting("Entry No.");
@@ -715,8 +673,6 @@ report 66607 "CHM Sales Shipment"
                     {
 
                     }
-                    // Filled per row: the layout prints "<caption> <package no.>" after the lot no.,
-                    // so the caption is blank when the row has no package no.
                     column(PackageNoCaptionLbl; PackageNoCaptionText)
                     {
 
@@ -743,8 +699,6 @@ report 66607 "CHM Sales Shipment"
                             PackageNoCaptionText := '';
                     end;
                 }
-                // Components of the assembly-to-order shipped on the line ("Show Assembly Components").
-                // The layout prints one row per component under the line, only when LineNo_AssemblyLine is filled.
                 dataitem(AssemblyLine; "Posted Assembly Line")
                 {
                     DataItemTableView = sorting("Document No.", "Line No.");
@@ -758,7 +712,7 @@ report 66607 "CHM Sales Shipment"
 
                     }
                     column(Quantity_AssemblyLine; Quantity) { DecimalPlaces = 0 : 5; }
-                    column(UnitOfMeasure_AssemblyLine; GetUOMText("Unit of Measure Code"))
+                    column(UnitOfMeasure_AssemblyLine; CHMMgmt.GetUOMText("Unit of Measure Code"))
                     {
 
                     }
@@ -803,14 +757,12 @@ report 66607 "CHM Sales Shipment"
 
             trigger OnAfterGetRecord()
             begin
-                // The shipment is printed in the language of the user running the report, not in the
-                // customer's language (Header."Language Code"), same as the other Chematek posted documents.
                 ReportLanguageCode := LanguageMgt.GetUserLanguageCode();
                 CurrReport.Language := LanguageMgt.GetLanguageIdOrDefault(ReportLanguageCode);
                 CurrReport.FormatRegion := LanguageMgt.GetFormatRegionOrDefault(Header."Format Region");
                 FormatAddr.SetLanguageCode(ReportLanguageCode);
 
-                if not IsReportInPreviewMode() then
+                if not CHMMgmt.IsDocumentPreview(CurrReport.Preview()) then
                     Codeunit.Run(Codeunit::"Sales Shpt.-Printed", Header);
 
                 FormatAddressFields();
@@ -828,17 +780,17 @@ report 66607 "CHM Sales Shipment"
                     Clear(SellToCust);
 
                 CompanyBankAccount.CopyBankFieldsFromCompanyInfo(CompanyInfo);
-                SetOurBankAccountText();
+                OurBankAccountText := CHMMgmt.GetBankAccountText(CompanyBankAccount);
 
                 if Header."Currency Code" <> '' then
                     CurrCode := Header."Currency Code"
                 else
                     CurrCode := GLSetup."LCY Code";
 
-                SetWorkDescription();
+                ShowWorkDescription := CHMMgmt.GetSalesShipmentWorkDescription(Header, WorkDescriptionText);
                 SetChematekHeaderFields();
                 SetShipmentDataFields();
-                FillLotBuffer();
+                CHMMgmt.FillSalesShipmentLotBuffer(Header."No.", TrackingSpecBuffer);
             end;
         }
     }
@@ -880,7 +832,7 @@ report 66607 "CHM Sales Shipment"
 
         trigger OnInit()
         begin
-            LogInteraction := LogInteractionTemplateExists();
+            LogInteraction := CHMMgmt.InteractionTemplateExists(Enum::"Interaction Log Entry Document Type"::"Sales Shpt. Note");
             LogInteractionEnable := LogInteraction;
         end;
     }
@@ -896,9 +848,6 @@ report 66607 "CHM Sales Shipment"
         }
     }
 
-    // Report parameters declared in the RDLC layout (Parameters!<Name>.Value).
-    // The layout prints Page_Caption, CustomerVendorMail_Caption and DPR_Caption; the others are declared
-    // because the layout declares them as parameters.
     labels
     {
         BillToAddress_Caption = 'Bill-to Address';
@@ -958,14 +907,15 @@ report 66607 "CHM Sales Shipment"
             Error(NoFilterSetErr);
 
         if not CurrReport.UseRequestPage then
-            LogInteraction := LogInteractionTemplateExists();
+            LogInteraction := CHMMgmt.InteractionTemplateExists(Enum::"Interaction Log Entry Document Type"::"Sales Shpt. Note");
 
-        LoadDocumentLogos();
+        CHMMgmt.GetDocumentSetup(CHMSetup);
+        ShowIso := CHMSetup."Show ISO";
     end;
 
     trigger OnPostReport()
     begin
-        if LogInteraction and not IsReportInPreviewMode() then
+        if LogInteraction and not CHMMgmt.IsDocumentPreview(CurrReport.Preview()) then
             if Header.FindSet() then
                 repeat
                     if Header."Bill-to Contact No." <> '' then
@@ -999,6 +949,7 @@ report 66607 "CHM Sales Shipment"
         FormatAddr: Codeunit "Format Address";
         FormatDocument: Codeunit "Format Document";
         SegManagement: Codeunit SegManagement;
+        CHMMgmt: Codeunit "CHM Customization Mgmt.";
         CustAddr: array[8] of Text[100];
         ShipToAddr: array[8] of Text[100];
         SkippedLineNos: List of [Integer];
@@ -1018,7 +969,6 @@ report 66607 "CHM Sales Shipment"
         WorkDescriptionText: Text;
         DocumentCopyText: Text;
 
-        // Chematek header fields
         OperatorName: Text;
         LocationName: Text;
         LocationAddress: Text;
@@ -1033,12 +983,10 @@ report 66607 "CHM Sales Shipment"
         SignPictureText: Text;
         ShowIso: Boolean;
 
-        // Shipment data
         GoodsAppearanceText: Text;
         ShipmentStartingDateTime: Text;
         ShowPlastic: Boolean;
 
-        // Line item / dangerous goods fields
         TariffNo: Text;
         ADRClass: Text;
         ItemUN: Text;
@@ -1050,11 +998,8 @@ report 66607 "CHM Sales Shipment"
         Hazardous: Boolean;
         CountryOrigin: Text;
 
-        // Lot buffer
-        LotBufferEntryNo: Integer;
         PackageNoCaptionText: Text;
 
-        // Captions
         TransportDocumentLbl: Label 'Transport Document';
         DocumentNoCaptionLbl: Label 'Document No.';
         ConsigneeCaptionLbl: Label 'Consignee';
@@ -1101,15 +1046,10 @@ report 66607 "CHM Sales Shipment"
         CopyLbl: Label 'Copy';
         PageLbl: Label 'Page';
         InvoiceLbl: Label 'Invoice';
-        BankAccountIBANTok: Label '%1 - %2', Locked = true;
-        DateTimeTok: Label '%1 %2', Locked = true;
-        Code39CharsTok: Label 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-. $/+%', Locked = true;
-        ShippingStartingDateFieldTok: Label 'Shipping Starting Date', Locked = true;
-        ShippingStartingTimeFieldTok: Label 'Shipping Starting Time', Locked = true;
         NoFilterSetErr: Label 'You must specify one or more filters to avoid accidentally printing all documents.';
 
     /// <summary>
-    /// Initializes the request options when the report is run from code.
+    /// Sets the request options, including archiving, when the report is run from code.
     /// </summary>
     procedure InitializeRequest(NewLogInteraction: Boolean; DisplayAsmInfo: Boolean; NewArchiveDocument: Boolean)
     begin
@@ -1118,37 +1058,20 @@ report 66607 "CHM Sales Shipment"
         ArchiveDocument := NewArchiveDocument;
     end;
 
-    local procedure LogInteractionTemplateExists(): Boolean
-    begin
-        exit(SegManagement.FindInteractionTemplateCode(Enum::"Interaction Log Entry Document Type"::"Sales Shpt. Note") <> '');
-    end;
-
-    local procedure IsReportInPreviewMode(): Boolean
-    var
-        MailManagement: Codeunit "Mail Management";
-    begin
-        exit(CurrReport.Preview() or MailManagement.IsHandlingGetEmailBody());
-    end;
-
+    /// <summary>
+    /// Formats the consignee (sell-to customer) and place of destination (ship-to) addresses.
+    /// </summary>
     local procedure FormatAddressFields()
     begin
-        // Consignee (destinatario): the sell-to customer. Place of destination: the ship-to address.
         FormatAddr.SalesShptSellTo(CustAddr, Header);
         FormatAddr.SalesShptShipTo(ShipToAddr, Header);
-        BillAndShipSame := AddressesAreEqual(CustAddr, ShipToAddr);
+        BillAndShipSame := CHMMgmt.AddressesAreEqual(CustAddr, ShipToAddr);
         ShowShippingAddr := true;
     end;
 
-    local procedure AddressesAreEqual(FirstAddr: array[8] of Text[100]; SecondAddr: array[8] of Text[100]): Boolean
-    var
-        i: Integer;
-    begin
-        for i := 1 to ArrayLen(FirstAddr) do
-            if FirstAddr[i] <> SecondAddr[i] then
-                exit(false);
-        exit(true);
-    end;
-
+    /// <summary>
+    /// Sets the salesperson / purchaser, payment terms, payment method and shipment method texts printed on the document.
+    /// </summary>
     local procedure FormatDocumentFields()
     begin
         FormatDocument.SetSalesPerson(SalespersonPurchaser, Header."Salesperson Code", SalesPersonText);
@@ -1157,169 +1080,44 @@ report 66607 "CHM Sales Shipment"
         FormatDocument.SetShipmentMethod(ShipmentMethod, Header."Shipment Method Code", ReportLanguageCode);
     end;
 
-    local procedure SetOurBankAccountText()
-    begin
-        // Bank name followed by the IBAN (not printed by the current layout).
-        OurBankAccountText := CompanyBankAccount.Name;
-        if CompanyBankAccount.IBAN <> '' then
-            if OurBankAccountText = '' then
-                OurBankAccountText := CompanyBankAccount.IBAN
-            else
-                OurBankAccountText := StrSubstNo(BankAccountIBANTok, OurBankAccountText, CompanyBankAccount.IBAN);
-    end;
-
-    local procedure SetWorkDescription()
-    var
-        TypeHelper: Codeunit "Type Helper";
-        WorkDescriptionInStream: InStream;
-    begin
-        WorkDescriptionText := '';
-        Header.CalcFields("Work Description");
-        ShowWorkDescription := Header."Work Description".HasValue();
-        if not ShowWorkDescription then
-            exit;
-        Header."Work Description".CreateInStream(WorkDescriptionInStream, TextEncoding::UTF8);
-        WorkDescriptionText := TypeHelper.ReadAsTextWithSeparator(WorkDescriptionInStream, TypeHelper.LFSeparator());
-    end;
-
+    /// <summary>
+    /// Fills the Chematek header fields of the DDT: operator, shipment from, reason code, carrier, VAT / fiscal code, comments, barcode and signature.
+    /// </summary>
     local procedure SetChematekHeaderFields()
-    var
-        Location: Record Location;
-        ReasonCode: Record "Reason Code";
-        ShippingAgent: Record "Shipping Agent";
     begin
-        // Operator: the user who posted the shipment.
-        OperatorName := GetUserFullName(Header."User ID");
+        OperatorName := CHMMgmt.GetUserFullName(Header."User ID");
+        CHMMgmt.GetLocationAddress(Header."Location Code", LocationName, LocationAddress, LocationCity);
+        ReasonCodeText := CHMMgmt.GetReasonCodeText(Header."Reason Code");
+        ShippingAgentName := CHMMgmt.GetShippingAgentName(Header."Shipping Agent Code");
 
-        // Shipment from: the location on the shipment.
-        LocationName := '';
-        LocationAddress := '';
-        LocationCity := '';
-        if Header."Location Code" <> '' then
-            if Location.Get(Header."Location Code") then begin
-                LocationName := Location.Name;
-                LocationAddress := Location.Address;
-                if Location."Address 2" <> '' then
-                    LocationAddress += ' ' + Location."Address 2";
-                LocationCity := DelChr(Location."Post Code" + ' ' + Location.City, '<>', ' ');
-                if Location.County <> '' then
-                    LocationCity += ' (' + Location.County + ')';
-            end;
-
-        // Reason code (DEV-005), the "causale del trasporto": print the description, fall back to the code.
-        ReasonCodeText := Header."Reason Code";
-        if Header."Reason Code" <> '' then
-            if ReasonCode.Get(Header."Reason Code") then
-                if ReasonCode.Description <> '' then
-                    ReasonCodeText := ReasonCode.Description;
-
-        // Carrier: the shipping agent name, fall back to the code.
-        ShippingAgentName := Header."Shipping Agent Code";
-        if Header."Shipping Agent Code" <> '' then
-            if ShippingAgent.Get(Header."Shipping Agent Code") then
-                if ShippingAgent.Name <> '' then
-                    ShippingAgentName := ShippingAgent.Name;
-
-        // VAT Reg. No. and Fiscal Code of the consignee (sell-to customer).
         VATRegistrationNo := SellToCust."VAT Registration No.";
         if VATRegistrationNo = '' then
             VATRegistrationNo := Header."VAT Registration No.";
-        FiscalCodeNo := GetCustomerFiscalCode(Header."Sell-to Customer No.");
+        FiscalCodeNo := CHMMgmt.GetCustomerFiscalCode(Header."Sell-to Customer No.");
 
-        AppNoteText := GetShipmentComments();
-        BarcodeShipmentNo := EncodeCode39(Header."No.");
+        AppNoteText := CHMMgmt.GetSalesShipmentComments(Header."No.");
+        BarcodeShipmentNo := CHMMgmt.EncodeCode39(Header."No.");
         BarcodeImageText := '';
-        SignPictureText := GetSignPicture();
+        SignPictureText := CHMMgmt.GetSignPicture();
     end;
 
+    /// <summary>
+    /// Fills the shipment data of the DDT: goods appearance, non-reusable packaging and transport start.
+    /// </summary>
     local procedure SetShipmentDataFields()
-    var
-        GoodsAppearance: Record "CHM Goods Appearance";
     begin
-        // Goods appearance: print the description, fall back to the code.
-        GoodsAppearanceText := Header."CHM Goods Appearance";
-        if Header."CHM Goods Appearance" <> '' then
-            if GoodsAppearance.Get(Header."CHM Goods Appearance") then
-                if GoodsAppearance.Description <> '' then
-                    GoodsAppearanceText := GoodsAppearance.Description;
-
+        GoodsAppearanceText := CHMMgmt.GetGoodsAppearanceText(Header."CHM Goods Appearance");
         ShowPlastic := Header."CHM Non-reusable Packaging" <> 0;
-        ShipmentStartingDateTime := GetTransportStartDateTime();
+        ShipmentStartingDateTime := CHMMgmt.GetTransportStartDateTime(Header, Database::"Sales Shipment Header");
     end;
 
-    local procedure GetTransportStartDateTime(): Text
-    var
-        CHMManagement: Codeunit "CHM Management";
-        StartingDateText: Text;
-        StartingTimeText: Text;
-    begin
-        // TODO (pending decision): standard W1 has no transport start date / time on the shipment. The Italian
-        // localization adds "Shipping Starting Date" / "Shipping Starting Time", read by name so the extension
-        // compiles without a dependency on the IT base app. When the fields do not exist or are blank, the
-        // value is left blank, to be filled in by hand.
-        StartingDateText := CHMManagement.GetFieldValueByName(Header, Database::"Sales Shipment Header", ShippingStartingDateFieldTok);
-        StartingTimeText := CHMManagement.GetFieldValueByName(Header, Database::"Sales Shipment Header", ShippingStartingTimeFieldTok);
-        if StartingDateText = '' then
-            exit('');
-        if StartingTimeText = '' then
-            exit(StartingDateText);
-        exit(StrSubstNo(DateTimeTok, StartingDateText, StartingTimeText));
-    end;
-
-    local procedure GetShipmentComments() Result: Text
-    var
-        SalesCommentLine: Record "Sales Comment Line";
-        TypeHelper: Codeunit "Type Helper";
-    begin
-        // Header comments of the posted shipment (Comments action on the Posted Sales Shipment).
-        SalesCommentLine.SetRange("Document Type", SalesCommentLine."Document Type"::Shipment);
-        SalesCommentLine.SetRange("No.", Header."No.");
-        SalesCommentLine.SetRange("Document Line No.", 0);
-        if SalesCommentLine.FindSet() then
-            repeat
-                if SalesCommentLine.Comment <> '' then begin
-                    if Result <> '' then
-                        Result += TypeHelper.CRLFSeparator();
-                    Result += SalesCommentLine.Comment;
-                end;
-            until SalesCommentLine.Next() = 0;
-    end;
-
-    local procedure GetSignPicture(): Text
-    begin
-        // TODO (pending decision): the layout prints a signature image (PNG, base64) in the footer. Standard BC
-        // has no signature image; fill this from the agreed source. Until then nothing is printed.
-        exit('');
-    end;
-
-    local procedure GetUserFullName(UserName: Code[50]): Text
-    var
-        User: Record User;
-    begin
-        if UserName = '' then
-            exit('');
-        User.SetRange("User Name", UserName);
-        if User.FindFirst() then
-            if User."Full Name" <> '' then
-                exit(User."Full Name");
-        exit(UserName);
-    end;
-
-    local procedure GetCustomerFiscalCode(CustomerNo: Code[20]): Text
-    var
-        CHMManagement: Codeunit "CHM Management";
-    begin
-        // Fiscal Code from the customer card (Italian localization field, see codeunit 66602 "CHM Management").
-        exit(CHMManagement.GetCustomerFiscalCode(CustomerNo));
-    end;
-
+    /// <summary>
+    /// Returns true for lines that are not printed on the DDT: corrections, lines without quantity and the lines attached to them.
+    /// </summary>
     local procedure SkipLine(SalesShipmentLine: Record "Sales Shipment Line"): Boolean
     begin
-        // Correction lines (Undo Shipment) are not printed, same as the standard report.
         if SalesShipmentLine.Correction then
             exit(true);
-        // A DDT lists only the goods that were shipped: lines without quantity are not printed,
-        // and neither are the comment / extended text lines attached to them.
         if (SalesShipmentLine.Type <> SalesShipmentLine.Type::" ") and (SalesShipmentLine.Quantity = 0) then
             exit(true);
         if SalesShipmentLine."Attached to Line No." <> 0 then
@@ -1328,10 +1126,12 @@ report 66607 "CHM Sales Shipment"
         exit(false);
     end;
 
+    /// <summary>
+    /// Fills the item data printed under the line: tariff no., country of origin and dangerous goods data.
+    /// </summary>
     local procedure GetLineItemInfo(SalesShipmentLine: Record "Sales Shipment Line")
     var
         Item: Record Item;
-        CountryRegion: Record "Country/Region";
     begin
         Hazardous := false;
         ItemHazardousDescr := '';
@@ -1349,128 +1149,7 @@ report 66607 "CHM Sales Shipment"
         if not Item.Get(SalesShipmentLine."No.") then
             exit;
 
-        TariffNo := Item."Tariff No.";
-        if Item."Country/Region of Origin Code" <> '' then begin
-            CountryOrigin := Item."Country/Region of Origin Code";
-            if CountryRegion.Get(Item."Country/Region of Origin Code") then
-                if CountryRegion.Name <> '' then
-                    CountryOrigin := CountryRegion.Name;
-        end;
-
-        GetItemDangerousGoodsInfo(Item);
-    end;
-
-    local procedure GetItemDangerousGoodsInfo(Item: Record Item)
-    begin
-        // TODO (pending decision): standard BC has no dangerous goods fields on the item.
-        // Fill Hazardous, ItemHazardousDescr, ADRClass, ItemUN, ItemADRDescr, ItemADRLabel,
-        // ItemADRPackingGroup and ItemGalleryCode from the agreed source (same as the other Chematek reports).
-        // Until then the ADR / UN rows under the line are not printed.
-    end;
-
-    local procedure FillLotBuffer()
-    var
-        SalesShipmentLine: Record "Sales Shipment Line";
-        ItemLedgerEntry: Record "Item Ledger Entry";
-    begin
-        // Lots / packages shipped on each item line, taken from the item ledger entries of the line.
-        TrackingSpecBuffer.Reset();
-        TrackingSpecBuffer.DeleteAll();
-        LotBufferEntryNo := 0;
-
-        SalesShipmentLine.SetRange("Document No.", Header."No.");
-        SalesShipmentLine.SetRange(Type, SalesShipmentLine.Type::Item);
-        SalesShipmentLine.SetFilter("No.", '<>%1', '');
-        SalesShipmentLine.SetFilter(Quantity, '<>0');
-        if not SalesShipmentLine.FindSet() then
-            exit;
-        repeat
-            ItemLedgerEntry.SetRange("Document No.", SalesShipmentLine."Document No.");
-            ItemLedgerEntry.SetRange("Document Type", ItemLedgerEntry."Document Type"::"Sales Shipment");
-            ItemLedgerEntry.SetRange("Document Line No.", SalesShipmentLine."Line No.");
-            ItemLedgerEntry.SetRange("Item No.", SalesShipmentLine."No.");
-            if ItemLedgerEntry.FindSet() then
-                repeat
-                    if (ItemLedgerEntry."Lot No." <> '') or (ItemLedgerEntry."Package No." <> '') then
-                        AddLotToBuffer(SalesShipmentLine, ItemLedgerEntry."Lot No.", ItemLedgerEntry."Package No.", Abs(ItemLedgerEntry.Quantity));
-                until ItemLedgerEntry.Next() = 0;
-        until SalesShipmentLine.Next() = 0;
-    end;
-
-    local procedure AddLotToBuffer(SalesShipmentLine: Record "Sales Shipment Line"; LotNo: Code[50]; PackageNo: Code[50]; QtyBase: Decimal)
-    begin
-        if QtyBase = 0 then
-            exit;
-
-        // One row per shipment line, lot and package.
-        TrackingSpecBuffer.Reset();
-        TrackingSpecBuffer.SetRange("Source Ref. No.", SalesShipmentLine."Line No.");
-        TrackingSpecBuffer.SetRange("Lot No.", LotNo);
-        TrackingSpecBuffer.SetRange("Package No.", PackageNo);
-        if TrackingSpecBuffer.FindFirst() then begin
-            TrackingSpecBuffer."Quantity (Base)" += QtyBase;
-            TrackingSpecBuffer."Qty. to Handle" := CalcLineQty(TrackingSpecBuffer."Quantity (Base)", SalesShipmentLine."Qty. per Unit of Measure");
-            TrackingSpecBuffer.Modify();
-        end else begin
-            LotBufferEntryNo += 1;
-            TrackingSpecBuffer.Init();
-            TrackingSpecBuffer."Entry No." := LotBufferEntryNo;
-            TrackingSpecBuffer."Source Type" := Database::"Sales Shipment Line";
-            TrackingSpecBuffer."Source ID" := SalesShipmentLine."Document No.";
-            TrackingSpecBuffer."Source Ref. No." := SalesShipmentLine."Line No.";
-            TrackingSpecBuffer."Item No." := SalesShipmentLine."No.";
-            TrackingSpecBuffer."Variant Code" := SalesShipmentLine."Variant Code";
-            TrackingSpecBuffer.Description := SalesShipmentLine.Description;
-            TrackingSpecBuffer."Lot No." := LotNo;
-            TrackingSpecBuffer."Package No." := PackageNo;
-            TrackingSpecBuffer."Qty. per Unit of Measure" := SalesShipmentLine."Qty. per Unit of Measure";
-            TrackingSpecBuffer."Quantity (Base)" := QtyBase;
-            TrackingSpecBuffer."Qty. to Handle" := CalcLineQty(QtyBase, SalesShipmentLine."Qty. per Unit of Measure");
-            TrackingSpecBuffer.Insert();
-        end;
-        TrackingSpecBuffer.Reset();
-    end;
-
-    local procedure CalcLineQty(QtyBase: Decimal; QtyPerUoM: Decimal): Decimal
-    begin
-        if QtyPerUoM = 0 then
-            exit(QtyBase);
-        exit(Round(QtyBase / QtyPerUoM, 0.00001));
-    end;
-
-    local procedure EncodeCode39(Value: Text): Text
-    var
-        BarcodeFontProvider: Interface "Barcode Font Provider";
-        BarcodeSymbology: Enum "Barcode Symbology";
-    begin
-        // Font-encoded Code 39 of the shipment no. (same as report 66600 "CHM Michelin Labels").
-        // The layout prints it in a textbox with the IDAutomationC39M font (font size from Code.BarcodeFontSize).
-        // Code 39 supports only upper-case letters, digits and - . space $ / + %
-        Value := UpperCase(Value);
-        Value := DelChr(Value, '=', DelChr(Value, '=', Code39CharsTok));
-        if Value = '' then
-            exit('');
-
-        BarcodeFontProvider := Enum::"Barcode Font Provider"::IDAutomation1D;
-        BarcodeSymbology := Enum::"Barcode Symbology"::Code39;
-        exit(BarcodeFontProvider.EncodeFont(Value, BarcodeSymbology));
-    end;
-
-    local procedure LoadDocumentLogos()
-    begin
-        CHMSetup.SetAutoCalcFields("Right Header Logo", "Footer Logo", "ISO 9001 Logo", "ASSICC Logo");
-        if not CHMSetup.Get() then
-            CHMSetup.Init();
-        // Show ISO controls the ISO certification text (certificate number / revision) in the footer.
-        ShowIso := CHMSetup."Show ISO";
-    end;
-
-    local procedure GetUOMText(UOMCode: Code[10]): Text[50]
-    var
-        UnitOfMeasure: Record "Unit of Measure";
-    begin
-        if not UnitOfMeasure.Get(UOMCode) then
-            exit(UOMCode);
-        exit(UnitOfMeasure.Description);
+        CHMMgmt.GetItemCustomsInfo(Item, TariffNo, CountryOrigin);
+        CHMMgmt.GetItemDangerousGoodsInfo(Item, Hazardous, ItemHazardousDescr, ADRClass, ItemUN, ItemADRDescr, ItemADRLabel, ItemADRPackingGroup, ItemGalleryCode);
     end;
 }

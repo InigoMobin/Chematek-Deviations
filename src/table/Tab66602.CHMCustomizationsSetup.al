@@ -1,7 +1,5 @@
 table 66602 "CHM Customizations Setup"
 {
-    // Central setup for the Chematek Customizations app. Add new setup fields here as the
-    // development continues, instead of creating a new setup table per feature.
     Caption = 'Chematek Customizations Setup';
     DataClassification = CustomerContent;
     DrillDownPageId = "CHM Customizations Setup";
@@ -13,7 +11,6 @@ table 66602 "CHM Customizations Setup"
         {
             Caption = 'Primary Key';
         }
-        // Report logos (sales documents, e.g. report 66601 "CHM Sales Quote")
         field(10; "Right Header Logo"; Blob)
         {
             Caption = 'Right Header Logo';

@@ -15,13 +15,11 @@ report 66600 "CHM Michelin Labels"
             {
                 DataItemTableView = sorting(Number) where(Number = filter(1 ..));
 
-                // Unique per printed label: the RDL groups and page-breaks on this column
                 column(Number; LabelCounter)
                 {
 
                 }
 
-                // Ship from / Ship to
                 column(Ship_from_Name; Labels."Ship-from Name")
                 {
 
@@ -71,7 +69,6 @@ report 66600 "CHM Michelin Labels"
 
                 }
 
-                // Human-readable values (same names as the existing RDL)
                 column(SupplierCode; SupplierCode)
                 {
 
@@ -117,7 +114,6 @@ report 66600 "CHM Michelin Labels"
 
                 }
 
-                // Font-encoded barcodes (replace the old TM* / TenantMedia images)
                 column(Barcode_SupplierCode; BarcodeSupplierCode)
                 {
 
@@ -159,7 +155,7 @@ report 66600 "CHM Michelin Labels"
                 trigger OnAfterGetRecord()
                 begin
                     LabelCounter += 1;
-                    LabelSN := GetNextLabelSN();
+                    LabelSN := CHMMgmt.GetNextMichelinLabelSN(SalesReceivablesSetup."CHM Michelin Label Nos.");
                     BuildLabelBarcodes();
                 end;
             }
@@ -177,7 +173,10 @@ report 66600 "CHM Michelin Labels"
 
             trigger OnAfterGetRecord()
             begin
-                SupplierCode := GetSupplierCode(Labels."Sales Shpt. Code");
+                if Labels."Sales Shpt. Code" <> LastShipmentNo then begin
+                    LastShipmentNo := Labels."Sales Shpt. Code";
+                    SupplierCode := CHMMgmt.GetMichelinSupplierCode(Labels."Sales Shpt. Code");
+                end;
 
                 ProductionDateText := Labels."Production Date";
                 if ProductionDateText = '' then
@@ -185,12 +184,12 @@ report 66600 "CHM Michelin Labels"
 
                 QuantityText := Format(Labels.Quantity, 0, '<Integer,6><Filler Character,0>');
 
-                BarcodeSupplierCode := EncodeCode39(SupplierCode);
-                BarcodeLotNo := EncodeCode39(Labels."Lot No.");
-                BarcodeMichelinPO := EncodeCode39(Labels."Michelin Purch. Order");
-                BarcodeItemNo := EncodeCode39(Labels."Item No.");
-                BarcodeProdDate := EncodeCode39(ProductionDateText);
-                BarcodeQty := EncodeCode39(QuantityText);
+                BarcodeSupplierCode := CHMMgmt.EncodeCode39(SupplierCode);
+                BarcodeLotNo := CHMMgmt.EncodeCode39(Labels."Lot No.");
+                BarcodeMichelinPO := CHMMgmt.EncodeCode39(Labels."Michelin Purch. Order");
+                BarcodeItemNo := CHMMgmt.EncodeCode39(Labels."Item No.");
+                BarcodeProdDate := CHMMgmt.EncodeCode39(ProductionDateText);
+                BarcodeQty := CHMMgmt.EncodeCode39(QuantityText);
             end;
         }
     }
@@ -232,6 +231,7 @@ report 66600 "CHM Michelin Labels"
 
     var
         SalesReceivablesSetup: Record "Sales & Receivables Setup";
+        CHMMgmt: Codeunit "CHM Customization Mgmt.";
         NoOfCopies: Integer;
         LabelCounter: Integer;
         SupplierCode: Code[20];
@@ -249,10 +249,9 @@ report 66600 "CHM Michelin Labels"
         BarcodeQRCode: Text;
         LastShipmentNo: Code[20];
         NothingToPrintErr: Label 'There are no labels to print.';
-        Code39CharsTok: Label 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-. $/+%', Locked = true;
 
     /// <summary>
-    /// Called from the Michelin labels page with the selected lines and the number of copies.
+    /// Loads the label lines to print and the number of copies (called from the Michelin labels page).
     /// </summary>
     procedure SetData(var TempMichelinLabels: Record "CHM Michelin Labels" temporary; NewNoOfCopies: Integer)
     begin
@@ -266,63 +265,13 @@ report 66600 "CHM Michelin Labels"
         NoOfCopies := NewNoOfCopies;
     end;
 
+    /// <summary>
+    /// Builds the label serial no. barcode and the QR code of each printed label.
+    /// </summary>
     local procedure BuildLabelBarcodes()
     begin
-        // Values that change per printed label (label serial no. and the QR code that contains it)
-        BarcodeLabelSN := EncodeCode39(LabelSN);
+        BarcodeLabelSN := CHMMgmt.EncodeCode39(LabelSN);
         BidimCode := SupplierCode + Labels."Item No." + LabelSN + Labels."Lot No." + QuantityText + ProductionDateText;
-        BarcodeQRCode := EncodeQRCode(BidimCode);
-    end;
-
-    local procedure GetNextLabelSN(): Code[20]
-    var
-        NoSeries: Codeunit "No. Series";
-    begin
-        exit(NoSeries.GetNextNo(SalesReceivablesSetup."CHM Michelin Label Nos."));
-    end;
-
-    local procedure GetSupplierCode(ShipmentNo: Code[20]): Code[20]
-    var
-        SalesShipmentHeader: Record "Sales Shipment Header";
-        Customer: Record Customer;
-    begin
-        if ShipmentNo = LastShipmentNo then
-            exit(SupplierCode);
-        LastShipmentNo := ShipmentNo;
-
-        if not SalesShipmentHeader.Get(ShipmentNo) then
-            exit('');
-        if not Customer.Get(SalesShipmentHeader."Sell-to Customer No.") then
-            exit('');
-        exit(Customer."CHM Michelin Supplier Code");
-    end;
-
-    local procedure EncodeCode39(Value: Text): Text
-    var
-        BarcodeFontProvider: Interface "Barcode Font Provider";
-        BarcodeSymbology: Enum "Barcode Symbology";
-    begin
-        // Code 39 supports only upper-case letters, digits and - . space $ / + %
-        Value := UpperCase(Value);
-        Value := DelChr(Value, '=', DelChr(Value, '=', Code39CharsTok));
-        if Value = '' then
-            exit('');
-
-        BarcodeFontProvider := Enum::"Barcode Font Provider"::IDAutomation1D;
-        BarcodeSymbology := Enum::"Barcode Symbology"::Code39;
-        exit(BarcodeFontProvider.EncodeFont(Value, BarcodeSymbology));
-    end;
-
-    local procedure EncodeQRCode(Value: Text): Text
-    var
-        BarcodeFontProvider2D: Interface "Barcode Font Provider 2D";
-        BarcodeSymbology2D: Enum "Barcode Symbology 2D";
-    begin
-        if Value = '' then
-            exit('');
-
-        BarcodeFontProvider2D := Enum::"Barcode Font Provider 2D"::IDAutomation2D;
-        BarcodeSymbology2D := Enum::"Barcode Symbology 2D"::"QR-Code";
-        exit(BarcodeFontProvider2D.EncodeFont(Value, BarcodeSymbology2D));
+        BarcodeQRCode := CHMMgmt.EncodeQRCode(BidimCode);
     end;
 }

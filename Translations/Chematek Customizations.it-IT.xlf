@@ -195,29 +195,47 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table CHM Michelin Labels - Field Ship-to Post Code - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Codeunit 841304650 - NamedType 3547613564" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Declaration of intent no. %1</source>
+          <target state="translated">Dichiarazione d'intento n. %1</target>
+          <note from="Developer" annotates="general" priority="2">%1 = VAT Exempt. No.</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit CHM Customization Mgmt. - NamedType DeclarationOfIntentNoDateTxt</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 841304650 - NamedType 2371502375" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Declaration of intent no. %1 of %2</source>
+          <target state="translated">Dichiarazione d'intento n. %1 del %2</target>
+          <note from="Developer" annotates="general" priority="2">%1 = VAT Exempt. No., %2 = VAT Exempt. Date</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit CHM Customization Mgmt. - NamedType DeclarationOfIntentTxt</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 841304650 - NamedType 3642584667" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Exchange rate: %1/%2</source>
+          <target state="translated">Tasso di cambio: %1/%2</target>
+          <note from="Developer" annotates="general" priority="2">%1 and %2 are both amounts.</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit CHM Customization Mgmt. - NamedType ExchangeRateTxt</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 841304650 - NamedType 184654751" size-unit="char" translate="yes" xml:space="preserve">
+          <source>The credit memo has been fully applied.</source>
+          <target state="translated">La nota di credito è stata completamente collegata.</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit CHM Customization Mgmt. - NamedType FullyAppliedLbl</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 841304650 - NamedType 3157925379" size-unit="char" translate="yes" xml:space="preserve">
+          <source>The credit memo has been partially applied. The remaining amount is %1</source>
+          <target state="translated">La nota di credito è stata parzialmente collegata. L'importo residuo è %1</target>
+          <note from="Developer" annotates="general" priority="2">%1 = an amount</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit CHM Customization Mgmt. - NamedType PartiallyAppliedLbl</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 841304650 - NamedType 3803686218" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Lot %1 of item %2 already has Production Date %3. To change it, update the Lot No. Information Card.</source>
+          <target state="translated">Il lotto %1 dell'articolo %2 ha già la data di produzione %3. Per modificarla, aggiornare la scheda Informazioni n. lotto.</target>
+          <note from="Developer" annotates="general" priority="2">%1 = Lot No., %2 = Item No., %3 = Production Date</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit CHM Customization Mgmt. - NamedType ProductionDateMismatchErr</note>
+        </trans-unit>
         <trans-unit id="Codeunit 1005654299 - NamedType 3659967070" size-unit="char" translate="yes" xml:space="preserve">
           <source>Total Gross Weight (%1) cannot be less than Total Net Weight (%2).</source>
           <target state="translated">Il peso lordo totale (%1) non può essere inferiore al peso netto totale (%2).</target>
           <note from="Developer" annotates="general" priority="2">%1 = Total Gross Weight, %2 = Total Net Weight</note>
           <note from="Xliff Generator" annotates="general" priority="3">Codeunit CHM Event Management - NamedType GrossLessThanNetErr</note>
-        </trans-unit>
-        <trans-unit id="Codeunit 1526607442 - NamedType 3803686218" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Lot %1 of item %2 already has Production Date %3. To change it, update the Lot No. Information Card.</source>
-          <target state="translated">Il lotto %1 dell'articolo %2 ha già la data di produzione %3. Per modificarla, aggiornare la scheda Informazioni n. lotto.</target>
-          <note from="Developer" annotates="general" priority="2">%1 = Lot No., %2 = Item No., %3 = Production Date</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Codeunit CHM Lot Production Date Mgt. - NamedType ProductionDateMismatchErr</note>
-        </trans-unit>
-        <trans-unit id="Codeunit 1054075039 - NamedType 2371502375" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Declaration of intent no. %1 of %2</source>
-          <target state="translated">Dichiarazione d'intento n. %1 del %2</target>
-          <note from="Developer" annotates="general" priority="2">%1 = VAT Exempt. No., %2 = VAT Exempt. Date</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Codeunit CHM Management - NamedType DeclarationOfIntentTxt</note>
-        </trans-unit>
-        <trans-unit id="Codeunit 1054075039 - NamedType 3547613564" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Declaration of intent no. %1</source>
-          <target state="translated">Dichiarazione d'intento n. %1</target>
-          <note from="Developer" annotates="general" priority="2">%1 = VAT Exempt. No.</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Codeunit CHM Management - NamedType DeclarationOfIntentNoDateTxt</note>
         </trans-unit>
         <trans-unit id="Page 1765147265 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Chematek Customizations Setup</source>
@@ -753,12 +771,6 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report CHM Posted Credit Memo - NamedType EMailLbl</note>
         </trans-unit>
-        <trans-unit id="Report 950276140 - NamedType 3642584667" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Exchange rate: %1/%2</source>
-          <target state="translated">Tasso di cambio: %1/%2</target>
-          <note from="Developer" annotates="general" priority="2">%1 and %2 are both amounts.</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Posted Credit Memo - NamedType ExchangeRateTxt</note>
-        </trans-unit>
         <trans-unit id="Report 950276140 - NamedType 2063466741" size-unit="char" translate="yes" xml:space="preserve">
           <source>Fiscal Code</source>
           <target state="translated">Codice fiscale</target>
@@ -770,12 +782,6 @@
           <target state="translated">Da</target>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report CHM Posted Credit Memo - NamedType FromLbl</note>
-        </trans-unit>
-        <trans-unit id="Report 950276140 - NamedType 184654751" size-unit="char" translate="yes" xml:space="preserve">
-          <source>The credit memo has been fully applied.</source>
-          <target state="translated">La nota di credito è stata completamente collegata.</target>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Posted Credit Memo - NamedType FullyAppliedLbl</note>
         </trans-unit>
         <trans-unit id="Report 950276140 - NamedType 3373067010" size-unit="char" translate="yes" xml:space="preserve">
           <source>Gross Weight</source>
@@ -938,12 +944,6 @@
           <target state="translated">Pagina</target>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report CHM Posted Credit Memo - NamedType PageLbl</note>
-        </trans-unit>
-        <trans-unit id="Report 950276140 - NamedType 3157925379" size-unit="char" translate="yes" xml:space="preserve">
-          <source>The credit memo has been partially applied. The remaining amount is %1</source>
-          <target state="translated">La nota di credito è stata parzialmente collegata. L'importo residuo è %1</target>
-          <note from="Developer" annotates="general" priority="2">%1 = an amount</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Posted Credit Memo - NamedType PartiallyAppliedLbl</note>
         </trans-unit>
         <trans-unit id="Report 950276140 - NamedType 290227238" size-unit="char" translate="yes" xml:space="preserve">
           <source>Amount Due</source>
@@ -1142,12 +1142,6 @@
           <target state="translated">Descrizione IVA</target>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report CHM Posted Credit Memo - NamedType VATDescriptionCaptionLbl</note>
-        </trans-unit>
-        <trans-unit id="Report 950276140 - NamedType 1071970054" size-unit="char" translate="yes" xml:space="preserve">
-          <source>VAT Identifier</source>
-          <target state="translated">Identificativo IVA</target>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Posted Credit Memo - NamedType VATIdentifierLbl</note>
         </trans-unit>
         <trans-unit id="Report 950276140 - NamedType 1532992371" size-unit="char" translate="yes" xml:space="preserve">
           <source>VAT %</source>
@@ -1514,12 +1508,6 @@
           <target state="translated">Scadenza</target>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report CHM Posted Sales Invoice - NamedType DueDateCaptionLbl</note>
-        </trans-unit>
-        <trans-unit id="Report 1469017442 - NamedType 3642584667" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Exchange rate: %1/%2</source>
-          <target state="translated">Tasso di cambio: %1/%2</target>
-          <note from="Developer" annotates="general" priority="2">%1 and %2 are both amounts.</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Posted Sales Invoice - NamedType ExchangeRateTxt</note>
         </trans-unit>
         <trans-unit id="Report 1469017442 - NamedType 2063466741" size-unit="char" translate="yes" xml:space="preserve">
           <source>Fiscal Code</source>
@@ -2264,12 +2252,6 @@
           <target state="translated">E-mail</target>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report CHM Purchase Order - NamedType EMailCaptionLbl</note>
-        </trans-unit>
-        <trans-unit id="Report 4009826269 - NamedType 3642584667" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Exchange rate: %1/%2</source>
-          <target state="translated">Tasso di cambio: %1/%2</target>
-          <note from="Developer" annotates="general" priority="2">%1 and %2 are both amounts.</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Purchase Order - NamedType ExchangeRateTxt</note>
         </trans-unit>
         <trans-unit id="Report 4009826269 - NamedType 2063466741" size-unit="char" translate="yes" xml:space="preserve">
           <source>Fiscal Code</source>
@@ -3813,12 +3795,6 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Order Confirmation - NamedType DueDateCaptionLbl</note>
         </trans-unit>
-        <trans-unit id="Report 3778831545 - NamedType 3642584667" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Exchange rate: %1/%2</source>
-          <target state="translated">Tasso di cambio: %1/%2</target>
-          <note from="Developer" annotates="general" priority="2">%1 and %2 are both amounts.</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Order Confirmation - NamedType ExchangeRateTxt</note>
-        </trans-unit>
         <trans-unit id="Report 3778831545 - NamedType 2063466741" size-unit="char" translate="yes" xml:space="preserve">
           <source>Fiscal Code</source>
           <target state="translated">Codice fiscale</target>
@@ -4635,12 +4611,6 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType DueDateCaptionLbl</note>
         </trans-unit>
-        <trans-unit id="Report 1669070391 - NamedType 3642584667" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Exchange rate: %1/%2</source>
-          <target state="translated">Tasso di cambio: %1/%2</target>
-          <note from="Developer" annotates="general" priority="2">%1 and %2 are both amounts.</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Proforma Inv. Order - NamedType ExchangeRateTxt</note>
-        </trans-unit>
         <trans-unit id="Report 1669070391 - NamedType 2063466741" size-unit="char" translate="yes" xml:space="preserve">
           <source>Fiscal Code</source>
           <target state="translated">Codice fiscale</target>
@@ -5450,12 +5420,6 @@
           <target state="translated">E-mail</target>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Quote - NamedType EMailCaptionLbl</note>
-        </trans-unit>
-        <trans-unit id="Report 1683474224 - NamedType 3642584667" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Exchange rate: %1/%2</source>
-          <target state="translated">Tasso di cambio: %1/%2</target>
-          <note from="Developer" annotates="general" priority="2">%1 and %2 are both amounts.</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Quote - NamedType ExchangeRateTxt</note>
         </trans-unit>
         <trans-unit id="Report 1683474224 - NamedType 2063466741" size-unit="char" translate="yes" xml:space="preserve">
           <source>Fiscal Code</source>
@@ -6663,6 +6627,18 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - ReportLabel ValidTo_Caption</note>
         </trans-unit>
+        <trans-unit id="Report 729228690 - ReportLabel 2358362909" size-unit="char" translate="yes" xml:space="preserve">
+          <source>VAT Clause</source>
+          <target state="translated">Clausola IVA</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - ReportLabel VATClausesCaption</note>
+        </trans-unit>
+        <trans-unit id="Report 729228690 - ReportLabel 1813042605" size-unit="char" translate="yes" xml:space="preserve">
+          <source>VAT Reg. No.</source>
+          <target state="translated">Partita IVA</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - ReportLabel VATRegNo_Caption</note>
+        </trans-unit>
         <trans-unit id="Report 729228690 - ReportLabel 2192086595" size-unit="char" translate="yes" xml:space="preserve">
           <source>Invoice Discount</source>
           <target state="translated">Sconto fattura</target>
@@ -6680,18 +6656,6 @@
           <target state="translated">Descrizione IVA</target>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - ReportLabel VAT_VATText_Caption</note>
-        </trans-unit>
-        <trans-unit id="Report 729228690 - ReportLabel 2358362909" size-unit="char" translate="yes" xml:space="preserve">
-          <source>VAT Clause</source>
-          <target state="translated">Clausola IVA</target>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - ReportLabel VATClausesCaption</note>
-        </trans-unit>
-        <trans-unit id="Report 729228690 - ReportLabel 1813042605" size-unit="char" translate="yes" xml:space="preserve">
-          <source>VAT Reg. No.</source>
-          <target state="translated">Partita IVA</target>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - ReportLabel VATRegNo_Caption</note>
         </trans-unit>
         <trans-unit id="Report 729228690 - ReportLabel 1166384323" size-unit="char" translate="yes" xml:space="preserve">
           <source>Volume</source>

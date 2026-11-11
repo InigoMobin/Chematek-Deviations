@@ -2,7 +2,7 @@ table 66601 "CHM Michelin Labels"
 {
     Caption = 'CHM Michelin Labels';
     DataClassification = CustomerContent;
-    TableType = Temporary; // Buffer only: lines are loaded on demand from the page, nothing is stored in the database
+    TableType = Temporary;
 
     fields
     {
