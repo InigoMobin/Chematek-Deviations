@@ -6347,13 +6347,13 @@
         </trans-unit>
         <trans-unit id="Report 729228690 - NamedType 1160489787" size-unit="char" translate="yes" xml:space="preserve">
           <source>Payment Method</source>
-          <target state="translated">Modalità di pagamento</target>
+          <target state="translated">Mod. pagamento</target>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - NamedType PaymentMethodCaptionLbl</note>
         </trans-unit>
         <trans-unit id="Report 729228690 - NamedType 1302573237" size-unit="char" translate="yes" xml:space="preserve">
           <source>Payment Terms</source>
-          <target state="translated">Condizioni di pagamento</target>
+          <target state="translated">Cond. pagamento</target>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - NamedType PaymentTermsCaptionLbl</note>
         </trans-unit>
