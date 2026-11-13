@@ -1465,7 +1465,7 @@ report 66606 "CHM Purchase Order"
         if ContactEmail = '' then
             ContactEmail := Vendor."E-Mail";
 
-        ShippingAgentName := CHMMgmt.GetShippingAgentNameByField(PurchHeader, Database::"Purchase Header");
+        ShippingAgentName := CHMMgmt.GetShippingAgentName(PurchHeader."Shipping Agent Code");
         FiscalCodeNo := CHMMgmt.GetVendorFiscalCode(PurchHeader."Buy-from Vendor No.");
         DocumentNoteText := CHMMgmt.GetPurchaseDocumentNote(PurchHeader);
     end;

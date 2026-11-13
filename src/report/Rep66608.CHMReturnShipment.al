@@ -815,7 +815,7 @@ report 66608 "CHM Return Shipment"
         OperatorName := CHMMgmt.GetUserFullName(Header."User ID");
         CHMMgmt.GetLocationAddress(Header."Location Code", LocationName, LocationAddress, LocationCity);
         ReasonCodeText := CHMMgmt.GetReasonCodeText(Header."Reason Code");
-        ShippingAgentName := CHMMgmt.GetShippingAgentNameByField(Header, Database::"Return Shipment Header");
+        ShippingAgentName := CHMMgmt.GetShippingAgentName(Header."Shipping Agent Code");
 
         VATRegistrationNo := Header."VAT Registration No.";
         if VATRegistrationNo = '' then

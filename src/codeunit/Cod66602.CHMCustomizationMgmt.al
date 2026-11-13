@@ -1,17 +1,8 @@
 codeunit 66602 "CHM Customization Mgmt."
 {
     var
-        VATExemptionTableTok: Label 'VAT Exemption', Locked = true;
-        VATExemptTypeFieldTok: Label 'Type', Locked = true;
-        VATExemptAccountNoFieldTok: Label 'No.', Locked = true;
-        VATExemptStartingDateFieldTok: Label 'VAT Exempt. Starting Date', Locked = true;
-        VATExemptEndingDateFieldTok: Label 'VAT Exempt. Ending Date', Locked = true;
-        VATExemptNoFieldTok: Label 'VAT Exempt. No.', Locked = true;
-        VATExemptDateFieldTok: Label 'VAT Exempt. Date', Locked = true;
-        VATExemptRegistryNoFieldTok: Label 'VAT Exempt. Int. Registry No.', Locked = true;
         DeclarationOfIntentTxt: Label 'Declaration of intent no. %1 of %2', Comment = '%1 = VAT Exempt. No., %2 = VAT Exempt. Date';
         DeclarationOfIntentNoDateTxt: Label 'Declaration of intent no. %1', Comment = '%1 = VAT Exempt. No.';
-        ShippingAgentCodeFieldTok: Label 'Shipping Agent Code', Locked = true;
         TransportStartTimeFormatTok: Label '<Hours24,2>:<Minutes,2>', Locked = true;
         DateTimeTok: Label '%1 %2', Locked = true;
         BankAccountIBANTok: Label '%1 - %2', Locked = true;
@@ -22,7 +13,7 @@ codeunit 66602 "CHM Customization Mgmt."
         PartiallyAppliedLbl: Label 'The credit memo has been partially applied. The remaining amount is %1', Comment = '%1 = an amount';
 
     /// <summary>
-    /// Returns the Fiscal Code of the customer (Italian localization field), or blank when the customer does not exist.
+    /// Returns the Fiscal Code of the customer, or blank when the customer does not exist.
     /// </summary>
     procedure GetCustomerFiscalCode(CustomerNo: Code[20]): Text
     var
@@ -37,7 +28,7 @@ codeunit 66602 "CHM Customization Mgmt."
     end;
 
     /// <summary>
-    /// Returns the Fiscal Code of the vendor (Italian localization field), or blank when the vendor does not exist.
+    /// Returns the Fiscal Code of the vendor, or blank when the vendor does not exist.
     /// </summary>
     procedure GetVendorFiscalCode(VendorNo: Code[20]): Text
     var
@@ -52,40 +43,11 @@ codeunit 66602 "CHM Customization Mgmt."
     end;
 
     /// <summary>
-    /// Finds the declaration of intent received from the customer that is valid on the given date.
+    /// Finds the most recent declaration of intent in the "VAT Exemption" table that is valid on the given date for the account.
     /// </summary>
-    procedure FindCustomerVATExemption(CustomerNo: Code[20]; OnDate: Date; var DeclarationText: Text; var StartingDate: Date; var EndingDate: Date; var RegistryNo: Text): Boolean
-    begin
-        exit(FindVATExemption(0, CustomerNo, OnDate, DeclarationText, StartingDate, EndingDate, RegistryNo));
-    end;
-
-    /// <summary>
-    /// Finds the declaration of intent issued to the vendor that is valid on the given date.
-    /// </summary>
-    procedure FindVendorVATExemption(VendorNo: Code[20]; OnDate: Date; var DeclarationText: Text; var StartingDate: Date; var EndingDate: Date; var RegistryNo: Text): Boolean
-    begin
-        exit(FindVATExemption(1, VendorNo, OnDate, DeclarationText, StartingDate, EndingDate, RegistryNo));
-    end;
-
-    /// <summary>
-    /// Reads the Italian "VAT Exemption" table by field name and returns the most recent declaration of intent valid on the given date.
-    /// </summary>
-    local procedure FindVATExemption(TypeOption: Integer; AccountNo: Code[20]; OnDate: Date; var DeclarationText: Text; var StartingDate: Date; var EndingDate: Date; var RegistryNo: Text): Boolean
+    local procedure FindVATExemption(var VATExemption: Record "VAT Exemption"; AccountNo: Code[20]; OnDate: Date; var DeclarationText: Text; var StartingDate: Date; var EndingDate: Date; var RegistryNo: Text): Boolean
     var
-        AllObj: Record AllObj;
-        RecRef: RecordRef;
-        FldRef: FieldRef;
-        TypeFldNo: Integer;
-        AccountNoFldNo: Integer;
-        StartingDateFldNo: Integer;
-        EndingDateFldNo: Integer;
-        ExemptNoFldNo: Integer;
-        ExemptDateFldNo: Integer;
-        RegistryNoFldNo: Integer;
-        RecStartingDate: Date;
         ExemptNo: Text;
-        ExemptDate: Date;
-        Found: Boolean;
     begin
         DeclarationText := '';
         StartingDate := 0D;
@@ -94,98 +56,27 @@ codeunit 66602 "CHM Customization Mgmt."
         if (AccountNo = '') or (OnDate = 0D) then
             exit(false);
 
-        if not AllObj.Get(AllObj."Object Type"::Table, VATExemptionTableNo()) then
-            exit(false);
-        if AllObj."Object Name" <> VATExemptionTableTok then
-            exit(false);
-
-        TypeFldNo := FindFieldNo(VATExemptionTableNo(), VATExemptTypeFieldTok);
-        AccountNoFldNo := FindFieldNo(VATExemptionTableNo(), VATExemptAccountNoFieldTok);
-        StartingDateFldNo := FindFieldNo(VATExemptionTableNo(), VATExemptStartingDateFieldTok);
-        EndingDateFldNo := FindFieldNo(VATExemptionTableNo(), VATExemptEndingDateFieldTok);
-        ExemptNoFldNo := FindFieldNo(VATExemptionTableNo(), VATExemptNoFieldTok);
-        ExemptDateFldNo := FindFieldNo(VATExemptionTableNo(), VATExemptDateFieldTok);
-        RegistryNoFldNo := FindFieldNo(VATExemptionTableNo(), VATExemptRegistryNoFieldTok);
-        if (TypeFldNo = 0) or (AccountNoFldNo = 0) or (StartingDateFldNo = 0) or (EndingDateFldNo = 0) or
-           (ExemptNoFldNo = 0) or (ExemptDateFldNo = 0) or (RegistryNoFldNo = 0)
-        then
+        VATExemption.SetCurrentKey(Type, "No.", "VAT Exempt. Starting Date", "VAT Exempt. Ending Date", "VAT Exempt. No.");
+        VATExemption.SetRange("No.", AccountNo);
+        VATExemption.SetFilter("VAT Exempt. Starting Date", '..%1', OnDate);
+        VATExemption.SetFilter("VAT Exempt. Ending Date", '%1|>=%2', 0D, OnDate);
+        VATExemption.SetLoadFields("VAT Exempt. Starting Date", "VAT Exempt. Ending Date", "VAT Exempt. No.", "VAT Exempt. Date", "VAT Exempt. Int. Registry No.");
+        if not VATExemption.FindLast() then
             exit(false);
 
-        RecRef.Open(VATExemptionTableNo());
-        FldRef := RecRef.Field(TypeFldNo);
-        FldRef.SetRange(TypeOption);
-        FldRef := RecRef.Field(AccountNoFldNo);
-        FldRef.SetRange(AccountNo);
-        FldRef := RecRef.Field(StartingDateFldNo);
-        FldRef.SetFilter('..%1', OnDate);
-        FldRef := RecRef.Field(EndingDateFldNo);
-        FldRef.SetFilter('%1|>=%2', 0D, OnDate);
-        if RecRef.FindSet() then
-            repeat
-                RecStartingDate := RecRef.Field(StartingDateFldNo).Value();
-                if (not Found) or (RecStartingDate > StartingDate) then begin
-                    Found := true;
-                    StartingDate := RecStartingDate;
-                    EndingDate := RecRef.Field(EndingDateFldNo).Value();
-                    ExemptNo := DelChr(Format(RecRef.Field(ExemptNoFldNo).Value()), '<>', ' ');
-                    ExemptDate := RecRef.Field(ExemptDateFldNo).Value();
-                    RegistryNo := DelChr(Format(RecRef.Field(RegistryNoFldNo).Value()), '<>', ' ');
-                end;
-            until RecRef.Next() = 0;
-        RecRef.Close();
-
-        if not Found then
-            exit(false);
-
+        StartingDate := VATExemption."VAT Exempt. Starting Date";
+        EndingDate := VATExemption."VAT Exempt. Ending Date";
+        RegistryNo := VATExemption."VAT Exempt. Int. Registry No.";
+        ExemptNo := VATExemption."VAT Exempt. No.";
         if ExemptNo = '' then
             ExemptNo := RegistryNo;
         if ExemptNo = '' then
             exit(false);
-        if ExemptDate <> 0D then
-            DeclarationText := StrSubstNo(DeclarationOfIntentTxt, ExemptNo, Format(ExemptDate))
+        if VATExemption."VAT Exempt. Date" <> 0D then
+            DeclarationText := StrSubstNo(DeclarationOfIntentTxt, ExemptNo, Format(VATExemption."VAT Exempt. Date"))
         else
             DeclarationText := StrSubstNo(DeclarationOfIntentNoDateTxt, ExemptNo);
         exit(true);
-    end;
-
-    /// <summary>
-    /// Returns the ID of the Italian "VAT Exemption" table.
-    /// </summary>
-    local procedure VATExemptionTableNo(): Integer
-    begin
-        exit(12186);
-    end;
-
-    /// <summary>
-    /// Returns the value of a field found by its name as text, or blank when the table has no such field.
-    /// </summary>
-    procedure GetFieldValueByName(RecVariant: Variant; TableNo: Integer; FieldName: Text): Text
-    var
-        RecRef: RecordRef;
-        FieldNo: Integer;
-    begin
-        FieldNo := FindFieldNo(TableNo, FieldName);
-        if FieldNo = 0 then
-            exit('');
-
-        RecRef.GetTable(RecVariant);
-        exit(DelChr(Format(RecRef.Field(FieldNo).Value()), '<>', ' '));
-    end;
-
-    /// <summary>
-    /// Returns the number of the field with the given name, or 0 when the table has no such field.
-    /// </summary>
-    procedure FindFieldNo(TableNo: Integer; FieldName: Text): Integer
-    var
-        FieldRec: Record Field;
-    begin
-        FieldRec.SetRange(TableNo, TableNo);
-        FieldRec.SetRange(FieldName, FieldName);
-        FieldRec.SetRange(Class, FieldRec.Class::Normal);
-        FieldRec.SetFilter(ObsoleteState, '<>%1', FieldRec.ObsoleteState::Removed);
-        if not FieldRec.FindFirst() then
-            exit(0);
-        exit(FieldRec."No.");
     end;
 
     /// <summary>
@@ -341,17 +232,6 @@ codeunit 66602 "CHM Customization Mgmt."
             if ShippingAgent.Name <> '' then
                 exit(ShippingAgent.Name);
         exit(ShippingAgentCode);
-    end;
-
-    /// <summary>
-    /// Returns the shipping agent name of a document where "Shipping Agent Code" exists only in the Italian localization (read by field name).
-    /// </summary>
-    procedure GetShippingAgentNameByField(RecVariant: Variant; TableNo: Integer): Text
-    var
-        ShippingAgentCode: Code[10];
-    begin
-        ShippingAgentCode := CopyStr(GetFieldValueByName(RecVariant, TableNo, ShippingAgentCodeFieldTok), 1, MaxStrLen(ShippingAgentCode));
-        exit(GetShippingAgentName(ShippingAgentCode));
     end;
 
     /// <summary>
@@ -596,22 +476,28 @@ codeunit 66602 "CHM Customization Mgmt."
     /// Returns the declaration of intent of the customer printed under a document line without VAT.
     /// </summary>
     procedure GetCustomerLineVATExemption(IsVATExemptLine: Boolean; CustomerNo: Code[20]; OnDate: Date; var VATExemptNo: Text; var VATExemptSource: Text; var StartingDateText: Text; var EndingDateText: Text): Boolean
+    var
+        VATExemption: Record "VAT Exemption";
     begin
-        exit(GetLineVATExemption(0, IsVATExemptLine, CustomerNo, OnDate, VATExemptNo, VATExemptSource, StartingDateText, EndingDateText));
+        VATExemption.SetRange(Type, VATExemption.Type::Customer);
+        exit(GetLineVATExemption(VATExemption, IsVATExemptLine, CustomerNo, OnDate, VATExemptNo, VATExemptSource, StartingDateText, EndingDateText));
     end;
 
     /// <summary>
     /// Returns the declaration of intent issued to the vendor printed under a document line without VAT.
     /// </summary>
     procedure GetVendorLineVATExemption(IsVATExemptLine: Boolean; VendorNo: Code[20]; OnDate: Date; var VATExemptNo: Text; var VATExemptSource: Text; var StartingDateText: Text; var EndingDateText: Text): Boolean
+    var
+        VATExemption: Record "VAT Exemption";
     begin
-        exit(GetLineVATExemption(1, IsVATExemptLine, VendorNo, OnDate, VATExemptNo, VATExemptSource, StartingDateText, EndingDateText));
+        VATExemption.SetRange(Type, VATExemption.Type::Vendor);
+        exit(GetLineVATExemption(VATExemption, IsVATExemptLine, VendorNo, OnDate, VATExemptNo, VATExemptSource, StartingDateText, EndingDateText));
     end;
 
     /// <summary>
     /// Clears the declaration of intent fields and fills them for a document line without VAT.
     /// </summary>
-    local procedure GetLineVATExemption(TypeOption: Integer; IsVATExemptLine: Boolean; AccountNo: Code[20]; OnDate: Date; var VATExemptNo: Text; var VATExemptSource: Text; var StartingDateText: Text; var EndingDateText: Text): Boolean
+    local procedure GetLineVATExemption(var VATExemption: Record "VAT Exemption"; IsVATExemptLine: Boolean; AccountNo: Code[20]; OnDate: Date; var VATExemptNo: Text; var VATExemptSource: Text; var StartingDateText: Text; var EndingDateText: Text): Boolean
     var
         StartingDate: Date;
         EndingDate: Date;
@@ -622,7 +508,7 @@ codeunit 66602 "CHM Customization Mgmt."
         EndingDateText := '';
         if not IsVATExemptLine then
             exit(false);
-        if not FindVATExemption(TypeOption, AccountNo, OnDate, VATExemptNo, StartingDate, EndingDate, VATExemptSource) then
+        if not FindVATExemption(VATExemption, AccountNo, OnDate, VATExemptNo, StartingDate, EndingDate, VATExemptSource) then
             exit(false);
 
         StartingDateText := Format(StartingDate);
