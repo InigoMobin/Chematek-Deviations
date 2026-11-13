@@ -1295,7 +1295,6 @@ report 66604 "CHM Posted Credit Memo"
                 CHMMgmt.GetCrMemoRemainingAmount(Header."No.", Header."Bill-to Customer No.", RemainingAmount, RemainingAmountTxt);
 
                 SetChematekHeaderFields();
-                CHMMgmt.CalcSalesCrMemoShipmentTotals(TotalParcels, TotalPallets, TotalNetWeight, TotalGrossWeight);
                 CHMMgmt.FillSalesCrMemoLotBuffer(Header."No.", ItemTrackingLine);
                 CalcDocumentTotals();
                 CHMMgmt.FillVATSlots(VATAmountLine, Header."VAT Bus. Posting Group", VATSlotCode, VATSlotDescription, VATSlotPct, VATSlotBase, VATSlotAmount);

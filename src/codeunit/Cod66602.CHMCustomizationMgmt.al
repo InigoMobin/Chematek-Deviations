@@ -915,20 +915,6 @@ codeunit 66602 "CHM Customization Mgmt."
     end;
 
     /// <summary>
-    /// Returns the parcels, pallets and weights printed on the posted sales credit memo.
-    /// </summary>
-    procedure CalcSalesCrMemoShipmentTotals(var TotalParcels: Integer; var TotalPallets: Integer; var TotalNetWeight: Decimal; var TotalGrossWeight: Decimal)
-    begin
-        // TODO (pending decision): parcels, pallets and weights are entered on the posted sales shipment
-        // (DEV-002). A credit memo is linked to return receipts, which have no Chematek shipment fields,
-        // so nothing is printed (the layout hides these values when they are 0).
-        TotalParcels := 0;
-        TotalPallets := 0;
-        TotalNetWeight := 0;
-        TotalGrossWeight := 0;
-    end;
-
-    /// <summary>
     /// Adds the shipment no. to the list when it is not already there.
     /// </summary>
     local procedure AddShipmentNo(var ShipmentNos: List of [Code[20]]; ShipmentNo: Code[20])
