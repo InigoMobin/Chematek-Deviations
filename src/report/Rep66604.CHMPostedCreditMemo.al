@@ -281,32 +281,6 @@ report 66604 "CHM Posted Credit Memo"
             column(Salesperson; SalespersonPurchaser.Name)
             {
             }
-            column(NoOfParcels; TotalParcels)
-            {
-            }
-            column(NoOfPallets; TotalPallets)
-            {
-            }
-            column(NetWeight; TotalNetWeight)
-            {
-                DecimalPlaces = 0 : 5;
-            }
-            column(GrossWeight; TotalGrossWeight)
-            {
-                DecimalPlaces = 0 : 5;
-            }
-            column(NoPalletsLbl; NoOfPalletsCaptionLbl)
-            {
-            }
-            column(NoParcelsLbl; NoOfParcelsCaptionLbl)
-            {
-            }
-            column(GrossWLbl; GrossWeightCaptionLbl)
-            {
-            }
-            column(NetWLbl; NetWeightCaptionLbl)
-            {
-            }
             column(Total_NetAmountToPayCaption; NetAmountToPayCaptionLbl)
             {
             }
@@ -1370,7 +1344,6 @@ report 66604 "CHM Posted Credit Memo"
         CustomerVendorNo_Caption = 'Customer No.';
         DocumentNo_Caption = 'Document No.';
         FiscalCode_Caption = 'Fiscal Code';
-        GrossWeight_Caption = 'Gross Weight';
         Line_Amount_Caption = 'Amount';
         Line_Description_Caption = 'Description';
         Line_ItemNo_Caption = 'Item No.';
@@ -1379,9 +1352,6 @@ report 66604 "CHM Posted Credit Memo"
         Line_UnitPrice_Caption = 'Unit Price';
         Line_UoM_Caption = 'UoM';
         Line_VATIdentifier_Caption = 'VAT';
-        NetWeightCaption = 'Net Weight';
-        NoOfPallets_Caption = 'No. of Pallets';
-        NoOfParcels_Caption = 'No. of Parcels';
         Our_Bank = 'Our Bank';
         Page_Caption = 'Page';
         PaymentMethod_Caption = 'Payment Method';
@@ -1502,10 +1472,6 @@ report 66604 "CHM Posted Credit Memo"
         ReasonCodeText: Text;
         FiscalCodeNo: Text;
         ShowIso: Boolean;
-        TotalParcels: Integer;
-        TotalPallets: Integer;
-        TotalNetWeight: Decimal;
-        TotalGrossWeight: Decimal;
         JobNo: Code[20];
         JobTaskNo: Code[20];
         JobNoLbl: Text;
@@ -1557,10 +1523,6 @@ report 66604 "CHM Posted Credit Memo"
         VATDescriptionCaptionLbl: Label 'VAT Description';
         PaymentAmountCaptionLbl: Label 'Amount Due';
         DueDateCaptionLbl: Label 'Due Date';
-        NoOfParcelsCaptionLbl: Label 'No. of Parcels';
-        NoOfPalletsCaptionLbl: Label 'No. of Pallets';
-        NetWeightCaptionLbl: Label 'Net Weight';
-        GrossWeightCaptionLbl: Label 'Gross Weight';
         LineNoCaptionLbl: Label 'Item No.';
         LineDescriptionCaptionLbl: Label 'Description';
         LineQuantityCaptionLbl: Label 'Quantity';

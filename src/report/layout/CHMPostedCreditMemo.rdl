@@ -5047,10 +5047,10 @@ IIF(Last(Fields!VatAmount4.Value &lt;&gt; 0),FORMATNUMBER(Last(Fields!VatAmount4
 "27" + Chr(177) +
 "28" + Chr(177) +
 "29" + Chr(177) + 
-IIF(Last(Fields!NoOfParcels.Value &lt;&gt; 0),FORMATNUMBER(Last(Fields!NoOfParcels.Value)),"") + Chr(177) +
-IIF(Last(Fields!NoOfPallets.Value &lt;&gt; 0),FORMATNUMBER(Last(Fields!NoOfPallets.Value)),"") + Chr(177) +
-IIF(Last(Fields!NetWeight.Value &lt;&gt; 0),FORMATNUMBER(Last(Fields!NetWeight.Value)),"") + Chr(177) +
-IIF(Last(Fields!GrossWeight.Value &lt;&gt; 0),FORMATNUMBER(Last(Fields!GrossWeight.Value)),"") + Chr(177) +
+"30" + Chr(177) +
+"31" + Chr(177) +
+"32" + Chr(177) +
+"33" + Chr(177) +
 "34" + Chr(177) +
 "35" + Chr(177) +
 "36" + Chr(177) +
@@ -5125,10 +5125,10 @@ fields!Total_TotalAmountCaption.Value + chr(177) +
 fields!Total_NetAmountToPayCaption.Value + chr(177) +
 fields!Total_DocumentTotalCaption.Value + chr(177) +
 "14" + chr(177) +
-fields!NetWLbl.Value + chr(177) +
-fields!GrossWLbl.Value + chr(177) +
-fields!NoPalletsLbl.Value + chr(177) +
-fields!NoParcelsLbl.Value + chr(177) +
+"15" + chr(177) +
+"16" + chr(177) +
+"17" + chr(177) +
+"18" + chr(177) +
 IIF(fields!LocationAddress.Value &lt;&gt; "",fields!ShipmentFrom_Caption.Value,"") + chr(177) + 
 fields!LocationAddress.Value + chr(177) + 
 fields!AssignedUserID.Value + chr(177) +
@@ -8933,306 +8933,6 @@ fields!AssignedUserID.Value + chr(177) +
                 </Border>
               </Style>
             </Rectangle>
-            <Rectangle Name="Rectangle4">
-              <ReportItems>
-                <Line Name="Line178">
-                  <Top>0.45946cm</Top>
-                  <Left>0.00662cm</Left>
-                  <Height>0cm</Height>
-                  <Width>8.64069cm</Width>
-                  <Style>
-                    <Border>
-                      <Color>DimGray</Color>
-                      <Style>Solid</Style>
-                      <Width>0.5pt</Width>
-                    </Border>
-                  </Style>
-                </Line>
-                <Line Name="Line20">
-                  <Left>4.5465cm</Left>
-                  <Height>0.93719cm</Height>
-                  <Width>0cm</Width>
-                  <ZIndex>1</ZIndex>
-                  <Style>
-                    <Border>
-                      <Color>DimGray</Color>
-                      <Style>Solid</Style>
-                      <Width>0.5pt</Width>
-                    </Border>
-                  </Style>
-                </Line>
-                <Textbox Name="HeaderLabelNo54">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=Code.GetData(30,3)</Value>
-                          <Style>
-                            <FontFamily>Segoe UI</FontFamily>
-                            <FontSize>9pt</FontSize>
-                            <Format>'=Last(Fields!VatTotalFooterFormat.Value, "DataSet_Result")</Format>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                      <Style>
-                        <TextAlign>Right</TextAlign>
-                      </Style>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Left>2.31781cm</Left>
-                  <Height>0.3889cm</Height>
-                  <Width>2.08757cm</Width>
-                  <ZIndex>2</ZIndex>
-                  <Style>
-                    <Border>
-                      <Style>None</Style>
-                    </Border>
-                    <VerticalAlign>Middle</VerticalAlign>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                  </Style>
-                </Textbox>
-                <Textbox Name="HeaderLabelNo55">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=Code.GetData(31,3)</Value>
-                          <Style>
-                            <FontFamily>Segoe UI</FontFamily>
-                            <FontSize>9pt</FontSize>
-                            <Format>'=Last(Fields!VatTotalFooterFormat.Value, "DataSet_Result")</Format>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                      <Style>
-                        <TextAlign>Right</TextAlign>
-                      </Style>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>0.49474cm</Top>
-                  <Left>2.31782cm</Left>
-                  <Height>0.3889cm</Height>
-                  <Width>2.08757cm</Width>
-                  <ZIndex>3</ZIndex>
-                  <Style>
-                    <Border>
-                      <Style>None</Style>
-                    </Border>
-                    <VerticalAlign>Middle</VerticalAlign>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                  </Style>
-                </Textbox>
-                <Textbox Name="HeaderLabelNo56">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=Code.GetData(32,3)</Value>
-                          <Style>
-                            <FontFamily>Segoe UI</FontFamily>
-                            <FontSize>9pt</FontSize>
-                            <Format>'=Last(Fields!VatTotalFooterFormat.Value, "DataSet_Result")</Format>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                      <Style>
-                        <TextAlign>Right</TextAlign>
-                      </Style>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>0.02678cm</Top>
-                  <Left>6.29542cm</Left>
-                  <Height>0.3889cm</Height>
-                  <Width>2.08757cm</Width>
-                  <ZIndex>4</ZIndex>
-                  <Style>
-                    <Border>
-                      <Style>None</Style>
-                    </Border>
-                    <VerticalAlign>Middle</VerticalAlign>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                  </Style>
-                </Textbox>
-                <Textbox Name="HeaderLabelNo57">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=Code.GetData(33,3)</Value>
-                          <Style>
-                            <FontFamily>Segoe UI</FontFamily>
-                            <FontSize>9pt</FontSize>
-                            <Format>'=Last(Fields!VatTotalFooterFormat.Value, "DataSet_Result")</Format>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                      <Style>
-                        <TextAlign>Right</TextAlign>
-                      </Style>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>0.52152cm</Top>
-                  <Left>6.28571cm</Left>
-                  <Height>0.3889cm</Height>
-                  <Width>2.08757cm</Width>
-                  <ZIndex>5</ZIndex>
-                  <Style>
-                    <Border>
-                      <Style>None</Style>
-                    </Border>
-                    <VerticalAlign>Middle</VerticalAlign>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                  </Style>
-                </Textbox>
-                <Textbox Name="HeaderLabelNo25">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=Code.GetData(18,2)</Value>
-                          <Style>
-                            <FontFamily>Segoe UI</FontFamily>
-                            <FontSize>7pt</FontSize>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                      <Style>
-                        <TextAlign>Left</TextAlign>
-                      </Style>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>0.05449cm</Top>
-                  <Height>0.32592cm</Height>
-                  <Width>2.26541cm</Width>
-                  <ZIndex>6</ZIndex>
-                  <Style>
-                    <Border>
-                      <Style>None</Style>
-                    </Border>
-                    <VerticalAlign>Middle</VerticalAlign>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                  </Style>
-                </Textbox>
-                <Textbox Name="HeaderLabelNo26">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=Code.GetData(17,2)</Value>
-                          <Style>
-                            <FontFamily>Segoe UI</FontFamily>
-                            <FontSize>7pt</FontSize>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                      <Style>
-                        <TextAlign>Left</TextAlign>
-                      </Style>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>0.52152cm</Top>
-                  <Height>0.38889cm</Height>
-                  <Width>2.26541cm</Width>
-                  <ZIndex>7</ZIndex>
-                  <Style>
-                    <Border>
-                      <Style>None</Style>
-                    </Border>
-                    <VerticalAlign>Middle</VerticalAlign>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                  </Style>
-                </Textbox>
-                <Textbox Name="HeaderLabelNo27">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=Code.GetData(15,2)</Value>
-                          <Style>
-                            <FontFamily>Segoe UI</FontFamily>
-                            <FontSize>7pt</FontSize>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                      <Style>
-                        <TextAlign>Left</TextAlign>
-                      </Style>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>0.03527cm</Top>
-                  <Left>4.61705cm</Left>
-                  <Height>0.39647cm</Height>
-                  <Width>1.6078cm</Width>
-                  <ZIndex>8</ZIndex>
-                  <Style>
-                    <Border>
-                      <Style>None</Style>
-                    </Border>
-                    <VerticalAlign>Middle</VerticalAlign>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                  </Style>
-                </Textbox>
-                <Textbox Name="HeaderLabelNo28">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=Code.GetData(16,2)</Value>
-                          <Style>
-                            <FontFamily>Segoe UI</FontFamily>
-                            <FontSize>7pt</FontSize>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                      <Style>
-                        <TextAlign>Left</TextAlign>
-                      </Style>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>0.52152cm</Top>
-                  <Left>4.63161cm</Left>
-                  <Height>0.3889cm</Height>
-                  <Width>1.6078cm</Width>
-                  <ZIndex>9</ZIndex>
-                  <Style>
-                    <Border>
-                      <Style>None</Style>
-                    </Border>
-                    <VerticalAlign>Middle</VerticalAlign>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                  </Style>
-                </Textbox>
-              </ReportItems>
-              <KeepTogether>true</KeepTogether>
-              <Top>3.8899cm</Top>
-              <Left>10.92047cm</Left>
-              <Height>0.9372cm</Height>
-              <Width>8.64731cm</Width>
-              <ZIndex>2</ZIndex>
-              <Style>
-                <Border>
-                  <Color>DimGray</Color>
-                  <Style>Solid</Style>
-                  <Width>0.5pt</Width>
-                </Border>
-              </Style>
-            </Rectangle>
             <Textbox Name="Textbox14">
               <rd:DefaultName>Textbox14</rd:DefaultName>
               <CanGrow>true</CanGrow>
@@ -9490,15 +9190,6 @@ fields!AssignedUserID.Value + chr(177) +
       </DefaultValue>
       <Prompt>FiscalCode_Caption</Prompt>
     </ReportParameter>
-    <ReportParameter Name="GrossWeight_Caption">
-      <DataType>String</DataType>
-      <DefaultValue>
-        <Values>
-          <Value>GrossWeight_Caption</Value>
-        </Values>
-      </DefaultValue>
-      <Prompt>GrossWeight_Caption</Prompt>
-    </ReportParameter>
     <ReportParameter Name="Line_Amount_Caption">
       <DataType>String</DataType>
       <DefaultValue>
@@ -9570,33 +9261,6 @@ fields!AssignedUserID.Value + chr(177) +
         </Values>
       </DefaultValue>
       <Prompt>Line_VATIdentifier_Caption</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="NetWeightCaption">
-      <DataType>String</DataType>
-      <DefaultValue>
-        <Values>
-          <Value>NetWeightCaption</Value>
-        </Values>
-      </DefaultValue>
-      <Prompt>NetWeightCaption</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="NoOfPallets_Caption">
-      <DataType>String</DataType>
-      <DefaultValue>
-        <Values>
-          <Value>NoOfPallets_Caption</Value>
-        </Values>
-      </DefaultValue>
-      <Prompt>NoOfPallets_Caption</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="NoOfParcels_Caption">
-      <DataType>String</DataType>
-      <DefaultValue>
-        <Values>
-          <Value>NoOfParcels_Caption</Value>
-        </Values>
-      </DefaultValue>
-      <Prompt>NoOfParcels_Caption</Prompt>
     </ReportParameter>
     <ReportParameter Name="Our_Bank">
       <DataType>String</DataType>
@@ -9726,11 +9390,6 @@ fields!AssignedUserID.Value + chr(177) +
         </CellDefinition>
         <CellDefinition>
           <ColumnIndex>0</ColumnIndex>
-          <RowIndex>6</RowIndex>
-          <ParameterName>GrossWeight_Caption</ParameterName>
-        </CellDefinition>
-        <CellDefinition>
-          <ColumnIndex>0</ColumnIndex>
           <RowIndex>7</RowIndex>
           <ParameterName>Line_Amount_Caption</ParameterName>
         </CellDefinition>
@@ -9768,21 +9427,6 @@ fields!AssignedUserID.Value + chr(177) +
           <ColumnIndex>0</ColumnIndex>
           <RowIndex>14</RowIndex>
           <ParameterName>Line_VATIdentifier_Caption</ParameterName>
-        </CellDefinition>
-        <CellDefinition>
-          <ColumnIndex>0</ColumnIndex>
-          <RowIndex>15</RowIndex>
-          <ParameterName>NetWeightCaption</ParameterName>
-        </CellDefinition>
-        <CellDefinition>
-          <ColumnIndex>0</ColumnIndex>
-          <RowIndex>16</RowIndex>
-          <ParameterName>NoOfPallets_Caption</ParameterName>
-        </CellDefinition>
-        <CellDefinition>
-          <ColumnIndex>0</ColumnIndex>
-          <RowIndex>17</RowIndex>
-          <ParameterName>NoOfParcels_Caption</ParameterName>
         </CellDefinition>
         <CellDefinition>
           <ColumnIndex>0</ColumnIndex>
@@ -10180,36 +9824,6 @@ End Function
         </Field>
         <Field Name="Salesperson">
           <DataField>Salesperson</DataField>
-        </Field>
-        <Field Name="NoOfParcels">
-          <DataField>NoOfParcels</DataField>
-        </Field>
-        <Field Name="NoOfPallets">
-          <DataField>NoOfPallets</DataField>
-        </Field>
-        <Field Name="NetWeight">
-          <DataField>NetWeight</DataField>
-        </Field>
-        <Field Name="NetWeightFormat">
-          <DataField>NetWeightFormat</DataField>
-        </Field>
-        <Field Name="GrossWeight">
-          <DataField>GrossWeight</DataField>
-        </Field>
-        <Field Name="GrossWeightFormat">
-          <DataField>GrossWeightFormat</DataField>
-        </Field>
-        <Field Name="NoPalletsLbl">
-          <DataField>NoPalletsLbl</DataField>
-        </Field>
-        <Field Name="NoParcelsLbl">
-          <DataField>NoParcelsLbl</DataField>
-        </Field>
-        <Field Name="GrossWLbl">
-          <DataField>GrossWLbl</DataField>
-        </Field>
-        <Field Name="NetWLbl">
-          <DataField>NetWLbl</DataField>
         </Field>
         <Field Name="Total_NetAmountToPayCaption">
           <DataField>Total_NetAmountToPayCaption</DataField>

@@ -783,12 +783,6 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report CHM Posted Credit Memo - NamedType FromLbl</note>
         </trans-unit>
-        <trans-unit id="Report 950276140 - NamedType 3373067010" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Gross Weight</source>
-          <target state="translated">Peso lordo</target>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Posted Credit Memo - NamedType GrossWeightCaptionLbl</note>
-        </trans-unit>
         <trans-unit id="Report 950276140 - NamedType 1243851074" size-unit="char" translate="yes" xml:space="preserve">
           <source>Home Page</source>
           <target state="translated">Home page</target>
@@ -903,29 +897,11 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report CHM Posted Credit Memo - NamedType NetAmountToPayCaptionLbl</note>
         </trans-unit>
-        <trans-unit id="Report 950276140 - NamedType 2766159901" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Net Weight</source>
-          <target state="translated">Peso netto</target>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Posted Credit Memo - NamedType NetWeightCaptionLbl</note>
-        </trans-unit>
         <trans-unit id="Report 950276140 - NamedType 2491107794" size-unit="char" translate="yes" xml:space="preserve">
           <source>You must specify one or more filters to avoid accidentally printing all documents.</source>
           <target state="translated">È necessario specificare uno o più filtri per evitare di stampare accidentalmente tutti i documenti.</target>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report CHM Posted Credit Memo - NamedType NoFilterSetErr</note>
-        </trans-unit>
-        <trans-unit id="Report 950276140 - NamedType 4257211361" size-unit="char" translate="yes" xml:space="preserve">
-          <source>No. of Pallets</source>
-          <target state="translated">N. pallet</target>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Posted Credit Memo - NamedType NoOfPalletsCaptionLbl</note>
-        </trans-unit>
-        <trans-unit id="Report 950276140 - NamedType 1781533930" size-unit="char" translate="yes" xml:space="preserve">
-          <source>No. of Parcels</source>
-          <target state="translated">N. colli</target>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Posted Credit Memo - NamedType NoOfParcelsCaptionLbl</note>
         </trans-unit>
         <trans-unit id="Report 950276140 - NamedType 3268937432" size-unit="char" translate="yes" xml:space="preserve">
           <source>Operator</source>
@@ -1203,12 +1179,6 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report CHM Posted Credit Memo - ReportLabel FiscalCode_Caption</note>
         </trans-unit>
-        <trans-unit id="Report 950276140 - ReportLabel 2460167661" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Gross Weight</source>
-          <target state="translated">Peso lordo</target>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Posted Credit Memo - ReportLabel GrossWeight_Caption</note>
-        </trans-unit>
         <trans-unit id="Report 950276140 - ReportLabel 2162186408" size-unit="char" translate="yes" xml:space="preserve">
           <source>Amount</source>
           <target state="translated">Importo</target>
@@ -1256,24 +1226,6 @@
           <target state="translated">IVA</target>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report CHM Posted Credit Memo - ReportLabel Line_VATIdentifier_Caption</note>
-        </trans-unit>
-        <trans-unit id="Report 950276140 - ReportLabel 875500059" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Net Weight</source>
-          <target state="translated">Peso netto</target>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Posted Credit Memo - ReportLabel NetWeightCaption</note>
-        </trans-unit>
-        <trans-unit id="Report 950276140 - ReportLabel 4221005070" size-unit="char" translate="yes" xml:space="preserve">
-          <source>No. of Pallets</source>
-          <target state="translated">N. pallet</target>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Posted Credit Memo - ReportLabel NoOfPallets_Caption</note>
-        </trans-unit>
-        <trans-unit id="Report 950276140 - ReportLabel 326692037" size-unit="char" translate="yes" xml:space="preserve">
-          <source>No. of Parcels</source>
-          <target state="translated">N. colli</target>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Posted Credit Memo - ReportLabel NoOfParcels_Caption</note>
         </trans-unit>
         <trans-unit id="Report 950276140 - ReportLabel 471182307" size-unit="char" translate="yes" xml:space="preserve">
           <source>Our Bank</source>
@@ -3650,18 +3602,6 @@
           <target state="translated">Opzioni</target>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report CHM Return Shipment - Control Options - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Report 3737678696 - Control 2256484917 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Specifies if the document is archived after you preview or print it.</source>
-          <target state="translated">Specifica se il documento viene archiviato dopo l'anteprima o la stampa.</target>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Return Shipment - Control ArchiveDocumentReq - Property ToolTip</note>
-        </trans-unit>
-        <trans-unit id="Report 3737678696 - Control 2256484917 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Archive Document</source>
-          <target state="translated">Archivia documento</target>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Return Shipment - Control ArchiveDocumentReq - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 3737678696 - Control 1768134489 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Specifies if you want the report to include information about components that were used in linked assembly orders.</source>
@@ -6675,18 +6615,6 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - Control Options - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Report 729228690 - Control 2256484917 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Specifies if the document is archived after you preview or print it.</source>
-          <target state="translated">Specifica se il documento viene archiviato dopo l'anteprima o la stampa.</target>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - Control ArchiveDocumentReq - Property ToolTip</note>
-        </trans-unit>
-        <trans-unit id="Report 729228690 - Control 2256484917 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Archive Document</source>
-          <target state="translated">Archivia documento</target>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report CHM Sales Shipment - Control ArchiveDocumentReq - Property Caption</note>
-        </trans-unit>
         <trans-unit id="Report 729228690 - Control 1768134489 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Specifies if you want the report to include information about components that were used in linked assembly orders that supplied the item(s) being sold.</source>
           <target state="translated">Specifica se il report deve includere informazioni sui componenti utilizzati negli ordini di assemblaggio collegati che hanno fornito gli articoli venduti.</target>
@@ -6764,6 +6692,96 @@
           <target state="translated">Specifica la data di produzione del lotto.</target>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension CHM Lot No. Information List - Control CHM Production Date - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 2549711039 - Control 2135333572 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1514853781">
+          <source>Specifies the appearance of the goods.</source>
+          <target state="translated">Specifica l'aspetto dei beni.</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension CHM Posted Return Shipment - Control CHM Goods Appearance - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 2549711039 - Control 1352193964 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1514853781">
+          <source>Specifies the non-reusable packaging quantity.</source>
+          <target state="translated">Specifica la quantità di imballaggi non riutilizzabili.</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension CHM Posted Return Shipment - Control CHM Non-reusable Packaging - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 2549711039 - Control 1269850274 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1514853781">
+          <source>Specifies the total gross weight of the return shipment.</source>
+          <target state="translated">Specifica il peso lordo totale della spedizione di reso.</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension CHM Posted Return Shipment - Control CHM Total Gross Weight - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 2549711039 - Control 4208119205 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1514853781">
+          <source>Specifies the total net weight of the return shipment.</source>
+          <target state="translated">Specifica il peso netto totale della spedizione di reso.</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension CHM Posted Return Shipment - Control CHM Total Net Weight - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 2549711039 - Control 2038655208 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1514853781">
+          <source>Specifies the total number of pallets.</source>
+          <target state="translated">Specifica il numero totale di pallet.</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension CHM Posted Return Shipment - Control CHM Total Pallet - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 2549711039 - Control 2368110039 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1514853781">
+          <source>Specifies the total number of parcels.</source>
+          <target state="translated">Specifica il numero totale di colli.</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension CHM Posted Return Shipment - Control CHM Total Parcel - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 2549711039 - Control 3000275744 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1514853781">
+          <source>Specifies the total volume of the return shipment.</source>
+          <target state="translated">Specifica il volume totale della spedizione di reso.</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension CHM Posted Return Shipment - Control CHM Total Volume - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 2127049223 - Control 2135333572 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 4271578914">
+          <source>Specifies the appearance of the goods.</source>
+          <target state="translated">Specifica l'aspetto dei beni.</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension CHM Posted Return Shpt. Update - Control CHM Goods Appearance - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 2127049223 - Control 1352193964 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 4271578914">
+          <source>Specifies the non-reusable packaging quantity.</source>
+          <target state="translated">Specifica la quantità di imballaggi non riutilizzabili.</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension CHM Posted Return Shpt. Update - Control CHM Non-reusable Packaging - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 2127049223 - Control 1269850274 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 4271578914">
+          <source>Specifies the total gross weight of the return shipment.</source>
+          <target state="translated">Specifica il peso lordo totale della spedizione di reso.</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension CHM Posted Return Shpt. Update - Control CHM Total Gross Weight - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 2127049223 - Control 4208119205 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 4271578914">
+          <source>Specifies the total net weight of the return shipment.</source>
+          <target state="translated">Specifica il peso netto totale della spedizione di reso.</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension CHM Posted Return Shpt. Update - Control CHM Total Net Weight - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 2127049223 - Control 2038655208 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 4271578914">
+          <source>Specifies the total number of pallets.</source>
+          <target state="translated">Specifica il numero totale di pallet.</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension CHM Posted Return Shpt. Update - Control CHM Total Pallet - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 2127049223 - Control 2368110039 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 4271578914">
+          <source>Specifies the total number of parcels.</source>
+          <target state="translated">Specifica il numero totale di colli.</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension CHM Posted Return Shpt. Update - Control CHM Total Parcel - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 2127049223 - Control 3000275744 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 4271578914">
+          <source>Specifies the total volume of the return shipment.</source>
+          <target state="translated">Specifica il volume totale della spedizione di reso.</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension CHM Posted Return Shpt. Update - Control CHM Total Volume - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 2127049223 - Control 3984986136 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 4271578914">
+          <source>Advanced Shipment &amp; Receipt</source>
+          <target state="translated">Spedizione e ricevimento avanzati</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension CHM Posted Return Shpt. Update - Control CHMShipmentDetails - Property Caption</note>
         </trans-unit>
         <trans-unit id="PageExtension 3355087585 - Control 2135333572 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 3373253667">
           <source>Specifies the appearance of the goods.</source>
@@ -7022,6 +7040,48 @@
           <target state="translated">Data di produzione</target>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension CHM Reservation Entry - Field CHM Production Date - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="TableExtension 4054552085 - Field 2135333572 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1721347679">
+          <source>Goods Appearance</source>
+          <target state="translated">Aspetto dei beni</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension CHM Return Shipment Header - Field CHM Goods Appearance - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="TableExtension 4054552085 - Field 1352193964 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1721347679">
+          <source>CHM Non-reusable Packaging</source>
+          <target state="translated">CHM Imballaggi non riutilizzabili</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension CHM Return Shipment Header - Field CHM Non-reusable Packaging - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="TableExtension 4054552085 - Field 1269850274 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1721347679">
+          <source>Total Gross Weight</source>
+          <target state="translated">Peso lordo totale</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension CHM Return Shipment Header - Field CHM Total Gross Weight - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="TableExtension 4054552085 - Field 4208119205 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1721347679">
+          <source>Total Net Weight</source>
+          <target state="translated">Peso netto totale</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension CHM Return Shipment Header - Field CHM Total Net Weight - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="TableExtension 4054552085 - Field 2038655208 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1721347679">
+          <source>Total Pallet</source>
+          <target state="translated">Totale pallet</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension CHM Return Shipment Header - Field CHM Total Pallet - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="TableExtension 4054552085 - Field 2368110039 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1721347679">
+          <source>Total Parcel</source>
+          <target state="translated">Totale colli</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension CHM Return Shipment Header - Field CHM Total Parcel - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="TableExtension 4054552085 - Field 3000275744 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1721347679">
+          <source>Total Volume</source>
+          <target state="translated">Volume totale</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension CHM Return Shipment Header - Field CHM Total Volume - Property Caption</note>
         </trans-unit>
         <trans-unit id="TableExtension 2848523308 - Field 3353569543 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 4145206282">
           <source>Michelin Label Nos.</source>
