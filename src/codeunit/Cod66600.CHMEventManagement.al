@@ -82,4 +82,61 @@ codeunit 66600 "CHM Event Management"
         SalesShptHeader."CHM Goods Appearance" := FromSalesShptHeader."CHM Goods Appearance";
         SalesShptHeader."CHM Non-reusable Packaging" := FromSalesShptHeader."CHM Non-reusable Packaging";
     end;
+
+    /// <summary>
+    /// Copies the Chematek shipment fields from the warehouse shipment to the posted return shipment.
+    /// </summary>
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnBeforeReturnShptHeaderInsert', '', false, false)]
+    local procedure CopyToReturnShptHeader(var ReturnShptHeader: Record "Return Shipment Header"; WarehouseShipmentHeader: Record "Warehouse Shipment Header"; WhseShip: Boolean)
+    var
+        FromWarehouseShipmentHeader: Record "Warehouse Shipment Header";
+    begin
+        if not WhseShip then
+            exit;
+        if not FromWarehouseShipmentHeader.Get(WarehouseShipmentHeader."No.") then
+            exit;
+
+        ReturnShptHeader."CHM Total Net Weight" := FromWarehouseShipmentHeader."CHM Total Net Weight";
+        ReturnShptHeader."CHM Total Gross Weight" := FromWarehouseShipmentHeader."CHM Total Gross Weight";
+        ReturnShptHeader."CHM Total Parcel" := FromWarehouseShipmentHeader."CHM Total Parcel";
+        ReturnShptHeader."CHM Total Pallet" := FromWarehouseShipmentHeader."CHM Total Pallet";
+        ReturnShptHeader."CHM Total Volume" := FromWarehouseShipmentHeader."CHM Total Volume";
+        ReturnShptHeader."CHM Goods Appearance" := FromWarehouseShipmentHeader."CHM Goods Appearance";
+        ReturnShptHeader."CHM Non-reusable Packaging" := FromWarehouseShipmentHeader."CHM Non-reusable Packaging";
+    end;
+
+    /// <summary>
+    /// Marks the Posted Return Shpt. - Update page as changed when a Chematek shipment field is changed.
+    /// The values are compared with xReturnShipmentHeaderGlobal, the record saved when the page was opened.
+    /// </summary>
+    [EventSubscriber(ObjectType::Page, Page::"Posted Return Shpt. - Update", 'OnAfterRecordChanged', '', false, false)]
+    local procedure MarkChangedOnReturnShptUpdate(var ReturnShipmentHeader: Record "Return Shipment Header"; var IsChanged: Boolean; xReturnShipmentHeaderGlobal: Record "Return Shipment Header")
+    begin
+        if IsChanged then
+            exit;
+
+        IsChanged :=
+          (ReturnShipmentHeader."CHM Total Net Weight" <> xReturnShipmentHeaderGlobal."CHM Total Net Weight") or
+          (ReturnShipmentHeader."CHM Total Gross Weight" <> xReturnShipmentHeaderGlobal."CHM Total Gross Weight") or
+          (ReturnShipmentHeader."CHM Total Parcel" <> xReturnShipmentHeaderGlobal."CHM Total Parcel") or
+          (ReturnShipmentHeader."CHM Total Pallet" <> xReturnShipmentHeaderGlobal."CHM Total Pallet") or
+          (ReturnShipmentHeader."CHM Total Volume" <> xReturnShipmentHeaderGlobal."CHM Total Volume") or
+          (ReturnShipmentHeader."CHM Goods Appearance" <> xReturnShipmentHeaderGlobal."CHM Goods Appearance") or
+          (ReturnShipmentHeader."CHM Non-reusable Packaging" <> xReturnShipmentHeaderGlobal."CHM Non-reusable Packaging");
+    end;
+
+    /// <summary>
+    /// Saves the Chematek shipment fields changed on the Posted Return Shpt. - Update page.
+    /// </summary>
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Return Shipment Header - Edit", 'OnBeforeReturnShipmentHeaderModify', '', false, false)]
+    local procedure CopyReturnShipmentFieldsOnEdit(var ReturnShipmentHeader: Record "Return Shipment Header"; ReturnShipmentHeaderRec: Record "Return Shipment Header")
+    begin
+        ReturnShipmentHeader."CHM Total Net Weight" := ReturnShipmentHeaderRec."CHM Total Net Weight";
+        ReturnShipmentHeader."CHM Total Gross Weight" := ReturnShipmentHeaderRec."CHM Total Gross Weight";
+        ReturnShipmentHeader."CHM Total Parcel" := ReturnShipmentHeaderRec."CHM Total Parcel";
+        ReturnShipmentHeader."CHM Total Pallet" := ReturnShipmentHeaderRec."CHM Total Pallet";
+        ReturnShipmentHeader."CHM Total Volume" := ReturnShipmentHeaderRec."CHM Total Volume";
+        ReturnShipmentHeader."CHM Goods Appearance" := ReturnShipmentHeaderRec."CHM Goods Appearance";
+        ReturnShipmentHeader."CHM Non-reusable Packaging" := ReturnShipmentHeaderRec."CHM Non-reusable Packaging";
+    end;
 }

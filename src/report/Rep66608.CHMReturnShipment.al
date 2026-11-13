@@ -833,9 +833,8 @@ report 66608 "CHM Return Shipment"
     /// </summary>
     local procedure SetShipmentDataFields()
     begin
-        NoOfPallets := 0;
-        GoodsAppearanceText := '';
-        CHMMgmt.CalcReturnShipmentTotals(Header."No.", TotalGrossWeight, TotalNetWeight, TotalVolume, NoOfParcels);
+        CHMMgmt.CalcReturnShipmentTotals(Header, TotalGrossWeight, TotalNetWeight, TotalVolume, NoOfParcels, NoOfPallets);
+        GoodsAppearanceText := CHMMgmt.GetGoodsAppearanceText(Header."CHM Goods Appearance");
         ShipmentStartingDateTime := CHMMgmt.GetTransportStartDateTime(Header);
     end;
 

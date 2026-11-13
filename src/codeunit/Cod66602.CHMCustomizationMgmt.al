@@ -940,17 +940,29 @@ codeunit 66602 "CHM Customization Mgmt."
     end;
 
     /// <summary>
-    /// Calculates the weights, volume and parcels of the posted return shipment from its lines.
+    /// Returns the weights, volume, parcels and pallets printed on the return shipment DDT.
+    /// The Chematek shipment fields of the posted return shipment are used (copied from the warehouse shipment
+    /// on posting, or entered with Update Document). When none of them is filled in, weights, volume and parcels
+    /// are calculated from the lines, the same way as the standard purchase statistics.
     /// </summary>
-    procedure CalcReturnShipmentTotals(ReturnShipmentNo: Code[20]; var TotalGrossWeight: Decimal; var TotalNetWeight: Decimal; var TotalVolume: Decimal; var NoOfParcels: Integer)
+    procedure CalcReturnShipmentTotals(ReturnShipmentHeader: Record "Return Shipment Header"; var TotalGrossWeight: Decimal; var TotalNetWeight: Decimal; var TotalVolume: Decimal; var NoOfParcels: Integer; var NoOfPallets: Integer)
+    begin
+        TotalGrossWeight := ReturnShipmentHeader."CHM Total Gross Weight";
+        TotalNetWeight := ReturnShipmentHeader."CHM Total Net Weight";
+        TotalVolume := ReturnShipmentHeader."CHM Total Volume";
+        NoOfParcels := ReturnShipmentHeader."CHM Total Parcel";
+        NoOfPallets := ReturnShipmentHeader."CHM Total Pallet";
+
+        if (TotalGrossWeight <> 0) or (TotalNetWeight <> 0) or (TotalVolume <> 0) or (NoOfParcels <> 0) or (NoOfPallets <> 0) then
+            exit;
+
+        CalcReturnShipmentTotalsFromLines(ReturnShipmentHeader."No.", TotalGrossWeight, TotalNetWeight, TotalVolume, NoOfParcels);
+    end;
+
+    local procedure CalcReturnShipmentTotalsFromLines(ReturnShipmentNo: Code[20]; var TotalGrossWeight: Decimal; var TotalNetWeight: Decimal; var TotalVolume: Decimal; var NoOfParcels: Integer)
     var
         ReturnShipmentLine: Record "Return Shipment Line";
     begin
-        // TODO (pending decision): the shipment data of DEV-001 / DEV-002 (weights, parcels, pallets, volume, goods
-        // appearance) exists only on the Posted Sales Shipment, not on the Posted Return Shipment.
-        // Until the agreed source is confirmed, weights, volume and parcels are calculated from the lines, the same way
-        // as the standard purchase statistics (item card values copied to the line x quantity).
-        // Pallets and goods appearance have no standard source and are left blank, to be filled in by hand.
         TotalGrossWeight := 0;
         TotalNetWeight := 0;
         TotalVolume := 0;
@@ -959,6 +971,7 @@ codeunit 66602 "CHM Customization Mgmt."
         ReturnShipmentLine.SetRange("Document No.", ReturnShipmentNo);
         ReturnShipmentLine.SetFilter(Type, '<>%1', ReturnShipmentLine.Type::" ");
         ReturnShipmentLine.SetFilter(Quantity, '<>0');
+        ReturnShipmentLine.SetLoadFields(Quantity, "Gross Weight", "Net Weight", "Unit Volume", "Units per Parcel");
         if ReturnShipmentLine.FindSet() then
             repeat
                 TotalGrossWeight += ReturnShipmentLine.Quantity * ReturnShipmentLine."Gross Weight";
