@@ -52,12 +52,10 @@ page 66601 "CHM Michelin Labels"
                 }
                 field("Item No."; Rec."Item No.")
                 {
-                    Editable = false;
                     ToolTip = 'Specifies the item number.';
                 }
                 field(Description; Rec.Description)
                 {
-                    Editable = false;
                     ToolTip = 'Specifies the item description.';
                 }
                 field("Lot No."; Rec."Lot No.")
@@ -111,32 +109,26 @@ page 66601 "CHM Michelin Labels"
                 }
                 field("Ship-to Name"; Rec."Ship-to Name")
                 {
-                    Editable = false;
                     ToolTip = 'Specifies the ship-to name.';
                 }
                 field("Ship-to Address"; Rec."Ship-to Address")
                 {
-                    Editable = false;
                     ToolTip = 'Specifies the ship-to address.';
                 }
                 field("Ship-to City"; Rec."Ship-to City")
                 {
-                    Editable = false;
                     ToolTip = 'Specifies the ship-to city.';
                 }
                 field("Ship-to Post Code"; Rec."Ship-to Post Code")
                 {
-                    Editable = false;
                     ToolTip = 'Specifies the ship-to post code.';
                 }
                 field("Ship-to County"; Rec."Ship-to County")
                 {
-                    Editable = false;
                     ToolTip = 'Specifies the ship-to county.';
                 }
                 field("Ship-to Country"; Rec."Ship-to Country")
                 {
-                    Editable = false;
                     ToolTip = 'Specifies the ship-to country.';
                 }
             }

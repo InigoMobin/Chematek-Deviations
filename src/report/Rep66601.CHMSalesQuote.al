@@ -1,4 +1,4 @@
-report 66601 "CHM Sales Quote"
+/* report 66601 "CHM Sales Quote"
 {
     Caption = 'Sales Quote';
     UsageCategory = None;
@@ -1623,3 +1623,4 @@ report 66601 "CHM Sales Quote"
         end;
     end;
 }
+ */

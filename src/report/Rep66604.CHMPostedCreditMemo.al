@@ -1,4 +1,4 @@
-report 66604 "CHM Posted Credit Memo"
+/* report 66604 "CHM Posted Credit Memo"
 {
     Caption = 'CHM Posted Credit Memo';
     UsageCategory = None;
@@ -1850,3 +1850,4 @@ report 66604 "CHM Posted Credit Memo"
         CHMMgmt.FillNameValueTable(RightHeader, CompanyBankAccount.FieldCaption("SWIFT Code"), CompanyBankAccount."SWIFT Code");
     end;
 }
+ */

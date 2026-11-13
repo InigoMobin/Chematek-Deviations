@@ -1,4 +1,4 @@
-report 66603 "CHM Posted Sales Invoice"
+/* report 66603 "CHM Posted Sales Invoice"
 {
     Caption = 'CHM Posted Sales Invoice';
     UsageCategory = None;
@@ -1871,3 +1871,4 @@ report 66603 "CHM Posted Sales Invoice"
         CHMMgmt.FillNameValueTable(RightHeader, Header.GetPaymentReferenceLbl(), Header.GetPaymentReference());
     end;
 }
+ */

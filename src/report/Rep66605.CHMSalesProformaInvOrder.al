@@ -1,4 +1,4 @@
-report 66605 "CHM Sales Proforma Inv. Order"
+/* report 66605 "CHM Sales Proforma Inv. Order"
 {
     Caption = 'CHM Sales Proforma Invoice from order';
     UsageCategory = None;
@@ -1768,3 +1768,4 @@ report 66605 "CHM Sales Proforma Inv. Order"
         end;
     end;
 }
+ */
