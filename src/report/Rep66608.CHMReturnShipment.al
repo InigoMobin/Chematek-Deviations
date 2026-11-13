@@ -531,12 +531,6 @@ report 66608 "CHM Return Shipment"
                         Caption = 'Show Assembly Components';
                         ToolTip = 'Specifies if you want the report to include information about components that were used in linked assembly orders.';
                     }
-                    field(ArchiveDocumentReq; ArchiveDocument)
-                    {
-                        ApplicationArea = PurchReturnOrder;
-                        Caption = 'Archive Document';
-                        ToolTip = 'Specifies if the document is archived after you preview or print it.';
-                    }
                 }
             }
         }
@@ -659,10 +653,6 @@ report 66608 "CHM Return Shipment"
                       Enum::"Interaction Log Entry Document Type"::"Purch. Return Shipment".AsInteger(), Header."No.", 0, 0, Database::Vendor,
                       Header."Buy-from Vendor No.", Header."Purchaser Code", '', Header."Posting Description", '');
                 until Header.Next() = 0;
-
-        // TODO (pending decision): "Archive Document" is on the agreed request page, but a posted return shipment has
-        // no standard archive (ArchiveManagement only archives open purchase documents). Implement the agreed behaviour
-        // here (for example, attach the printed DDT as PDF to the posted return shipment), skipping preview mode.
     end;
 
     var
@@ -690,7 +680,6 @@ report 66608 "CHM Return Shipment"
         LogInteraction: Boolean;
         LogInteractionEnable: Boolean;
         DisplayAssemblyInformation: Boolean;
-        ArchiveDocument: Boolean;
         ReportLanguageCode: Code[10];
         CurrCode: Text[10];
         PurchaserText: Text[50];
@@ -781,7 +770,6 @@ report 66608 "CHM Return Shipment"
     begin
         LogInteraction := NewLogInteraction;
         DisplayAssemblyInformation := DisplayAsmInfo;
-        ArchiveDocument := NewArchiveDocument;
     end;
 
     /// <summary>

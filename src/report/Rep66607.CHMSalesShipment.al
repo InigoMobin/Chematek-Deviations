@@ -664,12 +664,6 @@ report 66607 "CHM Sales Shipment"
                         Caption = 'Show Assembly Components';
                         ToolTip = 'Specifies if you want the report to include information about components that were used in linked assembly orders that supplied the item(s) being sold.';
                     }
-                    field(ArchiveDocumentReq; ArchiveDocument)
-                    {
-                        ApplicationArea = Basic, Suite;
-                        Caption = 'Archive Document';
-                        ToolTip = 'Specifies if the document is archived after you preview or print it.';
-                    }
                 }
             }
         }
@@ -770,11 +764,7 @@ report 66607 "CHM Sales Shipment"
                         SegManagement.LogDocument(
                           Enum::"Interaction Log Entry Document Type"::"Sales Shpt. Note".AsInteger(), Header."No.", 0, 0, Database::Customer,
                           Header."Bill-to Customer No.", Header."Salesperson Code", Header."Campaign No.", Header."Posting Description", '');
-                until Header.Next() = 0;
-
-        // TODO (pending decision): "Archive Document" is on the agreed request page, but a posted sales shipment has
-        // no standard archive (ArchiveManagement only archives open sales documents). Implement the agreed behaviour
-        // here (for example, attach the printed DDT as PDF to the posted shipment), skipping preview mode.
+                until Header.Next() = 0;        
     end;
 
     var
@@ -804,7 +794,6 @@ report 66607 "CHM Sales Shipment"
         LogInteraction: Boolean;
         LogInteractionEnable: Boolean;
         DisplayAssemblyInformation: Boolean;
-        ArchiveDocument: Boolean;
         ReportLanguageCode: Code[10];
         CurrCode: Text[10];
         SalesPersonText: Text[50];
@@ -894,7 +883,6 @@ report 66607 "CHM Sales Shipment"
     begin
         LogInteraction := NewLogInteraction;
         DisplayAssemblyInformation := DisplayAsmInfo;
-        ArchiveDocument := NewArchiveDocument;
     end;
 
     /// <summary>
