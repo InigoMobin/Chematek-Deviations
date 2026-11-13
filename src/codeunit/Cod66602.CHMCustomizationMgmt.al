@@ -1,7 +1,6 @@
 codeunit 66602 "CHM Customization Mgmt."
 {
     var
-        FiscalCodeFieldTok: Label 'Fiscal Code', Locked = true;
         VATExemptionTableTok: Label 'VAT Exemption', Locked = true;
         VATExemptTypeFieldTok: Label 'Type', Locked = true;
         VATExemptAccountNoFieldTok: Label 'No.', Locked = true;
@@ -13,8 +12,7 @@ codeunit 66602 "CHM Customization Mgmt."
         DeclarationOfIntentTxt: Label 'Declaration of intent no. %1 of %2', Comment = '%1 = VAT Exempt. No., %2 = VAT Exempt. Date';
         DeclarationOfIntentNoDateTxt: Label 'Declaration of intent no. %1', Comment = '%1 = VAT Exempt. No.';
         ShippingAgentCodeFieldTok: Label 'Shipping Agent Code', Locked = true;
-        ShippingStartingDateFieldTok: Label 'Shipping Starting Date', Locked = true;
-        ShippingStartingTimeFieldTok: Label 'Shipping Starting Time', Locked = true;
+        TransportStartTimeFormatTok: Label '<Hours24,2>:<Minutes,2>', Locked = true;
         DateTimeTok: Label '%1 %2', Locked = true;
         BankAccountIBANTok: Label '%1 - %2', Locked = true;
         Code39CharsTok: Label 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-. $/+%', Locked = true;
@@ -24,7 +22,7 @@ codeunit 66602 "CHM Customization Mgmt."
         PartiallyAppliedLbl: Label 'The credit memo has been partially applied. The remaining amount is %1', Comment = '%1 = an amount';
 
     /// <summary>
-    /// Returns the Fiscal Code of the customer (Italian localization field, read by name), or blank when the field does not exist.
+    /// Returns the Fiscal Code of the customer (Italian localization field), or blank when the customer does not exist.
     /// </summary>
     procedure GetCustomerFiscalCode(CustomerNo: Code[20]): Text
     var
@@ -32,13 +30,14 @@ codeunit 66602 "CHM Customization Mgmt."
     begin
         if CustomerNo = '' then
             exit('');
+        Customer.SetLoadFields("Fiscal Code");
         if not Customer.Get(CustomerNo) then
             exit('');
-        exit(GetFieldValueByName(Customer, Database::Customer, FiscalCodeFieldTok));
+        exit(Customer."Fiscal Code");
     end;
 
     /// <summary>
-    /// Returns the Fiscal Code of the vendor (Italian localization field, read by name), or blank when the field does not exist.
+    /// Returns the Fiscal Code of the vendor (Italian localization field), or blank when the vendor does not exist.
     /// </summary>
     procedure GetVendorFiscalCode(VendorNo: Code[20]): Text
     var
@@ -46,9 +45,10 @@ codeunit 66602 "CHM Customization Mgmt."
     begin
         if VendorNo = '' then
             exit('');
+        Vendor.SetLoadFields("Fiscal Code");
         if not Vendor.Get(VendorNo) then
             exit('');
-        exit(GetFieldValueByName(Vendor, Database::Vendor, FiscalCodeFieldTok));
+        exit(Vendor."Fiscal Code");
     end;
 
     /// <summary>
@@ -1105,24 +1105,35 @@ codeunit 66602 "CHM Customization Mgmt."
     end;
 
     /// <summary>
-    /// Returns the transport start date and time of the shipment (Italian localization fields, read by name).
+    /// Returns the transport start date and time printed on the sales shipment DDT:
+    /// the Shipment Date of the shipment (Posting Date when blank) and the time the shipment was posted.
     /// </summary>
-    procedure GetTransportStartDateTime(RecVariant: Variant; TableNo: Integer): Text
+    procedure GetTransportStartDateTime(SalesShipmentHeader: Record "Sales Shipment Header"): Text
     var
-        StartingDateText: Text;
-        StartingTimeText: Text;
+        StartingDate: Date;
     begin
-        // TODO (pending decision): standard W1 has no transport start date / time on the shipment. The Italian
-        // localization adds "Shipping Starting Date" / "Shipping Starting Time", read by name so the extension
-        // compiles without a dependency on the IT base app. When the fields do not exist or are blank, the
-        // value is left blank, to be filled in by hand.
-        StartingDateText := GetFieldValueByName(RecVariant, TableNo, ShippingStartingDateFieldTok);
-        StartingTimeText := GetFieldValueByName(RecVariant, TableNo, ShippingStartingTimeFieldTok);
-        if StartingDateText = '' then
+        StartingDate := SalesShipmentHeader."Shipment Date";
+        if StartingDate = 0D then
+            StartingDate := SalesShipmentHeader."Posting Date";
+        exit(FormatTransportStartDateTime(StartingDate, SalesShipmentHeader.SystemCreatedAt));
+    end;
+
+    /// <summary>
+    /// Returns the transport start date and time printed on the return shipment DDT:
+    /// the Posting Date of the return shipment and the time it was posted.
+    /// </summary>
+    procedure GetTransportStartDateTime(ReturnShipmentHeader: Record "Return Shipment Header"): Text
+    begin
+        exit(FormatTransportStartDateTime(ReturnShipmentHeader."Posting Date", ReturnShipmentHeader.SystemCreatedAt));
+    end;
+
+    local procedure FormatTransportStartDateTime(StartingDate: Date; PostedAt: DateTime): Text
+    begin
+        if StartingDate = 0D then
             exit('');
-        if StartingTimeText = '' then
-            exit(StartingDateText);
-        exit(StrSubstNo(DateTimeTok, StartingDateText, StartingTimeText));
+        if PostedAt = 0DT then
+            exit(Format(StartingDate));
+        exit(StrSubstNo(DateTimeTok, Format(StartingDate), Format(DT2Time(PostedAt), 0, TransportStartTimeFormatTok)));
     end;
 
     /// <summary>

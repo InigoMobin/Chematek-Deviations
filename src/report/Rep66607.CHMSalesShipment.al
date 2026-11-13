@@ -935,7 +935,7 @@ report 66607 "CHM Sales Shipment"
     begin
         GoodsAppearanceText := CHMMgmt.GetGoodsAppearanceText(Header."CHM Goods Appearance");
         ShowPlastic := Header."CHM Non-reusable Packaging" <> 0;
-        ShipmentStartingDateTime := CHMMgmt.GetTransportStartDateTime(Header, Database::"Sales Shipment Header");
+        ShipmentStartingDateTime := CHMMgmt.GetTransportStartDateTime(Header);
     end;
 
     /// <summary>

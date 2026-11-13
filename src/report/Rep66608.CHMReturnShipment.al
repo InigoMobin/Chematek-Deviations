@@ -836,7 +836,7 @@ report 66608 "CHM Return Shipment"
         NoOfPallets := 0;
         GoodsAppearanceText := '';
         CHMMgmt.CalcReturnShipmentTotals(Header."No.", TotalGrossWeight, TotalNetWeight, TotalVolume, NoOfParcels);
-        ShipmentStartingDateTime := CHMMgmt.GetTransportStartDateTime(Header, Database::"Return Shipment Header");
+        ShipmentStartingDateTime := CHMMgmt.GetTransportStartDateTime(Header);
     end;
 
     /// <summary>
