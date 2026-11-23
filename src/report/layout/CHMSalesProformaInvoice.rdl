@@ -5791,7 +5791,7 @@ fields!LocationName.Value + chr(177) +
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>=Code.GetData(48,1)</Value>
+                          <Value>=Parameters!CustomerVendorContact_Caption.Value</Value>
                           <Style>
                             <FontFamily>Segoe UI</FontFamily>
                             <FontSize>8pt</FontSize>

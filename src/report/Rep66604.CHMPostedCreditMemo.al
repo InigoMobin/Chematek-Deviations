@@ -308,7 +308,7 @@ report 66604 "CHM Posted Credit Memo"
             column(VAT_VATAmount_Caption; VATAmtLbl)
             {
             }
-            column(VAT_VATBase_Caption; TaxableAmountCaptionLbl)
+            column(VAT_VATBase_Caption; VATBaseLbl)
             {
             }
             column(VAT_VATPercent_Caption; VATPercentageLbl)
@@ -1499,44 +1499,44 @@ report 66604 "CHM Posted Credit Memo"
         SalesCrMemoLbl: Label 'Credit Memo';
         YourSalesCrMemoLbl: Label 'Your Credit Memo';
         CrMemoNoLbl: Label 'Credit Memo No.';
-        BillToAddressCaptionLbl: Label 'Bill-to Address';
-        ShipToAddressCaptionLbl: Label 'Ship-to Address';
-        DateCaptionLbl: Label 'Date';
-        ReasonCaptionLbl: Label 'Reason';
+        BillToAddressCaptionLbl: Label 'Billing Address';
+        ShipToAddressCaptionLbl: Label 'Shipping Address';
+        DateCaptionLbl: Label 'Document Date';
+        ReasonCaptionLbl: Label 'Transport reason';
         CustomerNoCaptionLbl: Label 'Customer No.';
         ContactCaptionLbl: Label 'Contact';
-        VATRegNoCaptionLbl: Label 'VAT Reg. No.';
-        FiscalCodeCaptionLbl: Label 'Fiscal Code';
+        VATRegNoCaptionLbl: Label 'VAT Reg.';
+        FiscalCodeCaptionLbl: Label 'Fiscal code';
         PaymentTermsCaptionLbl: Label 'Payment Terms';
         PaymentMethodCaptionLbl: Label 'Payment Method';
         SalespersonCaptionLbl: Label 'Salesperson';
-        OperatorCaptionLbl: Label 'Operator';
-        DeliveryTermsCaptionLbl: Label 'Delivery Terms';
-        OurBankCaptionLbl: Label 'Our Bank';
+        OperatorCaptionLbl: Label 'Contact';
+        DeliveryTermsCaptionLbl: Label 'Shipment Terms';
+        OurBankCaptionLbl: Label 'Our Bank Account';
         ShipmentMethodCaptionLbl: Label 'Shipment Method';
-        ShipmentFromCaptionLbl: Label 'Shipment from';
+        ShipmentFromCaptionLbl: Label 'Shipped from:';
         NetAmountToPayCaptionLbl: Label 'Net Amount to Pay';
         TotalVATCaptionLbl: Label 'Total VAT';
-        TaxableAmountCaptionLbl: Label 'Taxable Amount';
+        TaxableAmountCaptionLbl: Label 'Total Base';
         DocumentTotalCaptionLbl: Label 'Document Total';
         VATCodeCaptionLbl: Label 'VAT Code';
-        VATDescriptionCaptionLbl: Label 'VAT Description';
-        PaymentAmountCaptionLbl: Label 'Amount Due';
+        VATDescriptionCaptionLbl: Label 'Description';
+        PaymentAmountCaptionLbl: Label 'Amount';
         DueDateCaptionLbl: Label 'Due Date';
-        LineNoCaptionLbl: Label 'Item No.';
+        LineNoCaptionLbl: Label 'No.';
         LineDescriptionCaptionLbl: Label 'Description';
         LineQuantityCaptionLbl: Label 'Quantity';
-        LineUoMCaptionLbl: Label 'UoM';
-        LinePriceCaptionLbl: Label 'Unit Price';
+        LineUoMCaptionLbl: Label 'U.M.';
+        LinePriceCaptionLbl: Label 'Price';
         LineDiscPctCaptionLbl: Label 'Disc. %';
         LineAmountCaptionLbl: Label 'Amount';
         LineVATCaptionLbl: Label 'VAT';
         AmountExclVATCaptionLbl: Label 'Amount Excl. VAT';
         AmountInclVATCaptionLbl: Label 'Amount Incl. VAT';
-        LotNoCaptionLbl: Label 'Lot No.';
+        LotNoCaptionLbl: Label 'Lot No.:';
         CountryOfOriginCaptionLbl: Label 'Country of Origin:';
         TariffNoCaptionLbl: Label 'Tariff No.:';
-        UNNoCaptionLbl: Label 'UN No.:';
+        UNNoCaptionLbl: Label 'UN:';
         ADRClassCaptionLbl: Label 'ADR Class:';
         PostedShipmentDateLbl: Label 'Shipment Date';
         JobNoCaptionLbl: Label 'Project No.';
@@ -1554,7 +1554,7 @@ report 66604 "CHM Posted Credit Memo"
         LocalCurrencyLbl: Label 'Local Currency';
         PageLbl: Label 'Page';
         ShipmentLbl: Label 'Shipment';
-        SubtotalLbl: Label 'Subtotal';
+        SubtotalLbl: Label 'Total';
         TotalLbl: Label 'Total';
         VATAmtSpecificationLbl: Label 'VAT Amount Specification';
         VATAmtLbl: Label 'VAT Amount';

@@ -262,7 +262,7 @@ report 66606 "CHM Purchase Order"
             column(VAT_VATAmount_Caption; VATAmtLbl)
             {
             }
-            column(VAT_VATBase_Caption; TaxableAmountCaptionLbl)
+            column(VAT_VATBase_Caption; VATBaseLbl)
             {
             }
             column(VAT_VATPercent_Caption; VATPercentageLbl)
@@ -1334,52 +1334,52 @@ report 66606 "CHM Purchase Order"
         DueAmountSlot: array[4] of Decimal;
         PurchaseOrderCaptionLbl: Label 'Purchase Order';
         QuoteNoCaptionLbl: Label 'Quote No.';
-        ShipToAddressCaptionLbl: Label 'Delivery Address';
+        ShipToAddressCaptionLbl: Label 'Shipping Address';
         DocumentNoCaptionLbl: Label 'No.';
-        DateCaptionLbl: Label 'Date';
+        DateCaptionLbl: Label 'Document Date';
         OrderDateCaptionLbl: Label 'Order Date';
-        PostingDateCaptionLbl: Label 'Posting Date';
-        ReasonCaptionLbl: Label 'Reason';
+        PostingDateCaptionLbl: Label 'Date';
+        ReasonCaptionLbl: Label 'Transport reason';
         VendorNoCaptionLbl: Label 'Vendor No.';
         VendorCaptionLbl: Label 'Vendor';
         DocNoCaptionLbl: Label 'Document No.';
         EMailCaptionLbl: Label 'E-Mail';
-        VATCaptionLbl: Label 'VAT';
+        VATCaptionLbl: Label 'VAT Id.';
         VATClausesCaptionLbl: Label 'VAT Clauses';
         ContactCaptionLbl: Label 'Contact';
         ContactEmailCaptionLbl: Label 'Contact E-Mail';
-        VATRegNoCaptionLbl: Label 'VAT Reg. No.';
-        FiscalCodeCaptionLbl: Label 'Fiscal Code';
+        VATRegNoCaptionLbl: Label 'VAT Reg.';
+        FiscalCodeCaptionLbl: Label 'Fiscal code';
         PaymentTermsCaptionLbl: Label 'Payment Terms';
         PaymentMethodCaptionLbl: Label 'Payment Method';
         PurchaserCaptionLbl: Label 'Purchaser';
-        OperatorCaptionLbl: Label 'Operator';
-        ShippingAgentCaptionLbl: Label 'Shipping Agent';
+        OperatorCaptionLbl: Label 'Contact';
+        ShippingAgentCaptionLbl: Label 'Shpt. by';
         YourReferenceCaptionLbl: Label 'Your Reference';
         ShipmentMethodCaptionLbl: Label 'Shipment Method';
         LocationCaptionLbl: Label 'Location';
         NetAmountToPayCaptionLbl: Label 'Net Amount to Pay';
         TotalVATCaptionLbl: Label 'Total VAT';
-        TaxableAmountCaptionLbl: Label 'Taxable Amount';
+        TaxableAmountCaptionLbl: Label 'Total Base';
         DocumentTotalCaptionLbl: Label 'Document Total';
         VATCodeCaptionLbl: Label 'VAT Code';
-        VATDescriptionCaptionLbl: Label 'VAT Description';
-        PaymentAmountCaptionLbl: Label 'Amount Due';
+        VATDescriptionCaptionLbl: Label 'Description';
+        PaymentAmountCaptionLbl: Label 'Amount';
         DueDateCaptionLbl: Label 'Due Date';
         LineTypeCaptionLbl: Label 'Type';
-        LineNoCaptionLbl: Label 'Item No.';
+        LineNoCaptionLbl: Label 'No.';
         LineDescriptionCaptionLbl: Label 'Description';
         LineQuantityCaptionLbl: Label 'Quantity';
-        LineUoMCaptionLbl: Label 'UoM';
-        LinePriceCaptionLbl: Label 'Unit Price';
+        LineUoMCaptionLbl: Label 'U.M.';
+        LinePriceCaptionLbl: Label 'Unit Cost';
         LineDiscPctCaptionLbl: Label 'Disc. %';
         LineAmountCaptionLbl: Label 'Amount';
         AmountInclVATCaptionLbl: Label 'Amount Including VAT';
         DeliveryDateCaptionLbl: Label 'Delivery Date';
-        LotNoCaptionLbl: Label 'Lot No.';
+        LotNoCaptionLbl: Label 'Lot No.:';
         CountryOfOriginCaptionLbl: Label 'Country of Origin:';
         TariffNoCaptionLbl: Label 'Tariff No.:';
-        UNNoCaptionLbl: Label 'UN No.:';
+        UNNoCaptionLbl: Label 'UN:';
         ADRClassCaptionLbl: Label 'ADR Class:';
         QtyLbl: Label 'Qty';
         PriceLbl: Label 'Price';
@@ -1394,7 +1394,7 @@ report 66606 "CHM Purchase Order"
         LocalCurrencyLbl: Label 'Local Currency';
         PageLbl: Label 'Page';
         ShipmentLbl: Label 'Shipment';
-        SubtotalLbl: Label 'Subtotal';
+        SubtotalLbl: Label 'Total';
         TotalLbl: Label 'Total';
         VATAmtSpecificationLbl: Label 'VAT Amount Specification';
         VATAmtLbl: Label 'VAT Amount';
