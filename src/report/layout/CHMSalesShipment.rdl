@@ -2344,9 +2344,9 @@ last(Fields!PlateLbl.Value) + Chr(177) +
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox1</rd:DefaultName>
-              <Top>6.68455cm</Top>
+              <Top>6.33159cm</Top>
               <Left>10.75719cm</Left>
-              <Height>0.48684cm</Height>
+              <Height>0.8398cm</Height>
               <Width>8.70815cm</Width>
               <Style>
                 <Border>
@@ -2596,9 +2596,9 @@ last(Fields!PlateLbl.Value) + Chr(177) +
                   </Style>
                 </Paragraph>
               </Paragraphs>
-              <Top>2.83927cm</Top>
+              <Top>2.74205cm</Top>
               <Left>9.11224cm</Left>
-              <Height>0.35278cm</Height>
+              <Height>0.45cm</Height>
               <Width>10.43538cm</Width>
               <ZIndex>8</ZIndex>
               <Style>
@@ -2630,7 +2630,7 @@ last(Fields!PlateLbl.Value) + Chr(177) +
                   </Style>
                 </Paragraph>
               </Paragraphs>
-              <Top>3.29786cm</Top>
+              <Top>3.29787cm</Top>
               <Left>0.02764cm</Left>
               <Height>0.38806cm</Height>
               <Width>8.85268cm</Width>
@@ -2664,9 +2664,9 @@ last(Fields!PlateLbl.Value) + Chr(177) +
                   </Style>
                 </Paragraph>
               </Paragraphs>
-              <Top>3.75648cm</Top>
+              <Top>3.72121cm</Top>
               <Left>0.02827cm</Left>
-              <Height>0.35278cm</Height>
+              <Height>0.38806cm</Height>
               <Width>8.85268cm</Width>
               <ZIndex>10</ZIndex>
               <Style>
@@ -2698,9 +2698,9 @@ last(Fields!PlateLbl.Value) + Chr(177) +
                   </Style>
                 </Paragraph>
               </Paragraphs>
-              <Top>4.17982cm</Top>
+              <Top>4.14455cm</Top>
               <Left>0.02827cm</Left>
-              <Height>0.35278cm</Height>
+              <Height>0.38806cm</Height>
               <Width>8.85268cm</Width>
               <ZIndex>11</ZIndex>
               <Style>
@@ -2735,7 +2735,7 @@ last(Fields!PlateLbl.Value) + Chr(177) +
               <rd:DefaultName>ShipToAddress4</rd:DefaultName>
               <Top>4.56788cm</Top>
               <Left>0.02827cm</Left>
-              <Height>0.35278cm</Height>
+              <Height>0.38806cm</Height>
               <Width>8.85268cm</Width>
               <ZIndex>12</ZIndex>
               <Style>
@@ -2770,9 +2770,9 @@ last(Fields!PlateLbl.Value) + Chr(177) +
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>ShipToAddress5</rd:DefaultName>
-              <Top>4.99121cm</Top>
+              <Top>4.99122cm</Top>
               <Left>0.02827cm</Left>
-              <Height>0.35278cm</Height>
+              <Height>0.38806cm</Height>
               <Width>8.85268cm</Width>
               <ZIndex>13</ZIndex>
               <Style>
@@ -2807,9 +2807,9 @@ last(Fields!PlateLbl.Value) + Chr(177) +
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>ShipToAddress6</rd:DefaultName>
-              <Top>5.41455cm</Top>
+              <Top>5.41456cm</Top>
               <Left>0.02827cm</Left>
-              <Height>0.35278cm</Height>
+              <Height>0.38806cm</Height>
               <Width>8.85268cm</Width>
               <ZIndex>14</ZIndex>
               <Style>
@@ -2841,9 +2841,9 @@ last(Fields!PlateLbl.Value) + Chr(177) +
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>ShipToAddress7</rd:DefaultName>
-              <Top>5.80261cm</Top>
+              <Top>5.80263cm</Top>
               <Left>0.02827cm</Left>
-              <Height>0.35278cm</Height>
+              <Height>0.38806cm</Height>
               <Width>8.85268cm</Width>
               <ZIndex>15</ZIndex>
               <Style>
@@ -2875,9 +2875,9 @@ last(Fields!PlateLbl.Value) + Chr(177) +
                   </Style>
                 </Paragraph>
               </Paragraphs>
-              <Top>2.83925cm</Top>
+              <Top>2.74205cm</Top>
               <Left>0.02764cm</Left>
-              <Height>0.35278cm</Height>
+              <Height>0.45cm</Height>
               <Width>8.85331cm</Width>
               <ZIndex>16</ZIndex>
               <Style>
@@ -4890,9 +4890,9 @@ last(Fields!PlateLbl.Value) + Chr(177) +
                       </Style>
                     </Paragraph>
                   </Paragraphs>
-                  <Top>0.54167in</Top>
+                  <Top>0.52778in</Top>
                   <Left>14.08311cm</Left>
-                  <Height>11pt</Height>
+                  <Height>0.38806cm</Height>
                   <Width>1.55000cm</Width>
                   <ZIndex>18</ZIndex>
                   <Style>
@@ -4923,9 +4923,9 @@ last(Fields!PlateLbl.Value) + Chr(177) +
                       </Style>
                     </Paragraph>
                   </Paragraphs>
-                  <Top>0.54167in</Top>
+                  <Top>0.52778in</Top>
                   <Left>445.19055pt</Left>
-                  <Height>11pt</Height>
+                  <Height>0.38806cm</Height>
                   <Width>3.69000cm</Width>
                   <ZIndex>19</ZIndex>
                   <Style>

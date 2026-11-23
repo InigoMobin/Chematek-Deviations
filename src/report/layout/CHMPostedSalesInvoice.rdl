@@ -2286,7 +2286,7 @@ fields!ShipToAddress6.Value + chr(177) +
 fields!ShipToAddress7.Value + chr(177) +
 fields!ShipToAddress8.Value + chr(177) +
 "18" + chr(177) + 
-IIF(Fields!ShowShippingAddress.value = True,Fields!ShipToAddress_Lbl.Value,"") + chr(177) +
+Fields!ShipToAddress_Lbl.Value + chr(177) +
 Fields!SelltoCustomerNo_Lbl.Value + chr(177) +
 Fields!SelltoCustomerNo.Value + chr(177) + 
 fields!DocumentNo_Lbl.Value + chr(177) + 
@@ -2818,7 +2818,7 @@ IIF(Fields!ShowPlastic.Value = true, last(Fields!PlasticLbl.Value),"") + Chr(177
                   </Style>
                 </Paragraph>
               </Paragraphs>
-              <Top>2.88167cm</Top>
+              <Top>2.83933cm</Top>
               <Left>0.20953cm</Left>
               <Height>0.38806cm</Height>
               <Width>8.44269cm</Width>
@@ -2852,9 +2852,9 @@ IIF(Fields!ShowPlastic.Value = true, last(Fields!PlasticLbl.Value),"") + Chr(177
                   </Style>
                 </Paragraph>
               </Paragraphs>
-              <Top>3.34029cm</Top>
-              <Left>0.21016cm</Left>
-              <Height>0.35278cm</Height>
+              <Top>3.26267cm</Top>
+              <Left>0.20953cm</Left>
+              <Height>0.38806cm</Height>
               <Width>8.44269cm</Width>
               <ZIndex>8</ZIndex>
               <Style>
@@ -2886,9 +2886,9 @@ IIF(Fields!ShowPlastic.Value = true, last(Fields!PlasticLbl.Value),"") + Chr(177
                   </Style>
                 </Paragraph>
               </Paragraphs>
-              <Top>3.76363cm</Top>
-              <Left>0.21016cm</Left>
-              <Height>0.35278cm</Height>
+              <Top>3.68601cm</Top>
+              <Left>0.20953cm</Left>
+              <Height>0.38806cm</Height>
               <Width>8.44269cm</Width>
               <ZIndex>9</ZIndex>
               <Style>
@@ -2921,9 +2921,9 @@ IIF(Fields!ShowPlastic.Value = true, last(Fields!PlasticLbl.Value),"") + Chr(177
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>ShipToAddress4</rd:DefaultName>
-              <Top>4.15169cm</Top>
-              <Left>0.21016cm</Left>
-              <Height>0.35278cm</Height>
+              <Top>4.10934cm</Top>
+              <Left>0.20953cm</Left>
+              <Height>0.38806cm</Height>
               <Width>8.44269cm</Width>
               <ZIndex>10</ZIndex>
               <Style>
@@ -2955,9 +2955,9 @@ IIF(Fields!ShowPlastic.Value = true, last(Fields!PlasticLbl.Value),"") + Chr(177
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>ShipToAddress5</rd:DefaultName>
-              <Top>4.57502cm</Top>
-              <Left>0.21016cm</Left>
-              <Height>0.35278cm</Height>
+              <Top>4.53268cm</Top>
+              <Left>0.20953cm</Left>
+              <Height>0.38806cm</Height>
               <Width>8.44269cm</Width>
               <ZIndex>11</ZIndex>
               <Style>
@@ -2989,9 +2989,9 @@ IIF(Fields!ShowPlastic.Value = true, last(Fields!PlasticLbl.Value),"") + Chr(177
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>ShipToAddress6</rd:DefaultName>
-              <Top>4.99836cm</Top>
-              <Left>0.21016cm</Left>
-              <Height>0.35278cm</Height>
+              <Top>4.95602cm</Top>
+              <Left>0.20953cm</Left>
+              <Height>0.38806cm</Height>
               <Width>8.44269cm</Width>
               <ZIndex>12</ZIndex>
               <Style>
@@ -3023,9 +3023,9 @@ IIF(Fields!ShowPlastic.Value = true, last(Fields!PlasticLbl.Value),"") + Chr(177
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>ShipToAddress7</rd:DefaultName>
-              <Top>5.42169cm</Top>
-              <Left>0.21016cm</Left>
-              <Height>0.35278cm</Height>
+              <Top>5.37936cm</Top>
+              <Left>0.20953cm</Left>
+              <Height>0.38806cm</Height>
               <Width>8.44269cm</Width>
               <ZIndex>13</ZIndex>
               <Style>
@@ -3058,9 +3058,9 @@ IIF(Fields!ShowPlastic.Value = true, last(Fields!PlasticLbl.Value),"") + Chr(177
                   </Style>
                 </Paragraph>
               </Paragraphs>
-              <Top>2.42306cm</Top>
+              <Top>2.35406cm</Top>
               <Left>0.20953cm</Left>
-              <Height>0.35278cm</Height>
+              <Height>0.45cm</Height>
               <Width>8.44332cm</Width>
               <ZIndex>14</ZIndex>
               <Style>
@@ -4321,9 +4321,9 @@ IIF(Fields!ShowPlastic.Value = true, last(Fields!PlasticLbl.Value),"") + Chr(177
                   </Style>
                 </Paragraph>
               </Paragraphs>
-              <Top>2.45128cm</Top>
+              <Top>2.35406cm</Top>
               <Left>10.32248cm</Left>
-              <Height>0.35278cm</Height>
+              <Height>0.45cm</Height>
               <Width>9.18913cm</Width>
               <ZIndex>17</ZIndex>
               <Style>

@@ -3425,12 +3425,12 @@
                                       </TablixMember>
                                       <TablixMember>
                                         <Visibility>
-                                          <Hidden>=IIF(Fields!TariffNo.Value &lt;&gt; "",False,True)</Hidden>
+                                          <Hidden>=IIF(Fields!CountryOrigin.Value &lt;&gt; "",False,True)</Hidden>
                                         </Visibility>
                                       </TablixMember>
                                       <TablixMember>
                                         <Visibility>
-                                          <Hidden>=IIF(Fields!CountryOrigin.Value &lt;&gt; "",False,True)</Hidden>
+                                          <Hidden>=IIF(Fields!TariffNo.Value &lt;&gt; "",False,True)</Hidden>
                                         </Visibility>
                                       </TablixMember>
                                       <TablixMember>
@@ -3913,7 +3913,7 @@ fields!ShipToAddress6.Value + chr(177) +
 fields!ShipToAddress7.Value + chr(177) +
 fields!ShipToAddress8.Value + chr(177) +
 "18" + chr(177) + 
-IIF(fields!ShowShippingAddress.Value = true,fields!ShipToAddress_Lbl.Value,"") + chr(177) +
+Fields!ShipToAddress_Lbl.Value + chr(177) +
 Fields!BillToAddress_Lbl.Value + chr(177) +
 Fields!SelltoCustomerNo.Value + chr(177) + 
 fields!DocumentTypeLabel.Value + chr(177) + 
@@ -4276,8 +4276,8 @@ fields!LocationName.Value + chr(177) +
                   </Style>
                 </Paragraph>
               </Paragraphs>
-              <Top>3.0368cm</Top>
-              <Left>0.10748cm</Left>
+              <Top>3.03679cm</Top>
+              <Left>0.10811cm</Left>
               <Height>0.38806cm</Height>
               <Width>8.57756cm</Width>
               <ZIndex>1</ZIndex>
@@ -4310,9 +4310,9 @@ fields!LocationName.Value + chr(177) +
                   </Style>
                 </Paragraph>
               </Paragraphs>
-              <Top>3.49542cm</Top>
+              <Top>3.46013cm</Top>
               <Left>0.10811cm</Left>
-              <Height>0.35278cm</Height>
+              <Height>0.38806cm</Height>
               <Width>8.57756cm</Width>
               <ZIndex>2</ZIndex>
               <Style>
@@ -4344,9 +4344,9 @@ fields!LocationName.Value + chr(177) +
                   </Style>
                 </Paragraph>
               </Paragraphs>
-              <Top>3.91876cm</Top>
+              <Top>3.88347cm</Top>
               <Left>0.10811cm</Left>
-              <Height>0.35278cm</Height>
+              <Height>0.38806cm</Height>
               <Width>8.57756cm</Width>
               <ZIndex>3</ZIndex>
               <Style>
@@ -4379,9 +4379,9 @@ fields!LocationName.Value + chr(177) +
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>ShipToAddress4</rd:DefaultName>
-              <Top>4.30682cm</Top>
+              <Top>4.3068cm</Top>
               <Left>0.10811cm</Left>
-              <Height>0.35278cm</Height>
+              <Height>0.38806cm</Height>
               <Width>8.57756cm</Width>
               <ZIndex>4</ZIndex>
               <Style>
@@ -4413,9 +4413,9 @@ fields!LocationName.Value + chr(177) +
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>ShipToAddress5</rd:DefaultName>
-              <Top>4.73015cm</Top>
+              <Top>4.73014cm</Top>
               <Left>0.10811cm</Left>
-              <Height>0.35278cm</Height>
+              <Height>0.38806cm</Height>
               <Width>8.57756cm</Width>
               <ZIndex>5</ZIndex>
               <Style>
@@ -4447,9 +4447,9 @@ fields!LocationName.Value + chr(177) +
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>ShipToAddress6</rd:DefaultName>
-              <Top>5.15349cm</Top>
+              <Top>5.15348cm</Top>
               <Left>0.10811cm</Left>
-              <Height>0.35278cm</Height>
+              <Height>0.38806cm</Height>
               <Width>8.57756cm</Width>
               <ZIndex>6</ZIndex>
               <Style>
@@ -4483,7 +4483,7 @@ fields!LocationName.Value + chr(177) +
               <rd:DefaultName>ShipToAddress7</rd:DefaultName>
               <Top>5.54155cm</Top>
               <Left>0.10811cm</Left>
-              <Height>0.35278cm</Height>
+              <Height>0.38806cm</Height>
               <Width>8.57756cm</Width>
               <ZIndex>7</ZIndex>
               <Style>
@@ -4515,10 +4515,10 @@ fields!LocationName.Value + chr(177) +
                   </Style>
                 </Paragraph>
               </Paragraphs>
-              <Top>2.54292cm</Top>
-              <Left>0.08549cm</Left>
-              <Height>0.35278cm</Height>
-              <Width>8.57819cm</Width>
+              <Top>2.48097cm</Top>
+              <Left>0.10811cm</Left>
+              <Height>0.45cm</Height>
+              <Width>8.57756cm</Width>
               <ZIndex>8</ZIndex>
               <Style>
                 <Border />
@@ -4767,9 +4767,9 @@ fields!LocationName.Value + chr(177) +
                   </Style>
                 </Paragraph>
               </Paragraphs>
-              <Top>2.57819cm</Top>
+              <Top>2.48097cm</Top>
               <Left>9.16513cm</Left>
-              <Height>0.35278cm</Height>
+              <Height>0.45cm</Height>
               <Width>10.10277cm</Width>
               <ZIndex>16</ZIndex>
               <Style>

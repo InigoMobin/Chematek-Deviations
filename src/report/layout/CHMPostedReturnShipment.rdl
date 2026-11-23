@@ -459,7 +459,7 @@
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value>=Fields!Line_UnitCost.Value</Value>
+                                                    <Value>=Code.BlankZero(Fields!Line_UnitCost.Value)</Value>
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -1967,12 +1967,12 @@
                                       </TablixMember>
                                       <TablixMember>
                                         <Visibility>
-                                          <Hidden>=IIF(Fields!TariffNo.Value &lt;&gt; "",False,True)</Hidden>
+                                          <Hidden>=IIF(Fields!CountryOrigin.Value &lt;&gt; "",False,True)</Hidden>
                                         </Visibility>
                                       </TablixMember>
                                       <TablixMember>
                                         <Visibility>
-                                          <Hidden>=IIF(Fields!CountryOrigin.Value &lt;&gt; "",False,True)</Hidden>
+                                          <Hidden>=IIF(Fields!TariffNo.Value &lt;&gt; "",False,True)</Hidden>
                                         </Visibility>
                                       </TablixMember>
                                       <TablixMember>
@@ -2561,9 +2561,9 @@ last(Fields!PlateLbl.Value) + Chr(177) +
                   </Style>
                 </Paragraph>
               </Paragraphs>
-              <Top>2.83927cm</Top>
+              <Top>2.74205cm</Top>
               <Left>8.23836cm</Left>
-              <Height>0.35278cm</Height>
+              <Height>0.45cm</Height>
               <Width>11.30926cm</Width>
               <ZIndex>7</ZIndex>
               <Style>
@@ -2595,7 +2595,7 @@ last(Fields!PlateLbl.Value) + Chr(177) +
                   </Style>
                 </Paragraph>
               </Paragraphs>
-              <Top>3.29786cm</Top>
+              <Top>3.29787cm</Top>
               <Left>0.34514cm</Left>
               <Height>0.38806cm</Height>
               <Width>7.15152cm</Width>
@@ -2629,9 +2629,9 @@ last(Fields!PlateLbl.Value) + Chr(177) +
                   </Style>
                 </Paragraph>
               </Paragraphs>
-              <Top>3.75648cm</Top>
+              <Top>3.72121cm</Top>
               <Left>0.34577cm</Left>
-              <Height>0.35278cm</Height>
+              <Height>0.38806cm</Height>
               <Width>7.15152cm</Width>
               <ZIndex>9</ZIndex>
               <Style>
@@ -2663,9 +2663,9 @@ last(Fields!PlateLbl.Value) + Chr(177) +
                   </Style>
                 </Paragraph>
               </Paragraphs>
-              <Top>4.17982cm</Top>
+              <Top>4.14455cm</Top>
               <Left>0.34577cm</Left>
-              <Height>0.35278cm</Height>
+              <Height>0.38806cm</Height>
               <Width>7.15152cm</Width>
               <ZIndex>10</ZIndex>
               <Style>
@@ -2700,7 +2700,7 @@ last(Fields!PlateLbl.Value) + Chr(177) +
               <rd:DefaultName>ShipToAddress4</rd:DefaultName>
               <Top>4.56788cm</Top>
               <Left>0.34577cm</Left>
-              <Height>0.35278cm</Height>
+              <Height>0.38806cm</Height>
               <Width>7.15152cm</Width>
               <ZIndex>11</ZIndex>
               <Style>
@@ -2732,9 +2732,9 @@ last(Fields!PlateLbl.Value) + Chr(177) +
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>ShipToAddress5</rd:DefaultName>
-              <Top>4.99121cm</Top>
+              <Top>4.99122cm</Top>
               <Left>0.34577cm</Left>
-              <Height>0.35278cm</Height>
+              <Height>0.38806cm</Height>
               <Width>7.15152cm</Width>
               <ZIndex>12</ZIndex>
               <Style>
@@ -2766,9 +2766,9 @@ last(Fields!PlateLbl.Value) + Chr(177) +
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>ShipToAddress6</rd:DefaultName>
-              <Top>5.41455cm</Top>
+              <Top>5.41456cm</Top>
               <Left>0.34577cm</Left>
-              <Height>0.35278cm</Height>
+              <Height>0.38806cm</Height>
               <Width>7.15152cm</Width>
               <ZIndex>13</ZIndex>
               <Style>
@@ -2800,9 +2800,9 @@ last(Fields!PlateLbl.Value) + Chr(177) +
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>ShipToAddress7</rd:DefaultName>
-              <Top>5.80261cm</Top>
+              <Top>5.80263cm</Top>
               <Left>0.34577cm</Left>
-              <Height>0.35278cm</Height>
+              <Height>0.38806cm</Height>
               <Width>7.15152cm</Width>
               <ZIndex>14</ZIndex>
               <Style>
@@ -2835,13 +2835,13 @@ last(Fields!PlateLbl.Value) + Chr(177) +
                   </Style>
                 </Paragraph>
               </Paragraphs>
-              <Top>2.83925cm</Top>
+              <Top>2.74205cm</Top>
               <Left>0.34451cm</Left>
-              <Height>0.35278cm</Height>
+              <Height>0.45cm</Height>
               <Width>7.15215cm</Width>
               <ZIndex>15</ZIndex>
               <Visibility>
-                <Hidden>true</Hidden>
+                <Hidden>false</Hidden>
               </Visibility>
               <Style>
                 <Border />
@@ -4417,9 +4417,9 @@ last(Fields!PlateLbl.Value) + Chr(177) +
                       </Style>
                     </Paragraph>
                   </Paragraphs>
-                  <Top>0.54167in</Top>
+                  <Top>0.52778in</Top>
                   <Left>431.64428pt</Left>
-                  <Height>11pt</Height>
+                  <Height>0.38806cm</Height>
                   <Width>0.8in</Width>
                   <ZIndex>9</ZIndex>
                   <Style>
@@ -4450,9 +4450,9 @@ last(Fields!PlateLbl.Value) + Chr(177) +
                       </Style>
                     </Paragraph>
                   </Paragraphs>
-                  <Top>0.54167in</Top>
+                  <Top>0.52778in</Top>
                   <Left>491.24428pt</Left>
-                  <Height>11pt</Height>
+                  <Height>0.38806cm</Height>
                   <Width>0.77179in</Width>
                   <ZIndex>10</ZIndex>
                   <Style>
