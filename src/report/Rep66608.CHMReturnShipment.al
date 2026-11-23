@@ -1,4 +1,4 @@
-/* report 66608 "CHM Return Shipment"
+report 66608 "CHM Return Shipment"
 {
     Caption = 'CHM Return Shipment';
     UsageCategory = None;
@@ -880,4 +880,3 @@
         CHMMgmt.GetItemDangerousGoodsInfo(Item, Hazardous, ItemHazardousDescr, ADRClass, ItemUN, ItemADRDescr, ItemADRLabel, ItemADRPackingGroup, ItemGalleryCode);
     end;
 }
- */

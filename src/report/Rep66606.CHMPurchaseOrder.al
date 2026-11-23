@@ -1,4 +1,4 @@
-/* report 66606 "CHM Purchase Order"
+report 66606 "CHM Purchase Order"
 {
     Caption = 'CHM Purchase Order';
     UsageCategory = None;
@@ -1573,4 +1573,3 @@
         end;
     end;
 }
- */

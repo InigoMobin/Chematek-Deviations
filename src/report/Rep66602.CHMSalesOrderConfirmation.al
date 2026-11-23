@@ -1,4 +1,4 @@
-/* report 66602 "CHM Sales Order Confirmation"
+report 66602 "CHM Sales Order Confirmation"
 {
     Caption = 'CHM Sales Order Confirmation';
     UsageCategory = None;
@@ -1800,4 +1800,3 @@
         end;
     end;
 }
- */

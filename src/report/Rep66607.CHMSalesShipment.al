@@ -1,4 +1,4 @@
-/* report 66607 "CHM Sales Shipment"
+report 66607 "CHM Sales Shipment"
 {
     Caption = 'CHM Sales Shipment';
     UsageCategory = None;
@@ -980,4 +980,3 @@
         CHMMgmt.GetItemDangerousGoodsInfo(Item, Hazardous, ItemHazardousDescr, ADRClass, ItemUN, ItemADRDescr, ItemADRLabel, ItemADRPackingGroup, ItemGalleryCode);
     end;
 }
- */
